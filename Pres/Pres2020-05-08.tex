@@ -1,0 +1,78 @@
+\documentclass[9pt,spanish,aspectratio=1610]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage[spanish]{babel}
+\spanishdecimal{.}
+\usepackage{subfig}
+\usepackage{fancyhdr}
+\usepackage{pstricks}
+\usepackage[ruled]{algorithm2e}
+%\usepackage{ragged2e}
+%\usepackage[natbibapa]{apacite}
+% \bibliographystyle{apacite} % This is the style you should use with `apacite`.
+%\justifying
+\DeclareMathOperator{\atantwo}{atan2}
+\newcommand\ddfrac[2]{\frac{\displaystyle #1}{\displaystyle #2}}
+\usetheme{Boadilla}
+\setbeamercovered{transparent}
+\beamertemplatenavigationsymbolsempty
+\setbeamertemplate{frametitle}
+{
+  \leavevmode
+  \hbox{
+  \begin{beamercolorbox}[wd=0.6\paperwidth,left]{frametitle}
+    \usebeamerfont{frametitle}\insertframetitle
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[wd=0.4\paperwidth,center]{frametitle}
+    \usebeamerfont{frametitle}\hfill\small{\thesection. \insertsection}
+  \end{beamercolorbox}
+  }
+}
+\setbeamertemplate{footline}
+{
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[colsep=-0.5pt,wd=.33\paperwidth,ht=3ex,dp=1.5ex,center]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortauthor~~ (\insertshortinstitute)
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=-0.5pt,wd=.34\paperwidth,ht=3ex,dp=1.5ex,center]{date in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshorttitle
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[colsep=-0.5pt,wd=.33\paperwidth,ht=3ex,dp=1.5ex,right]{author in head/foot}%
+      \usebeamerfont{author in head/foot}\insertshortdate{}\hspace*{2em}\scriptsize{\insertframenumber{}}\hspace*{1ex}
+    \end{beamercolorbox}
+  }
+}
+
+\begin{document}
+\renewcommand{\tablename}{Tabla}
+\renewcommand{\figurename}{Figura}
+
+\title[Object Recognition using Fault Reconstruction Techniques]{Object Recognition by Physical Properties Detection using Fault Reconstruction Techniques}
+\author[Marco Negrete and Jesús Savage]{Marco Negrete and Jesús Savage}
+\date[RFC-MathWorks Support for Research Projects 2020]{Proposal for the RCF and MathWorks Support for Research Projects 2020}
+\institute[FI, UNAM]{Faculty of Engineering, UNAM}
+
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}\frametitle{Objectives and Goals}
+  \textbf{Objectives:}
+  \begin{itemize}
+  \item Applying model based fault signal reconstruction algorithms (MBFRA) to improve manipulation tasks in domestic service robots.
+  \item Use an sliding mode observer to estimate the weight of the object being manipulated by the robot.
+  \item Implement the developments in ROS nodes.
+  \end{itemize}
+
+  \textbf{Goals:}
+  \begin{itemize}
+  \item Obtain a model of the manipulator using Simscape
+  \item Implement a system identication algorithm
+  \item Design a sliding mode observer to estimate the joint velocities
+    \item Use the output injection term to estimate the weight being carried by the robot.
+  \end{itemize}
+\end{frame}
+\end{document} 
