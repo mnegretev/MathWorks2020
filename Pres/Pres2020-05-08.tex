@@ -181,7 +181,7 @@ where
 \end{frame}
 
 \begin{frame}\frametitle{Sliding Mode Observer}
-  If a SMO is used to estimate the joint speeds, the unknown term $g(x_1, x_2, u)$ in (\ref{eq:model1})-(\ref{eq:model2}) can be reconstructed by an appropriate filtering of the output error injection term. The observer proposed by Shtessel, Edwards, Fridman and Levant (2015) was used:
+  If a SMO is used to estimate the joint speeds, the unknown term $g(x_1, x_2, u)$ in (\ref{eq:model1})-(\ref{eq:model2}) can be reconstructed by an appropriate filtering of the output error injection term. The observer proposed by Shtessel, Edwards, Fridman and Levant (2014) was used:
   \begin{eqnarray}
     \dot{\hat{x}}_1 &=& \hat{x}_2 + z_1\label{eq:observer1}\\
     \dot{\hat{x}}_2 &=& f(x_1, \hat{x}_2, u) + z_2\label{eq:observer2}
@@ -271,7 +271,28 @@ Finally, the mass of the object being manipulated $m_o$ can be calculated as
 \end{frame}
 
 \begin{frame}\frametitle{Simulation Results}
-\includegraphics[width=0.5\textwidth]{Figures/est_q1.eps}  
+  Figures in the following slide show:
+  \begin{itemize}
+  \item \textbf{top-left:} Estimation of $\dot{q}_1$. Only first two seconds are displayed to show how $\dot{\hat{q}}$ converges to $\dot{q}$ in finite time.
+  \item \textbf{bottom-left:} Estimation of $\dot{q}_2$. Also, first two seconds are displayed to show convergence in finite time.
+  \item \textbf{top-right:} Estimated value of the object mass. Before reaching the steady state, there is strong oscillations, nevertheless, after a few seconds, estimation stabilizes around 0.3, which is the mass set in the link properties.
+  \item \textbf{bottom-right:} A zoom in the estimated object mass. As it can be seen, estimated value stabilizes near the real mass value. If control for regulation is used, steady-state should be reached in shorter times and also the estimated mass value.
+  \end{itemize}
+
+  All results can be reproduced using the file MathWorks2020/matlab\_files/2DOF/Observer.slx.
+\end{frame}
+
+\begin{frame}\frametitle{Simulation Results}
+  \begin{columns}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=0.8\textwidth]{Figures/est_q1.eps}
+      \includegraphics[width=0.8\textwidth]{Figures/est_q2.eps}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=0.8\textwidth]{Figures/estimated_mass.eps}
+      \includegraphics[width=0.8\textwidth]{Figures/estimated_mass_zoom.eps}
+    \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}\frametitle{Next Steps}
