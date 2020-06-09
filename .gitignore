@@ -2,3 +2,6 @@ slprj/
 *~
 *.pyc
 *.user
+*.slxc
+*.tgz
+*build_ros_model.sh
