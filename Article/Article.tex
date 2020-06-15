@@ -1,0 +1,38 @@
+\documentclass[a4paper, 10pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
+\title{Object Recognition by Physical Properties Detection using Fault Reconstruction Techniques}
+\author{Marco Negrete and Jesús Savage}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+  Manipulation is a key capability in domestic service robots, as can be seen in the rulebooks of last Robocup@Home editions. Currently, object recognition is performed based mostly on visual information. Some robots use also 3D information such as point clouds or laser scans but, to the knowledge of authors, robots don't use physical properties to improve object recognition. Estimation of an object's weight during a manipulation task is something new in the @Home league and such ability can improve performance of domestic service robots. In this work we propose to estimate the weight of the object being manipulated using sliding mode observers. If we consider object's weight as an external disturbance, we can estimate such weight by an appropriate filtering of the output error injection term of the sliding mode observer. To implement the observer we used Simulink's Robotics Toolbox and to improve computation time we exported the algorithm to a standalone ROS node using the Simulink's ROS Toolbox. Tests were performed using a simulated environment in the context of the Pick and Place test of the Robocup@Home league. Finally we present our conclusions and state the future work. 
+\end{abstract}
+
+\section{Introduction}
+
+\section{Related Work}
+
+\section{The Sliding Mode Observer}
+Observers are dynamic systems designed to estimate observable system states. In general, an observer can be designed with a copy of the dynamic system plus an error injection term, thus, we need first to obtain the dynamic model of the manipulator. For an $n-$DOF manipulator, a dynamic model of the following form can be obtained:
+\begin{equation}
+    M(q)\ddot{q} + C(q, \dot{q})\dot{q} + B\dot{q} + G(q) + \Delta(q,\dot{q}, u) = u
+    \label{eq:lagrangian}
+\end{equation}
+where $q\in \mathbb{R}^n$ are the joint angles, $M(q)\in \mathbb{R}^{n\times n}$ is the inertia matrix, $C(q,\dot{q})\in \mathbb{R}^{n\times n}$ is the Matrix of Coriollis forces, $B\dot{q}\in \mathbb{R}^n$ is the vector of friction forces, $G(q)\in\mathbb{R}^n$ is the vector of gravitational forces, $u$ is the input torque, considered as control signal, and $\Delta(q,\dot{q},u)\in\mathbb{R}^n$ is a vector containing all errors due to uncertanties and disturbances.
+
+The last term comprises unknown signals due to unmodeled dynamics, uncertainties in the physical parameters, external disturbances and fault signals. The weight of the manipulated object can be considered as an external disturbance or as a fault signal, in any case, the effect will be the same on this term. To distinguish the object's weight from other uncertainties, it is necessary to first identify the system. In this work we assumed we already know the physical parameters of the system.
+
+To design the observer it is necessary to first write the model in the variable-state form. Considering as states the joint angular positions and velocities, model \ref{eq:lagrangian} can be written in the form:
+  \begin{eqnarray}
+    \dot{x}_1 &=& x_2\label{eq:model1}\\
+    \dot{x}_2 &=& -M^{-1}(q)\left(C(q, \dot{q})\dot{q} + B\dot{q} + G(q) + \Delta(q,\dot{q},u) - u\right)\label{eq:model2}
+  \end{eqnarray}
+\section{Object Weight Estimation}
+
+\section{Experimental results}
+
+\section{Conclusions}
+\end{document}
