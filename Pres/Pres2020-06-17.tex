@@ -156,51 +156,115 @@ Equation (\ref{eq:model2} ) can also be written in the form:
       $\alpha sign(q_7 - \hat{q}_7)$
     \end{tabular}\right]
 \end{equation*}
+\end{frame}
+
+\begin{frame}\frametitle{Sliding Mode Observer}
 In this filter, the sliding surface is given by $\sigma = x_2 - \hat{x}_2$. When the sliding mode is reached, it holds that:
 \[\sigma = \dot{\sigma} = \dot{x}_2 - \dot{\hat{x}}_2 = f(x_1, x_2, u) + g(x_1, x_2, u) - f(x_1, \hat{x}_2, u) - z_{2_{eq}} = 0\]
 Since,  $x_2 = \hat{x}_2$, then
 \begin{equation*}
-  z_{2_{eq}} = g(x_1, x_2, u)
+  z_{2_{eq}} = \left[\begin{tabular}{c}
+      $z_{21_{eq}}$\\
+      $\vdots$\\
+      $z_{27_{eq}}$
+    \end{tabular}\right] = g(x_1, x_2, u) =
+  \left[\begin{tabular}{c}
+      $g_1(q_1,\dots, q_7, \dot{q}_1, \dots, \dot{q}_7, u_1, \dots,u_7)$\\
+      $\vdots$\\
+      $g_7(q_1,\dots, q_7, \dot{q}_1, \dots, \dot{q}_7, u_1, \dots,u_7)$
+    \end{tabular}\right] 
 \end{equation*}
 where $z_{2_{eq}}$ is the equivalent output error injection which can be obtained by an appropriate low-pass filtering of $z_2$. 
 \end{frame}
 
 \begin{frame}\frametitle{Object Mass Estimation}
-  To estimate the mass of the object being manipulated we used the following steps:
+  To estimate the mass of the object being manipulated we made the following assumptions:
   \begin{itemize}
-  \item Drive manipulator to a given constant configuration (regulation techniques can be used). At this moment, we just apply a constant torque $\tau$ and wait for the system to reach steady state.
-  \item Estimate $\dot{q}$ using the observer (\ref{eq:observer1})-(\ref{eq:observer2}) and low-pass filter $z_2$ to obtain $z_{2_{eq}}$.
+  \item The manipulator will be driven to a constant configuration using regulation techniques.
+  \item During mass estimation the manipulator will move only in the XY plane (see figure)
   \end{itemize}
+  Last assumption was made to ease mass calculation. Further research should be done to achieve mass estimation using any movement. This last assumption is not too restrictive since most movements to carry objects are done on this plane.\\
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.35\textwidth]{Figures/left_arm_XY.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Mass Estimation}
   Once the steady state is reached, it can be assumed that $\dot{q} = \ddot{q} = 0$. If it is also assumed that perturbation $g(x_1, x_2, u)$ is caused only by object being manipulated, then $g(x_1, x_2, u)$ will contain only terms related to gravitational forces, i.e., $g(x_1)$ will have a form similar to $M^{-1}(q)G(q)$ (see equation \ref{eq:model2})
   \[
     z_{2_{eq}} = \left[\begin{tabular}{c}
-            $z_{21_{eq}}$\\
-            $z_{22_{eq}}$
+      $z_{21_{eq}}$\\
+      $\vdots$\\
+      $z_{27_{eq}}$
     \end{tabular}\right] = M^{-1}(q)G_o(q)
 \]
-where $G_o(q)$ is the vector of torques caused by the load on the end effector. Then, by pre-multiplying by $M(q)$, a vector of perturbing torques is obtained:
-\begin{equation*}
+where $G_o(q)$ is the vector of gravitational torques caused by the load on the end effector. Then, by pre-multiplying by $M(q)$, a vector of perturbing torques is obtained:
+\begin{equation}
   M(q)\left[\begin{tabular}{c}
-            $z_{21_{eq}}$\\
-            $z_{22_{eq}}$
-   \end{tabular}\right] =
+      $z_{21_{eq}}$\\
+      $\vdots$\\
+      $z_{27_{eq}}$
+    \end{tabular}\right] =
    \left[\begin{tabular}{c}
-            $\phi_1$\\
-            $\phi_2$
-  \end{tabular}\right] =
-  \left[\begin{tabular}{c}
-            $m_o l_1 g \sin q_1 + m_o l_2 g\sin(q_1 + q_2)$\\
-            $m_o l_2 g\sin(q_1 + q_2)$
-    \end{tabular}\right]
-\end{equation*}
+       $\phi_1$\\
+       $\vdots$\\
+       $\phi_2$
+     \end{tabular}\right]
+   \label{eq:Mqz}
+\end{equation}
+\end{frame}
+
+\begin{frame}\frametitle{Mass Estimation}
+  \begin{columns}
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+      \item If assumptions are hold, the object being manipulated will cause perturbations only on joints 1, 4 and 6, as shown in figure.
+      \item From the lagrangian, it can be derived that the perturbation torque on joint 6 has the form:
+        \[\phi_6 = m_o l_o g \sin (q_1 + q_4 + q_6)\]
+      \end{itemize}
 Finally, the mass of the object being manipulated $m_o$ can be calculated as
 \begin{equation}
   m_o = \begin{cases}
-    \frac{\phi_2}{l_2 g \sin(q_1 + q_2)} \qquad if\qquad \sin(q_1 + q_2) \neq 0\\
+    \frac{\phi_6}{l_o g \sin(q_1 + q_4 + q_6)} \qquad if\qquad \sin(q_1 + q_4 + q_6) \neq 0\\
     0 \qquad\qquad\qquad \textrm{otherwise}
     \end{cases}
   \end{equation}
-  Note that if $\sin(q_1 +q_2) = 0$, the arm is fully extended and then it is not possible to estimate the object mass in steady state.
+Note that if $\sin(q_1 +q_4 + q_6) = 0$, then the object is just \textit{hanging} from the last link and is causing no perturbation on joint 6, taking the calculations to a singularity. 
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=0.9\textwidth]{Figures/left_arm_phi.png}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}\frametitle{Implementation}
+  The Sliding Mode Observer is a copy of the system plus an output error injection term, with the form:
+  \begin{eqnarray}
+    \dot{\hat{x}}_1 &=& \hat{x}_2 + z_1\label{eq:observer1}\\
+    \dot{\hat{x}}_2 &=& -M^{-1}(q)\left(C(q, \dot{\hat{q}})\dot{\hat{q}} + B\dot{\hat{q}} + G(q) - u\right) + z_2\label{eq:observer2}
+  \end{eqnarray}
+  The nominal part can be derived from the lagrangian, nevertheless, the analytic form is too complex due to the number of DOF. Instead, we used the numeric solution provided by the Simulink Robotics Toolbox, as shown in figure:
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{Figures/SMO.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Implementation}
+  Also, from equation (\ref{eq:Mqz}), it is necessary to compute the inertia matrix $M(q)$ to obtain the perturbing torques $\phi$. Similar to the observer, instead of obtaining the algebraic expression of $M(q)$, we used the numeric calculation provided by the Robotics Toolbox:
+    \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{Figures/MassEst.png}
+  \end{figure}
+\end{frame}
+
+\begin{frame}\frametitle{Position control}
+  To drive the manipulator to a constant configuration, we used a PD plus gravity compensation control. To achieve smooth movements, we implemented a 5th order polynomial trajectory. For testing purposes, we drive the manipulator to the position:
+  \[q_g = [-1.0,\;0.0,\;0.0,\;1.5,\;0.0,\;0.5,\;0.0]\]
+  using the PD constants:
+  \[K_p = [20.5,\; 1.0,\; 1.0,\; 14.5,\; 1.0,\; 10.5,\; 1.0]\]
+\[ K_d=[7.0,\; 1.0,\; 1.0,\; 5.0,\; 1.0,\; 5.0,\; 1.0]\]
 \end{frame}
 
 \begin{frame}\frametitle{Simulation Results}
@@ -210,9 +274,10 @@ Finally, the mass of the object being manipulated $m_o$ can be calculated as
     \end{column}
     \begin{column}{0.55\textwidth}
       \begin{itemize}
-      \item For the observer (\ref{eq:observer1})-(\ref{eq:observer2}) we used $\lambda=5.0$ and $\alpha=3.5$.
+      \item For the observer (\ref{eq:observer1})-(\ref{eq:observer2}) we used $\lambda=6.0$ and $\alpha=6.0$.
       \item To obtain $z_{2_{eq}}$ we used a 5th order Butterworth Low-Pass filter with cutoff frequency of 10 Hz.
-      \item To drive the manipulator to the configuration shown in the figure, we used a constant torque $\tau=[-2.5\;2.0]^T$
+      \item We are using a sampling frequency of 1000 Hz, which could be too large for most common actuator. In the current stage, we are addressing this issue. With further developments, we expect to achieve similar results with 100 Hz of sampling frequency.
+      \item Simulation in real time was not possible using Simulink, but exported ROS nodes performed much faster. 
       \end{itemize}
       To simulate the weight of the manipulated object, we used the mass of the gripper, as shown in the figure. For simplicity, we set the gripper's mass to zero to indicate an empty gripper. The figure shows the case of manipulating a 0.3 kg object.
     \end{column}
@@ -222,24 +287,23 @@ Finally, the mass of the object being manipulated $m_o$ can be calculated as
 \begin{frame}\frametitle{Simulation Results}
   Figures in the following slide show:
   \begin{itemize}
-  \item \textbf{top-left:} Estimation of $\dot{q}_1$. Only first two seconds are displayed to show how $\dot{\hat{q}}$ converges to $\dot{q}$ in finite time.
-  \item \textbf{bottom-left:} Estimation of $\dot{q}_2$. Also, first two seconds are displayed to show convergence in finite time.
-  \item \textbf{top-right:} Estimated value of the object mass. Before reaching the steady state, there is strong oscillations, nevertheless, after a few seconds, estimation stabilizes around 0.3, which is the mass set in the link properties.
-  \item \textbf{bottom-right:} A zoom in the estimated object mass. As it can be seen, estimated value stabilizes near the real mass value. If control for regulation is used, steady-state should be reached in shorter times and also the estimated mass value.
+  \item \textbf{top-left:} Estimation of $\dot{q}$. Since we are using a 5th degree polynomial trajectory, $\dot{q}$ are expected to have a 4th degree polynomial shape.
+  \item \textbf{bottom-left:} Control signals used to drive manipulator to the given configuration. All values are in the range of the real actuators.
+  \item \textbf{right:} Estimated mass of the manipulated object. As it can be seen, estimation converges to 0.3 kg, the actual value used in the simulation. As stated in the assumptions, we make estimations only when the arm has reached the steady state. That's why the first seconds are zero. 
   \end{itemize}
 
-  All results can be reproduced using the file MathWorks2020/matlab\_files/2DOF/Observer.slx.
+  All results can be reproduced using the GitHub repository \url{https://github.com/mnegretev/MathWorks2020}
 \end{frame}
 
 \begin{frame}\frametitle{Simulation Results}
   \begin{columns}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=0.8\textwidth]{Figures/est_q1.eps}
-      \includegraphics[width=0.8\textwidth]{Figures/est_q2.eps}
+      \includegraphics[width=0.8\textwidth]{Figures/est_qp.eps}
+      \includegraphics[width=0.8\textwidth]{Figures/controls.eps}
     \end{column}
     \begin{column}{0.5\textwidth}
-      \includegraphics[width=0.8\textwidth]{Figures/estimated_mass.eps}
-      \includegraphics[width=0.8\textwidth]{Figures/estimated_mass_zoom.eps}
+      \includegraphics[width=0.8\textwidth]{Figures/est_mass.eps}
+      %\includegraphics[width=0.8\textwidth]{Figures/estimated_mass_zoom.eps}
     \end{column}
   \end{columns}
 \end{frame}
@@ -247,9 +311,9 @@ Finally, the mass of the object being manipulated $m_o$ can be calculated as
 \begin{frame}\frametitle{Next Steps}
 \begin{itemize}
 \item Estimate the model parameters (still need to determine if doing it by SM techniques or some other approach)
-\item Consider the sampling time of $q$
-\item Consider dry friction in the model.
-\item Export to ROS Nodes
+\item Test with the \textit{smooth} version of sliding modes to avoid greater chattering when sampling time increases.
+\item Characterize estimation errors due to uncertainties in model parameters.
+\item Further exploration on the model structure to allow mass estimation with movements outside the XY plane and before steady state.
 \end{itemize}  
 \end{frame}
 \end{document} 
