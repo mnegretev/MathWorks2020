@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.90
+// Model version                  : 1.92
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Mon Jun  8 23:26:45 2020
+// C/C++ source code generated on : Mon Jun 15 12:53:03 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -239,14 +239,14 @@ typedef struct {
   boolean_T left_arm_simulla_1_jointRzq[14];// '<S48>/STATE_1'
 } XDis_left_arm_simul_T;
 
-#ifndef ODE5_INTG
-#define ODE5_INTG
+#ifndef ODE4_INTG
+#define ODE4_INTG
 
-// ODE5 Integration Data
+// ODE4 Integration Data
 typedef struct {
   real_T *y;                           // output
-  real_T *f[6];                        // derivatives
-} ODE5_IntgData;
+  real_T *f[4];                        // derivatives
+} ODE4_IntgData;
 
 #endif
 
@@ -285,8 +285,8 @@ struct tag_RTM_left_arm_simul_T {
   boolean_T derivCacheNeedsReset;
   boolean_T CTOutputIncnstWithState;
   real_T odeY[14];
-  real_T odeF[6][14];
-  ODE5_IntgData intgData;
+  real_T odeF[4][14];
+  ODE4_IntgData intgData;
 
   //
   //  Sizes:
@@ -383,6 +383,12 @@ extern "C" {
 
 }
 #endif
+
+//-
+//  These blocks were eliminated from the model due to optimizations:
+//
+//  Block '<Root>/Rate Transition2' : Eliminated since input and output rates are identical
+
 
 //-
 //  The generated code includes comments that allow you to trace directly

@@ -21,7 +21,7 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   const double *rtdvd = rtdv->mDoubles.mValues;
   const int *rtdvi = rtdv->mInts.mValues;
   int ii[1];
-  double xx[207];
+  double xx[209];
   (void) rtdvd;
   (void) rtdvi;
   (void) eqnEnableFlags;
@@ -197,29 +197,120 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[118] = xx[25] * xx[113];
   xx[119] = xx[25] * xx[101];
   pm_math_Vector3_cross_ra(xx + 114, xx + 117, xx + 120);
-  xx[101] = state[12] + xx[1];
-  if (xx[2] < xx[101])
-    xx[101] = xx[2];
-  xx[114] = - (xx[101] / xx[4]);
-  if (xx[5] < xx[114])
-    xx[114] = xx[5];
-  xx[115] = xx[9] * state[13];
-  xx[116] = xx[114] * xx[114] * (xx[7] - xx[8] * xx[114]) * ((- xx[101] == xx[2]
-    ? xx[2] : - xx[115]) - xx[11] * xx[101]);
-  if (xx[2] > xx[116])
-    xx[116] = xx[2];
-  xx[101] = state[12] - xx[1];
-  if (xx[2] > xx[101])
-    xx[101] = xx[2];
-  xx[114] = xx[101] / xx[4];
-  if (xx[5] < xx[114])
-    xx[114] = xx[5];
-  xx[117] = xx[114] * xx[114] * (xx[7] - xx[8] * xx[114]) * (xx[11] * xx[101] +
-    (xx[101] == xx[2] ? xx[2] : xx[115]));
-  if (xx[2] > xx[117])
-    xx[117] = xx[2];
-  memcpy(xx + 101, xx + 25, 1 * sizeof(double));
-  ii[0] = factorSymmetricPosDef(xx + 101, 1, xx + 114);
+  xx[117] = 1.084202172485504e-19;
+  xx[118] = xx[16] * xx[112];
+  xx[119] = xx[3] * xx[118];
+  xx[123] = xx[16] * xx[101];
+  xx[124] = xx[16] * xx[123];
+  xx[125] = xx[101] - xx[8] * (xx[119] + xx[124]);
+  xx[126] = xx[117] * xx[125];
+  xx[127] = xx[117] * xx[113];
+  xx[128] = xx[126] * xx[113] - xx[127] * xx[125];
+  xx[125] = xx[3] * xx[123];
+  xx[123] = xx[16] * xx[118];
+  xx[118] = xx[112] + xx[8] * (xx[125] - xx[123]);
+  xx[129] = xx[127] * xx[118];
+  xx[130] = xx[16] * xx[129];
+  xx[131] = xx[16] * xx[128];
+  xx[132] = 2.387583317164932e-7;
+  xx[133] = 0.04;
+  xx[134] = 0.06499999999956149;
+  xx[135] = - xx[132];
+  xx[136] = xx[133];
+  xx[137] = xx[134];
+  xx[138] = 0.15;
+  pm_math_Vector3_cross_ra(xx + 114, xx + 135, xx + 139);
+  pm_math_Vector3_cross_ra(xx + 114, xx + 139, xx + 142);
+  xx[139] = xx[16] * xx[144];
+  xx[140] = xx[16] * xx[142];
+  xx[141] = xx[138] * (xx[142] + xx[8] * (xx[3] * xx[139] - xx[16] * xx[140]));
+  xx[145] = xx[138] * (xx[144] - xx[8] * (xx[3] * xx[140] + xx[16] * xx[139]));
+  xx[139] = xx[16] * xx[145];
+  xx[140] = xx[16] * xx[141];
+  xx[146] = xx[141] - xx[8] * (xx[3] * xx[139] + xx[16] * xx[140]);
+  xx[141] = xx[138] * xx[143];
+  xx[142] = xx[145] - xx[8] * (xx[16] * xx[139] - xx[3] * xx[140]);
+  xx[143] = xx[146];
+  xx[144] = xx[141];
+  xx[145] = xx[142];
+  pm_math_Vector3_cross_ra(xx + 135, xx + 143, xx + 147);
+  xx[135] = xx[101] - xx[8] * (xx[124] - xx[119]);
+  xx[119] = xx[117] * xx[135];
+  xx[117] = xx[119] * xx[113] - xx[127] * xx[135];
+  xx[124] = xx[112] - xx[8] * (xx[125] + xx[123]);
+  xx[123] = xx[127] * xx[124];
+  xx[125] = xx[16] * xx[123];
+  xx[127] = xx[16] * xx[117];
+  xx[135] = xx[132];
+  xx[136] = - xx[133];
+  xx[137] = xx[134];
+  pm_math_Vector3_cross_ra(xx + 114, xx + 135, xx + 132);
+  pm_math_Vector3_cross_ra(xx + 114, xx + 132, xx + 143);
+  xx[114] = xx[16] * xx[145];
+  xx[115] = xx[16] * xx[143];
+  xx[116] = xx[138] * (xx[143] - xx[8] * (xx[3] * xx[114] + xx[16] * xx[115]));
+  xx[132] = xx[138] * (xx[145] - xx[8] * (xx[16] * xx[114] - xx[3] * xx[115]));
+  xx[114] = xx[16] * xx[132];
+  xx[115] = xx[16] * xx[116];
+  xx[133] = xx[116] + xx[8] * (xx[3] * xx[114] - xx[16] * xx[115]);
+  xx[116] = xx[138] * xx[144];
+  xx[134] = xx[132] - xx[8] * (xx[3] * xx[115] + xx[16] * xx[114]);
+  xx[138] = xx[133];
+  xx[139] = xx[116];
+  xx[140] = xx[134];
+  pm_math_Vector3_cross_ra(xx + 135, xx + 138, xx + 143);
+  xx[114] = 0.03;
+  xx[115] = xx[114] * xx[113];
+  xx[132] = xx[115] * xx[101];
+  xx[135] = xx[141] + xx[116] + 0.2999999999999999 * xx[132];
+  xx[116] = 0.303187499999975;
+  xx[136] = state[13] * xx[113];
+  xx[137] = 2.865099980597918e-9;
+  xx[138] = state[13] * xx[112];
+  xx[139] = 0.02849999999986844;
+  xx[140] = 0.1;
+  xx[141] = xx[140] * xx[100];
+  xx[150] = xx[140] * xx[106];
+  xx[151] = 0.05;
+  xx[152] = - (xx[8] * (xx[141] * xx[102] - xx[150] * xx[107]));
+  xx[153] = xx[151] - xx[8] * (xx[150] * xx[102] + xx[141] * xx[107]);
+  xx[154] = - (xx[8] * (xx[150] * xx[106] + xx[141] * xx[100]) - xx[140]);
+  pm_math_Vector3_cross_ra(xx + 97, xx + 152, xx + 155);
+  pm_math_Vector3_cross_ra(xx + 97, xx + 155, xx + 158);
+  pm_math_Quaternion_inverseXform_ra(xx + 108, xx + 158, xx + 97);
+  xx[140] = xx[114] * xx[112];
+  xx[141] = xx[140] * xx[101];
+  xx[101] = 0.2999999999999999;
+  xx[150] = xx[146] + xx[133] + xx[101] * xx[141];
+  xx[133] = 2.865099980597917e-9;
+  xx[146] = 0.3027074999999921;
+  xx[155] = 0.02849999999986844;
+  xx[156] = xx[122] + xx[129] - xx[8] * (xx[16] * xx[130] - xx[3] * xx[131]) +
+    xx[149] + xx[123] - xx[8] * (xx[3] * xx[127] + xx[16] * xx[125]) + xx[145];
+  xx[122] = 0.3004800000000171;
+  xx[123] = state[12] + xx[1];
+  if (xx[2] < xx[123])
+    xx[123] = xx[2];
+  xx[129] = - (xx[123] / xx[4]);
+  if (xx[5] < xx[129])
+    xx[129] = xx[5];
+  xx[145] = xx[9] * state[13];
+  xx[149] = xx[129] * xx[129] * (xx[7] - xx[8] * xx[129]) * ((- xx[123] == xx[2]
+    ? xx[2] : - xx[145]) - xx[11] * xx[123]);
+  if (xx[2] > xx[149])
+    xx[149] = xx[2];
+  xx[123] = state[12] - xx[1];
+  if (xx[2] > xx[123])
+    xx[123] = xx[2];
+  xx[129] = xx[123] / xx[4];
+  if (xx[5] < xx[129])
+    xx[129] = xx[5];
+  xx[157] = xx[129] * xx[129] * (xx[7] - xx[8] * xx[129]) * (xx[11] * xx[123] +
+    (xx[123] == xx[2] ? xx[2] : xx[145]));
+  if (xx[2] > xx[157])
+    xx[157] = xx[2];
+  memcpy(xx + 123, xx + 122, 1 * sizeof(double));
+  ii[0] = factorSymmetricPosDef(xx + 123, 1, xx + 129);
   if (ii[0] != 0) {
     return sm_ssci_recordRunTimeError(
       "sm:compiler:messages:simulationErrors:DegenerateMass",
@@ -227,152 +318,177 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
       neDiagMgr);
   }
 
-  xx[114] = (input[6] - xx[0] * state[13] + xx[116] - xx[117] - xx[122]) / xx
-    [101];
-  xx[115] = xx[120] + xx[25] * state[13] * xx[113];
-  xx[116] = xx[121] - xx[25] * state[13] * xx[112];
-  xx[117] = xx[122] + xx[25] * xx[114];
-  pm_math_Quaternion_xform_ra(xx + 108, xx + 115, xx + 118);
-  xx[112] = 0.1;
-  xx[113] = xx[112] * xx[100];
-  xx[115] = xx[112] * xx[106];
-  xx[116] = 0.05;
-  xx[121] = - (xx[8] * (xx[113] * xx[102] - xx[115] * xx[107]));
-  xx[122] = xx[116] - xx[8] * (xx[115] * xx[102] + xx[113] * xx[107]);
-  xx[123] = - (xx[8] * (xx[115] * xx[106] + xx[113] * xx[100]) - xx[112]);
-  pm_math_Vector3_cross_ra(xx + 97, xx + 121, xx + 124);
-  pm_math_Vector3_cross_ra(xx + 97, xx + 124, xx + 127);
-  pm_math_Quaternion_inverseXform_ra(xx + 108, xx + 127, xx + 97);
-  xx[124] = xx[25] * xx[97];
-  xx[125] = xx[25] * xx[98];
-  xx[126] = xx[25] * xx[99];
+  xx[129] = (input[6] - xx[0] * state[13] + xx[149] - xx[157] - xx[156]) / xx
+    [123];
+  xx[157] = xx[120] + xx[128] - xx[8] * (xx[3] * xx[130] + xx[16] * xx[131]) +
+    xx[147] + xx[117] + xx[8] * (xx[3] * xx[125] - xx[16] * xx[127]) + xx[143] -
+    0.01949999999986844 * xx[132] - xx[114] * xx[135] + xx[116] * xx[136] - xx
+    [137] * xx[138] - xx[139] * xx[98];
+  xx[158] = xx[121] + xx[148] - xx[126] * xx[118] + xx[144] - xx[119] * xx[124]
+    + 0.01949999999986844 * xx[141] + xx[114] * xx[150] + xx[133] * xx[136] -
+    xx[146] * xx[138] + xx[155] * xx[97];
+  xx[159] = xx[156] + xx[122] * xx[129];
+  pm_math_Quaternion_xform_ra(xx + 108, xx + 157, xx + 117);
+  xx[114] = 0.5999999999999999;
+  xx[124] = xx[150] + xx[114] * xx[97] - xx[155] * xx[138];
+  xx[125] = xx[135] + xx[114] * xx[98] - xx[139] * xx[136];
+  xx[126] = xx[142] + xx[134] - xx[101] * (xx[140] * xx[112] + xx[115] * xx[113])
+    + xx[114] * xx[99];
   pm_math_Quaternion_xform_ra(xx + 108, xx + 124, xx + 97);
-  pm_math_Vector3_cross_ra(xx + 121, xx + 97, xx + 124);
-  xx[112] = state[11] * xx[95];
-  xx[113] = xx[102] * xx[102];
-  xx[115] = xx[8] * (xx[113] + xx[106] * xx[106]) - xx[5];
-  xx[117] = xx[106] * xx[100];
-  xx[127] = xx[102] * xx[107];
-  xx[128] = xx[8] * (xx[117] + xx[127]);
-  xx[129] = xx[107] * xx[106];
-  xx[130] = xx[102] * xx[100];
-  xx[131] = xx[8] * (xx[129] - xx[130]);
-  xx[132] = xx[8] * (xx[127] - xx[117]);
-  xx[117] = xx[8] * (xx[113] + xx[100] * xx[100]) - xx[5];
-  xx[127] = xx[107] * xx[100];
+  pm_math_Vector3_cross_ra(xx + 152, xx + 97, xx + 124);
+  xx[101] = state[11] * xx[95];
+  xx[112] = xx[102] * xx[102];
+  xx[113] = xx[8] * (xx[112] + xx[106] * xx[106]) - xx[5];
+  xx[115] = xx[106] * xx[100];
+  xx[120] = xx[102] * xx[107];
+  xx[121] = xx[8] * (xx[115] + xx[120]);
+  xx[127] = xx[107] * xx[106];
+  xx[128] = xx[102] * xx[100];
+  xx[130] = xx[8] * (xx[127] - xx[128]);
+  xx[131] = xx[8] * (xx[120] - xx[115]);
+  xx[115] = xx[8] * (xx[112] + xx[100] * xx[100]) - xx[5];
+  xx[120] = xx[107] * xx[100];
   xx[100] = xx[102] * xx[106];
-  xx[102] = xx[8] * (xx[127] + xx[100]);
-  xx[106] = xx[8] * (xx[129] + xx[130]);
-  xx[129] = xx[8] * (xx[100] - xx[127]);
-  xx[100] = xx[8] * (xx[113] + xx[107] * xx[107]) - xx[5];
+  xx[102] = xx[8] * (xx[120] + xx[100]);
+  xx[106] = xx[8] * (xx[127] + xx[128]);
+  xx[127] = xx[8] * (xx[100] - xx[120]);
+  xx[100] = xx[8] * (xx[112] + xx[107] * xx[107]) - xx[5];
+  xx[156] = xx[113];
+  xx[157] = - xx[121];
+  xx[158] = xx[130];
+  xx[159] = xx[131];
+  xx[160] = xx[115];
+  xx[161] = - xx[102];
+  xx[162] = xx[106];
+  xx[163] = xx[127];
+  xx[164] = xx[100];
+  xx[107] = xx[122] / xx[123];
+  xx[112] = xx[122] - xx[122] * xx[107];
+  xx[165] = xx[116] * xx[113] - xx[137] * xx[121];
+  xx[166] = xx[116] * xx[131] + xx[137] * xx[115];
+  xx[167] = xx[116] * xx[106] + xx[137] * xx[127];
+  xx[168] = xx[133] * xx[113] - xx[146] * xx[121];
+  xx[169] = xx[133] * xx[131] + xx[146] * xx[115];
+  xx[170] = xx[133] * xx[106] + xx[146] * xx[127];
+  xx[171] = xx[130] * xx[112];
+  xx[172] = - (xx[102] * xx[112]);
+  xx[173] = xx[112] * xx[100];
+  pm_math_Matrix3x3_compose_ra(xx + 156, xx + 165, xx + 140);
+  xx[112] = xx[155] * xx[113];
+  xx[116] = xx[139] * xx[121];
+  xx[120] = xx[112] * xx[121] - xx[116] * xx[113];
+  xx[122] = xx[139] * xx[115];
+  xx[123] = xx[155] * xx[131];
+  xx[128] = xx[122] * xx[113] + xx[123] * xx[121];
+  xx[132] = xx[139] * xx[127];
+  xx[133] = xx[155] * xx[106];
+  xx[134] = xx[132] * xx[113] + xx[133] * xx[121];
+  xx[135] = xx[112] * xx[115] + xx[116] * xx[131];
+  xx[136] = xx[123] * xx[115] - xx[122] * xx[131];
+  xx[137] = xx[133] * xx[115] - xx[132] * xx[131];
+  xx[138] = xx[112] * xx[127] + xx[116] * xx[106];
+  xx[112] = xx[123] * xx[127] - xx[122] * xx[106];
+  xx[116] = xx[133] * xx[127] - xx[132] * xx[106];
+  xx[165] = - xx[120];
+  xx[166] = - xx[128];
+  xx[167] = - xx[134];
+  xx[168] = xx[135];
+  xx[169] = xx[136];
+  xx[170] = xx[137];
+  xx[171] = xx[138];
+  xx[172] = xx[112];
+  xx[173] = xx[116];
+  pm_math_Matrix3x3_postCross_ra(xx + 165, xx + 152, xx + 174);
+  xx[165] = xx[114] * xx[113];
+  xx[166] = xx[114] * xx[131];
+  xx[167] = xx[114] * xx[106];
+  xx[168] = - (xx[114] * xx[121]);
+  xx[169] = xx[114] * xx[115];
+  xx[170] = xx[114] * xx[127];
+  xx[171] = xx[114] * xx[130];
+  xx[172] = - (xx[114] * xx[102]);
+  xx[173] = xx[114] * xx[100];
+  pm_math_Matrix3x3_compose_ra(xx + 156, xx + 165, xx + 183);
+  pm_math_Matrix3x3_postCross_ra(xx + 183, xx + 152, xx + 155);
+  pm_math_Matrix3x3_preCross_ra(xx + 155, xx + 152, xx + 164);
+  xx[100] = xx[25] + xx[140] - xx[174] - xx[174] - xx[164];
+  xx[102] = state[11] * xx[94];
+  xx[94] = xx[141] - xx[175] - xx[177] - xx[165];
+  xx[106] = xx[120] + xx[155];
+  xx[113] = xx[128] + xx[158];
+  xx[114] = xx[134] + xx[161];
+  xx[115] = xx[135] - xx[156];
+  xx[120] = xx[136] - xx[159];
+  xx[121] = xx[137] - xx[162];
+  xx[122] = xx[138] - xx[157];
+  xx[123] = xx[112] - xx[160];
+  xx[112] = xx[116] - xx[163];
+  xx[130] = - xx[106];
+  xx[131] = - xx[113];
+  xx[132] = - xx[114];
   xx[133] = xx[115];
-  xx[134] = - xx[128];
-  xx[135] = xx[131];
-  xx[136] = xx[132];
-  xx[137] = xx[117];
-  xx[138] = - xx[102];
-  xx[139] = xx[106];
-  xx[140] = xx[129];
-  xx[141] = xx[100];
-  xx[107] = xx[25] * xx[115];
-  xx[113] = xx[25] * xx[132];
-  xx[115] = xx[25] * xx[106];
-  xx[106] = - (xx[25] * xx[128]);
-  xx[127] = xx[25] * xx[117];
-  xx[117] = xx[25] * xx[129];
-  xx[128] = xx[25] / xx[101];
-  xx[101] = xx[25] - xx[25] * xx[128];
-  xx[142] = xx[107];
-  xx[143] = xx[113];
-  xx[144] = xx[115];
-  xx[145] = xx[106];
-  xx[146] = xx[127];
-  xx[147] = xx[117];
-  xx[148] = xx[131] * xx[101];
-  xx[149] = - (xx[102] * xx[101]);
-  xx[150] = xx[101] * xx[100];
-  pm_math_Matrix3x3_compose_ra(xx + 133, xx + 142, xx + 151);
-  xx[142] = xx[107];
-  xx[143] = xx[113];
-  xx[144] = xx[115];
-  xx[145] = xx[106];
-  xx[146] = xx[127];
-  xx[147] = xx[117];
-  xx[148] = xx[25] * xx[131];
-  xx[149] = - (xx[25] * xx[102]);
-  xx[150] = xx[25] * xx[100];
-  pm_math_Matrix3x3_compose_ra(xx + 133, xx + 142, xx + 160);
-  pm_math_Matrix3x3_postCross_ra(xx + 160, xx + 121, xx + 129);
-  pm_math_Matrix3x3_preCross_ra(xx + 129, xx + 121, xx + 138);
-  xx[100] = xx[25] + xx[151] - xx[138];
-  xx[101] = state[11] * xx[94];
-  xx[94] = xx[152] - xx[139];
-  xx[169] = - xx[129];
-  xx[170] = - xx[132];
-  xx[171] = - xx[135];
-  xx[172] = - xx[130];
-  xx[173] = - xx[133];
-  xx[174] = - xx[136];
-  xx[175] = - xx[131];
-  xx[176] = - xx[134];
-  xx[177] = - xx[137];
-  xx[102] = xx[116] * xx[89];
-  xx[106] = xx[116] * xx[85];
-  xx[121] = xx[8] * (xx[102] * xx[84] + xx[106] * xx[67]);
-  xx[122] = - (xx[116] - xx[8] * (xx[102] * xx[89] + xx[106] * xx[85]));
-  xx[123] = 0.03260000000000002 - xx[8] * (xx[102] * xx[67] - xx[106] * xx[84]);
-  pm_math_Vector3_cross_ra(xx + 80, xx + 121, xx + 147);
-  pm_math_Vector3_cross_ra(xx + 80, xx + 147, xx + 178);
-  pm_math_Quaternion_inverseXform_ra(xx + 90, xx + 178, xx + 80);
-  xx[102] = xx[116] * state[11];
-  xx[147] = xx[80];
-  xx[148] = xx[102] * (xx[96] + xx[83]) + xx[81];
-  xx[149] = xx[82] - xx[102] * (xx[95] + xx[95]);
-  pm_math_Matrix3x3_xform_ra(xx + 169, xx + 147, xx + 80);
-  xx[83] = xx[153] - xx[140];
-  xx[95] = xx[83] - xx[116] * xx[129];
+  xx[134] = xx[120];
+  xx[135] = xx[121];
+  xx[136] = xx[122];
+  xx[137] = xx[123];
+  xx[138] = xx[112];
+  xx[116] = xx[151] * xx[89];
+  xx[127] = xx[151] * xx[85];
+  xx[152] = xx[8] * (xx[116] * xx[84] + xx[127] * xx[67]);
+  xx[153] = - (xx[151] - xx[8] * (xx[116] * xx[89] + xx[127] * xx[85]));
+  xx[154] = 0.03260000000000002 - xx[8] * (xx[116] * xx[67] - xx[127] * xx[84]);
+  pm_math_Vector3_cross_ra(xx + 80, xx + 152, xx + 155);
+  pm_math_Vector3_cross_ra(xx + 80, xx + 155, xx + 158);
+  pm_math_Quaternion_inverseXform_ra(xx + 90, xx + 158, xx + 80);
+  xx[116] = xx[151] * state[11];
+  xx[155] = xx[80];
+  xx[156] = xx[116] * (xx[96] + xx[83]) + xx[81];
+  xx[157] = xx[82] - xx[116] * (xx[95] + xx[95]);
+  pm_math_Matrix3x3_xform_ra(xx + 130, xx + 155, xx + 80);
+  xx[83] = xx[142] - xx[176] - xx[180] - xx[166];
+  xx[95] = xx[83] - xx[151] * xx[106];
   xx[96] = state[10] + xx[1];
   if (xx[2] < xx[96])
     xx[96] = xx[2];
-  xx[102] = - (xx[96] / xx[4]);
-  if (xx[5] < xx[102])
-    xx[102] = xx[5];
-  xx[106] = xx[9] * state[11];
-  xx[107] = xx[102] * xx[102] * (xx[7] - xx[8] * xx[102]) * ((- xx[96] == xx[2] ?
-    xx[2] : - xx[106]) - xx[11] * xx[96]);
-  if (xx[2] > xx[107])
-    xx[107] = xx[2];
+  xx[116] = - (xx[96] / xx[4]);
+  if (xx[5] < xx[116])
+    xx[116] = xx[5];
+  xx[127] = xx[9] * state[11];
+  xx[128] = xx[116] * xx[116] * (xx[7] - xx[8] * xx[116]) * ((- xx[96] == xx[2] ?
+    xx[2] : - xx[127]) - xx[11] * xx[96]);
+  if (xx[2] > xx[128])
+    xx[128] = xx[2];
   xx[96] = state[10] - xx[1];
   if (xx[2] > xx[96])
     xx[96] = xx[2];
-  xx[102] = xx[96] / xx[4];
-  if (xx[5] < xx[102])
-    xx[102] = xx[5];
-  xx[113] = xx[102] * xx[102] * (xx[7] - xx[8] * xx[102]) * (xx[11] * xx[96] +
-    (xx[96] == xx[2] ? xx[2] : xx[106]));
-  if (xx[2] > xx[113])
-    xx[113] = xx[2];
-  xx[96] = xx[157] - xx[144];
-  xx[102] = xx[158] - xx[145];
-  xx[106] = xx[105] + xx[120] + xx[126] + xx[112] * xx[96] - xx[101] * xx[102] +
+  xx[116] = xx[96] / xx[4];
+  if (xx[5] < xx[116])
+    xx[116] = xx[5];
+  xx[130] = xx[116] * xx[116] * (xx[7] - xx[8] * xx[116]) * (xx[11] * xx[96] +
+    (xx[96] == xx[2] ? xx[2] : xx[127]));
+  if (xx[2] > xx[130])
+    xx[130] = xx[2];
+  xx[96] = xx[146] - xx[180] - xx[176] - xx[170];
+  xx[116] = xx[147] - xx[181] - xx[179] - xx[171];
+  xx[127] = xx[105] + xx[119] + xx[126] + xx[101] * xx[96] - xx[102] * xx[116] +
     xx[82];
-  xx[115] = xx[25] + xx[160];
-  xx[169] = xx[115];
-  xx[170] = xx[161];
-  xx[171] = xx[162];
-  xx[172] = xx[163];
-  xx[173] = xx[25] + xx[164];
-  xx[174] = xx[165];
-  xx[175] = xx[166];
-  xx[176] = xx[167];
-  xx[177] = xx[25] + xx[168];
-  pm_math_Matrix3x3_xform_ra(xx + 169, xx + 147, xx + 178);
-  xx[117] = xx[97] + xx[101] * xx[130] - xx[112] * xx[129] + xx[178];
-  xx[97] = xx[25] + xx[159] - xx[146];
-  xx[127] = xx[97] - xx[116] * xx[131];
-  xx[147] = xx[116] * xx[115] - xx[131];
-  xx[148] = xx[127] + xx[116] * xx[147];
-  ii[0] = factorSymmetricPosDef(xx + 148, 1, xx + 149);
+  xx[131] = xx[25] + xx[183];
+  xx[192] = xx[131];
+  xx[193] = xx[184];
+  xx[194] = xx[185];
+  xx[195] = xx[186];
+  xx[196] = xx[25] + xx[187];
+  xx[197] = xx[188];
+  xx[198] = xx[189];
+  xx[199] = xx[190];
+  xx[200] = xx[25] + xx[191];
+  pm_math_Matrix3x3_xform_ra(xx + 192, xx + 155, xx + 132);
+  xx[135] = xx[97] + xx[132] - (xx[101] * xx[106] + xx[102] * xx[115]);
+  xx[97] = xx[25] + xx[148] - xx[182] - xx[182] - xx[172];
+  xx[136] = xx[97] + xx[151] * xx[122];
+  xx[137] = xx[122] + xx[151] * xx[131];
+  xx[138] = xx[136] + xx[151] * xx[137];
+  ii[0] = factorSymmetricPosDef(xx + 138, 1, xx + 139);
   if (ii[0] != 0) {
     return sm_ssci_recordRunTimeError(
       "sm:compiler:messages:simulationErrors:DegenerateMass",
@@ -380,153 +496,153 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
       neDiagMgr);
   }
 
-  xx[149] = (input[5] - xx[0] * state[11] + xx[107] - xx[113] - (xx[106] + xx
-              [116] * xx[117])) / xx[148];
-  xx[105] = xx[154] - xx[141];
-  xx[107] = xx[25] + xx[155] - xx[142];
-  xx[82] = xx[156] - xx[143];
-  xx[113] = xx[82] - xx[116] * xx[130];
-  xx[138] = xx[103] + xx[118] + xx[124] + xx[112] * xx[100] - xx[101] * xx[94] +
-    xx[80] + xx[95] * xx[149];
-  xx[139] = xx[104] + xx[119] + xx[125] + xx[112] * xx[105] - xx[101] * xx[107]
-    + xx[81] + xx[113] * xx[149];
-  xx[140] = xx[106] + xx[127] * xx[149];
-  pm_math_Quaternion_xform_ra(xx + 90, xx + 138, xx + 118);
-  xx[80] = xx[116] * xx[163] - xx[134];
-  xx[81] = xx[116] * xx[166] - xx[137];
-  xx[124] = xx[117] + xx[147] * xx[149];
-  xx[125] = xx[98] + xx[101] * xx[133] - xx[112] * xx[132] + xx[179] + xx[80] *
-    xx[149];
-  xx[126] = xx[99] + xx[101] * xx[136] - xx[112] * xx[135] + xx[180] + xx[81] *
-    xx[149];
-  pm_math_Quaternion_xform_ra(xx + 90, xx + 124, xx + 138);
-  pm_math_Vector3_cross_ra(xx + 121, xx + 138, xx + 124);
+  xx[139] = (input[5] - xx[0] * state[11] + xx[128] - xx[130] - (xx[127] + xx
+              [151] * xx[135])) / xx[138];
+  xx[105] = xx[143] - xx[177] - xx[175] - xx[167];
+  xx[119] = xx[25] + xx[144] - xx[178] - xx[178] - xx[168];
+  xx[82] = xx[145] - xx[179] - xx[181] - xx[169];
+  xx[126] = xx[82] + xx[151] * xx[115];
+  xx[140] = xx[103] + xx[117] + xx[124] + xx[101] * xx[100] - xx[102] * xx[94] +
+    xx[80] + xx[95] * xx[139];
+  xx[141] = xx[104] + xx[118] + xx[125] + xx[101] * xx[105] - xx[102] * xx[119]
+    + xx[81] + xx[126] * xx[139];
+  xx[142] = xx[127] + xx[136] * xx[139];
+  pm_math_Quaternion_xform_ra(xx + 90, xx + 140, xx + 143);
+  xx[80] = xx[123] + xx[151] * xx[186];
+  xx[81] = xx[112] + xx[151] * xx[189];
+  xx[140] = xx[135] + xx[137] * xx[139];
+  xx[141] = xx[98] + xx[133] - (xx[101] * xx[113] + xx[102] * xx[120]) + xx[80] *
+    xx[139];
+  xx[142] = xx[99] + xx[134] - (xx[101] * xx[114] + xx[102] * xx[121]) + xx[81] *
+    xx[139];
+  pm_math_Quaternion_xform_ra(xx + 90, xx + 140, xx + 132);
+  pm_math_Vector3_cross_ra(xx + 152, xx + 132, xx + 140);
   xx[98] = state[9] * xx[79];
   xx[79] = xx[84] * xx[84];
   xx[99] = xx[85] * xx[67];
   xx[103] = xx[84] * xx[89];
   xx[104] = xx[84] * xx[67];
-  xx[106] = xx[89] * xx[85];
-  xx[116] = xx[89] * xx[67];
-  xx[117] = xx[84] * xx[85];
-  xx[150] = xx[8] * (xx[79] + xx[85] * xx[85]) - xx[5];
-  xx[151] = - (xx[8] * (xx[99] + xx[103]));
-  xx[152] = xx[8] * (xx[104] - xx[106]);
-  xx[153] = xx[8] * (xx[103] - xx[99]);
-  xx[154] = xx[8] * (xx[79] + xx[67] * xx[67]) - xx[5];
-  xx[155] = xx[8] * (xx[116] + xx[117]);
-  xx[156] = - (xx[8] * (xx[106] + xx[104]));
-  xx[157] = xx[8] * (xx[116] - xx[117]);
-  xx[158] = xx[8] * (xx[79] + xx[89] * xx[89]) - xx[5];
-  xx[67] = xx[95] / xx[148];
-  xx[79] = xx[113] * xx[67];
-  xx[84] = xx[127] * xx[67];
-  xx[85] = xx[113] / xx[148];
-  xx[89] = xx[127] * xx[85];
-  xx[99] = xx[127] / xx[148];
-  xx[169] = xx[100] - xx[95] * xx[67];
-  xx[170] = xx[94] - xx[79];
-  xx[171] = xx[83] - xx[84];
-  xx[172] = xx[105] - xx[79];
-  xx[173] = xx[107] - xx[113] * xx[85];
-  xx[174] = xx[82] - xx[89];
-  xx[175] = xx[96] - xx[84];
-  xx[176] = xx[102] - xx[89];
-  xx[177] = xx[97] - xx[127] * xx[99];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 169, xx + 150, xx + 178);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 178, xx + 169);
-  xx[79] = xx[147] / xx[148];
-  xx[82] = xx[80] / xx[148];
-  xx[83] = xx[81] / xx[148];
-  xx[178] = - (xx[129] + xx[95] * xx[79]);
-  xx[179] = - (xx[132] + xx[95] * xx[82]);
-  xx[180] = - (xx[135] + xx[95] * xx[83]);
-  xx[181] = - (xx[130] + xx[113] * xx[79]);
-  xx[182] = - (xx[133] + xx[113] * xx[82]);
-  xx[183] = - (xx[136] + xx[113] * xx[83]);
-  xx[184] = - (xx[131] + xx[127] * xx[79]);
-  xx[185] = - (xx[134] + xx[127] * xx[82]);
-  xx[186] = - (xx[137] + xx[127] * xx[83]);
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 178, xx + 150, xx + 129);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 129, xx + 178);
-  pm_math_Matrix3x3_postCross_ra(xx + 178, xx + 121, xx + 129);
+  xx[117] = xx[89] * xx[85];
+  xx[118] = xx[89] * xx[67];
+  xx[124] = xx[84] * xx[85];
+  xx[155] = xx[8] * (xx[79] + xx[85] * xx[85]) - xx[5];
+  xx[156] = - (xx[8] * (xx[99] + xx[103]));
+  xx[157] = xx[8] * (xx[104] - xx[117]);
+  xx[158] = xx[8] * (xx[103] - xx[99]);
+  xx[159] = xx[8] * (xx[79] + xx[67] * xx[67]) - xx[5];
+  xx[160] = xx[8] * (xx[118] + xx[124]);
+  xx[161] = - (xx[8] * (xx[117] + xx[104]));
+  xx[162] = xx[8] * (xx[118] - xx[124]);
+  xx[163] = xx[8] * (xx[79] + xx[89] * xx[89]) - xx[5];
+  xx[67] = xx[95] / xx[138];
+  xx[79] = xx[126] * xx[67];
+  xx[84] = xx[136] * xx[67];
+  xx[85] = xx[126] / xx[138];
+  xx[89] = xx[136] * xx[85];
+  xx[99] = xx[136] / xx[138];
+  xx[164] = xx[100] - xx[95] * xx[67];
+  xx[165] = xx[94] - xx[79];
+  xx[166] = xx[83] - xx[84];
+  xx[167] = xx[105] - xx[79];
+  xx[168] = xx[119] - xx[126] * xx[85];
+  xx[169] = xx[82] - xx[89];
+  xx[170] = xx[96] - xx[84];
+  xx[171] = xx[116] - xx[89];
+  xx[172] = xx[97] - xx[136] * xx[99];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 164, xx + 155, xx + 173);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 173, xx + 164);
+  xx[79] = xx[137] / xx[138];
+  xx[82] = xx[80] / xx[138];
+  xx[83] = xx[81] / xx[138];
+  xx[173] = - (xx[106] + xx[95] * xx[79]);
+  xx[174] = - (xx[113] + xx[95] * xx[82]);
+  xx[175] = - (xx[114] + xx[95] * xx[83]);
+  xx[176] = xx[115] - xx[126] * xx[79];
+  xx[177] = xx[120] - xx[126] * xx[82];
+  xx[178] = xx[121] - xx[126] * xx[83];
+  xx[179] = xx[122] - xx[136] * xx[79];
+  xx[180] = xx[123] - xx[136] * xx[82];
+  xx[181] = xx[112] - xx[136] * xx[83];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 173, xx + 155, xx + 112);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 112, xx + 173);
+  pm_math_Matrix3x3_postCross_ra(xx + 173, xx + 152, xx + 112);
   xx[84] = xx[80] * xx[79];
   xx[89] = xx[81] * xx[79];
   xx[94] = xx[81] * xx[82];
-  xx[187] = xx[115] - xx[147] * xx[79];
-  xx[188] = xx[161] - xx[84];
-  xx[189] = xx[162] - xx[89];
-  xx[190] = xx[163] - xx[84];
-  xx[191] = xx[164] - xx[80] * xx[82] + xx[25];
-  xx[192] = xx[165] - xx[94];
-  xx[193] = xx[166] - xx[89];
-  xx[194] = xx[167] - xx[94];
-  xx[195] = xx[168] - xx[81] * xx[83] + xx[25];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 187, xx + 150, xx + 159);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 159, xx + 187);
-  pm_math_Matrix3x3_postCross_ra(xx + 187, xx + 121, xx + 150);
-  pm_math_Matrix3x3_preCross_ra(xx + 150, xx + 121, xx + 159);
-  xx[80] = xx[25] + xx[169] - xx[129] - xx[129] - xx[159];
+  xx[192] = xx[131] - xx[137] * xx[79];
+  xx[193] = xx[184] - xx[84];
+  xx[194] = xx[185] - xx[89];
+  xx[195] = xx[186] - xx[84];
+  xx[196] = xx[187] - xx[80] * xx[82] + xx[25];
+  xx[197] = xx[188] - xx[94];
+  xx[198] = xx[189] - xx[89];
+  xx[199] = xx[190] - xx[94];
+  xx[200] = xx[191] - xx[81] * xx[83] + xx[25];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 192, xx + 155, xx + 182);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 182, xx + 191);
+  pm_math_Matrix3x3_postCross_ra(xx + 191, xx + 152, xx + 155);
+  pm_math_Matrix3x3_preCross_ra(xx + 155, xx + 152, xx + 182);
+  xx[80] = xx[25] + xx[164] - xx[112] - xx[112] - xx[182];
   xx[81] = state[9] * xx[78];
-  xx[78] = xx[170] - xx[130] - xx[132] - xx[160];
-  xx[84] = xx[178] - xx[150];
-  xx[89] = xx[179] - xx[153];
-  xx[94] = xx[180] - xx[156];
-  xx[95] = xx[181] - xx[151];
-  xx[96] = xx[182] - xx[154];
-  xx[97] = xx[183] - xx[157];
-  xx[100] = xx[184] - xx[152];
-  xx[102] = xx[185] - xx[155];
-  xx[103] = xx[186] - xx[158];
-  xx[150] = xx[84];
-  xx[151] = xx[89];
-  xx[152] = xx[94];
-  xx[153] = xx[95];
-  xx[154] = xx[96];
-  xx[155] = xx[97];
-  xx[156] = xx[100];
-  xx[157] = xx[102];
-  xx[158] = xx[103];
-  xx[104] = 0.18;
-  xx[105] = xx[104] * xx[66];
-  xx[106] = xx[104] * xx[72];
-  xx[107] = 0.09;
-  xx[115] = - (xx[8] * (xx[105] * xx[68] - xx[106] * xx[73]));
-  xx[116] = xx[107] - xx[8] * (xx[106] * xx[68] + xx[105] * xx[73]);
-  xx[117] = - (xx[8] * (xx[106] * xx[72] + xx[105] * xx[66]) - xx[104]);
-  pm_math_Vector3_cross_ra(xx + 63, xx + 115, xx + 104);
-  pm_math_Vector3_cross_ra(xx + 63, xx + 104, xx + 141);
-  pm_math_Quaternion_inverseXform_ra(xx + 74, xx + 141, xx + 63);
-  pm_math_Matrix3x3_xform_ra(xx + 150, xx + 63, xx + 104);
-  xx[113] = xx[171] - xx[131] - xx[135] - xx[161];
-  xx[127] = state[8] + xx[1];
-  if (xx[2] < xx[127])
-    xx[127] = xx[2];
-  xx[141] = - (xx[127] / xx[4]);
-  if (xx[5] < xx[141])
-    xx[141] = xx[5];
-  xx[142] = xx[9] * state[9];
-  xx[143] = xx[141] * xx[141] * (xx[7] - xx[8] * xx[141]) * ((- xx[127] == xx[2]
-    ? xx[2] : - xx[142]) - xx[11] * xx[127]);
-  if (xx[2] > xx[143])
-    xx[143] = xx[2];
-  xx[127] = state[8] - xx[1];
-  if (xx[2] > xx[127])
-    xx[127] = xx[2];
-  xx[141] = xx[127] / xx[4];
-  if (xx[5] < xx[141])
-    xx[141] = xx[5];
-  xx[144] = xx[141] * xx[141] * (xx[7] - xx[8] * xx[141]) * (xx[11] * xx[127] +
-    (xx[127] == xx[2] ? xx[2] : xx[142]));
-  if (xx[2] > xx[144])
-    xx[144] = xx[2];
-  xx[127] = xx[175] - xx[135] - xx[131] - xx[165];
-  xx[141] = xx[176] - xx[136] - xx[134] - xx[166];
-  xx[142] = xx[88] + xx[120] + xx[126] + xx[98] * xx[127] - xx[81] * xx[141] +
-    xx[106];
-  xx[145] = xx[25] + xx[177] - xx[137] - xx[137] - xx[167];
-  memcpy(xx + 146, xx + 145, 1 * sizeof(double));
-  ii[0] = factorSymmetricPosDef(xx + 146, 1, xx + 147);
+  xx[78] = xx[165] - xx[113] - xx[115] - xx[183];
+  xx[84] = xx[173] - xx[155];
+  xx[89] = xx[174] - xx[158];
+  xx[94] = xx[175] - xx[161];
+  xx[95] = xx[176] - xx[156];
+  xx[96] = xx[177] - xx[159];
+  xx[97] = xx[178] - xx[162];
+  xx[100] = xx[179] - xx[157];
+  xx[103] = xx[180] - xx[160];
+  xx[104] = xx[181] - xx[163];
+  xx[155] = xx[84];
+  xx[156] = xx[89];
+  xx[157] = xx[94];
+  xx[158] = xx[95];
+  xx[159] = xx[96];
+  xx[160] = xx[97];
+  xx[161] = xx[100];
+  xx[162] = xx[103];
+  xx[163] = xx[104];
+  xx[105] = 0.18;
+  xx[106] = xx[105] * xx[66];
+  xx[121] = xx[105] * xx[72];
+  xx[122] = 0.09;
+  xx[123] = - (xx[8] * (xx[106] * xx[68] - xx[121] * xx[73]));
+  xx[124] = xx[122] - xx[8] * (xx[121] * xx[68] + xx[106] * xx[73]);
+  xx[125] = - (xx[8] * (xx[121] * xx[72] + xx[106] * xx[66]) - xx[105]);
+  pm_math_Vector3_cross_ra(xx + 63, xx + 123, xx + 126);
+  pm_math_Vector3_cross_ra(xx + 63, xx + 126, xx + 135);
+  pm_math_Quaternion_inverseXform_ra(xx + 74, xx + 135, xx + 63);
+  pm_math_Matrix3x3_xform_ra(xx + 155, xx + 63, xx + 126);
+  xx[105] = xx[166] - xx[114] - xx[118] - xx[184];
+  xx[106] = state[8] + xx[1];
+  if (xx[2] < xx[106])
+    xx[106] = xx[2];
+  xx[121] = - (xx[106] / xx[4]);
+  if (xx[5] < xx[121])
+    xx[121] = xx[5];
+  xx[130] = xx[9] * state[9];
+  xx[131] = xx[121] * xx[121] * (xx[7] - xx[8] * xx[121]) * ((- xx[106] == xx[2]
+    ? xx[2] : - xx[130]) - xx[11] * xx[106]);
+  if (xx[2] > xx[131])
+    xx[131] = xx[2];
+  xx[106] = state[8] - xx[1];
+  if (xx[2] > xx[106])
+    xx[106] = xx[2];
+  xx[121] = xx[106] / xx[4];
+  if (xx[5] < xx[121])
+    xx[121] = xx[5];
+  xx[135] = xx[121] * xx[121] * (xx[7] - xx[8] * xx[121]) * (xx[11] * xx[106] +
+    (xx[106] == xx[2] ? xx[2] : xx[130]));
+  if (xx[2] > xx[135])
+    xx[135] = xx[2];
+  xx[106] = xx[170] - xx[118] - xx[114] - xx[188];
+  xx[121] = xx[171] - xx[119] - xx[117] - xx[189];
+  xx[130] = xx[88] + xx[145] + xx[142] + xx[98] * xx[106] - xx[81] * xx[121] +
+    xx[128];
+  xx[136] = xx[25] + xx[172] - xx[120] - xx[120] - xx[190];
+  memcpy(xx + 137, xx + 136, 1 * sizeof(double));
+  ii[0] = factorSymmetricPosDef(xx + 137, 1, xx + 138);
   if (ii[0] != 0) {
     return sm_ssci_recordRunTimeError(
       "sm:compiler:messages:simulationErrors:DegenerateMass",
@@ -534,146 +650,146 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
       neDiagMgr);
   }
 
-  xx[147] = (input[4] - xx[0] * state[9] + xx[143] - xx[144] - xx[142]) / xx[146];
-  xx[88] = xx[172] - xx[132] - xx[130] - xx[162];
-  xx[120] = xx[25] + xx[173] - xx[133] - xx[133] - xx[163];
-  xx[106] = xx[174] - xx[134] - xx[136] - xx[164];
-  xx[129] = xx[86] + xx[118] + xx[124] + xx[98] * xx[80] - xx[81] * xx[78] + xx
-    [104] + xx[113] * xx[147];
-  xx[130] = xx[87] + xx[119] + xx[125] + xx[98] * xx[88] - xx[81] * xx[120] +
-    xx[105] + xx[106] * xx[147];
-  xx[131] = xx[142] + xx[145] * xx[147];
-  pm_math_Quaternion_xform_ra(xx + 74, xx + 129, xx + 124);
-  xx[129] = xx[25] + xx[187];
-  xx[130] = xx[188];
-  xx[131] = xx[189];
-  xx[132] = xx[190];
-  xx[133] = xx[25] + xx[191];
-  xx[134] = xx[192];
-  xx[135] = xx[193];
-  xx[136] = xx[194];
-  xx[137] = xx[25] + xx[195];
-  pm_math_Matrix3x3_xform_ra(xx + 129, xx + 63, xx + 142);
-  xx[129] = xx[138] + xx[98] * xx[84] - xx[81] * xx[95] + xx[142] + xx[100] *
-    xx[147];
-  xx[130] = xx[139] + xx[98] * xx[89] - xx[81] * xx[96] + xx[143] + xx[102] *
-    xx[147];
-  xx[131] = xx[140] + xx[98] * xx[94] - xx[81] * xx[97] + xx[144] + xx[103] *
-    xx[147];
-  pm_math_Quaternion_xform_ra(xx + 74, xx + 129, xx + 132);
-  pm_math_Vector3_cross_ra(xx + 115, xx + 132, xx + 129);
+  xx[138] = (input[4] - xx[0] * state[9] + xx[131] - xx[135] - xx[130]) / xx[137];
+  xx[88] = xx[167] - xx[115] - xx[113] - xx[185];
+  xx[112] = xx[25] + xx[168] - xx[116] - xx[116] - xx[186];
+  xx[113] = xx[169] - xx[117] - xx[119] - xx[187];
+  xx[114] = xx[86] + xx[143] + xx[140] + xx[98] * xx[80] - xx[81] * xx[78] + xx
+    [126] + xx[105] * xx[138];
+  xx[115] = xx[87] + xx[144] + xx[141] + xx[98] * xx[88] - xx[81] * xx[112] +
+    xx[127] + xx[113] * xx[138];
+  xx[116] = xx[130] + xx[136] * xx[138];
+  pm_math_Quaternion_xform_ra(xx + 74, xx + 114, xx + 117);
+  xx[140] = xx[25] + xx[191];
+  xx[141] = xx[192];
+  xx[142] = xx[193];
+  xx[143] = xx[194];
+  xx[144] = xx[25] + xx[195];
+  xx[145] = xx[196];
+  xx[146] = xx[197];
+  xx[147] = xx[198];
+  xx[148] = xx[25] + xx[199];
+  pm_math_Matrix3x3_xform_ra(xx + 140, xx + 63, xx + 114);
+  xx[126] = xx[132] + xx[98] * xx[84] - xx[81] * xx[95] + xx[114] + xx[100] *
+    xx[138];
+  xx[127] = xx[133] + xx[98] * xx[89] - xx[81] * xx[96] + xx[115] + xx[103] *
+    xx[138];
+  xx[128] = xx[134] + xx[98] * xx[94] - xx[81] * xx[97] + xx[116] + xx[104] *
+    xx[138];
+  pm_math_Quaternion_xform_ra(xx + 74, xx + 126, xx + 114);
+  pm_math_Vector3_cross_ra(xx + 123, xx + 114, xx + 126);
   xx[86] = state[7] * xx[61];
   xx[87] = xx[68] * xx[68];
-  xx[104] = xx[72] * xx[66];
-  xx[105] = xx[68] * xx[73];
-  xx[118] = xx[73] * xx[72];
-  xx[119] = xx[68] * xx[66];
-  xx[135] = xx[73] * xx[66];
-  xx[136] = xx[68] * xx[72];
-  xx[150] = xx[8] * (xx[87] + xx[72] * xx[72]) - xx[5];
-  xx[151] = - (xx[8] * (xx[104] + xx[105]));
-  xx[152] = xx[8] * (xx[118] - xx[119]);
-  xx[153] = xx[8] * (xx[105] - xx[104]);
-  xx[154] = xx[8] * (xx[87] + xx[66] * xx[66]) - xx[5];
-  xx[155] = - (xx[8] * (xx[135] + xx[136]));
-  xx[156] = xx[8] * (xx[118] + xx[119]);
-  xx[157] = xx[8] * (xx[136] - xx[135]);
-  xx[158] = xx[8] * (xx[87] + xx[73] * xx[73]) - xx[5];
-  xx[66] = xx[113] / xx[146];
-  xx[68] = xx[106] * xx[66];
-  xx[72] = xx[145] * xx[66];
-  xx[73] = xx[106] / xx[146];
-  xx[87] = xx[145] * xx[73];
-  xx[104] = xx[145] / xx[146];
-  xx[159] = xx[80] - xx[113] * xx[66];
-  xx[160] = xx[78] - xx[68];
-  xx[161] = xx[113] - xx[72];
-  xx[162] = xx[88] - xx[68];
-  xx[163] = xx[120] - xx[106] * xx[73];
-  xx[164] = xx[106] - xx[87];
-  xx[165] = xx[127] - xx[72];
-  xx[166] = xx[141] - xx[87];
-  xx[167] = xx[145] - xx[145] * xx[104];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 159, xx + 150, xx + 135);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 135, xx + 159);
-  xx[68] = xx[100] / xx[146];
-  xx[72] = xx[102] / xx[146];
-  xx[78] = xx[103] / xx[146];
-  xx[135] = xx[84] - xx[113] * xx[68];
-  xx[136] = xx[89] - xx[113] * xx[72];
-  xx[137] = xx[94] - xx[113] * xx[78];
-  xx[138] = xx[95] - xx[106] * xx[68];
-  xx[139] = xx[96] - xx[106] * xx[72];
-  xx[140] = xx[97] - xx[106] * xx[78];
-  xx[141] = xx[100] - xx[145] * xx[68];
-  xx[142] = xx[102] - xx[145] * xx[72];
-  xx[143] = xx[103] - xx[145] * xx[78];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 135, xx + 150, xx + 168);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 168, xx + 135);
-  pm_math_Matrix3x3_postCross_ra(xx + 135, xx + 115, xx + 168);
-  xx[80] = xx[102] * xx[68];
-  xx[84] = xx[103] * xx[68];
-  xx[87] = xx[103] * xx[72];
-  xx[177] = xx[187] - xx[100] * xx[68] + xx[25];
-  xx[178] = xx[188] - xx[80];
-  xx[179] = xx[189] - xx[84];
-  xx[180] = xx[190] - xx[80];
-  xx[181] = xx[191] - xx[102] * xx[72] + xx[25];
-  xx[182] = xx[192] - xx[87];
-  xx[183] = xx[193] - xx[84];
-  xx[184] = xx[194] - xx[87];
-  xx[185] = xx[195] - xx[103] * xx[78] + xx[25];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 177, xx + 150, xx + 186);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 186, xx + 177);
-  pm_math_Matrix3x3_postCross_ra(xx + 177, xx + 115, xx + 150);
-  pm_math_Matrix3x3_preCross_ra(xx + 150, xx + 115, xx + 186);
-  xx[80] = xx[25] + xx[159] - xx[168] - xx[168] - xx[186];
+  xx[120] = xx[72] * xx[66];
+  xx[130] = xx[68] * xx[73];
+  xx[131] = xx[73] * xx[72];
+  xx[132] = xx[68] * xx[66];
+  xx[133] = xx[73] * xx[66];
+  xx[134] = xx[68] * xx[72];
+  xx[140] = xx[8] * (xx[87] + xx[72] * xx[72]) - xx[5];
+  xx[141] = - (xx[8] * (xx[120] + xx[130]));
+  xx[142] = xx[8] * (xx[131] - xx[132]);
+  xx[143] = xx[8] * (xx[130] - xx[120]);
+  xx[144] = xx[8] * (xx[87] + xx[66] * xx[66]) - xx[5];
+  xx[145] = - (xx[8] * (xx[133] + xx[134]));
+  xx[146] = xx[8] * (xx[131] + xx[132]);
+  xx[147] = xx[8] * (xx[134] - xx[133]);
+  xx[148] = xx[8] * (xx[87] + xx[73] * xx[73]) - xx[5];
+  xx[66] = xx[105] / xx[137];
+  xx[68] = xx[113] * xx[66];
+  xx[72] = xx[136] * xx[66];
+  xx[73] = xx[113] / xx[137];
+  xx[87] = xx[136] * xx[73];
+  xx[120] = xx[136] / xx[137];
+  xx[155] = xx[80] - xx[105] * xx[66];
+  xx[156] = xx[78] - xx[68];
+  xx[157] = xx[105] - xx[72];
+  xx[158] = xx[88] - xx[68];
+  xx[159] = xx[112] - xx[113] * xx[73];
+  xx[160] = xx[113] - xx[87];
+  xx[161] = xx[106] - xx[72];
+  xx[162] = xx[121] - xx[87];
+  xx[163] = xx[136] - xx[136] * xx[120];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 155, xx + 140, xx + 164);
+  pm_math_Matrix3x3_compose_ra(xx + 140, xx + 164, xx + 155);
+  xx[68] = xx[100] / xx[137];
+  xx[72] = xx[103] / xx[137];
+  xx[78] = xx[104] / xx[137];
+  xx[164] = xx[84] - xx[105] * xx[68];
+  xx[165] = xx[89] - xx[105] * xx[72];
+  xx[166] = xx[94] - xx[105] * xx[78];
+  xx[167] = xx[95] - xx[113] * xx[68];
+  xx[168] = xx[96] - xx[113] * xx[72];
+  xx[169] = xx[97] - xx[113] * xx[78];
+  xx[170] = xx[100] - xx[136] * xx[68];
+  xx[171] = xx[103] - xx[136] * xx[72];
+  xx[172] = xx[104] - xx[136] * xx[78];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 164, xx + 140, xx + 173);
+  pm_math_Matrix3x3_compose_ra(xx + 140, xx + 173, xx + 164);
+  pm_math_Matrix3x3_postCross_ra(xx + 164, xx + 123, xx + 173);
+  xx[80] = xx[103] * xx[68];
+  xx[84] = xx[104] * xx[68];
+  xx[87] = xx[104] * xx[72];
+  xx[182] = xx[191] - xx[100] * xx[68] + xx[25];
+  xx[183] = xx[192] - xx[80];
+  xx[184] = xx[193] - xx[84];
+  xx[185] = xx[194] - xx[80];
+  xx[186] = xx[195] - xx[103] * xx[72] + xx[25];
+  xx[187] = xx[196] - xx[87];
+  xx[188] = xx[197] - xx[84];
+  xx[189] = xx[198] - xx[87];
+  xx[190] = xx[199] - xx[104] * xx[78] + xx[25];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 182, xx + 140, xx + 191);
+  pm_math_Matrix3x3_compose_ra(xx + 140, xx + 191, xx + 182);
+  pm_math_Matrix3x3_postCross_ra(xx + 182, xx + 123, xx + 140);
+  pm_math_Matrix3x3_preCross_ra(xx + 140, xx + 123, xx + 191);
+  xx[80] = xx[25] + xx[155] - xx[173] - xx[173] - xx[191];
   xx[84] = state[7] * xx[60];
-  xx[60] = xx[160] - xx[169] - xx[171] - xx[187];
-  xx[87] = xx[135] - xx[150];
-  xx[88] = xx[136] - xx[153];
-  xx[89] = xx[137] - xx[156];
-  xx[94] = xx[138] - xx[151];
-  xx[95] = xx[139] - xx[154];
-  xx[96] = xx[140] - xx[157];
-  xx[97] = xx[141] - xx[152];
-  xx[100] = xx[142] - xx[155];
-  xx[102] = xx[143] - xx[158];
-  xx[135] = xx[87];
-  xx[136] = xx[88];
-  xx[137] = xx[89];
-  xx[138] = xx[94];
-  xx[139] = xx[95];
-  xx[140] = xx[96];
-  xx[141] = xx[97];
-  xx[142] = xx[100];
-  xx[143] = xx[102];
-  xx[103] = xx[107] * xx[34];
-  xx[105] = xx[107] * xx[32];
-  xx[118] = - (xx[8] * (xx[103] * xx[54] - xx[105] * xx[56]));
-  xx[119] = - (xx[107] - xx[8] * (xx[103] * xx[34] + xx[105] * xx[32]));
-  xx[120] = 0.06 + xx[8] * (xx[105] * xx[54] + xx[103] * xx[56]);
-  pm_math_Vector3_cross_ra(xx + 51, xx + 118, xx + 144);
-  pm_math_Vector3_cross_ra(xx + 51, xx + 144, xx + 150);
-  pm_math_Quaternion_inverseXform_ra(xx + 39, xx + 150, xx + 51);
-  xx[103] = xx[107] * state[7];
-  xx[105] = xx[103] * (xx[62] + xx[55]) + xx[52];
-  xx[52] = xx[53] - xx[103] * (xx[61] + xx[61]);
-  xx[144] = xx[51];
-  xx[145] = xx[105];
-  xx[146] = xx[52];
-  pm_math_Matrix3x3_xform_ra(xx + 135, xx + 144, xx + 150);
-  xx[53] = xx[161] - xx[170] - xx[174] - xx[188];
-  xx[55] = xx[53] + xx[107] * xx[87];
+  xx[60] = xx[156] - xx[174] - xx[176] - xx[192];
+  xx[87] = xx[164] - xx[140];
+  xx[88] = xx[165] - xx[143];
+  xx[89] = xx[166] - xx[146];
+  xx[94] = xx[167] - xx[141];
+  xx[95] = xx[168] - xx[144];
+  xx[96] = xx[169] - xx[147];
+  xx[97] = xx[170] - xx[142];
+  xx[100] = xx[171] - xx[145];
+  xx[103] = xx[172] - xx[148];
+  xx[140] = xx[87];
+  xx[141] = xx[88];
+  xx[142] = xx[89];
+  xx[143] = xx[94];
+  xx[144] = xx[95];
+  xx[145] = xx[96];
+  xx[146] = xx[97];
+  xx[147] = xx[100];
+  xx[148] = xx[103];
+  xx[104] = xx[122] * xx[34];
+  xx[105] = xx[122] * xx[32];
+  xx[130] = - (xx[8] * (xx[104] * xx[54] - xx[105] * xx[56]));
+  xx[131] = - (xx[122] - xx[8] * (xx[104] * xx[34] + xx[105] * xx[32]));
+  xx[132] = 0.06 + xx[8] * (xx[105] * xx[54] + xx[104] * xx[56]);
+  pm_math_Vector3_cross_ra(xx + 51, xx + 130, xx + 104);
+  pm_math_Vector3_cross_ra(xx + 51, xx + 104, xx + 133);
+  pm_math_Quaternion_inverseXform_ra(xx + 39, xx + 133, xx + 51);
+  xx[104] = xx[122] * state[7];
+  xx[105] = xx[104] * (xx[62] + xx[55]) + xx[52];
+  xx[52] = xx[53] - xx[104] * (xx[61] + xx[61]);
+  xx[133] = xx[51];
+  xx[134] = xx[105];
+  xx[135] = xx[52];
+  pm_math_Matrix3x3_xform_ra(xx + 140, xx + 133, xx + 149);
+  xx[53] = xx[157] - xx[175] - xx[179] - xx[193];
+  xx[55] = xx[53] + xx[122] * xx[87];
   xx[61] = state[6] + xx[1];
   if (xx[2] < xx[61])
     xx[61] = xx[2];
   xx[62] = - (xx[61] / xx[4]);
   if (xx[5] < xx[62])
     xx[62] = xx[5];
-  xx[103] = xx[9] * state[7];
+  xx[104] = xx[9] * state[7];
   xx[106] = xx[62] * xx[62] * (xx[7] - xx[8] * xx[62]) * ((- xx[61] == xx[2] ?
-    xx[2] : - xx[103]) - xx[11] * xx[61]);
+    xx[2] : - xx[104]) - xx[11] * xx[61]);
   if (xx[2] > xx[106])
     xx[106] = xx[2];
   xx[61] = state[6] - xx[1];
@@ -682,31 +798,31 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[62] = xx[61] / xx[4];
   if (xx[5] < xx[62])
     xx[62] = xx[5];
-  xx[113] = xx[62] * xx[62] * (xx[7] - xx[8] * xx[62]) * (xx[11] * xx[61] + (xx
-    [61] == xx[2] ? xx[2] : xx[103]));
-  if (xx[2] > xx[113])
-    xx[113] = xx[2];
-  xx[61] = xx[165] - xx[174] - xx[170] - xx[192];
-  xx[62] = xx[166] - xx[175] - xx[173] - xx[193];
-  xx[103] = xx[71] + xx[126] + xx[131] + xx[86] * xx[61] - xx[84] * xx[62] + xx
-    [152];
-  xx[127] = xx[25] + xx[177];
-  xx[135] = xx[127];
-  xx[136] = xx[178];
-  xx[137] = xx[179];
-  xx[138] = xx[180];
-  xx[139] = xx[25] + xx[181];
-  xx[140] = xx[182];
+  xx[112] = xx[62] * xx[62] * (xx[7] - xx[8] * xx[62]) * (xx[11] * xx[61] + (xx
+    [61] == xx[2] ? xx[2] : xx[104]));
+  if (xx[2] > xx[112])
+    xx[112] = xx[2];
+  xx[61] = xx[161] - xx[179] - xx[175] - xx[197];
+  xx[62] = xx[162] - xx[180] - xx[178] - xx[198];
+  xx[104] = xx[71] + xx[119] + xx[128] + xx[86] * xx[61] - xx[84] * xx[62] + xx
+    [151];
+  xx[113] = xx[25] + xx[182];
+  xx[140] = xx[113];
   xx[141] = xx[183];
   xx[142] = xx[184];
-  xx[143] = xx[25] + xx[185];
-  pm_math_Matrix3x3_xform_ra(xx + 135, xx + 144, xx + 153);
-  xx[135] = xx[132] + xx[86] * xx[87] - xx[84] * xx[94] + xx[153];
-  xx[132] = xx[25] + xx[167] - xx[176] - xx[176] - xx[194];
-  xx[136] = xx[132] + xx[107] * xx[97];
-  xx[137] = xx[97] + xx[107] * xx[127];
-  xx[138] = xx[136] + xx[107] * xx[137];
-  ii[0] = factorSymmetricPosDef(xx + 138, 1, xx + 139);
+  xx[143] = xx[185];
+  xx[144] = xx[25] + xx[186];
+  xx[145] = xx[187];
+  xx[146] = xx[188];
+  xx[147] = xx[189];
+  xx[148] = xx[25] + xx[190];
+  pm_math_Matrix3x3_xform_ra(xx + 140, xx + 133, xx + 164);
+  xx[121] = xx[114] + xx[86] * xx[87] - xx[84] * xx[94] + xx[164];
+  xx[114] = xx[25] + xx[163] - xx[181] - xx[181] - xx[199];
+  xx[133] = xx[114] + xx[122] * xx[97];
+  xx[134] = xx[97] + xx[122] * xx[113];
+  xx[135] = xx[133] + xx[122] * xx[134];
+  ii[0] = factorSymmetricPosDef(xx + 135, 1, xx + 136);
   if (ii[0] != 0) {
     return sm_ssci_recordRunTimeError(
       "sm:compiler:messages:simulationErrors:DegenerateMass",
@@ -714,125 +830,125 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
       neDiagMgr);
   }
 
-  xx[139] = (input[3] - xx[0] * state[7] + xx[106] - xx[113] - (xx[103] + xx[107]
-              * xx[135])) / xx[138];
-  xx[71] = xx[162] - xx[171] - xx[169] - xx[189];
-  xx[106] = xx[25] + xx[163] - xx[172] - xx[172] - xx[190];
-  xx[113] = xx[164] - xx[173] - xx[175] - xx[191];
-  xx[126] = xx[113] + xx[107] * xx[94];
-  xx[140] = xx[69] + xx[124] + xx[129] + xx[86] * xx[80] - xx[84] * xx[60] + xx
-    [150] + xx[55] * xx[139];
-  xx[141] = xx[70] + xx[125] + xx[130] + xx[86] * xx[71] - xx[84] * xx[106] +
-    xx[151] + xx[126] * xx[139];
-  xx[142] = xx[103] + xx[136] * xx[139];
-  pm_math_Quaternion_xform_ra(xx + 39, xx + 140, xx + 129);
-  xx[69] = xx[100] + xx[107] * xx[180];
-  xx[70] = xx[102] + xx[107] * xx[183];
-  xx[140] = xx[135] + xx[137] * xx[139];
-  xx[141] = xx[133] + xx[86] * xx[88] - xx[84] * xx[95] + xx[154] + xx[69] * xx
-    [139];
-  xx[142] = xx[134] + xx[86] * xx[89] - xx[84] * xx[96] + xx[155] + xx[70] * xx
-    [139];
-  pm_math_Quaternion_xform_ra(xx + 39, xx + 140, xx + 133);
-  pm_math_Vector3_cross_ra(xx + 118, xx + 133, xx + 140);
-  xx[103] = state[5] * xx[50];
+  xx[136] = (input[3] - xx[0] * state[7] + xx[106] - xx[112] - (xx[104] + xx[122]
+              * xx[121])) / xx[135];
+  xx[71] = xx[158] - xx[176] - xx[174] - xx[194];
+  xx[106] = xx[25] + xx[159] - xx[177] - xx[177] - xx[195];
+  xx[112] = xx[160] - xx[178] - xx[180] - xx[196];
+  xx[119] = xx[112] + xx[122] * xx[94];
+  xx[140] = xx[69] + xx[117] + xx[126] + xx[86] * xx[80] - xx[84] * xx[60] + xx
+    [149] + xx[55] * xx[136];
+  xx[141] = xx[70] + xx[118] + xx[127] + xx[86] * xx[71] - xx[84] * xx[106] +
+    xx[150] + xx[119] * xx[136];
+  xx[142] = xx[104] + xx[133] * xx[136];
+  pm_math_Quaternion_xform_ra(xx + 39, xx + 140, xx + 126);
+  xx[69] = xx[100] + xx[122] * xx[185];
+  xx[70] = xx[103] + xx[122] * xx[188];
+  xx[140] = xx[121] + xx[134] * xx[136];
+  xx[141] = xx[115] + xx[86] * xx[88] - xx[84] * xx[95] + xx[165] + xx[69] * xx
+    [136];
+  xx[142] = xx[116] + xx[86] * xx[89] - xx[84] * xx[96] + xx[166] + xx[70] * xx
+    [136];
+  pm_math_Quaternion_xform_ra(xx + 39, xx + 140, xx + 115);
+  pm_math_Vector3_cross_ra(xx + 130, xx + 115, xx + 140);
+  xx[104] = state[5] * xx[50];
   xx[50] = xx[54] * xx[54];
-  xx[124] = xx[54] * xx[34];
-  xx[125] = xx[56] * xx[32];
-  xx[143] = xx[32] * xx[34];
-  xx[144] = xx[54] * xx[56];
-  xx[145] = xx[54] * xx[32];
+  xx[118] = xx[54] * xx[34];
+  xx[121] = xx[56] * xx[32];
+  xx[137] = xx[32] * xx[34];
+  xx[143] = xx[54] * xx[56];
+  xx[144] = xx[54] * xx[32];
   xx[54] = xx[56] * xx[34];
-  xx[150] = xx[8] * (xx[50] + xx[32] * xx[32]) - xx[5];
-  xx[151] = xx[8] * (xx[124] - xx[125]);
-  xx[152] = xx[8] * (xx[143] + xx[144]);
-  xx[153] = - (xx[8] * (xx[125] + xx[124]));
-  xx[154] = xx[8] * (xx[50] + xx[56] * xx[56]) - xx[5];
-  xx[155] = xx[8] * (xx[145] - xx[54]);
-  xx[156] = xx[8] * (xx[143] - xx[144]);
-  xx[157] = - (xx[8] * (xx[54] + xx[145]));
-  xx[158] = xx[8] * (xx[50] + xx[34] * xx[34]) - xx[5];
-  xx[32] = xx[55] / xx[138];
-  xx[34] = xx[126] * xx[32];
-  xx[50] = xx[136] * xx[32];
-  xx[54] = xx[126] / xx[138];
-  xx[56] = xx[136] * xx[54];
-  xx[124] = xx[136] / xx[138];
-  xx[159] = xx[80] - xx[55] * xx[32];
-  xx[160] = xx[60] - xx[34];
-  xx[161] = xx[53] - xx[50];
-  xx[162] = xx[71] - xx[34];
-  xx[163] = xx[106] - xx[126] * xx[54];
-  xx[164] = xx[113] - xx[56];
-  xx[165] = xx[61] - xx[50];
-  xx[166] = xx[62] - xx[56];
-  xx[167] = xx[132] - xx[136] * xx[124];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 159, xx + 150, xx + 168);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 168, xx + 159);
-  xx[34] = xx[137] / xx[138];
-  xx[50] = xx[69] / xx[138];
-  xx[53] = xx[70] / xx[138];
-  xx[168] = xx[87] - xx[55] * xx[34];
-  xx[169] = xx[88] - xx[55] * xx[50];
-  xx[170] = xx[89] - xx[55] * xx[53];
-  xx[171] = xx[94] - xx[126] * xx[34];
-  xx[172] = xx[95] - xx[126] * xx[50];
-  xx[173] = xx[96] - xx[126] * xx[53];
-  xx[174] = xx[97] - xx[136] * xx[34];
-  xx[175] = xx[100] - xx[136] * xx[50];
-  xx[176] = xx[102] - xx[136] * xx[53];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 168, xx + 150, xx + 186);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 186, xx + 168);
-  pm_math_Matrix3x3_postCross_ra(xx + 168, xx + 118, xx + 186);
+  xx[155] = xx[8] * (xx[50] + xx[32] * xx[32]) - xx[5];
+  xx[156] = xx[8] * (xx[118] - xx[121]);
+  xx[157] = xx[8] * (xx[137] + xx[143]);
+  xx[158] = - (xx[8] * (xx[121] + xx[118]));
+  xx[159] = xx[8] * (xx[50] + xx[56] * xx[56]) - xx[5];
+  xx[160] = xx[8] * (xx[144] - xx[54]);
+  xx[161] = xx[8] * (xx[137] - xx[143]);
+  xx[162] = - (xx[8] * (xx[54] + xx[144]));
+  xx[163] = xx[8] * (xx[50] + xx[34] * xx[34]) - xx[5];
+  xx[32] = xx[55] / xx[135];
+  xx[34] = xx[119] * xx[32];
+  xx[50] = xx[133] * xx[32];
+  xx[54] = xx[119] / xx[135];
+  xx[56] = xx[133] * xx[54];
+  xx[118] = xx[133] / xx[135];
+  xx[143] = xx[80] - xx[55] * xx[32];
+  xx[144] = xx[60] - xx[34];
+  xx[145] = xx[53] - xx[50];
+  xx[146] = xx[71] - xx[34];
+  xx[147] = xx[106] - xx[119] * xx[54];
+  xx[148] = xx[112] - xx[56];
+  xx[149] = xx[61] - xx[50];
+  xx[150] = xx[62] - xx[56];
+  xx[151] = xx[114] - xx[133] * xx[118];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 143, xx + 155, xx + 164);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 164, xx + 143);
+  xx[34] = xx[134] / xx[135];
+  xx[50] = xx[69] / xx[135];
+  xx[53] = xx[70] / xx[135];
+  xx[164] = xx[87] - xx[55] * xx[34];
+  xx[165] = xx[88] - xx[55] * xx[50];
+  xx[166] = xx[89] - xx[55] * xx[53];
+  xx[167] = xx[94] - xx[119] * xx[34];
+  xx[168] = xx[95] - xx[119] * xx[50];
+  xx[169] = xx[96] - xx[119] * xx[53];
+  xx[170] = xx[97] - xx[133] * xx[34];
+  xx[171] = xx[100] - xx[133] * xx[50];
+  xx[172] = xx[103] - xx[133] * xx[53];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 164, xx + 155, xx + 173);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 173, xx + 164);
+  pm_math_Matrix3x3_postCross_ra(xx + 164, xx + 130, xx + 173);
   xx[55] = xx[69] * xx[34];
   xx[56] = xx[70] * xx[34];
   xx[60] = xx[70] * xx[50];
-  xx[195] = xx[127] - xx[137] * xx[34];
-  xx[196] = xx[178] - xx[55];
-  xx[197] = xx[179] - xx[56];
-  xx[198] = xx[180] - xx[55];
-  xx[199] = xx[181] - xx[69] * xx[50] + xx[25];
-  xx[200] = xx[182] - xx[60];
-  xx[201] = xx[183] - xx[56];
-  xx[202] = xx[184] - xx[60];
-  xx[203] = xx[185] - xx[70] * xx[53] + xx[25];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 195, xx + 150, xx + 177);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 177, xx + 195);
-  pm_math_Matrix3x3_postCross_ra(xx + 195, xx + 118, xx + 150);
-  pm_math_Matrix3x3_preCross_ra(xx + 150, xx + 118, xx + 177);
-  xx[55] = xx[25] + xx[159] - xx[186] - xx[186] - xx[177];
+  xx[191] = xx[113] - xx[134] * xx[34];
+  xx[192] = xx[183] - xx[55];
+  xx[193] = xx[184] - xx[56];
+  xx[194] = xx[185] - xx[55];
+  xx[195] = xx[186] - xx[69] * xx[50] + xx[25];
+  xx[196] = xx[187] - xx[60];
+  xx[197] = xx[188] - xx[56];
+  xx[198] = xx[189] - xx[60];
+  xx[199] = xx[190] - xx[70] * xx[53] + xx[25];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 191, xx + 155, xx + 182);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 182, xx + 191);
+  pm_math_Matrix3x3_postCross_ra(xx + 191, xx + 130, xx + 155);
+  pm_math_Matrix3x3_preCross_ra(xx + 155, xx + 130, xx + 182);
+  xx[55] = xx[25] + xx[143] - xx[173] - xx[173] - xx[182];
   xx[56] = state[5] * xx[49];
-  xx[49] = xx[160] - xx[187] - xx[189] - xx[178];
-  xx[60] = xx[168] - xx[150];
-  xx[61] = xx[169] - xx[153];
-  xx[62] = xx[170] - xx[156];
-  xx[69] = xx[171] - xx[151];
-  xx[70] = xx[172] - xx[154];
-  xx[71] = xx[173] - xx[157];
-  xx[80] = xx[174] - xx[152];
-  xx[87] = xx[175] - xx[155];
-  xx[88] = xx[176] - xx[158];
-  xx[150] = xx[60];
-  xx[151] = xx[61];
-  xx[152] = xx[62];
-  xx[153] = xx[69];
-  xx[154] = xx[70];
-  xx[155] = xx[71];
-  xx[156] = xx[80];
-  xx[157] = xx[87];
-  xx[158] = xx[88];
+  xx[49] = xx[144] - xx[174] - xx[176] - xx[183];
+  xx[60] = xx[164] - xx[155];
+  xx[61] = xx[165] - xx[158];
+  xx[62] = xx[166] - xx[161];
+  xx[69] = xx[167] - xx[156];
+  xx[70] = xx[168] - xx[159];
+  xx[71] = xx[169] - xx[162];
+  xx[80] = xx[170] - xx[157];
+  xx[87] = xx[171] - xx[160];
+  xx[88] = xx[172] - xx[163];
+  xx[155] = xx[60];
+  xx[156] = xx[61];
+  xx[157] = xx[62];
+  xx[158] = xx[69];
+  xx[159] = xx[70];
+  xx[160] = xx[71];
+  xx[161] = xx[80];
+  xx[162] = xx[87];
+  xx[163] = xx[88];
   xx[89] = 0.21;
   xx[94] = xx[89] * xx[44];
   xx[95] = xx[89] * xx[43];
   xx[96] = 0.105;
-  xx[125] = xx[8] * (xx[94] * xx[33] + xx[95] * xx[38]) - xx[96];
-  xx[126] = - (xx[8] * (xx[94] * xx[38] - xx[95] * xx[33]));
-  xx[127] = - (xx[8] * (xx[95] * xx[43] + xx[94] * xx[44]) - xx[89]);
-  pm_math_Vector3_cross_ra(xx + 29, xx + 125, xx + 136);
-  pm_math_Vector3_cross_ra(xx + 29, xx + 136, xx + 143);
-  pm_math_Quaternion_inverseXform_ra(xx + 45, xx + 143, xx + 29);
-  pm_math_Matrix3x3_xform_ra(xx + 150, xx + 29, xx + 136);
-  xx[89] = xx[161] - xx[188] - xx[192] - xx[179];
+  xx[112] = xx[8] * (xx[94] * xx[33] + xx[95] * xx[38]) - xx[96];
+  xx[113] = - (xx[8] * (xx[94] * xx[38] - xx[95] * xx[33]));
+  xx[114] = - (xx[8] * (xx[95] * xx[43] + xx[94] * xx[44]) - xx[89]);
+  pm_math_Vector3_cross_ra(xx + 29, xx + 112, xx + 133);
+  pm_math_Vector3_cross_ra(xx + 29, xx + 133, xx + 164);
+  pm_math_Quaternion_inverseXform_ra(xx + 45, xx + 164, xx + 29);
+  pm_math_Matrix3x3_xform_ra(xx + 155, xx + 29, xx + 133);
+  xx[89] = xx[145] - xx[175] - xx[179] - xx[184];
   xx[94] = state[4] + xx[1];
   if (xx[2] < xx[94])
     xx[94] = xx[2];
@@ -850,17 +966,17 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[95] = xx[94] / xx[4];
   if (xx[5] < xx[95])
     xx[95] = xx[5];
-  xx[102] = xx[95] * xx[95] * (xx[7] - xx[8] * xx[95]) * (xx[11] * xx[94] + (xx
+  xx[103] = xx[95] * xx[95] * (xx[7] - xx[8] * xx[95]) * (xx[11] * xx[94] + (xx
     [94] == xx[2] ? xx[2] : xx[97]));
-  if (xx[2] > xx[102])
-    xx[102] = xx[2];
-  xx[94] = xx[165] - xx[192] - xx[188] - xx[183];
-  xx[95] = xx[166] - xx[193] - xx[191] - xx[184];
-  xx[97] = xx[59] + xx[131] + xx[142] + xx[103] * xx[94] - xx[56] * xx[95] + xx
-    [138];
-  xx[106] = xx[25] + xx[167] - xx[194] - xx[194] - xx[185];
-  memcpy(xx + 113, xx + 106, 1 * sizeof(double));
-  ii[0] = factorSymmetricPosDef(xx + 113, 1, xx + 132);
+  if (xx[2] > xx[103])
+    xx[103] = xx[2];
+  xx[94] = xx[149] - xx[179] - xx[175] - xx[188];
+  xx[95] = xx[150] - xx[180] - xx[178] - xx[189];
+  xx[97] = xx[59] + xx[128] + xx[142] + xx[104] * xx[94] - xx[56] * xx[95] + xx
+    [135];
+  xx[106] = xx[25] + xx[151] - xx[181] - xx[181] - xx[190];
+  memcpy(xx + 119, xx + 106, 1 * sizeof(double));
+  ii[0] = factorSymmetricPosDef(xx + 119, 1, xx + 121);
   if (ii[0] != 0) {
     return sm_ssci_recordRunTimeError(
       "sm:compiler:messages:simulationErrors:DegenerateMass",
@@ -868,146 +984,146 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
       neDiagMgr);
   }
 
-  xx[132] = (input[2] - xx[0] * state[5] + xx[100] - xx[102] - xx[97]) / xx[113];
-  xx[59] = xx[162] - xx[189] - xx[187] - xx[180];
-  xx[100] = xx[25] + xx[163] - xx[190] - xx[190] - xx[181];
-  xx[102] = xx[164] - xx[191] - xx[193] - xx[182];
-  xx[142] = xx[57] + xx[129] + xx[140] + xx[103] * xx[55] - xx[56] * xx[49] +
-    xx[136] + xx[89] * xx[132];
-  xx[143] = xx[58] + xx[130] + xx[141] + xx[103] * xx[59] - xx[56] * xx[100] +
-    xx[137] + xx[102] * xx[132];
-  xx[144] = xx[97] + xx[106] * xx[132];
-  pm_math_Quaternion_xform_ra(xx + 45, xx + 142, xx + 129);
-  xx[150] = xx[25] + xx[195];
-  xx[151] = xx[196];
-  xx[152] = xx[197];
-  xx[153] = xx[198];
-  xx[154] = xx[25] + xx[199];
-  xx[155] = xx[200];
-  xx[156] = xx[201];
-  xx[157] = xx[202];
-  xx[158] = xx[25] + xx[203];
-  pm_math_Matrix3x3_xform_ra(xx + 150, xx + 29, xx + 136);
-  xx[140] = xx[133] + xx[103] * xx[60] - xx[56] * xx[69] + xx[136] + xx[80] *
-    xx[132];
-  xx[141] = xx[134] + xx[103] * xx[61] - xx[56] * xx[70] + xx[137] + xx[87] *
-    xx[132];
-  xx[142] = xx[135] + xx[103] * xx[62] - xx[56] * xx[71] + xx[138] + xx[88] *
-    xx[132];
-  pm_math_Quaternion_xform_ra(xx + 45, xx + 140, xx + 133);
-  pm_math_Vector3_cross_ra(xx + 125, xx + 133, xx + 136);
+  xx[121] = (input[2] - xx[0] * state[5] + xx[100] - xx[103] - xx[97]) / xx[119];
+  xx[59] = xx[146] - xx[176] - xx[174] - xx[185];
+  xx[100] = xx[25] + xx[147] - xx[177] - xx[177] - xx[186];
+  xx[103] = xx[148] - xx[178] - xx[180] - xx[187];
+  xx[142] = xx[57] + xx[126] + xx[140] + xx[104] * xx[55] - xx[56] * xx[49] +
+    xx[133] + xx[89] * xx[121];
+  xx[143] = xx[58] + xx[127] + xx[141] + xx[104] * xx[59] - xx[56] * xx[100] +
+    xx[134] + xx[103] * xx[121];
+  xx[144] = xx[97] + xx[106] * xx[121];
+  pm_math_Quaternion_xform_ra(xx + 45, xx + 142, xx + 126);
+  xx[140] = xx[25] + xx[191];
+  xx[141] = xx[192];
+  xx[142] = xx[193];
+  xx[143] = xx[194];
+  xx[144] = xx[25] + xx[195];
+  xx[145] = xx[196];
+  xx[146] = xx[197];
+  xx[147] = xx[198];
+  xx[148] = xx[25] + xx[199];
+  pm_math_Matrix3x3_xform_ra(xx + 140, xx + 29, xx + 133);
+  xx[140] = xx[115] + xx[104] * xx[60] - xx[56] * xx[69] + xx[133] + xx[80] *
+    xx[121];
+  xx[141] = xx[116] + xx[104] * xx[61] - xx[56] * xx[70] + xx[134] + xx[87] *
+    xx[121];
+  xx[142] = xx[117] + xx[104] * xx[62] - xx[56] * xx[71] + xx[135] + xx[88] *
+    xx[121];
+  pm_math_Quaternion_xform_ra(xx + 45, xx + 140, xx + 115);
+  pm_math_Vector3_cross_ra(xx + 112, xx + 115, xx + 133);
   xx[57] = xx[27] * state[3];
   xx[27] = xx[33] * xx[33];
   xx[58] = xx[33] * xx[38];
   xx[97] = xx[44] * xx[43];
-  xx[140] = xx[38] * xx[43];
-  xx[141] = xx[33] * xx[44];
-  xx[142] = xx[33] * xx[43];
+  xx[137] = xx[38] * xx[43];
+  xx[140] = xx[33] * xx[44];
+  xx[141] = xx[33] * xx[43];
   xx[33] = xx[44] * xx[38];
-  xx[150] = xx[8] * (xx[27] + xx[43] * xx[43]) - xx[5];
-  xx[151] = xx[8] * (xx[58] - xx[97]);
-  xx[152] = xx[8] * (xx[140] + xx[141]);
-  xx[153] = - (xx[8] * (xx[97] + xx[58]));
-  xx[154] = xx[8] * (xx[27] + xx[44] * xx[44]) - xx[5];
-  xx[155] = xx[8] * (xx[142] - xx[33]);
-  xx[156] = xx[8] * (xx[140] - xx[141]);
-  xx[157] = - (xx[8] * (xx[33] + xx[142]));
-  xx[158] = xx[8] * (xx[27] + xx[38] * xx[38]) - xx[5];
-  xx[27] = xx[89] / xx[113];
-  xx[33] = xx[102] * xx[27];
+  xx[142] = xx[8] * (xx[27] + xx[43] * xx[43]) - xx[5];
+  xx[143] = xx[8] * (xx[58] - xx[97]);
+  xx[144] = xx[8] * (xx[137] + xx[140]);
+  xx[145] = - (xx[8] * (xx[97] + xx[58]));
+  xx[146] = xx[8] * (xx[27] + xx[44] * xx[44]) - xx[5];
+  xx[147] = xx[8] * (xx[141] - xx[33]);
+  xx[148] = xx[8] * (xx[137] - xx[140]);
+  xx[149] = - (xx[8] * (xx[33] + xx[141]));
+  xx[150] = xx[8] * (xx[27] + xx[38] * xx[38]) - xx[5];
+  xx[27] = xx[89] / xx[119];
+  xx[33] = xx[103] * xx[27];
   xx[38] = xx[106] * xx[27];
-  xx[43] = xx[102] / xx[113];
+  xx[43] = xx[103] / xx[119];
   xx[44] = xx[106] * xx[43];
-  xx[58] = xx[106] / xx[113];
-  xx[159] = xx[55] - xx[89] * xx[27];
-  xx[160] = xx[49] - xx[33];
-  xx[161] = xx[89] - xx[38];
-  xx[162] = xx[59] - xx[33];
-  xx[163] = xx[100] - xx[102] * xx[43];
-  xx[164] = xx[102] - xx[44];
-  xx[165] = xx[94] - xx[38];
-  xx[166] = xx[95] - xx[44];
-  xx[167] = xx[106] - xx[106] * xx[58];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 159, xx + 150, xx + 168);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 168, xx + 159);
-  xx[33] = xx[80] / xx[113];
-  xx[38] = xx[87] / xx[113];
-  xx[44] = xx[88] / xx[113];
-  xx[168] = xx[60] - xx[89] * xx[33];
-  xx[169] = xx[61] - xx[89] * xx[38];
-  xx[170] = xx[62] - xx[89] * xx[44];
-  xx[171] = xx[69] - xx[102] * xx[33];
-  xx[172] = xx[70] - xx[102] * xx[38];
-  xx[173] = xx[71] - xx[102] * xx[44];
-  xx[174] = xx[80] - xx[106] * xx[33];
-  xx[175] = xx[87] - xx[106] * xx[38];
-  xx[176] = xx[88] - xx[106] * xx[44];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 168, xx + 150, xx + 177);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 177, xx + 168);
-  pm_math_Matrix3x3_postCross_ra(xx + 168, xx + 125, xx + 177);
+  xx[58] = xx[106] / xx[119];
+  xx[155] = xx[55] - xx[89] * xx[27];
+  xx[156] = xx[49] - xx[33];
+  xx[157] = xx[89] - xx[38];
+  xx[158] = xx[59] - xx[33];
+  xx[159] = xx[100] - xx[103] * xx[43];
+  xx[160] = xx[103] - xx[44];
+  xx[161] = xx[94] - xx[38];
+  xx[162] = xx[95] - xx[44];
+  xx[163] = xx[106] - xx[106] * xx[58];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 155, xx + 142, xx + 164);
+  pm_math_Matrix3x3_compose_ra(xx + 142, xx + 164, xx + 155);
+  xx[33] = xx[80] / xx[119];
+  xx[38] = xx[87] / xx[119];
+  xx[44] = xx[88] / xx[119];
+  xx[164] = xx[60] - xx[89] * xx[33];
+  xx[165] = xx[61] - xx[89] * xx[38];
+  xx[166] = xx[62] - xx[89] * xx[44];
+  xx[167] = xx[69] - xx[103] * xx[33];
+  xx[168] = xx[70] - xx[103] * xx[38];
+  xx[169] = xx[71] - xx[103] * xx[44];
+  xx[170] = xx[80] - xx[106] * xx[33];
+  xx[171] = xx[87] - xx[106] * xx[38];
+  xx[172] = xx[88] - xx[106] * xx[44];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 164, xx + 142, xx + 173);
+  pm_math_Matrix3x3_compose_ra(xx + 142, xx + 173, xx + 164);
+  pm_math_Matrix3x3_postCross_ra(xx + 164, xx + 112, xx + 173);
   xx[49] = xx[87] * xx[33];
   xx[55] = xx[88] * xx[33];
   xx[59] = xx[88] * xx[38];
-  xx[186] = xx[195] - xx[80] * xx[33] + xx[25];
-  xx[187] = xx[196] - xx[49];
+  xx[182] = xx[191] - xx[80] * xx[33] + xx[25];
+  xx[183] = xx[192] - xx[49];
+  xx[184] = xx[193] - xx[55];
+  xx[185] = xx[194] - xx[49];
+  xx[186] = xx[195] - xx[87] * xx[38] + xx[25];
+  xx[187] = xx[196] - xx[59];
   xx[188] = xx[197] - xx[55];
-  xx[189] = xx[198] - xx[49];
-  xx[190] = xx[199] - xx[87] * xx[38] + xx[25];
-  xx[191] = xx[200] - xx[59];
-  xx[192] = xx[201] - xx[55];
-  xx[193] = xx[202] - xx[59];
-  xx[194] = xx[203] - xx[88] * xx[44] + xx[25];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 186, xx + 150, xx + 195);
-  pm_math_Matrix3x3_compose_ra(xx + 150, xx + 195, xx + 186);
-  pm_math_Matrix3x3_postCross_ra(xx + 186, xx + 125, xx + 150);
-  pm_math_Matrix3x3_preCross_ra(xx + 150, xx + 125, xx + 195);
-  xx[49] = xx[25] + xx[159] - xx[177] - xx[177] - xx[195];
+  xx[189] = xx[198] - xx[59];
+  xx[190] = xx[199] - xx[88] * xx[44] + xx[25];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 182, xx + 142, xx + 191);
+  pm_math_Matrix3x3_compose_ra(xx + 142, xx + 191, xx + 182);
+  pm_math_Matrix3x3_postCross_ra(xx + 182, xx + 112, xx + 140);
+  pm_math_Matrix3x3_preCross_ra(xx + 140, xx + 112, xx + 191);
+  xx[49] = xx[25] + xx[155] - xx[173] - xx[173] - xx[191];
   xx[55] = xx[26] * state[3];
-  xx[59] = xx[160] - xx[178] - xx[180] - xx[196];
-  xx[60] = xx[168] - xx[150];
-  xx[61] = xx[169] - xx[153];
-  xx[62] = xx[170] - xx[156];
-  xx[69] = xx[171] - xx[151];
-  xx[70] = xx[172] - xx[154];
-  xx[71] = xx[173] - xx[157];
-  xx[80] = xx[174] - xx[152];
-  xx[87] = xx[175] - xx[155];
-  xx[88] = xx[176] - xx[158];
-  xx[150] = xx[60];
-  xx[151] = xx[61];
-  xx[152] = xx[62];
-  xx[153] = xx[69];
-  xx[154] = xx[70];
-  xx[155] = xx[71];
-  xx[156] = xx[80];
-  xx[157] = xx[87];
-  xx[158] = xx[88];
+  xx[59] = xx[156] - xx[174] - xx[176] - xx[192];
+  xx[60] = xx[164] - xx[140];
+  xx[61] = xx[165] - xx[143];
+  xx[62] = xx[166] - xx[146];
+  xx[69] = xx[167] - xx[141];
+  xx[70] = xx[168] - xx[144];
+  xx[71] = xx[169] - xx[147];
+  xx[80] = xx[170] - xx[142];
+  xx[87] = xx[171] - xx[145];
+  xx[88] = xx[172] - xx[148];
+  xx[140] = xx[60];
+  xx[141] = xx[61];
+  xx[142] = xx[62];
+  xx[143] = xx[69];
+  xx[144] = xx[70];
+  xx[145] = xx[71];
+  xx[146] = xx[80];
+  xx[147] = xx[87];
+  xx[148] = xx[88];
   xx[89] = xx[96] * xx[10];
   xx[94] = xx[96] * xx[19];
   xx[95] = xx[8] * (xx[89] * xx[17] - xx[94] * xx[15]);
   xx[97] = xx[95] * state[1] * state[1];
   xx[100] = xx[19] * xx[97];
-  xx[140] = xx[14];
-  xx[141] = xx[10];
-  xx[142] = xx[18];
+  xx[149] = xx[14];
+  xx[150] = xx[10];
+  xx[151] = xx[18];
   xx[14] = 0.02 - (xx[8] * (xx[89] * xx[10] + xx[94] * xx[19]) - xx[96]);
   xx[18] = xx[14] * state[1] * state[1];
-  xx[102] = xx[19] * xx[18];
+  xx[103] = xx[19] * xx[18];
   xx[106] = xx[10] * xx[18] - xx[17] * xx[97];
-  xx[143] = xx[100];
-  xx[144] = xx[102];
-  xx[145] = xx[106];
-  pm_math_Vector3_cross_ra(xx + 140, xx + 143, xx + 168);
-  xx[113] = xx[96] * state[3];
-  xx[140] = xx[8] * (xx[15] * xx[100] + xx[168]) - xx[18] - xx[113] * (xx[28] +
+  xx[164] = xx[100];
+  xx[165] = xx[103];
+  xx[166] = xx[106];
+  pm_math_Vector3_cross_ra(xx + 149, xx + 164, xx + 167);
+  xx[119] = xx[96] * state[3];
+  xx[137] = xx[8] * (xx[15] * xx[100] + xx[167]) - xx[18] - xx[119] * (xx[28] +
     xx[24]);
-  xx[18] = xx[97] + xx[8] * (xx[15] * xx[102] + xx[169]);
-  xx[24] = xx[113] * (xx[26] + xx[26]) + xx[8] * (xx[170] + xx[15] * xx[106]);
-  xx[141] = xx[140];
-  xx[142] = xx[18];
-  xx[143] = xx[24];
-  pm_math_Matrix3x3_xform_ra(xx + 150, xx + 141, xx + 144);
-  xx[26] = xx[161] - xx[179] - xx[183] - xx[197];
+  xx[18] = xx[97] + xx[8] * (xx[15] * xx[103] + xx[168]);
+  xx[24] = xx[119] * (xx[26] + xx[26]) + xx[8] * (xx[169] + xx[15] * xx[106]);
+  xx[149] = xx[137];
+  xx[150] = xx[18];
+  xx[151] = xx[24];
+  pm_math_Matrix3x3_xform_ra(xx + 140, xx + 149, xx + 164);
+  xx[26] = xx[157] - xx[175] - xx[179] - xx[193];
   xx[28] = xx[26] + xx[96] * xx[61];
   xx[97] = state[2] + xx[1];
   if (xx[2] < xx[97])
@@ -1015,9 +1131,9 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[100] = - (xx[97] / xx[4]);
   if (xx[5] < xx[100])
     xx[100] = xx[5];
-  xx[102] = xx[9] * state[3];
+  xx[103] = xx[9] * state[3];
   xx[9] = xx[100] * xx[100] * (xx[7] - xx[8] * xx[100]) * ((- xx[97] == xx[2] ?
-    xx[2] : - xx[102]) - xx[11] * xx[97]);
+    xx[2] : - xx[103]) - xx[11] * xx[97]);
   if (xx[2] > xx[9])
     xx[9] = xx[2];
   xx[97] = state[2] - xx[1];
@@ -1027,29 +1143,29 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   if (xx[5] < xx[1])
     xx[1] = xx[5];
   xx[4] = xx[1] * xx[1] * (xx[7] - xx[8] * xx[1]) * (xx[11] * xx[97] + (xx[97] ==
-    xx[2] ? xx[2] : xx[102]));
+    xx[2] ? xx[2] : xx[103]));
   if (xx[2] > xx[4])
     xx[4] = xx[2];
-  xx[1] = xx[165] - xx[183] - xx[179] - xx[201];
-  xx[7] = xx[166] - xx[184] - xx[182] - xx[202];
-  xx[11] = xx[37] + xx[131] + xx[138] + xx[57] * xx[1] - xx[55] * xx[7] + xx[146];
-  xx[97] = xx[25] + xx[190];
-  xx[150] = xx[25] + xx[186];
-  xx[151] = xx[187];
-  xx[152] = xx[188];
-  xx[153] = xx[189];
-  xx[154] = xx[97];
-  xx[155] = xx[191];
-  xx[156] = xx[192];
-  xx[157] = xx[193];
-  xx[158] = xx[25] + xx[194];
-  pm_math_Matrix3x3_xform_ra(xx + 150, xx + 141, xx + 168);
-  xx[100] = xx[134] + xx[57] * xx[61] - xx[55] * xx[70] + xx[169];
-  xx[102] = xx[25] + xx[167] - xx[185] - xx[185] - xx[203];
-  xx[106] = xx[102] + xx[96] * xx[87];
-  xx[113] = xx[87] + xx[96] * xx[97];
-  xx[134] = xx[106] + xx[96] * xx[113];
-  ii[0] = factorSymmetricPosDef(xx + 134, 1, xx + 141);
+  xx[1] = xx[161] - xx[179] - xx[175] - xx[197];
+  xx[7] = xx[162] - xx[180] - xx[178] - xx[198];
+  xx[11] = xx[37] + xx[128] + xx[135] + xx[57] * xx[1] - xx[55] * xx[7] + xx[166];
+  xx[97] = xx[25] + xx[186];
+  xx[140] = xx[25] + xx[182];
+  xx[141] = xx[183];
+  xx[142] = xx[184];
+  xx[143] = xx[185];
+  xx[144] = xx[97];
+  xx[145] = xx[187];
+  xx[146] = xx[188];
+  xx[147] = xx[189];
+  xx[148] = xx[25] + xx[190];
+  pm_math_Matrix3x3_xform_ra(xx + 140, xx + 149, xx + 167);
+  xx[100] = xx[116] + xx[57] * xx[61] - xx[55] * xx[70] + xx[168];
+  xx[103] = xx[25] + xx[163] - xx[181] - xx[181] - xx[199];
+  xx[106] = xx[103] + xx[96] * xx[87];
+  xx[116] = xx[87] + xx[96] * xx[97];
+  xx[119] = xx[106] + xx[96] * xx[116];
+  ii[0] = factorSymmetricPosDef(xx + 119, 1, xx + 140);
   if (ii[0] != 0) {
     return sm_ssci_recordRunTimeError(
       "sm:compiler:messages:simulationErrors:DegenerateMass",
@@ -1057,100 +1173,100 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
       neDiagMgr);
   }
 
-  xx[141] = (input[1] - xx[0] * state[3] + xx[9] - xx[4] - (xx[11] + xx[96] *
-              xx[100])) / xx[134];
-  xx[4] = xx[162] - xx[180] - xx[178] - xx[198];
-  xx[9] = xx[25] + xx[163] - xx[181] - xx[181] - xx[199];
-  xx[37] = xx[164] - xx[182] - xx[184] - xx[200];
-  xx[131] = xx[37] + xx[96] * xx[70];
-  xx[150] = xx[35] + xx[129] + xx[136] + xx[57] * xx[49] - xx[55] * xx[59] + xx
-    [144] + xx[28] * xx[141];
-  xx[151] = xx[36] + xx[130] + xx[137] + xx[57] * xx[4] - xx[55] * xx[9] + xx
-    [145] + xx[131] * xx[141];
-  xx[152] = xx[11] + xx[106] * xx[141];
-  pm_math_Quaternion_xform_ra(xx + 20, xx + 150, xx + 136);
-  xx[142] = xx[14];
-  xx[143] = - xx[95];
-  xx[144] = xx[8] * (xx[89] * xx[15] + xx[94] * xx[17]) - 0.015;
-  xx[11] = xx[80] + xx[96] * xx[187];
-  xx[35] = xx[88] + xx[96] * xx[193];
-  xx[150] = xx[133] + xx[57] * xx[60] - xx[55] * xx[69] + xx[168] + xx[11] * xx
-    [141];
-  xx[151] = xx[100] + xx[113] * xx[141];
-  xx[152] = xx[135] + xx[57] * xx[62] - xx[55] * xx[71] + xx[170] + xx[35] * xx
-    [141];
-  pm_math_Quaternion_xform_ra(xx + 20, xx + 150, xx + 135);
-  pm_math_Vector3_cross_ra(xx + 142, xx + 135, xx + 150);
+  xx[140] = (input[1] - xx[0] * state[3] + xx[9] - xx[4] - (xx[11] + xx[96] *
+              xx[100])) / xx[119];
+  xx[4] = xx[158] - xx[176] - xx[174] - xx[194];
+  xx[9] = xx[25] + xx[159] - xx[177] - xx[177] - xx[195];
+  xx[37] = xx[160] - xx[178] - xx[180] - xx[196];
+  xx[128] = xx[37] + xx[96] * xx[70];
+  xx[141] = xx[35] + xx[126] + xx[133] + xx[57] * xx[49] - xx[55] * xx[59] + xx
+    [164] + xx[28] * xx[140];
+  xx[142] = xx[36] + xx[127] + xx[134] + xx[57] * xx[4] - xx[55] * xx[9] + xx
+    [165] + xx[128] * xx[140];
+  xx[143] = xx[11] + xx[106] * xx[140];
+  pm_math_Quaternion_xform_ra(xx + 20, xx + 141, xx + 133);
+  xx[141] = xx[14];
+  xx[142] = - xx[95];
+  xx[143] = xx[8] * (xx[89] * xx[15] + xx[94] * xx[17]) - 0.015;
+  xx[11] = xx[80] + xx[96] * xx[183];
+  xx[35] = xx[88] + xx[96] * xx[189];
+  xx[144] = xx[115] + xx[57] * xx[60] - xx[55] * xx[69] + xx[167] + xx[11] * xx
+    [140];
+  xx[145] = xx[100] + xx[116] * xx[140];
+  xx[146] = xx[117] + xx[57] * xx[62] - xx[55] * xx[71] + xx[169] + xx[35] * xx
+    [140];
+  pm_math_Quaternion_xform_ra(xx + 20, xx + 144, xx + 147);
+  pm_math_Vector3_cross_ra(xx + 141, xx + 147, xx + 144);
   xx[36] = 0.0403;
   xx[89] = xx[36] * state[1] * state[1];
   xx[94] = xx[15] * xx[15];
   xx[100] = xx[17] * xx[10];
-  xx[129] = xx[15] * xx[19];
-  xx[130] = xx[19] * xx[17];
-  xx[133] = xx[15] * xx[10];
-  xx[135] = xx[19] * xx[10];
-  xx[137] = xx[15] * xx[17];
-  xx[153] = xx[8] * (xx[94] + xx[17] * xx[17]) - xx[5];
-  xx[154] = - (xx[8] * (xx[100] + xx[129]));
-  xx[155] = xx[8] * (xx[130] - xx[133]);
-  xx[156] = xx[8] * (xx[129] - xx[100]);
-  xx[157] = xx[8] * (xx[94] + xx[10] * xx[10]) - xx[5];
-  xx[158] = - (xx[8] * (xx[135] + xx[137]));
-  xx[159] = xx[8] * (xx[130] + xx[133]);
-  xx[160] = xx[8] * (xx[137] - xx[135]);
-  xx[161] = xx[8] * (xx[94] + xx[19] * xx[19]) - xx[5];
-  xx[5] = xx[11] / xx[134];
-  xx[94] = xx[113] / xx[134];
-  xx[100] = xx[35] / xx[134];
-  xx[162] = xx[60] - xx[28] * xx[5];
-  xx[163] = xx[61] - xx[28] * xx[94];
-  xx[164] = xx[62] - xx[28] * xx[100];
-  xx[165] = xx[69] - xx[131] * xx[5];
-  xx[166] = xx[70] - xx[131] * xx[94];
-  xx[167] = xx[71] - xx[131] * xx[100];
-  xx[168] = xx[80] - xx[106] * xx[5];
-  xx[169] = xx[87] - xx[106] * xx[94];
-  xx[170] = xx[88] - xx[106] * xx[100];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 162, xx + 153, xx + 171);
-  pm_math_Matrix3x3_compose_ra(xx + 153, xx + 171, xx + 162);
-  xx[60] = xx[113] * xx[5];
+  xx[115] = xx[15] * xx[19];
+  xx[117] = xx[19] * xx[17];
+  xx[126] = xx[15] * xx[10];
+  xx[127] = xx[19] * xx[10];
+  xx[133] = xx[15] * xx[17];
+  xx[155] = xx[8] * (xx[94] + xx[17] * xx[17]) - xx[5];
+  xx[156] = - (xx[8] * (xx[100] + xx[115]));
+  xx[157] = xx[8] * (xx[117] - xx[126]);
+  xx[158] = xx[8] * (xx[115] - xx[100]);
+  xx[159] = xx[8] * (xx[94] + xx[10] * xx[10]) - xx[5];
+  xx[160] = - (xx[8] * (xx[127] + xx[133]));
+  xx[161] = xx[8] * (xx[117] + xx[126]);
+  xx[162] = xx[8] * (xx[133] - xx[127]);
+  xx[163] = xx[8] * (xx[94] + xx[19] * xx[19]) - xx[5];
+  xx[5] = xx[11] / xx[119];
+  xx[94] = xx[116] / xx[119];
+  xx[100] = xx[35] / xx[119];
+  xx[164] = xx[60] - xx[28] * xx[5];
+  xx[165] = xx[61] - xx[28] * xx[94];
+  xx[166] = xx[62] - xx[28] * xx[100];
+  xx[167] = xx[69] - xx[128] * xx[5];
+  xx[168] = xx[70] - xx[128] * xx[94];
+  xx[169] = xx[71] - xx[128] * xx[100];
+  xx[170] = xx[80] - xx[106] * xx[5];
+  xx[171] = xx[87] - xx[106] * xx[94];
+  xx[172] = xx[88] - xx[106] * xx[100];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 164, xx + 155, xx + 173);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 173, xx + 164);
+  xx[60] = xx[116] * xx[5];
   xx[61] = xx[35] * xx[5];
   xx[62] = xx[35] * xx[94];
-  xx[171] = xx[186] - xx[11] * xx[5] + xx[25];
-  xx[172] = xx[187] - xx[60];
-  xx[173] = xx[188] - xx[61];
-  xx[174] = xx[189] - xx[60];
-  xx[175] = xx[97] - xx[113] * xx[94];
-  xx[176] = xx[191] - xx[62];
-  xx[177] = xx[192] - xx[61];
-  xx[178] = xx[193] - xx[62];
-  xx[179] = xx[194] - xx[35] * xx[100] + xx[25];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 171, xx + 153, xx + 180);
-  pm_math_Matrix3x3_compose_ra(xx + 153, xx + 180, xx + 171);
-  pm_math_Matrix3x3_postCross_ra(xx + 171, xx + 142, xx + 180);
-  xx[11] = xx[168] - xx[182];
-  xx[35] = xx[28] / xx[134];
-  xx[60] = xx[131] * xx[35];
+  xx[173] = xx[182] - xx[11] * xx[5] + xx[25];
+  xx[174] = xx[183] - xx[60];
+  xx[175] = xx[184] - xx[61];
+  xx[176] = xx[185] - xx[60];
+  xx[177] = xx[97] - xx[116] * xx[94];
+  xx[178] = xx[187] - xx[62];
+  xx[179] = xx[188] - xx[61];
+  xx[180] = xx[189] - xx[62];
+  xx[181] = xx[190] - xx[35] * xx[100] + xx[25];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 173, xx + 155, xx + 182);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 182, xx + 173);
+  pm_math_Matrix3x3_postCross_ra(xx + 173, xx + 141, xx + 182);
+  xx[11] = xx[170] - xx[184];
+  xx[35] = xx[28] / xx[119];
+  xx[60] = xx[128] * xx[35];
   xx[61] = xx[106] * xx[35];
-  xx[62] = xx[131] / xx[134];
+  xx[62] = xx[128] / xx[119];
   xx[69] = xx[106] * xx[62];
-  xx[70] = xx[106] / xx[134];
-  xx[189] = xx[49] - xx[28] * xx[35];
-  xx[190] = xx[59] - xx[60];
-  xx[191] = xx[26] - xx[61];
-  xx[192] = xx[4] - xx[60];
-  xx[193] = xx[9] - xx[131] * xx[62];
-  xx[194] = xx[37] - xx[69];
-  xx[195] = xx[1] - xx[61];
-  xx[196] = xx[7] - xx[69];
-  xx[197] = xx[102] - xx[106] * xx[70];
-  pm_math_Matrix3x3_composeTranspose_ra(xx + 189, xx + 153, xx + 198);
-  pm_math_Matrix3x3_compose_ra(xx + 153, xx + 198, xx + 189);
-  pm_math_Matrix3x3_postCross_ra(xx + 162, xx + 142, xx + 153);
-  pm_math_Matrix3x3_preCross_ra(xx + 180, xx + 142, xx + 198);
-  xx[1] = xx[169] - xx[185];
-  xx[4] = xx[1] + xx[36] * (xx[25] + xx[175]);
-  xx[7] = xx[197] - xx[161] - xx[161] - xx[206] + xx[36] * xx[1] + xx[36] * xx[4]
+  xx[70] = xx[106] / xx[119];
+  xx[191] = xx[49] - xx[28] * xx[35];
+  xx[192] = xx[59] - xx[60];
+  xx[193] = xx[26] - xx[61];
+  xx[194] = xx[4] - xx[60];
+  xx[195] = xx[9] - xx[128] * xx[62];
+  xx[196] = xx[37] - xx[69];
+  xx[197] = xx[1] - xx[61];
+  xx[198] = xx[7] - xx[69];
+  xx[199] = xx[103] - xx[106] * xx[70];
+  pm_math_Matrix3x3_composeTranspose_ra(xx + 191, xx + 155, xx + 200);
+  pm_math_Matrix3x3_compose_ra(xx + 155, xx + 200, xx + 191);
+  pm_math_Matrix3x3_postCross_ra(xx + 164, xx + 141, xx + 155);
+  pm_math_Matrix3x3_preCross_ra(xx + 182, xx + 141, xx + 200);
+  xx[1] = xx[171] - xx[187];
+  xx[4] = xx[1] + xx[36] * (xx[25] + xx[177]);
+  xx[7] = xx[199] - xx[163] - xx[163] - xx[208] + xx[36] * xx[1] + xx[36] * xx[4]
     + xx[25];
   ii[0] = factorSymmetricPosDef(xx + 7, 1, xx + 1);
   if (ii[0] != 0) {
@@ -1160,9 +1276,9 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
       neDiagMgr);
   }
 
-  xx[59] = (xx[11] + xx[36] * xx[172]) / xx[7];
+  xx[59] = (xx[11] + xx[36] * xx[174]) / xx[7];
   xx[60] = xx[4] / xx[7];
-  xx[61] = (xx[170] - xx[188] + xx[36] * xx[178]) / xx[7];
+  xx[61] = (xx[172] - xx[190] + xx[36] * xx[180]) / xx[7];
   xx[1] = xx[6] * state[0];
   xx[4] = sin(xx[1]);
   xx[6] = xx[16] * xx[4];
@@ -1176,12 +1292,12 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[3] = xx[16] * xx[6];
   xx[6] = xx[8] * (xx[1] * xx[4] + xx[3] * xx[25]);
   xx[9] = xx[8] * (xx[1] * xx[25] - xx[3] * xx[4]);
-  xx[129] = xx[28];
-  xx[130] = xx[6];
-  xx[131] = xx[9];
-  xx[1] = (input[0] - xx[0] * state[1] + xx[12] - xx[13] - (xx[138] + xx[152] -
-            xx[89] * xx[11] + xx[36] * (xx[136] - xx[89] * xx[174]))) / xx[7] -
-    pm_math_Vector3_dot_ra(xx + 59, xx + 129);
+  xx[115] = xx[28];
+  xx[116] = xx[6];
+  xx[117] = xx[9];
+  xx[1] = (input[0] - xx[0] * state[1] + xx[12] - xx[13] - (xx[135] + xx[146] -
+            xx[89] * xx[11] + xx[36] * (xx[148] - xx[89] * xx[176]))) / xx[7] -
+    pm_math_Vector3_dot_ra(xx + 59, xx + 115);
   xx[11] = xx[35];
   xx[12] = xx[62];
   xx[13] = xx[70];
@@ -1196,11 +1312,11 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[69] = xx[5];
   xx[70] = xx[94];
   xx[71] = xx[100];
-  xx[129] = xx[28] - xx[89] + xx[95] * xx[1];
-  xx[130] = xx[36] * xx[1] + xx[6] + xx[14] * xx[1];
-  xx[131] = xx[9];
-  pm_math_Quaternion_inverseXform_ra(xx + 20, xx + 129, xx + 8);
-  xx[0] = xx[141] - (pm_math_Vector3_dot_ra(xx + 11, xx + 59) +
+  xx[115] = xx[28] - xx[89] + xx[95] * xx[1];
+  xx[116] = xx[36] * xx[1] + xx[6] + xx[14] * xx[1];
+  xx[117] = xx[9];
+  pm_math_Quaternion_inverseXform_ra(xx + 20, xx + 115, xx + 8);
+  xx[0] = xx[140] - (pm_math_Vector3_dot_ra(xx + 11, xx + 59) +
                      pm_math_Vector3_dot_ra(xx + 69, xx + 8));
   xx[11] = xx[27];
   xx[12] = xx[43];
@@ -1212,33 +1328,33 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[14] = xx[33];
   xx[15] = xx[38];
   xx[16] = xx[44];
-  pm_math_Vector3_cross_ra(xx + 19, xx + 125, xx + 25);
-  xx[19] = xx[8] + xx[140] + xx[25];
+  pm_math_Vector3_cross_ra(xx + 19, xx + 112, xx + 25);
+  xx[19] = xx[8] + xx[137] + xx[25];
   xx[20] = xx[9] + xx[96] * xx[0] + xx[18] + xx[26];
   xx[21] = xx[10] + xx[24] + xx[27];
   pm_math_Quaternion_inverseXform_ra(xx + 45, xx + 19, xx + 6);
-  xx[9] = xx[132] - (pm_math_Vector3_dot_ra(xx + 11, xx + 3) +
+  xx[9] = xx[121] - (pm_math_Vector3_dot_ra(xx + 11, xx + 3) +
                      pm_math_Vector3_dot_ra(xx + 14, xx + 6));
   xx[10] = xx[32];
   xx[11] = xx[54];
-  xx[12] = xx[124];
-  xx[13] = xx[3] + xx[103];
+  xx[12] = xx[118];
+  xx[13] = xx[3] + xx[104];
   xx[14] = xx[4] - xx[56];
   xx[15] = xx[5] + xx[9];
   pm_math_Quaternion_inverseXform_ra(xx + 39, xx + 13, xx + 3);
   xx[16] = xx[34];
   xx[17] = xx[50];
   xx[18] = xx[53];
-  pm_math_Vector3_cross_ra(xx + 13, xx + 118, xx + 19);
+  pm_math_Vector3_cross_ra(xx + 13, xx + 130, xx + 19);
   xx[13] = xx[6] + xx[29] + xx[19];
   xx[14] = xx[7] + xx[30] + xx[20];
   xx[15] = xx[8] + xx[31] + xx[21];
   pm_math_Quaternion_inverseXform_ra(xx + 39, xx + 13, xx + 6);
-  xx[13] = xx[139] - (pm_math_Vector3_dot_ra(xx + 10, xx + 3) +
+  xx[13] = xx[136] - (pm_math_Vector3_dot_ra(xx + 10, xx + 3) +
                       pm_math_Vector3_dot_ra(xx + 16, xx + 6));
   xx[10] = xx[66];
   xx[11] = xx[73];
-  xx[12] = xx[104];
+  xx[12] = xx[120];
   xx[14] = xx[3] + xx[86];
   xx[15] = xx[4] - xx[84];
   xx[16] = xx[5] + xx[13];
@@ -1246,12 +1362,12 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[17] = xx[68];
   xx[18] = xx[72];
   xx[19] = xx[78];
-  pm_math_Vector3_cross_ra(xx + 14, xx + 115, xx + 20);
-  xx[14] = xx[6] + xx[107] * xx[13] + xx[51] + xx[20];
+  pm_math_Vector3_cross_ra(xx + 14, xx + 123, xx + 20);
+  xx[14] = xx[6] + xx[122] * xx[13] + xx[51] + xx[20];
   xx[15] = xx[7] + xx[105] + xx[21];
   xx[16] = xx[8] + xx[52] + xx[22];
   pm_math_Quaternion_inverseXform_ra(xx + 74, xx + 14, xx + 6);
-  xx[14] = xx[147] - (pm_math_Vector3_dot_ra(xx + 10, xx + 3) +
+  xx[14] = xx[138] - (pm_math_Vector3_dot_ra(xx + 10, xx + 3) +
                       pm_math_Vector3_dot_ra(xx + 17, xx + 6));
   xx[10] = xx[67];
   xx[11] = xx[85];
@@ -1263,15 +1379,15 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   xx[18] = xx[79];
   xx[19] = xx[82];
   xx[20] = xx[83];
-  pm_math_Vector3_cross_ra(xx + 15, xx + 121, xx + 21);
+  pm_math_Vector3_cross_ra(xx + 15, xx + 152, xx + 21);
   xx[15] = xx[6] + xx[63] + xx[21];
   xx[16] = xx[7] + xx[64] + xx[22];
   xx[17] = xx[8] + xx[65] + xx[23];
   pm_math_Quaternion_inverseXform_ra(xx + 90, xx + 15, xx + 6);
-  xx[15] = xx[149] - (pm_math_Vector3_dot_ra(xx + 10, xx + 3) +
+  xx[15] = xx[139] - (pm_math_Vector3_dot_ra(xx + 10, xx + 3) +
                       pm_math_Vector3_dot_ra(xx + 18, xx + 6));
-  xx[6] = xx[3] + xx[112];
-  xx[7] = xx[4] - xx[101];
+  xx[6] = xx[3] + xx[101];
+  xx[7] = xx[4] - xx[102];
   xx[8] = xx[5] + xx[15];
   pm_math_Quaternion_inverseXform_ra(xx + 108, xx + 6, xx + 3);
   deriv[0] = state[1];
@@ -1287,7 +1403,7 @@ PmfMessageId left_arm_simul_e2442d81_1_deriv(const RuntimeDerivedValuesBundle
   deriv[10] = state[11];
   deriv[11] = xx[15];
   deriv[12] = state[13];
-  deriv[13] = xx[114] - xx[128] * xx[5];
+  deriv[13] = xx[129] - xx[107] * xx[5];
   errorResult[0] = xx[2];
   return NULL;
 }

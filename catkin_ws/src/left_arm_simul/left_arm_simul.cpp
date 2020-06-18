@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.90
+// Model version                  : 1.92
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Mon Jun  8 23:26:45 2020
+// C/C++ source code generated on : Mon Jun 15 12:53:03 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -56,7 +56,7 @@ static void rate_scheduler(void)
   //  counter is reset when it reaches its limit (zero means run).
 
   (left_arm_simul_M->Timing.TaskCounters.TID[2])++;
-  if ((left_arm_simul_M->Timing.TaskCounters.TID[2]) > 24) {// Sample time: [0.05s, 0.0s] 
+  if ((left_arm_simul_M->Timing.TaskCounters.TID[2]) > 49) {// Sample time: [0.05s, 0.0s] 
     left_arm_simul_M->Timing.TaskCounters.TID[2] = 0;
   }
 }
@@ -151,44 +151,22 @@ void left_arm_simul_projection(void)
 }
 
 //
-// This function updates continuous states using the ODE5 fixed-step
+// This function updates continuous states using the ODE4 fixed-step
 // solver algorithm
 //
 static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
 {
-  // Solver Matrices
-  static const real_T rt_ODE5_A[6] = {
-    1.0/5.0, 3.0/10.0, 4.0/5.0, 8.0/9.0, 1.0, 1.0
-  };
-
-  static const real_T rt_ODE5_B[6][6] = {
-    { 1.0/5.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
-
-    { 3.0/40.0, 9.0/40.0, 0.0, 0.0, 0.0, 0.0 },
-
-    { 44.0/45.0, -56.0/15.0, 32.0/9.0, 0.0, 0.0, 0.0 },
-
-    { 19372.0/6561.0, -25360.0/2187.0, 64448.0/6561.0, -212.0/729.0, 0.0, 0.0 },
-
-    { 9017.0/3168.0, -355.0/33.0, 46732.0/5247.0, 49.0/176.0, -5103.0/18656.0,
-      0.0 },
-
-    { 35.0/384.0, 0.0, 500.0/1113.0, 125.0/192.0, -2187.0/6784.0, 11.0/84.0 }
-  };
-
   time_T t = rtsiGetT(si);
   time_T tnew = rtsiGetSolverStopTime(si);
   time_T h = rtsiGetStepSize(si);
   real_T *x = rtsiGetContStates(si);
-  ODE5_IntgData *id = static_cast<ODE5_IntgData *>(rtsiGetSolverData(si));
+  ODE4_IntgData *id = static_cast<ODE4_IntgData *>(rtsiGetSolverData(si));
   real_T *y = id->y;
   real_T *f0 = id->f[0];
   real_T *f1 = id->f[1];
   real_T *f2 = id->f[2];
   real_T *f3 = id->f[3];
-  real_T *f4 = id->f[4];
-  real_T *f5 = id->f[5];
-  real_T hB[6];
+  real_T temp;
   int_T i;
   int_T nXc = 14;
   rtsiSetSimTimeStep(si,MINOR_TIME_STEP);
@@ -202,84 +180,41 @@ static void rt_ertODEUpdateContinuousStates(RTWSolverInfo *si )
   rtsiSetdX(si, f0);
   left_arm_simul_derivatives();
 
-  // f(:,2) = feval(odefile, t + hA(1), y + f*hB(:,1), args(:)(*));
-  hB[0] = h * rt_ODE5_B[0][0];
+  // f1 = f(t + (h/2), y + (h/2)*f0)
+  temp = 0.5 * h;
   for (i = 0; i < nXc; i++) {
-    x[i] = y[i] + (f0[i]*hB[0]);
+    x[i] = y[i] + (temp*f0[i]);
   }
 
-  rtsiSetT(si, t + h*rt_ODE5_A[0]);
+  rtsiSetT(si, t + temp);
   rtsiSetdX(si, f1);
   left_arm_simul_step();
   left_arm_simul_derivatives();
 
-  // f(:,3) = feval(odefile, t + hA(2), y + f*hB(:,2), args(:)(*));
-  for (i = 0; i <= 1; i++) {
-    hB[i] = h * rt_ODE5_B[1][i];
-  }
-
+  // f2 = f(t + (h/2), y + (h/2)*f1)
   for (i = 0; i < nXc; i++) {
-    x[i] = y[i] + (f0[i]*hB[0] + f1[i]*hB[1]);
+    x[i] = y[i] + (temp*f1[i]);
   }
 
-  rtsiSetT(si, t + h*rt_ODE5_A[1]);
   rtsiSetdX(si, f2);
   left_arm_simul_step();
   left_arm_simul_derivatives();
 
-  // f(:,4) = feval(odefile, t + hA(3), y + f*hB(:,3), args(:)(*));
-  for (i = 0; i <= 2; i++) {
-    hB[i] = h * rt_ODE5_B[2][i];
-  }
-
+  // f3 = f(t + h, y + h*f2)
   for (i = 0; i < nXc; i++) {
-    x[i] = y[i] + (f0[i]*hB[0] + f1[i]*hB[1] + f2[i]*hB[2]);
+    x[i] = y[i] + (h*f2[i]);
   }
 
-  rtsiSetT(si, t + h*rt_ODE5_A[2]);
+  rtsiSetT(si, tnew);
   rtsiSetdX(si, f3);
   left_arm_simul_step();
   left_arm_simul_derivatives();
 
-  // f(:,5) = feval(odefile, t + hA(4), y + f*hB(:,4), args(:)(*));
-  for (i = 0; i <= 3; i++) {
-    hB[i] = h * rt_ODE5_B[3][i];
-  }
-
+  // tnew = t + h
+  // ynew = y + (h/6)*(f0 + 2*f1 + 2*f2 + 2*f3)
+  temp = h / 6.0;
   for (i = 0; i < nXc; i++) {
-    x[i] = y[i] + (f0[i]*hB[0] + f1[i]*hB[1] + f2[i]*hB[2] +
-                   f3[i]*hB[3]);
-  }
-
-  rtsiSetT(si, t + h*rt_ODE5_A[3]);
-  rtsiSetdX(si, f4);
-  left_arm_simul_step();
-  left_arm_simul_derivatives();
-
-  // f(:,6) = feval(odefile, t + hA(5), y + f*hB(:,5), args(:)(*));
-  for (i = 0; i <= 4; i++) {
-    hB[i] = h * rt_ODE5_B[4][i];
-  }
-
-  for (i = 0; i < nXc; i++) {
-    x[i] = y[i] + (f0[i]*hB[0] + f1[i]*hB[1] + f2[i]*hB[2] +
-                   f3[i]*hB[3] + f4[i]*hB[4]);
-  }
-
-  rtsiSetT(si, tnew);
-  rtsiSetdX(si, f5);
-  left_arm_simul_step();
-  left_arm_simul_derivatives();
-
-  // tnew = t + hA(6);
-  // ynew = y + f*hB(:,6);
-  for (i = 0; i <= 5; i++) {
-    hB[i] = h * rt_ODE5_B[5][i];
-  }
-
-  for (i = 0; i < nXc; i++) {
-    x[i] = y[i] + (f0[i]*hB[0] + f1[i]*hB[1] + f2[i]*hB[2] +
-                   f3[i]*hB[3] + f4[i]*hB[4] + f5[i]*hB[5]);
+    x[i] = y[i] + temp*(f0[i] + 2.0*f1[i] + 2.0*f2[i] + f3[i]);
   }
 
   left_arm_simul_step();
@@ -474,7 +409,7 @@ void left_arm_simul_step(void)
 
     // End of SimscapeExecutionBlock: '<S48>/STATE_1'
     if (rtmIsMajorTimeStep(left_arm_simul_M) &&
-        left_arm_simul_M->Timing.TaskCounters.TID[2] == 0) {
+        left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
       // Outputs for Atomic SubSystem: '<Root>/Subscribe'
       // MATLABSystem: '<S22>/SourceBlock' incorporates:
       //   Inport: '<S49>/In1'
@@ -782,15 +717,18 @@ void left_arm_simul_step(void)
       Pub_left_arm_simul_191.publish(&left_arm_simul_B.js);
 
       // End of Outputs for SubSystem: '<Root>/Publish2'
+    }
 
+    // End of RateTransition: '<Root>/Rate Transition1'
+    if (rtmIsMajorTimeStep(left_arm_simul_M) &&
+        left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
       // BusAssignment: '<Root>/Bus Assignment1' incorporates:
       //   Constant: '<Root>/Constant'
       //   Constant: '<S1>/Constant'
 
       left_arm_simul_B.BusAssignment1 = left_arm_simul_P.Constant_Value_m;
       for (i = 0; i < 7; i++) {
-        left_arm_simul_B.BusAssignment1.Data[i] =
-          left_arm_simul_DW.RateTransition1_Buffer[i];
+        left_arm_simul_B.BusAssignment1.Data[i] = left_arm_simul_B.OUTPUT_1_0[i];
       }
 
       left_arm_simul_B.BusAssignment1.Data_SL_Info.CurrentLength =
@@ -806,8 +744,6 @@ void left_arm_simul_step(void)
 
       // End of Outputs for SubSystem: '<Root>/Publish1'
     }
-
-    // End of RateTransition: '<Root>/Rate Transition1'
   }
 
   if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -913,9 +849,9 @@ void left_arm_simul_step(void)
       (&left_arm_simul_M->solverInfo);
 
     {
-      // Update absolute timer for sample time: [0.002s, 0.0s]
+      // Update absolute timer for sample time: [0.001s, 0.0s]
       // The "clockTick1" counts the number of times the code of this task has
-      //  been executed. The resolution of this integer timer is 0.002, which is the step size
+      //  been executed. The resolution of this integer timer is 0.001, which is the step size
       //  of the task. Size of "clockTick1" ensures timer will not overflow during the
       //  application lifespan selected.
 
@@ -1052,14 +988,12 @@ void left_arm_simul_initialize(void)
   left_arm_simul_M->intgData.f[1] = left_arm_simul_M->odeF[1];
   left_arm_simul_M->intgData.f[2] = left_arm_simul_M->odeF[2];
   left_arm_simul_M->intgData.f[3] = left_arm_simul_M->odeF[3];
-  left_arm_simul_M->intgData.f[4] = left_arm_simul_M->odeF[4];
-  left_arm_simul_M->intgData.f[5] = left_arm_simul_M->odeF[5];
   left_arm_simul_M->contStates = ((X_left_arm_simul_T *) &left_arm_simul_X);
   rtsiSetSolverData(&left_arm_simul_M->solverInfo, static_cast<void *>
                     (&left_arm_simul_M->intgData));
-  rtsiSetSolverName(&left_arm_simul_M->solverInfo,"ode5");
+  rtsiSetSolverName(&left_arm_simul_M->solverInfo,"ode4");
   rtmSetTPtr(left_arm_simul_M, &left_arm_simul_M->Timing.tArray[0]);
-  left_arm_simul_M->Timing.stepSize0 = 0.002;
+  left_arm_simul_M->Timing.stepSize0 = 0.001;
 
   {
     NeslSimulator *tmp;
@@ -1101,16 +1035,16 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters.mSolverType = NE_SOLVER_TYPE_ODE;
     left_arm_simul_B.modelParameters.mSolverTolerance = 0.001;
     left_arm_simul_B.modelParameters.mVariableStepSolver = false;
-    left_arm_simul_B.modelParameters.mFixedStepSize = 0.002;
+    left_arm_simul_B.modelParameters.mFixedStepSize = 0.001;
     left_arm_simul_B.modelParameters.mStartTime = 0.0;
     left_arm_simul_B.modelParameters.mLoadInitialState = false;
     left_arm_simul_B.modelParameters.mUseSimState = false;
     left_arm_simul_B.modelParameters.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.13559316E+8;
+    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.14126304E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters.mSolverTolerance = left_arm_simul_B.d;
-    left_arm_simul_B.d = 0.002;
+    left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters.mFixedStepSize = left_arm_simul_B.d;
     tmp_0 = false;
     left_arm_simul_B.modelParameters.mVariableStepSolver = tmp_0;
@@ -1211,16 +1145,16 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters_m.mSolverType = NE_SOLVER_TYPE_ODE;
     left_arm_simul_B.modelParameters_m.mSolverTolerance = 0.001;
     left_arm_simul_B.modelParameters_m.mVariableStepSolver = false;
-    left_arm_simul_B.modelParameters_m.mFixedStepSize = 0.002;
+    left_arm_simul_B.modelParameters_m.mFixedStepSize = 0.001;
     left_arm_simul_B.modelParameters_m.mStartTime = 0.0;
     left_arm_simul_B.modelParameters_m.mLoadInitialState = false;
     left_arm_simul_B.modelParameters_m.mUseSimState = false;
     left_arm_simul_B.modelParameters_m.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters_m.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.13559316E+8;
+    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.14126304E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters_m.mSolverTolerance = left_arm_simul_B.d;
-    left_arm_simul_B.d = 0.002;
+    left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters_m.mFixedStepSize = left_arm_simul_B.d;
     tmp_1 = false;
     left_arm_simul_B.modelParameters_m.mVariableStepSolver = tmp_1;
@@ -1319,9 +1253,9 @@ void left_arm_simul_initialize(void)
     // InitializeConditions for SimscapeExecutionBlock: '<S48>/STATE_1'
     tmp_0 = false;
     if (tmp_0) {
-      i = strcmp("ode5", rtsiGetSolverName(&left_arm_simul_M->solverInfo));
+      i = strcmp("ode4", rtsiGetSolverName(&left_arm_simul_M->solverInfo));
       if (i != 0) {
-        msg = solver_mismatch_message("ode5", rtsiGetSolverName
+        msg = solver_mismatch_message("ode4", rtsiGetSolverName
           (&left_arm_simul_M->solverInfo));
         rtmSetErrorStatus(left_arm_simul_M, msg);
       }
