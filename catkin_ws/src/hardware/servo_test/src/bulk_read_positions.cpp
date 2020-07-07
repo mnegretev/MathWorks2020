@@ -3,7 +3,7 @@
 
 int main(int argc, char **argv)
 {
-    ros::init(argc, argv, "bulk_read_2_bytes");
+    ros::init(argc, argv, "bulk_read_positions");
     ros::NodeHandle node("~");
     int baudrate;
     std::string port;
