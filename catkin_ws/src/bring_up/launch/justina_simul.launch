@@ -7,9 +7,10 @@
     <param name="noise" value="0.05"/>
   </node>
   <node name="mobile_base" pkg="mobile_base_simulator" type="mobile_base_simulator.py" output="screen"/>
-  <node name="left_arm_simul"  pkg="left_arm_simul" type="left_arm_simul_node"  output="screen"/>
   <node name="right_arm" pkg="arms_simulator" type="right_arm_simulator.py" output="screen"/>
   <node name="head" pkg="head_simulator" type="head_simulator.py" output="screen"/>
+
+  <node name="left_arm_simul"  pkg="left_arm_simul" type="left_arm_simul_node"  output="screen"/>
   <node name="trajectories" pkg="trajectory_gen" type="trajectory_gen.py" output="screen"/>
   <node name="simple_gui" pkg="simple_gui" type="simple_gui" output="screen"/>
   <node name="la_ctrl_obs" pkg="left_arm_ctrl_obs" type="left_arm_ctrl_obs_node" output="screen"/>

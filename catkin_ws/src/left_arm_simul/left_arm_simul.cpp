@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.95
+// Model version                  : 1.97
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Fri Jul  3 22:02:04 2020
+// C/C++ source code generated on : Thu Jul  9 09:26:25 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -56,7 +56,7 @@ static void rate_scheduler(void)
   //  counter is reset when it reaches its limit (zero means run).
 
   (left_arm_simul_M->Timing.TaskCounters.TID[2])++;
-  if ((left_arm_simul_M->Timing.TaskCounters.TID[2]) > 49) {// Sample time: [0.05s, 0.0s] 
+  if ((left_arm_simul_M->Timing.TaskCounters.TID[2]) > 9) {// Sample time: [0.04s, 0.0s] 
     left_arm_simul_M->Timing.TaskCounters.TID[2] = 0;
   }
 }
@@ -970,9 +970,9 @@ void left_arm_simul_step(void)
       (&left_arm_simul_M->solverInfo);
 
     {
-      // Update absolute timer for sample time: [0.001s, 0.0s]
+      // Update absolute timer for sample time: [0.004s, 0.0s]
       // The "clockTick1" counts the number of times the code of this task has
-      //  been executed. The resolution of this integer timer is 0.001, which is the step size
+      //  been executed. The resolution of this integer timer is 0.004, which is the step size
       //  of the task. Size of "clockTick1" ensures timer will not overflow during the
       //  application lifespan selected.
 
@@ -1121,7 +1121,7 @@ void left_arm_simul_initialize(void)
                     (&left_arm_simul_M->intgData));
   rtsiSetSolverName(&left_arm_simul_M->solverInfo,"ode5");
   rtmSetTPtr(left_arm_simul_M, &left_arm_simul_M->Timing.tArray[0]);
-  left_arm_simul_M->Timing.stepSize0 = 0.001;
+  left_arm_simul_M->Timing.stepSize0 = 0.004;
 
   {
     NeslSimulator *tmp;
@@ -1166,16 +1166,16 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters.mSolverType = NE_SOLVER_TYPE_ODE;
     left_arm_simul_B.modelParameters.mSolverTolerance = 0.001;
     left_arm_simul_B.modelParameters.mVariableStepSolver = false;
-    left_arm_simul_B.modelParameters.mFixedStepSize = 0.001;
+    left_arm_simul_B.modelParameters.mFixedStepSize = 0.004;
     left_arm_simul_B.modelParameters.mStartTime = 0.0;
     left_arm_simul_B.modelParameters.mLoadInitialState = false;
     left_arm_simul_B.modelParameters.mUseSimState = false;
     left_arm_simul_B.modelParameters.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.15714393E+8;
+    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.16186901E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters.mSolverTolerance = left_arm_simul_B.d;
-    left_arm_simul_B.d = 0.001;
+    left_arm_simul_B.d = 0.004;
     left_arm_simul_B.modelParameters.mFixedStepSize = left_arm_simul_B.d;
     tmp_0 = false;
     left_arm_simul_B.modelParameters.mVariableStepSolver = tmp_0;
@@ -1294,16 +1294,16 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters_m.mSolverType = NE_SOLVER_TYPE_ODE;
     left_arm_simul_B.modelParameters_m.mSolverTolerance = 0.001;
     left_arm_simul_B.modelParameters_m.mVariableStepSolver = false;
-    left_arm_simul_B.modelParameters_m.mFixedStepSize = 0.001;
+    left_arm_simul_B.modelParameters_m.mFixedStepSize = 0.004;
     left_arm_simul_B.modelParameters_m.mStartTime = 0.0;
     left_arm_simul_B.modelParameters_m.mLoadInitialState = false;
     left_arm_simul_B.modelParameters_m.mUseSimState = false;
     left_arm_simul_B.modelParameters_m.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters_m.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.15714393E+8;
+    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.16186901E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters_m.mSolverTolerance = left_arm_simul_B.d;
-    left_arm_simul_B.d = 0.001;
+    left_arm_simul_B.d = 0.004;
     left_arm_simul_B.modelParameters_m.mFixedStepSize = left_arm_simul_B.d;
     tmp_1 = false;
     left_arm_simul_B.modelParameters_m.mVariableStepSolver = tmp_1;

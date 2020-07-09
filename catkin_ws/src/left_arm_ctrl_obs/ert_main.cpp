@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.174
+// Model version                  : 1.194
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Sat Jul  4 16:09:47 2020
+// C/C++ source code generated on : Thu Jul  9 16:04:37 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -95,7 +95,7 @@ int main(int argc, char **argv)
   left_arm_ctrl_obs_initialize();
 
   // Call RTOS Initialization function
-  myRTOSInit(0.001, 0);
+  myRTOSInit(0.004, 0);
 
   // Wait for stop semaphore
   sem_wait(&stopSem);

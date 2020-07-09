@@ -14,8 +14,8 @@
 
 void left_arm_simul_e2442d81_1_gateway(void)
 {
-  NeModelParameters modelparams = { (NeSolverType) 1, 0.001, 0, 0.001, 0, 0, 0,
-    0, (SscLoggingSetting) 0, 515714393, };
+  NeModelParameters modelparams = { (NeSolverType) 1, 0.001, 0, 0.004, 0, 0, 0,
+    0, (SscLoggingSetting) 0, 516186901, };
 
   NeSolverParameters solverparams = { 0, 0, 1, 0, 0, 0.001, 1e-06, 1e-09, 0, 0,
     100, 0, 1, 0, 1e-09, 0, (NeLocalSolverChoice) 0, 0.001, 0, 3, 2,

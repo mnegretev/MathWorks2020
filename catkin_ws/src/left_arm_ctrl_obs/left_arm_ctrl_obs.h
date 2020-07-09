@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.174
+// Model version                  : 1.194
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Sat Jul  4 16:09:47 2020
+// C/C++ source code generated on : Thu Jul  9 16:04:37 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -154,14 +154,14 @@
 
 // Block signals (default storage)
 typedef struct {
-  SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray In1;// '<S13>/In1'
-  SL_Bus_left_arm_ctrl_obs_std_msgs_Float32MultiArray In1_h;// '<S14>/In1'
+  SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray In1;// '<S15>/In1'
+  SL_Bus_left_arm_ctrl_obs_std_msgs_Float32MultiArray In1_e;// '<S16>/In1'
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray BusAssignment1;// '<Root>/Bus Assignment1' 
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray b_varargout_2;
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float32MultiArray b_varargout_2_m;
   SL_Bus_left_arm_ctrl_obs_std_msgs_MultiArrayDimension
     b_varargout_2_Layout_Dim[16];
-  real_T MATLABSystem[49];             // '<S5>/MATLAB System'
+  real_T MATLABSystem[49];             // '<S6>/MATLAB System'
   real_T b_I[36];
   real_T tempR[36];
   real_T b_I_c[36];
@@ -249,7 +249,7 @@ typedef struct {
   real_T result_data_h[4];
   char_T cv[29];
   int32_T l_data[7];
-  real32_T MATLABSystem_p[7];          // '<S4>/MATLAB System'
+  real32_T MATLABSystem_p[7];          // '<S5>/MATLAB System'
   char_T cv1[26];
   real_T v[3];
   real_T v_c[3];
@@ -433,73 +433,74 @@ typedef struct {
 
 // Block states (default storage) for system '<Root>'
 typedef struct {
-  robotics_slmanip_internal_blo_T obj; // '<S3>/MATLAB System'
-  robotics_slmanip_internal_b_e_T obj_j;// '<S4>/MATLAB System'
-  robotics_slmanip_internal__e0_T obj_jz;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_0;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_1;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_2;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_3;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_4;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_5;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_6;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_7;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_8;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_9;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_10;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_11;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_12;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_13;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_14;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_15;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_16;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_17;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_18;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_19;// '<S5>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_0_f;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_1_o;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_2_p;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_3_j;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_4_p;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_5_g;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_6_k;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_7_a;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_8_g;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_9_k;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_10_n;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_11_b;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_12_g;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_13_l;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_14_a;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_15_k;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_16_a;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_17_d;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_18_b;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_19_h;// '<S4>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_0_e;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_1_f;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_2_b;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_3_f;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_4_f;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_5_e;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_6_ke;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_7_i;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_8_j;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_9_l;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_10_e;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_11_p;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_12_m;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_13_n;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_14_f;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_15_d;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_16_e;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_17_e;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_18_m;// '<S3>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_19_i;// '<S3>/MATLAB System'
-  ros_slros_internal_block_Publ_T obj_a;// '<S9>/SinkBlock'
-  ros_slros_internal_block_Publ_T obj_d;// '<S8>/SinkBlock'
-  ros_slros_internal_block_Subs_T obj_k;// '<S11>/SourceBlock'
-  ros_slros_internal_block_Subs_T obj_m;// '<S10>/SourceBlock'
+  robotics_slmanip_internal_blo_T obj; // '<S4>/MATLAB System'
+  robotics_slmanip_internal_b_e_T obj_j;// '<S5>/MATLAB System'
+  robotics_slmanip_internal__e0_T obj_jz;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_0;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_1;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_2;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_3;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_4;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_5;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_6;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_7;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_8;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_9;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_10;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_11;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_12;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_13;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_14;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_15;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_16;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_17;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_18;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_19;// '<S6>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_0_f;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_1_o;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_2_p;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_3_j;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_4_p;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_5_g;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_6_k;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_7_a;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_8_g;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_9_k;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_10_n;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_11_b;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_12_g;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_13_l;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_14_a;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_15_k;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_16_a;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_17_d;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_18_b;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_19_h;// '<S5>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_0_e;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_1_f;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_2_b;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_3_f;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_4_f;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_5_e;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_6_ke;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_7_i;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_8_j;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_9_l;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_10_e;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_11_p;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_12_m;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_13_n;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_14_f;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_15_d;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_16_e;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_17_e;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_18_m;// '<S4>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_19_i;// '<S4>/MATLAB System'
+  ros_slros_internal_block_Publ_T obj_b;// '<S11>/SinkBlock'
+  ros_slros_internal_block_Publ_T obj_a;// '<S10>/SinkBlock'
+  ros_slros_internal_block_Publ_T obj_d;// '<S9>/SinkBlock'
+  ros_slros_internal_block_Subs_T obj_g;// '<S13>/SourceBlock'
+  ros_slros_internal_block_Subs_T obj_m;// '<S12>/SourceBlock'
   real_T RateTransition_Buffer;        // '<Root>/Rate Transition'
 } DW_left_arm_ctrl_obs_T;
 
@@ -553,16 +554,19 @@ typedef struct {
 // Parameters (default storage)
 struct P_left_arm_ctrl_obs_T_ {
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float32MultiArray Out1_Y0;// Computed Parameter: Out1_Y0
-                                                                 //  Referenced by: '<S14>/Out1'
+                                                                 //  Referenced by: '<S16>/Out1'
 
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float32MultiArray Constant_Value;// Computed Parameter: Constant_Value
-                                                                      //  Referenced by: '<S11>/Constant'
+                                                                      //  Referenced by: '<S13>/Constant'
 
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray Out1_Y0_a;// Computed Parameter: Out1_Y0_a
-                                                                   //  Referenced by: '<S13>/Out1'
+                                                                   //  Referenced by: '<S15>/Out1'
 
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray Constant_Value_o;// Computed Parameter: Constant_Value_o
-                                                                      //  Referenced by: '<S10>/Constant'
+                                                                      //  Referenced by: '<S12>/Constant'
+
+  SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray Constant_Value_i;// Computed Parameter: Constant_Value_i
+                                                                      //  Referenced by: '<S3>/Constant'
 
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray Constant_Value_e;// Computed Parameter: Constant_Value_e
                                                                       //  Referenced by: '<S1>/Constant'
@@ -620,6 +624,9 @@ struct P_left_arm_ctrl_obs_T_ {
 
   uint32_T Constant_Value_d;           // Computed Parameter: Constant_Value_d
                                           //  Referenced by: '<Root>/Constant'
+
+  uint32_T Constant1_Value;            // Computed Parameter: Constant1_Value
+                                          //  Referenced by: '<Root>/Constant1'
 
 };
 
@@ -738,11 +745,12 @@ extern "C" {
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
-//  Block '<S3>/Reshape' : Reshape block reduction
 //  Block '<S4>/Reshape' : Reshape block reduction
+//  Block '<S5>/Reshape' : Reshape block reduction
 //  Block '<Root>/Rate Transition1' : Eliminated since input and output rates are identical
 //  Block '<Root>/Rate Transition2' : Eliminated since input and output rates are identical
 //  Block '<Root>/Rate Transition3' : Eliminated since input and output rates are identical
+//  Block '<Root>/Rate Transition4' : Eliminated since input and output rates are identical
 
 
 //-
@@ -762,18 +770,20 @@ extern "C" {
 //  '<Root>' : 'left_arm_ctrl_obs'
 //  '<S1>'   : 'left_arm_ctrl_obs/Blank Message1'
 //  '<S2>'   : 'left_arm_ctrl_obs/Blank Message2'
-//  '<S3>'   : 'left_arm_ctrl_obs/Forward Dynamics'
-//  '<S4>'   : 'left_arm_ctrl_obs/Gravity Torque'
-//  '<S5>'   : 'left_arm_ctrl_obs/Joint Space Mass Matrix'
-//  '<S6>'   : 'left_arm_ctrl_obs/MATLAB Function1'
-//  '<S7>'   : 'left_arm_ctrl_obs/Observer'
-//  '<S8>'   : 'left_arm_ctrl_obs/Publish1'
-//  '<S9>'   : 'left_arm_ctrl_obs/Publish2'
-//  '<S10>'  : 'left_arm_ctrl_obs/Subscribe'
-//  '<S11>'  : 'left_arm_ctrl_obs/Subscribe1'
-//  '<S12>'  : 'left_arm_ctrl_obs/mass estimator'
-//  '<S13>'  : 'left_arm_ctrl_obs/Subscribe/Enabled Subsystem'
-//  '<S14>'  : 'left_arm_ctrl_obs/Subscribe1/Enabled Subsystem'
+//  '<S3>'   : 'left_arm_ctrl_obs/Blank Message3'
+//  '<S4>'   : 'left_arm_ctrl_obs/Forward Dynamics'
+//  '<S5>'   : 'left_arm_ctrl_obs/Gravity Torque'
+//  '<S6>'   : 'left_arm_ctrl_obs/Joint Space Mass Matrix'
+//  '<S7>'   : 'left_arm_ctrl_obs/MATLAB Function1'
+//  '<S8>'   : 'left_arm_ctrl_obs/Observer'
+//  '<S9>'   : 'left_arm_ctrl_obs/Publish1'
+//  '<S10>'  : 'left_arm_ctrl_obs/Publish2'
+//  '<S11>'  : 'left_arm_ctrl_obs/Publish3'
+//  '<S12>'  : 'left_arm_ctrl_obs/Subscribe'
+//  '<S13>'  : 'left_arm_ctrl_obs/Subscribe1'
+//  '<S14>'  : 'left_arm_ctrl_obs/mass estimator'
+//  '<S15>'  : 'left_arm_ctrl_obs/Subscribe/Enabled Subsystem'
+//  '<S16>'  : 'left_arm_ctrl_obs/Subscribe1/Enabled Subsystem'
 
 #endif                                 // RTW_HEADER_left_arm_ctrl_obs_h_
 

@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.174
+// Model version                  : 1.194
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Sat Jul  4 16:09:47 2020
+// C/C++ source code generated on : Thu Jul  9 16:04:37 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -97,7 +97,7 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_Rig_T
 static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_Rig_T
   *robot, const real_T q[7], const real_T qdot[7], const
   emxArray_real_T_left_arm_ctrl_T *qddot, const real_T fext[60], real_T tau[7]);
-static void matlabCodegenHandle_matlabCo_e0(ros_slros_internal_block_Subs_T *obj);
+static void matlabCodegenHandle_matlabC_e0h(ros_slros_internal_block_Subs_T *obj);
 static void le_emxFreeStruct_rigidBodyJoint(rigidBodyJoint_left_arm_ctrl__T
   *pStruct);
 static void emxFreeStruct_i_robotics_manip_(i_robotics_manip_internal_Rig_T
@@ -195,7 +195,7 @@ static void rate_scheduler(void)
   //  counter is reset when it reaches its limit (zero means run).
 
   (left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2])++;
-  if ((left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2]) > 49) {// Sample time: [0.05s, 0.0s] 
+  if ((left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2]) > 9) {// Sample time: [0.04s, 0.0s] 
     left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] = 0;
   }
 }
@@ -1593,7 +1593,7 @@ static void left_arm_ctrl_SystemCore_step_e(boolean_T *varargout_1, real32_T
   *varargout_2_Layout_Dim_SL_Inf_0)
 {
   int32_T i;
-  *varargout_1 = Sub_left_arm_ctrl_obs_321.getLatestMessage
+  *varargout_1 = Sub_left_arm_ctrl_obs_318.getLatestMessage
     (&left_arm_ctrl_obs_B.b_varargout_2_m);
   for (i = 0; i < 14; i++) {
     varargout_2_Data[i] = left_arm_ctrl_obs_B.b_varargout_2_m.Data[i];
@@ -4568,7 +4568,7 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_Rig_T
   left_arm_ct_emxFree_f_cell_wrap(&X);
 }
 
-static void matlabCodegenHandle_matlabCo_e0(ros_slros_internal_block_Subs_T *obj)
+static void matlabCodegenHandle_matlabC_e0h(ros_slros_internal_block_Subs_T *obj)
 {
   if (!obj->matlabCodegenIsDeleted) {
     obj->matlabCodegenIsDeleted = true;
@@ -6926,8 +6926,8 @@ void left_arm_ctrl_obs_step(void)
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
     // Outputs for Atomic SubSystem: '<Root>/Subscribe'
-    // MATLABSystem: '<S10>/SourceBlock' incorporates:
-    //   Inport: '<S13>/In1'
+    // MATLABSystem: '<S12>/SourceBlock' incorporates:
+    //   Inport: '<S15>/In1'
 
     left_arm_ctrl_o_SystemCore_step(&left_arm_ctrl_obs_B.b_varargout_1,
       left_arm_ctrl_obs_B.qe,
@@ -6938,8 +6938,8 @@ void left_arm_ctrl_obs_step(void)
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_Inf,
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_p);
 
-    // Outputs for Enabled SubSystem: '<S10>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S13>/Enable'
+    // Outputs for Enabled SubSystem: '<S12>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S15>/Enable'
 
     if (left_arm_ctrl_obs_B.b_varargout_1) {
       for (left_arm_ctrl_obs_B.j_c = 0; left_arm_ctrl_obs_B.j_c < 7;
@@ -6963,11 +6963,11 @@ void left_arm_ctrl_obs_step(void)
         left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_p;
     }
 
-    // End of MATLABSystem: '<S10>/SourceBlock'
-    // End of Outputs for SubSystem: '<S10>/Enabled Subsystem'
+    // End of MATLABSystem: '<S12>/SourceBlock'
+    // End of Outputs for SubSystem: '<S12>/Enabled Subsystem'
     // End of Outputs for SubSystem: '<Root>/Subscribe'
 
-    // MATLABSystem: '<S5>/MATLAB System'
+    // MATLABSystem: '<S6>/MATLAB System'
     RigidBodyTreeDynamics_massMat_e(&left_arm_ctrl_obs_DW.obj_jz.TreeInternal,
       left_arm_ctrl_obs_B.In1.Data, b);
     for (left_arm_ctrl_obs_B.j_c = 0; left_arm_ctrl_obs_B.j_c < 49;
@@ -6976,11 +6976,11 @@ void left_arm_ctrl_obs_step(void)
         data[left_arm_ctrl_obs_B.j_c];
     }
 
-    // End of MATLABSystem: '<S5>/MATLAB System'
+    // End of MATLABSystem: '<S6>/MATLAB System'
 
     // Outputs for Atomic SubSystem: '<Root>/Subscribe1'
-    // MATLABSystem: '<S11>/SourceBlock' incorporates:
-    //   Inport: '<S14>/In1'
+    // MATLABSystem: '<S13>/SourceBlock' incorporates:
+    //   Inport: '<S16>/In1'
 
     left_arm_ctrl_SystemCore_step_e(&left_arm_ctrl_obs_B.b_varargout_1,
       left_arm_ctrl_obs_B.b_varargout_2_Data,
@@ -6991,38 +6991,38 @@ void left_arm_ctrl_obs_step(void)
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_Inf,
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_p);
 
-    // Outputs for Enabled SubSystem: '<S11>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S14>/Enable'
+    // Outputs for Enabled SubSystem: '<S13>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S16>/Enable'
 
     if (left_arm_ctrl_obs_B.b_varargout_1) {
       for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 14;
            left_arm_ctrl_obs_B.i++) {
-        left_arm_ctrl_obs_B.In1_h.Data[left_arm_ctrl_obs_B.i] =
+        left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i] =
           left_arm_ctrl_obs_B.b_varargout_2_Data[left_arm_ctrl_obs_B.i];
       }
 
-      left_arm_ctrl_obs_B.In1_h.Data_SL_Info.CurrentLength =
+      left_arm_ctrl_obs_B.In1_e.Data_SL_Info.CurrentLength =
         left_arm_ctrl_obs_B.b_varargout_2_Data_SL_Info_Curr;
-      left_arm_ctrl_obs_B.In1_h.Data_SL_Info.ReceivedLength =
+      left_arm_ctrl_obs_B.In1_e.Data_SL_Info.ReceivedLength =
         left_arm_ctrl_obs_B.b_varargout_2_Data_SL_Info_Rece;
-      left_arm_ctrl_obs_B.In1_h.Layout.DataOffset =
+      left_arm_ctrl_obs_B.In1_e.Layout.DataOffset =
         left_arm_ctrl_obs_B.b_varargout_2_Layout_DataOffset;
-      memcpy(&left_arm_ctrl_obs_B.In1_h.Layout.Dim[0],
+      memcpy(&left_arm_ctrl_obs_B.In1_e.Layout.Dim[0],
              &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim[0], sizeof
              (SL_Bus_left_arm_ctrl_obs_std_msgs_MultiArrayDimension) << 4U);
-      left_arm_ctrl_obs_B.In1_h.Layout.Dim_SL_Info.CurrentLength =
+      left_arm_ctrl_obs_B.In1_e.Layout.Dim_SL_Info.CurrentLength =
         left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_Inf;
-      left_arm_ctrl_obs_B.In1_h.Layout.Dim_SL_Info.ReceivedLength =
+      left_arm_ctrl_obs_B.In1_e.Layout.Dim_SL_Info.ReceivedLength =
         left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_p;
     }
 
-    // End of MATLABSystem: '<S11>/SourceBlock'
-    // End of Outputs for SubSystem: '<S11>/Enabled Subsystem'
+    // End of MATLABSystem: '<S13>/SourceBlock'
+    // End of Outputs for SubSystem: '<S13>/Enabled Subsystem'
     // End of Outputs for SubSystem: '<Root>/Subscribe1'
 
-    // MATLABSystem: '<S4>/MATLAB System'
+    // MATLABSystem: '<S5>/MATLAB System'
     lef_GravityTorqueBlock_stepImpl(&left_arm_ctrl_obs_DW.obj_j,
-      &left_arm_ctrl_obs_B.In1_h.Data[0], left_arm_ctrl_obs_B.MATLABSystem_p);
+      &left_arm_ctrl_obs_B.In1_e.Data[0], left_arm_ctrl_obs_B.MATLABSystem_p);
   }
 
   // MATLAB Function: '<Root>/MATLAB Function1' incorporates:
@@ -7031,12 +7031,12 @@ void left_arm_ctrl_obs_step(void)
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
        left_arm_ctrl_obs_B.i++) {
     left_arm_ctrl_obs_B.torque[left_arm_ctrl_obs_B.i] = (static_cast<real32_T>
-      ((left_arm_ctrl_obs_B.In1_h.Data[left_arm_ctrl_obs_B.i] -
+      ((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i] -
         static_cast<real32_T>(left_arm_ctrl_obs_B.In1.Data[left_arm_ctrl_obs_B.i]))
        * kp[left_arm_ctrl_obs_B.i]) +
       left_arm_ctrl_obs_B.MATLABSystem_p[left_arm_ctrl_obs_B.i]) +
       static_cast<real32_T>
-      ((left_arm_ctrl_obs_B.In1_h.Data[left_arm_ctrl_obs_B.i + 7] -
+      ((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i + 7] -
         static_cast<real32_T>
         (left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i + 7])) *
        static_cast<real_T>(kd[left_arm_ctrl_obs_B.i]));
@@ -7046,7 +7046,7 @@ void left_arm_ctrl_obs_step(void)
   left_arm_ctrl_ob_emxInit_real_T(&lambda, 2);
   left_arm_ctrl_ob_emxInit_real_T(&tmp, 1);
 
-  // MATLABSystem: '<S3>/MATLAB System' incorporates:
+  // MATLABSystem: '<S4>/MATLAB System' incorporates:
   //   Constant: '<Root>/Constant2'
   //   Integrator: '<Root>/Integrator'
 
@@ -7068,7 +7068,7 @@ void left_arm_ctrl_obs_step(void)
     left_arm_ctrl_obs_P.Constant2_Value, left_arm_ctrl_obs_B.qe);
   left_arm_ctrl_ob_emxFree_real_T(&tmp);
 
-  // MATLABSystem: '<S3>/MATLAB System'
+  // MATLABSystem: '<S4>/MATLAB System'
   for (left_arm_ctrl_obs_B.j_c = 0; left_arm_ctrl_obs_B.j_c < 7;
        left_arm_ctrl_obs_B.j_c++) {
     left_arm_ctrl_obs_B.qe[left_arm_ctrl_obs_B.j_c] =
@@ -7088,7 +7088,7 @@ void left_arm_ctrl_obs_step(void)
 
   left_arm_ctrl_ob_emxInit_real_T(&H, 2);
 
-  // MATLABSystem: '<S3>/MATLAB System'
+  // MATLABSystem: '<S4>/MATLAB System'
   left_arm_ctrl_obs_B.j_c = H->size[0] * H->size[1];
   H->size[0] = b->size[0];
   H->size[1] = b->size[1];
@@ -7101,7 +7101,7 @@ void left_arm_ctrl_obs_step(void)
 
   left_arm_ctrl_ob_emxFree_real_T(&b);
 
-  // MATLABSystem: '<S3>/MATLAB System'
+  // MATLABSystem: '<S4>/MATLAB System'
   left_arm_ctrl_obs_B.n = static_cast<int32_T>(((-1.0 - static_cast<real_T>
     (left_arm_ctrl_obs_B.iend)) + 1.0) / -1.0) - 1;
   for (left_arm_ctrl_obs_B.u0 = 0; left_arm_ctrl_obs_B.u0 <=
@@ -7149,7 +7149,7 @@ void left_arm_ctrl_obs_step(void)
 
   left_arm_ctrl_ob_emxInit_real_T(&L, 2);
 
-  // MATLABSystem: '<S3>/MATLAB System'
+  // MATLABSystem: '<S4>/MATLAB System'
   left_arm_ctrl_obs_B.j_c = L->size[0] * L->size[1];
   L->size[0] = H->size[0];
   L->size[1] = H->size[1];
@@ -7180,7 +7180,7 @@ void left_arm_ctrl_obs_step(void)
 
   left_arm_ctrl_ob_emxFree_real_T(&H);
 
-  // MATLABSystem: '<S3>/MATLAB System'
+  // MATLABSystem: '<S4>/MATLAB System'
   left_arm_ctrl_obs_B.n = static_cast<int32_T>(((-1.0 - left_arm_ctrl_obs_B.vNum)
     + 1.0) / -1.0) - 1;
   for (left_arm_ctrl_obs_B.u0 = 0; left_arm_ctrl_obs_B.u0 <=
@@ -7222,29 +7222,22 @@ void left_arm_ctrl_obs_step(void)
 
   // MATLAB Function: '<Root>/Observer' incorporates:
   //   Integrator: '<Root>/Integrator'
-  //   MATLABSystem: '<S3>/MATLAB System'
+  //   MATLABSystem: '<S4>/MATLAB System'
 
   memset(&left_arm_ctrl_obs_B.xp_est[0], 0, 14U * sizeof(real_T));
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
        left_arm_ctrl_obs_B.i++) {
-    left_arm_ctrl_obs_B.vNum =
-      left_arm_ctrl_obs_B.In1.Data[left_arm_ctrl_obs_B.i] -
-      left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i];
-    if (left_arm_ctrl_obs_B.vNum < 0.0) {
-      left_arm_ctrl_obs_B.scale = -1.0;
-    } else if (left_arm_ctrl_obs_B.vNum > 0.0) {
-      left_arm_ctrl_obs_B.scale = 1.0;
-    } else if (left_arm_ctrl_obs_B.vNum == 0.0) {
-      left_arm_ctrl_obs_B.scale = 0.0;
-    } else {
-      left_arm_ctrl_obs_B.scale = (rtNaN);
-    }
-
-    left_arm_ctrl_obs_B.z[left_arm_ctrl_obs_B.i] = 6.0 *
-      left_arm_ctrl_obs_B.scale;
-    left_arm_ctrl_obs_B.xp_est[left_arm_ctrl_obs_B.i] = sqrt(fabs
-      (left_arm_ctrl_obs_B.vNum)) * 6.0 * left_arm_ctrl_obs_B.scale +
-      left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i + 7];
+    left_arm_ctrl_obs_B.vNum = 2.0 / (exp
+      ((left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i] -
+        left_arm_ctrl_obs_B.In1.Data[left_arm_ctrl_obs_B.i]) / 0.0001) + 1.0) -
+      1.0;
+    left_arm_ctrl_obs_B.z[left_arm_ctrl_obs_B.i] = left_arm_ctrl_obs_B.vNum *
+      6.0;
+    left_arm_ctrl_obs_B.xp_est[left_arm_ctrl_obs_B.i] = left_arm_ctrl_obs_B.vNum
+      * (sqrt(fabs(left_arm_ctrl_obs_B.In1.Data[left_arm_ctrl_obs_B.i] -
+                   left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i]))
+         * 6.0) + left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i +
+      7];
     left_arm_ctrl_obs_B.xp_est[left_arm_ctrl_obs_B.i + 7] =
       left_arm_ctrl_obs_B.qe[left_arm_ctrl_obs_B.i] +
       left_arm_ctrl_obs_B.z[left_arm_ctrl_obs_B.i];
@@ -7272,7 +7265,7 @@ void left_arm_ctrl_obs_step(void)
     // End of BusAssignment: '<Root>/Bus Assignment1'
 
     // Outputs for Atomic SubSystem: '<Root>/Publish1'
-    // MATLABSystem: '<S8>/SinkBlock'
+    // MATLABSystem: '<S9>/SinkBlock'
     Pub_left_arm_ctrl_obs_304.publish(&left_arm_ctrl_obs_B.BusAssignment1);
 
     // End of Outputs for SubSystem: '<Root>/Publish1'
@@ -7364,7 +7357,7 @@ void left_arm_ctrl_obs_step(void)
     left_arm_ctrl_obs_B.In1.Data[3]) + left_arm_ctrl_obs_B.In1.Data[5]);
   if (fabs(left_arm_ctrl_obs_B.scale) > 0.1) {
     if (left_arm_ctrl_obs_B.vel < 0.1) {
-      // SignalConversion generated from: '<S12>/ SFunction '
+      // SignalConversion generated from: '<S14>/ SFunction '
       left_arm_ctrl_obs_B.qe[0] = left_arm_ctrl_obs_B.vNum;
       left_arm_ctrl_obs_B.qe[1] = left_arm_ctrl_obs_B.k;
       left_arm_ctrl_obs_B.qe[2] = left_arm_ctrl_obs_B.j;
@@ -7410,13 +7403,41 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_DW.RateTransition_Buffer;
 
     // Outputs for Atomic SubSystem: '<Root>/Publish2'
-    // MATLABSystem: '<S9>/SinkBlock'
+    // MATLABSystem: '<S10>/SinkBlock'
     Pub_left_arm_ctrl_obs_311.publish(&left_arm_ctrl_obs_B.BusAssignment2);
 
     // End of Outputs for SubSystem: '<Root>/Publish2'
   }
 
   // End of RateTransition: '<Root>/Rate Transition'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
+    // BusAssignment: '<Root>/Bus Assignment3' incorporates:
+    //   Constant: '<Root>/Constant1'
+    //   Constant: '<S3>/Constant'
+    //   Integrator: '<Root>/Integrator'
+
+    left_arm_ctrl_obs_B.BusAssignment1 = left_arm_ctrl_obs_P.Constant_Value_i;
+    for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
+         left_arm_ctrl_obs_B.i++) {
+      left_arm_ctrl_obs_B.BusAssignment1.Data[left_arm_ctrl_obs_B.i] =
+        left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i + 7];
+    }
+
+    left_arm_ctrl_obs_B.BusAssignment1.Data_SL_Info.CurrentLength =
+      left_arm_ctrl_obs_P.Constant1_Value;
+    left_arm_ctrl_obs_B.BusAssignment1.Data_SL_Info.ReceivedLength =
+      left_arm_ctrl_obs_P.Constant1_Value;
+
+    // End of BusAssignment: '<Root>/Bus Assignment3'
+
+    // Outputs for Atomic SubSystem: '<Root>/Publish3'
+    // MATLABSystem: '<S11>/SinkBlock'
+    Pub_left_arm_ctrl_obs_331.publish(&left_arm_ctrl_obs_B.BusAssignment1);
+
+    // End of Outputs for SubSystem: '<Root>/Publish3'
+  }
+
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M)) {
     rt_ertODEUpdateContinuousStates(&left_arm_ctrl_obs_M->solverInfo);
 
@@ -7431,9 +7452,9 @@ void left_arm_ctrl_obs_step(void)
       (&left_arm_ctrl_obs_M->solverInfo);
 
     {
-      // Update absolute timer for sample time: [0.001s, 0.0s]
+      // Update absolute timer for sample time: [0.004s, 0.0s]
       // The "clockTick1" counts the number of times the code of this task has
-      //  been executed. The resolution of this integer timer is 0.001, which is the step size
+      //  been executed. The resolution of this integer timer is 0.004, which is the step size
       //  of the task. Size of "clockTick1" ensures timer will not overflow during the
       //  application lifespan selected.
 
@@ -7585,7 +7606,7 @@ void left_arm_ctrl_obs_initialize(void)
                     (&left_arm_ctrl_obs_M->intgData));
   rtsiSetSolverName(&left_arm_ctrl_obs_M->solverInfo,"ode4");
   rtmSetTPtr(left_arm_ctrl_obs_M, &left_arm_ctrl_obs_M->Timing.tArray[0]);
-  left_arm_ctrl_obs_M->Timing.stepSize0 = 0.001;
+  left_arm_ctrl_obs_M->Timing.stepSize0 = 0.004;
 
   {
     int_T is;
@@ -7603,8 +7624,12 @@ void left_arm_ctrl_obs_initialize(void)
     static const char_T tmp_2[15] = { '/', 'e', 's', 't', 'i', 'm', 'a', 't',
       'e', 'd', '_', 'm', 'a', 's', 's' };
 
+    static const char_T tmp_3[28] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
+      'e', '/', 'l', 'a', '_', 'e', 's', 't', 'i', 'm', 'a', 't', 'e', 'd', '_',
+      's', 'p', 'e', 'e', 'd' };
+
     // Start for Atomic SubSystem: '<Root>/Subscribe'
-    // Start for MATLABSystem: '<S10>/SourceBlock'
+    // Start for MATLABSystem: '<S12>/SourceBlock'
     left_arm_ctrl_obs_DW.obj_m.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_m.isInitialized = 1;
     for (is = 0; is < 25; is++) {
@@ -7615,7 +7640,7 @@ void left_arm_ctrl_obs_initialize(void)
     Sub_left_arm_ctrl_obs_299.createSubscriber(left_arm_ctrl_obs_B.cv1, 1);
     left_arm_ctrl_obs_DW.obj_m.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S10>/SourceBlock'
+    // End of Start for MATLABSystem: '<S12>/SourceBlock'
     // End of Start for SubSystem: '<Root>/Subscribe'
     emxInitStruct_robotics_slmanip_(&left_arm_ctrl_obs_DW.obj_jz);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_0);
@@ -7639,7 +7664,7 @@ void left_arm_ctrl_obs_initialize(void)
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_2);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1);
 
-    // Start for MATLABSystem: '<S5>/MATLAB System'
+    // Start for MATLABSystem: '<S6>/MATLAB System'
     left_arm_ctrl_obs_DW.obj_jz.isInitialized = 0;
     left_arm_ctrl_obs_DW.obj_jz.isInitialized = 1;
     RigidBodyTree_RigidBodyTree_e0(&left_arm_ctrl_obs_DW.obj_jz.TreeInternal,
@@ -7650,18 +7675,18 @@ void left_arm_ctrl_obs_initialize(void)
       &left_arm_ctrl_obs_DW.gobj_12, &left_arm_ctrl_obs_DW.gobj_11);
 
     // Start for Atomic SubSystem: '<Root>/Subscribe1'
-    // Start for MATLABSystem: '<S11>/SourceBlock'
-    left_arm_ctrl_obs_DW.obj_k.matlabCodegenIsDeleted = false;
-    left_arm_ctrl_obs_DW.obj_k.isInitialized = 1;
+    // Start for MATLABSystem: '<S13>/SourceBlock'
+    left_arm_ctrl_obs_DW.obj_g.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_g.isInitialized = 1;
     for (is = 0; is < 28; is++) {
       left_arm_ctrl_obs_B.cv[is] = tmp_0[is];
     }
 
     left_arm_ctrl_obs_B.cv[28] = '\x00';
-    Sub_left_arm_ctrl_obs_321.createSubscriber(left_arm_ctrl_obs_B.cv, 1);
-    left_arm_ctrl_obs_DW.obj_k.isSetupComplete = true;
+    Sub_left_arm_ctrl_obs_318.createSubscriber(left_arm_ctrl_obs_B.cv, 1);
+    left_arm_ctrl_obs_DW.obj_g.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S11>/SourceBlock'
+    // End of Start for MATLABSystem: '<S13>/SourceBlock'
     // End of Start for SubSystem: '<Root>/Subscribe1'
     emxInitStruct_robotics_slmani_e(&left_arm_ctrl_obs_DW.obj_j);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_0_f);
@@ -7685,7 +7710,7 @@ void left_arm_ctrl_obs_initialize(void)
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_2_p);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1_o);
 
-    // Start for MATLABSystem: '<S4>/MATLAB System'
+    // Start for MATLABSystem: '<S5>/MATLAB System'
     left_arm_ctrl_obs_DW.obj_j.isInitialized = 0;
     left_arm_ctrl_obs_DW.obj_j.isInitialized = 1;
     l_RigidBodyTree_RigidBodyTree_e(&left_arm_ctrl_obs_DW.obj_j.TreeInternal,
@@ -7716,7 +7741,7 @@ void left_arm_ctrl_obs_initialize(void)
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_2_b);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1_f);
 
-    // Start for MATLABSystem: '<S3>/MATLAB System'
+    // Start for MATLABSystem: '<S4>/MATLAB System'
     left_arm_ctrl_obs_DW.obj.isInitialized = 0;
     left_arm_ctrl_obs_DW.obj.isInitialized = 1;
     lef_RigidBodyTree_RigidBodyTree(&left_arm_ctrl_obs_DW.obj.TreeInternal,
@@ -7727,7 +7752,7 @@ void left_arm_ctrl_obs_initialize(void)
       &left_arm_ctrl_obs_DW.gobj_12_m, &left_arm_ctrl_obs_DW.gobj_11_p);
 
     // Start for Atomic SubSystem: '<Root>/Publish1'
-    // Start for MATLABSystem: '<S8>/SinkBlock'
+    // Start for MATLABSystem: '<S9>/SinkBlock'
     left_arm_ctrl_obs_DW.obj_d.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_d.isInitialized = 1;
     for (is = 0; is < 19; is++) {
@@ -7738,11 +7763,11 @@ void left_arm_ctrl_obs_initialize(void)
     Pub_left_arm_ctrl_obs_304.createPublisher(left_arm_ctrl_obs_B.cv2, 1);
     left_arm_ctrl_obs_DW.obj_d.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S8>/SinkBlock'
+    // End of Start for MATLABSystem: '<S9>/SinkBlock'
     // End of Start for SubSystem: '<Root>/Publish1'
 
     // Start for Atomic SubSystem: '<Root>/Publish2'
-    // Start for MATLABSystem: '<S9>/SinkBlock'
+    // Start for MATLABSystem: '<S10>/SinkBlock'
     left_arm_ctrl_obs_DW.obj_a.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_a.isInitialized = 1;
     for (is = 0; is < 15; is++) {
@@ -7753,8 +7778,23 @@ void left_arm_ctrl_obs_initialize(void)
     Pub_left_arm_ctrl_obs_311.createPublisher(left_arm_ctrl_obs_B.cv3, 1);
     left_arm_ctrl_obs_DW.obj_a.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S9>/SinkBlock'
+    // End of Start for MATLABSystem: '<S10>/SinkBlock'
     // End of Start for SubSystem: '<Root>/Publish2'
+
+    // Start for Atomic SubSystem: '<Root>/Publish3'
+    // Start for MATLABSystem: '<S11>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_b.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_b.isInitialized = 1;
+    for (is = 0; is < 28; is++) {
+      left_arm_ctrl_obs_B.cv[is] = tmp_3[is];
+    }
+
+    left_arm_ctrl_obs_B.cv[28] = '\x00';
+    Pub_left_arm_ctrl_obs_331.createPublisher(left_arm_ctrl_obs_B.cv, 1);
+    left_arm_ctrl_obs_DW.obj_b.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S11>/SinkBlock'
+    // End of Start for SubSystem: '<Root>/Publish3'
 
     // InitializeConditions for Integrator: '<Root>/Integrator'
     memcpy(&left_arm_ctrl_obs_X.Integrator_CSTATE[0],
@@ -7783,19 +7823,19 @@ void left_arm_ctrl_obs_initialize(void)
     }
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe'
-    // SystemInitialize for Enabled SubSystem: '<S10>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S13>/Out1'
+    // SystemInitialize for Enabled SubSystem: '<S12>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S15>/Out1'
     left_arm_ctrl_obs_B.In1 = left_arm_ctrl_obs_P.Out1_Y0_a;
 
-    // End of SystemInitialize for SubSystem: '<S10>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S12>/Enabled Subsystem'
     // End of SystemInitialize for SubSystem: '<Root>/Subscribe'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe1'
-    // SystemInitialize for Enabled SubSystem: '<S11>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S14>/Out1'
-    left_arm_ctrl_obs_B.In1_h = left_arm_ctrl_obs_P.Out1_Y0;
+    // SystemInitialize for Enabled SubSystem: '<S13>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S16>/Out1'
+    left_arm_ctrl_obs_B.In1_e = left_arm_ctrl_obs_P.Out1_Y0;
 
-    // End of SystemInitialize for SubSystem: '<S11>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S13>/Enabled Subsystem'
     // End of SystemInitialize for SubSystem: '<Root>/Subscribe1'
   }
 }
@@ -7804,8 +7844,8 @@ void left_arm_ctrl_obs_initialize(void)
 void left_arm_ctrl_obs_terminate(void)
 {
   // Terminate for Atomic SubSystem: '<Root>/Subscribe'
-  // Terminate for MATLABSystem: '<S10>/SourceBlock'
-  matlabCodegenHandle_matlabCo_e0(&left_arm_ctrl_obs_DW.obj_m);
+  // Terminate for MATLABSystem: '<S12>/SourceBlock'
+  matlabCodegenHandle_matlabC_e0h(&left_arm_ctrl_obs_DW.obj_m);
 
   // End of Terminate for SubSystem: '<Root>/Subscribe'
   emxFreeStruct_robotics_slmanip_(&left_arm_ctrl_obs_DW.obj_jz);
@@ -7831,8 +7871,8 @@ void left_arm_ctrl_obs_terminate(void)
   emxFreeStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1);
 
   // Terminate for Atomic SubSystem: '<Root>/Subscribe1'
-  // Terminate for MATLABSystem: '<S11>/SourceBlock'
-  matlabCodegenHandle_matlabCo_e0(&left_arm_ctrl_obs_DW.obj_k);
+  // Terminate for MATLABSystem: '<S13>/SourceBlock'
+  matlabCodegenHandle_matlabC_e0h(&left_arm_ctrl_obs_DW.obj_g);
 
   // End of Terminate for SubSystem: '<Root>/Subscribe1'
   emxFreeStruct_robotics_slmani_e(&left_arm_ctrl_obs_DW.obj_j);
@@ -7879,16 +7919,22 @@ void left_arm_ctrl_obs_terminate(void)
   emxFreeStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1_f);
 
   // Terminate for Atomic SubSystem: '<Root>/Publish1'
-  // Terminate for MATLABSystem: '<S8>/SinkBlock'
+  // Terminate for MATLABSystem: '<S9>/SinkBlock'
   matlabCodegenHandle_matlabCodeg(&left_arm_ctrl_obs_DW.obj_d);
 
   // End of Terminate for SubSystem: '<Root>/Publish1'
 
   // Terminate for Atomic SubSystem: '<Root>/Publish2'
-  // Terminate for MATLABSystem: '<S9>/SinkBlock'
+  // Terminate for MATLABSystem: '<S10>/SinkBlock'
   matlabCodegenHandle_matlabCodeg(&left_arm_ctrl_obs_DW.obj_a);
 
   // End of Terminate for SubSystem: '<Root>/Publish2'
+
+  // Terminate for Atomic SubSystem: '<Root>/Publish3'
+  // Terminate for MATLABSystem: '<S11>/SinkBlock'
+  matlabCodegenHandle_matlabCodeg(&left_arm_ctrl_obs_DW.obj_b);
+
+  // End of Terminate for SubSystem: '<Root>/Publish3'
 }
 
 //
