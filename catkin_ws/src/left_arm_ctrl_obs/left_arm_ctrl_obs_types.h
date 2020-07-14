@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.194
+// Model version                  : 1.203
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Thu Jul  9 16:04:37 2020
+// C/C++ source code generated on : Mon Jul 13 12:03:31 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -161,6 +161,15 @@ typedef struct {
 } struct_EuvQoF9u9X0OfH8NoM43sB;
 
 #endif
+
+#ifndef typedef_robotics_slcore_internal_bloc_T
+#define typedef_robotics_slcore_internal_bloc_T
+
+typedef struct {
+  int32_T isInitialized;
+} robotics_slcore_internal_bloc_T;
+
+#endif                                 //typedef_robotics_slcore_internal_bloc_T
 
 #ifndef typedef_ros_slros_internal_block_Publ_T
 #define typedef_ros_slros_internal_block_Publ_T
@@ -379,21 +388,53 @@ typedef struct {
 #define typedef_e_cell_wrap_left_arm_ctrl_obs_T
 
 typedef struct {
-  real_T f1[36];
+  real_T f1[16];
 } e_cell_wrap_left_arm_ctrl_obs_T;
 
 #endif                                 //typedef_e_cell_wrap_left_arm_ctrl_obs_T
+
+#ifndef typedef_rigidBodyJoint_left_arm_ctr_e_T
+#define typedef_rigidBodyJoint_left_arm_ctr_e_T
+
+typedef struct {
+  emxArray_char_T_left_arm_ctrl_T *Type;
+  real_T PositionNumber;
+  real_T JointToParentTransform[16];
+  real_T ChildToJointTransform[16];
+  real_T JointAxisInternal[3];
+} rigidBodyJoint_left_arm_ctr_e_T;
+
+#endif                                 //typedef_rigidBodyJoint_left_arm_ctr_e_T
+
+#ifndef typedef_j_robotics_manip_internal_R_e_T
+#define typedef_j_robotics_manip_internal_R_e_T
+
+typedef struct {
+  emxArray_char_T_left_arm_ctrl_T *NameInternal;
+  rigidBodyJoint_left_arm_ctr_e_T JointInternal;
+  real_T ParentIndex;
+} j_robotics_manip_internal_R_e_T;
+
+#endif                                 //typedef_j_robotics_manip_internal_R_e_T
+
+#ifndef typedef_i_robotics_manip_internal_R_e_T
+#define typedef_i_robotics_manip_internal_R_e_T
+
+typedef struct {
+  emxArray_char_T_left_arm_ctrl_T *NameInternal;
+  rigidBodyJoint_left_arm_ctr_e_T JointInternal;
+} i_robotics_manip_internal_R_e_T;
+
+#endif                                 //typedef_i_robotics_manip_internal_R_e_T
 
 #ifndef typedef_k_robotics_manip_internal_R_e_T
 #define typedef_k_robotics_manip_internal_R_e_T
 
 typedef struct {
   real_T NumBodies;
-  i_robotics_manip_internal_Rig_T Base;
-  real_T Gravity[3];
-  j_robotics_manip_internal_Rig_T *Bodies[10];
-  real_T PositionDoFMap[20];
-  real_T VelocityDoFMap[20];
+  i_robotics_manip_internal_R_e_T Base;
+  j_robotics_manip_internal_R_e_T *Bodies[10];
+  real_T PositionNumber;
 } k_robotics_manip_internal_R_e_T;
 
 #endif                                 //typedef_k_robotics_manip_internal_R_e_T
@@ -408,14 +449,23 @@ typedef struct {
 
 #endif                                 //typedef_robotics_slmanip_internal_b_e_T
 
+#ifndef typedef_e_cell_wrap_left_arm_ctrl_o_e_T
+#define typedef_e_cell_wrap_left_arm_ctrl_o_e_T
+
+typedef struct {
+  real_T f1[36];
+} e_cell_wrap_left_arm_ctrl_o_e_T;
+
+#endif                                 //typedef_e_cell_wrap_left_arm_ctrl_o_e_T
+
 #ifndef typedef_k_robotics_manip_internal__e0_T
 #define typedef_k_robotics_manip_internal__e0_T
 
 typedef struct {
   real_T NumBodies;
   i_robotics_manip_internal_Rig_T Base;
+  real_T Gravity[3];
   j_robotics_manip_internal_Rig_T *Bodies[10];
-  real_T VelocityNumber;
   real_T PositionDoFMap[20];
   real_T VelocityDoFMap[20];
 } k_robotics_manip_internal__e0_T;
@@ -432,18 +482,29 @@ typedef struct {
 
 #endif                                 //typedef_robotics_slmanip_internal__e0_T
 
-#ifndef typedef_emxArray_f_cell_wrap_left_arm_T
-#define typedef_emxArray_f_cell_wrap_left_arm_T
+#ifndef typedef_k_robotics_manip_internal_e0h_T
+#define typedef_k_robotics_manip_internal_e0h_T
 
 typedef struct {
-  f_cell_wrap_left_arm_ctrl_obs_T *data;
-  int32_T *size;
-  int32_T allocatedSize;
-  int32_T numDimensions;
-  boolean_T canFreeData;
-} emxArray_f_cell_wrap_left_arm_T;
+  real_T NumBodies;
+  i_robotics_manip_internal_Rig_T Base;
+  j_robotics_manip_internal_Rig_T *Bodies[10];
+  real_T VelocityNumber;
+  real_T PositionDoFMap[20];
+  real_T VelocityDoFMap[20];
+} k_robotics_manip_internal_e0h_T;
 
-#endif                                 //typedef_emxArray_f_cell_wrap_left_arm_T
+#endif                                 //typedef_k_robotics_manip_internal_e0h_T
+
+#ifndef typedef_robotics_slmanip_internal_e0h_T
+#define typedef_robotics_slmanip_internal_e0h_T
+
+typedef struct {
+  int32_T isInitialized;
+  k_robotics_manip_internal_e0h_T TreeInternal;
+} robotics_slmanip_internal_e0h_T;
+
+#endif                                 //typedef_robotics_slmanip_internal_e0h_T
 
 #ifndef typedef_emxArray_e_cell_wrap_left_arm_T
 #define typedef_emxArray_e_cell_wrap_left_arm_T
@@ -457,6 +518,32 @@ typedef struct {
 } emxArray_e_cell_wrap_left_arm_T;
 
 #endif                                 //typedef_emxArray_e_cell_wrap_left_arm_T
+
+#ifndef typedef_emxArray_f_cell_wrap_left_arm_T
+#define typedef_emxArray_f_cell_wrap_left_arm_T
+
+typedef struct {
+  f_cell_wrap_left_arm_ctrl_obs_T *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+} emxArray_f_cell_wrap_left_arm_T;
+
+#endif                                 //typedef_emxArray_f_cell_wrap_left_arm_T
+
+#ifndef typedef_emxArray_e_cell_wrap_left_a_e_T
+#define typedef_emxArray_e_cell_wrap_left_a_e_T
+
+typedef struct {
+  e_cell_wrap_left_arm_ctrl_o_e_T *data;
+  int32_T *size;
+  int32_T allocatedSize;
+  int32_T numDimensions;
+  boolean_T canFreeData;
+} emxArray_e_cell_wrap_left_a_e_T;
+
+#endif                                 //typedef_emxArray_e_cell_wrap_left_a_e_T
 
 // Parameters (default storage)
 typedef struct P_left_arm_ctrl_obs_T_ P_left_arm_ctrl_obs_T;

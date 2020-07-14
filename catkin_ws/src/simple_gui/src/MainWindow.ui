@@ -158,6 +158,67 @@ QRadioButton::indicator{
      <enum>Qt::RichText</enum>
     </property>
    </widget>
+   <widget class="QComboBox" name="cbPredefPoses">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>190</y>
+      <width>111</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="currentIndex">
+     <number>-1</number>
+    </property>
+    <item>
+     <property name="text">
+      <string>StandBy</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>StandBy2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Take</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Take2</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Take3</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Take4</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Zero</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Predefined:</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">

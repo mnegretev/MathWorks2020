@@ -10,7 +10,7 @@ CALC_TRAJECTORY    = 10
 SENDING_TRAJECTORY = 20
 TRAJECTORY_DONE    = 30
 
-SAMPLING_FREQUENCY = 1000
+SAMPLING_FREQUENCY = 250
 
 def callback_goal_pose(msg):
     print "Received goal pose:"
@@ -90,7 +90,7 @@ def main():
                 current_state = CALC_TRAJECTORY
         elif current_state == CALC_TRAJECTORY:
             print "TrajectoryGenerator.->Calculating trajectory..."
-            trajectory = get_trajectory(current_pose, goal_pose, 0.5, 1.0/SAMPLING_FREQUENCY)
+            trajectory = get_trajectory(current_pose, goal_pose, 0.7, 1.0/SAMPLING_FREQUENCY)
             current_state = SENDING_TRAJECTORY
             current_k = 0
             print "TrajectoryGenerator.->Sending trajectory..."

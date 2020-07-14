@@ -35,6 +35,7 @@ public slots:
     void updateGraphicsReceived();
     void sbObjectMassValueChanged(double m);
     void txtGoalPoseReturnPressed();
+    void cbPredefPosesCurrentIndexChanged(int i);
     bool strToDoubleArray(std::string str, std::vector<double>& result);
     
 private:

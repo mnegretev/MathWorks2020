@@ -9,6 +9,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QObject::connect(ui->sbObjectMass, SIGNAL(valueChanged(double)), this, SLOT(sbObjectMassValueChanged(double)));
     QObject::connect(ui->txtGoalPose, SIGNAL(returnPressed()), this, SLOT(txtGoalPoseReturnPressed()));
+    QObject::connect(ui->cbPredefPoses, SIGNAL(currentIndexChanged(int)), this, SLOT(cbPredefPosesCurrentIndexChanged(int)));
 }
 
 MainWindow::~MainWindow()
@@ -76,6 +77,19 @@ void MainWindow::txtGoalPoseReturnPressed()
         this->ui->txtGoalPose->setText("Invalid format");
         return;
     }
+    qtRosNode->publishGoalPose(goal_pose);
+}
+
+void MainWindow::cbPredefPosesCurrentIndexChanged(int i)
+{
+    std::vector<double> goal_pose;
+    std::string str[7] = {"-1 0 0 1.5 0 0.9 0", "-0.5 0 0 1.2 0 0.6 0", "0.3 0 0 0.5 0 0.7 0",
+                          "0.6 0 0 0.4 0 0.6 0", "0 -0.5 0.5 1 0 1 -0.3", "0.4 -0.1 1 0.8 0 0.7 -0.4",
+                          "0 0 0 0 0 0 0"};
+    strToDoubleArray(str[i], goal_pose);
+    this->ui->txtGoalPose->setEnabled(false);
+    this->ui->txtGoalPose->setText(QString(str[i].c_str()));
+    this->ui->txtGoalPose->setEnabled(true);
     qtRosNode->publishGoalPose(goal_pose);
 }
 
