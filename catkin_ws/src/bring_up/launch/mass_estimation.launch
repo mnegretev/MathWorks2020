@@ -13,7 +13,7 @@
   <node name="left_arm"  pkg="left_arm" type="left_arm_node"  output="screen"/>
   <node name="trajectories" pkg="trajectory_gen" type="trajectory_gen.py" output="screen"/>
   <node name="simple_gui" pkg="simple_gui" type="simple_gui" output="screen"/>
-  <!--node name="la_ctrl_obs" pkg="left_arm_ctrl_obs" type="left_arm_ctrl_obs_node" output="screen"/-->
+  <node name="la_ctrl_obs" pkg="left_arm_ctrl_obs" type="left_arm_ctrl_obs_node" output="screen"/>
 
   <node name="map_server" pkg="map_server" type="map_server" output="screen"
         args="$(find config_files)/occupancy_grids/TMR_2019.yaml"/>

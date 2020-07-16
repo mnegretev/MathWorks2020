@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.203
+// Model version                  : 1.209
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Mon Jul 13 12:03:31 2020
+// C/C++ source code generated on : Tue Jul 14 14:11:04 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -9187,9 +9187,7 @@ void left_arm_ctrl_obs_step(void)
   emxArray_real_T_left_arm_ctrl_T *lambda;
   emxArray_real_T_left_arm_ctrl_T *H;
   emxArray_real_T_left_arm_ctrl_T *tmp;
-  static const real_T kp[7] = { 20.5, 1.0, 1.0, 14.5, 1.0, 10.5, 1.0 };
-
-  static const int8_T kd[7] = { 7, 1, 1, 5, 1, 5, 1 };
+  static const real_T kp[7] = { 2.5, 2.0, 1.0, 1.5, 1.0, 1.0, 1.0 };
 
   static const char_T tmp_0[19] = { 's', 'h', 'o', 'u', 'l', 'd', 'e', 'r', 's',
     '_', 'l', 'e', 'f', 't', '_', 'l', 'i', 'n', 'k' };
@@ -9621,7 +9619,7 @@ void left_arm_ctrl_obs_step(void)
 
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
        left_arm_ctrl_obs_B.i++) {
-    left_arm_ctrl_obs_B.torque[left_arm_ctrl_obs_B.i] = (static_cast<real32_T>
+    left_arm_ctrl_obs_B.vNum = (static_cast<real32_T>
       ((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i] -
         static_cast<real32_T>(left_arm_ctrl_obs_B.In1.Data[left_arm_ctrl_obs_B.i]))
        * kp[left_arm_ctrl_obs_B.i]) +
@@ -9630,7 +9628,16 @@ void left_arm_ctrl_obs_step(void)
       ((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i + 7] -
         static_cast<real32_T>
         (left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i + 7])) *
-       static_cast<real_T>(kd[left_arm_ctrl_obs_B.i]));
+       0.0);
+    if (left_arm_ctrl_obs_B.vNum > 2.0) {
+      left_arm_ctrl_obs_B.vNum = 2.0;
+    } else {
+      if (left_arm_ctrl_obs_B.vNum < -2.0) {
+        left_arm_ctrl_obs_B.vNum = -2.0;
+      }
+    }
+
+    left_arm_ctrl_obs_B.torque[left_arm_ctrl_obs_B.i] = left_arm_ctrl_obs_B.vNum;
   }
 
   // End of MATLAB Function: '<Root>/MATLAB Function1'
@@ -10002,7 +10009,7 @@ void left_arm_ctrl_obs_step(void)
     (left_arm_ctrl_obs_B.vel);
   if (fabs(-left_arm_ctrl_obs_B.CoordinateTransformationConvers[0] -
            1.5707963267948966) > 0.2) {
-    if (left_arm_ctrl_obs_B.vel < 0.05) {
+    if (left_arm_ctrl_obs_B.vel < 0.5) {
       // SignalConversion generated from: '<S15>/ SFunction '
       left_arm_ctrl_obs_B.qe[0] = left_arm_ctrl_obs_B.vNum;
       left_arm_ctrl_obs_B.qe[1] = left_arm_ctrl_obs_B.bid1;
