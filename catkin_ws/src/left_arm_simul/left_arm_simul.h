@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.97
+// Model version                  : 1.102
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Thu Jul  9 09:26:25 2020
+// C/C++ source code generated on : Thu Jul 16 14:56:05 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -151,18 +151,18 @@
 
 // Block signals (default storage)
 typedef struct {
-  SL_Bus_left_arm_simul_std_msgs_Float64MultiArray In1;// '<S52>/In1'
-  SL_Bus_left_arm_simul_std_msgs_Float64MultiArray BusAssignment1;// '<Root>/Bus Assignment1' 
+  SL_Bus_left_arm_simul_std_msgs_Float64MultiArray In1;// '<S54>/In1'
+  SL_Bus_left_arm_simul_std_msgs_Float64MultiArray BusAssignment1;// '<S2>/Bus Assignment1' 
   SL_Bus_left_arm_simul_std_msgs_Float64MultiArray b_varargout_2;
   SL_Bus_left_arm_simul_std_msgs_MultiArrayDimension b_varargout_2_Layout_Dim[16];
-  SL_Bus_left_arm_simul_sensor_msgs_JointState js;// '<Root>/MATLAB Function1'
+  SL_Bus_left_arm_simul_sensor_msgs_JointState js;// '<S2>/MATLAB Function1'
   real_T dv[46];
   real_T dv1[32];
   real_T dv2[32];
   real_T dv3[32];
   real_T dv4[32];
   real_T dv5[32];
-  real_T STATE_1[14];                  // '<S51>/STATE_1'
+  real_T STATE_1[14];                  // '<S47>/STATE_1'
   real_T b_varargout_2_Data[7];
   NeParameterBundle expl_temp;
   NeModelParameters modelParameters;
@@ -173,15 +173,15 @@ typedef struct {
   int_T iv3[9];
   int_T iv4[9];
   int_T iv5[9];
-  real_T INPUT_8_1_1[4];               // '<S51>/INPUT_8_1_1'
-  real_T INPUT_1_1_1[4];               // '<S51>/INPUT_1_1_1'
-  real_T INPUT_2_1_1[4];               // '<S51>/INPUT_2_1_1'
-  real_T INPUT_3_1_1[4];               // '<S51>/INPUT_3_1_1'
-  real_T INPUT_4_1_1[4];               // '<S51>/INPUT_4_1_1'
-  real_T INPUT_5_1_1[4];               // '<S51>/INPUT_5_1_1'
-  real_T INPUT_6_1_1[4];               // '<S51>/INPUT_6_1_1'
-  real_T INPUT_7_1_1[4];               // '<S51>/INPUT_7_1_1'
-  real_T OUTPUT_1_0[7];                // '<S51>/OUTPUT_1_0'
+  real_T INPUT_8_1_1[4];               // '<S47>/INPUT_8_1_1'
+  real_T INPUT_1_1_1[4];               // '<S47>/INPUT_1_1_1'
+  real_T INPUT_2_1_1[4];               // '<S47>/INPUT_2_1_1'
+  real_T INPUT_3_1_1[4];               // '<S47>/INPUT_3_1_1'
+  real_T INPUT_4_1_1[4];               // '<S47>/INPUT_4_1_1'
+  real_T INPUT_5_1_1[4];               // '<S47>/INPUT_5_1_1'
+  real_T INPUT_6_1_1[4];               // '<S47>/INPUT_6_1_1'
+  real_T INPUT_7_1_1[4];               // '<S47>/INPUT_7_1_1'
+  real_T OUTPUT_1_0[7];                // '<S47>/OUTPUT_1_0'
   char_T cv[26];
   char_T cv1[22];
   char_T cv2[20];
@@ -192,57 +192,57 @@ typedef struct {
   real_T time_tmp;
   real_T d;
   real_T time_c;
-  SL_Bus_left_arm_simul_std_msgs_Float64 In1_j;// '<S53>/In1'
+  SL_Bus_left_arm_simul_std_msgs_Float64 In1_j;// '<S55>/In1'
   SL_Bus_left_arm_simul_std_msgs_Float64 b_varargout_2_b;
 } B_left_arm_simul_T;
 
 // Block states (default storage) for system '<Root>'
 typedef struct {
-  ros_slros_internal_block_Curr_T obj; // '<Root>/Current Time'
-  ros_slros_internal_block_Publ_T obj_a;// '<S13>/SinkBlock'
-  ros_slros_internal_block_Publ_T obj_ag;// '<S12>/SinkBlock'
-  ros_slros_internal_block_Subs_T obj_k;// '<S24>/SourceBlock'
-  ros_slros_internal_block_Subs_T obj_f;// '<S23>/SourceBlock'
-  real_T INPUT_8_1_1_Discrete[2];      // '<S51>/INPUT_8_1_1'
-  real_T INPUT_1_1_1_Discrete[2];      // '<S51>/INPUT_1_1_1'
-  real_T INPUT_2_1_1_Discrete[2];      // '<S51>/INPUT_2_1_1'
-  real_T INPUT_3_1_1_Discrete[2];      // '<S51>/INPUT_3_1_1'
-  real_T INPUT_4_1_1_Discrete[2];      // '<S51>/INPUT_4_1_1'
-  real_T INPUT_5_1_1_Discrete[2];      // '<S51>/INPUT_5_1_1'
-  real_T INPUT_6_1_1_Discrete[2];      // '<S51>/INPUT_6_1_1'
-  real_T INPUT_7_1_1_Discrete[2];      // '<S51>/INPUT_7_1_1'
-  real_T STATE_1_Discrete;             // '<S51>/STATE_1'
-  real_T OUTPUT_1_0_Discrete;          // '<S51>/OUTPUT_1_0'
-  real_T RateTransition1_Buffer[7];    // '<Root>/Rate Transition1'
-  void* STATE_1_Simulator;             // '<S51>/STATE_1'
-  void* STATE_1_SimData;               // '<S51>/STATE_1'
-  void* STATE_1_DiagMgr;               // '<S51>/STATE_1'
-  void* STATE_1_ZcLogger;              // '<S51>/STATE_1'
-  void* STATE_1_TsIndex;               // '<S51>/STATE_1'
-  void* OUTPUT_1_0_Simulator;          // '<S51>/OUTPUT_1_0'
-  void* OUTPUT_1_0_SimData;            // '<S51>/OUTPUT_1_0'
-  void* OUTPUT_1_0_DiagMgr;            // '<S51>/OUTPUT_1_0'
-  void* OUTPUT_1_0_ZcLogger;           // '<S51>/OUTPUT_1_0'
-  void* OUTPUT_1_0_TsIndex;            // '<S51>/OUTPUT_1_0'
-  int_T STATE_1_Modes;                 // '<S51>/STATE_1'
-  int_T OUTPUT_1_0_Modes;              // '<S51>/OUTPUT_1_0'
-  boolean_T STATE_1_FirstOutput;       // '<S51>/STATE_1'
-  boolean_T OUTPUT_1_0_FirstOutput;    // '<S51>/OUTPUT_1_0'
+  ros_slros_internal_block_Curr_T obj; // '<S2>/Current Time'
+  ros_slros_internal_block_Publ_T obj_a;// '<S53>/SinkBlock'
+  ros_slros_internal_block_Publ_T obj_ag;// '<S52>/SinkBlock'
+  ros_slros_internal_block_Subs_T obj_k;// '<S4>/SourceBlock'
+  ros_slros_internal_block_Subs_T obj_f;// '<S3>/SourceBlock'
+  real_T INPUT_8_1_1_Discrete[2];      // '<S47>/INPUT_8_1_1'
+  real_T INPUT_1_1_1_Discrete[2];      // '<S47>/INPUT_1_1_1'
+  real_T INPUT_2_1_1_Discrete[2];      // '<S47>/INPUT_2_1_1'
+  real_T INPUT_3_1_1_Discrete[2];      // '<S47>/INPUT_3_1_1'
+  real_T INPUT_4_1_1_Discrete[2];      // '<S47>/INPUT_4_1_1'
+  real_T INPUT_5_1_1_Discrete[2];      // '<S47>/INPUT_5_1_1'
+  real_T INPUT_6_1_1_Discrete[2];      // '<S47>/INPUT_6_1_1'
+  real_T INPUT_7_1_1_Discrete[2];      // '<S47>/INPUT_7_1_1'
+  real_T STATE_1_Discrete;             // '<S47>/STATE_1'
+  real_T OUTPUT_1_0_Discrete;          // '<S47>/OUTPUT_1_0'
+  real_T RateTransition1_Buffer[7];    // '<S2>/Rate Transition1'
+  void* STATE_1_Simulator;             // '<S47>/STATE_1'
+  void* STATE_1_SimData;               // '<S47>/STATE_1'
+  void* STATE_1_DiagMgr;               // '<S47>/STATE_1'
+  void* STATE_1_ZcLogger;              // '<S47>/STATE_1'
+  void* STATE_1_TsIndex;               // '<S47>/STATE_1'
+  void* OUTPUT_1_0_Simulator;          // '<S47>/OUTPUT_1_0'
+  void* OUTPUT_1_0_SimData;            // '<S47>/OUTPUT_1_0'
+  void* OUTPUT_1_0_DiagMgr;            // '<S47>/OUTPUT_1_0'
+  void* OUTPUT_1_0_ZcLogger;           // '<S47>/OUTPUT_1_0'
+  void* OUTPUT_1_0_TsIndex;            // '<S47>/OUTPUT_1_0'
+  int_T STATE_1_Modes;                 // '<S47>/STATE_1'
+  int_T OUTPUT_1_0_Modes;              // '<S47>/OUTPUT_1_0'
+  boolean_T STATE_1_FirstOutput;       // '<S47>/STATE_1'
+  boolean_T OUTPUT_1_0_FirstOutput;    // '<S47>/OUTPUT_1_0'
 } DW_left_arm_simul_T;
 
 // Continuous states (default storage)
 typedef struct {
-  real_T left_arm_simulla_1_jointRzq[14];// '<S51>/STATE_1'
+  real_T left_arm_simulManipulatorla_1_j[14];// '<S47>/STATE_1'
 } X_left_arm_simul_T;
 
 // State derivatives (default storage)
 typedef struct {
-  real_T left_arm_simulla_1_jointRzq[14];// '<S51>/STATE_1'
+  real_T left_arm_simulManipulatorla_1_j[14];// '<S47>/STATE_1'
 } XDot_left_arm_simul_T;
 
 // State disabled
 typedef struct {
-  boolean_T left_arm_simulla_1_jointRzq[14];// '<S51>/STATE_1'
+  boolean_T left_arm_simulManipulatorla_1_j[14];// '<S47>/STATE_1'
 } XDis_left_arm_simul_T;
 
 #ifndef ODE5_INTG
@@ -259,28 +259,28 @@ typedef struct {
 // Parameters (default storage)
 struct P_left_arm_simul_T_ {
   SL_Bus_left_arm_simul_std_msgs_Float64MultiArray Out1_Y0;// Computed Parameter: Out1_Y0
-                                                              //  Referenced by: '<S52>/Out1'
+                                                              //  Referenced by: '<S54>/Out1'
 
   SL_Bus_left_arm_simul_std_msgs_Float64MultiArray Constant_Value;// Computed Parameter: Constant_Value
-                                                                     //  Referenced by: '<S23>/Constant'
+                                                                     //  Referenced by: '<S3>/Constant'
 
   SL_Bus_left_arm_simul_std_msgs_Float64MultiArray Constant_Value_m;// Computed Parameter: Constant_Value_m
-                                                                      //  Referenced by: '<S1>/Constant'
+                                                                      //  Referenced by: '<S48>/Constant'
 
   SL_Bus_left_arm_simul_sensor_msgs_JointState Constant_Value_b;// Computed Parameter: Constant_Value_b
-                                                                   //  Referenced by: '<S3>/Constant'
+                                                                   //  Referenced by: '<S50>/Constant'
 
   SL_Bus_left_arm_simul_std_msgs_String Constant_Value_bz;// Computed Parameter: Constant_Value_bz
-                                                             //  Referenced by: '<S2>/Constant'
+                                                             //  Referenced by: '<S49>/Constant'
 
   SL_Bus_left_arm_simul_std_msgs_Float64 Out1_Y0_h;// Computed Parameter: Out1_Y0_h
-                                                      //  Referenced by: '<S53>/Out1'
+                                                      //  Referenced by: '<S55>/Out1'
 
   SL_Bus_left_arm_simul_std_msgs_Float64 Constant_Value_m3;// Computed Parameter: Constant_Value_m3
-                                                              //  Referenced by: '<S24>/Constant'
+                                                              //  Referenced by: '<S4>/Constant'
 
   uint32_T Constant_Value_mx;          // Computed Parameter: Constant_Value_mx
-                                          //  Referenced by: '<Root>/Constant'
+                                          //  Referenced by: '<S2>/Constant'
 
 };
 
@@ -399,7 +399,7 @@ extern "C" {
 //-
 //  These blocks were eliminated from the model due to optimizations:
 //
-//  Block '<Root>/Rate Transition2' : Eliminated since input and output rates are identical
+//  Block '<S2>/Rate Transition2' : Eliminated since input and output rates are identical
 
 
 //-
@@ -417,59 +417,61 @@ extern "C" {
 //  Here is the system hierarchy for this model
 //
 //  '<Root>' : 'left_arm_simul'
-//  '<S1>'   : 'left_arm_simul/Blank Message1'
-//  '<S2>'   : 'left_arm_simul/Blank Message2'
-//  '<S3>'   : 'left_arm_simul/Blank Message3'
-//  '<S4>'   : 'left_arm_simul/MATLAB Function1'
-//  '<S5>'   : 'left_arm_simul/PS-Simulink Converter'
-//  '<S6>'   : 'left_arm_simul/PS-Simulink Converter1'
-//  '<S7>'   : 'left_arm_simul/PS-Simulink Converter2'
-//  '<S8>'   : 'left_arm_simul/PS-Simulink Converter3'
-//  '<S9>'   : 'left_arm_simul/PS-Simulink Converter4'
-//  '<S10>'  : 'left_arm_simul/PS-Simulink Converter5'
-//  '<S11>'  : 'left_arm_simul/PS-Simulink Converter6'
-//  '<S12>'  : 'left_arm_simul/Publish1'
-//  '<S13>'  : 'left_arm_simul/Publish2'
-//  '<S14>'  : 'left_arm_simul/Simulink-PS Converter'
-//  '<S15>'  : 'left_arm_simul/Simulink-PS Converter1'
-//  '<S16>'  : 'left_arm_simul/Simulink-PS Converter2'
-//  '<S17>'  : 'left_arm_simul/Simulink-PS Converter3'
-//  '<S18>'  : 'left_arm_simul/Simulink-PS Converter4'
-//  '<S19>'  : 'left_arm_simul/Simulink-PS Converter5'
-//  '<S20>'  : 'left_arm_simul/Simulink-PS Converter6'
-//  '<S21>'  : 'left_arm_simul/Simulink-PS Converter7'
-//  '<S22>'  : 'left_arm_simul/Solver Configuration'
-//  '<S23>'  : 'left_arm_simul/Subscribe'
-//  '<S24>'  : 'left_arm_simul/Subscribe1'
-//  '<S25>'  : 'left_arm_simul/left_arm_grip_center'
-//  '<S26>'  : 'left_arm_simul/left_arm_grip_left'
-//  '<S27>'  : 'left_arm_simul/left_arm_grip_right'
-//  '<S28>'  : 'left_arm_simul/left_arm_link1'
-//  '<S29>'  : 'left_arm_simul/left_arm_link2'
-//  '<S30>'  : 'left_arm_simul/left_arm_link3'
-//  '<S31>'  : 'left_arm_simul/left_arm_link4'
-//  '<S32>'  : 'left_arm_simul/left_arm_link5'
-//  '<S33>'  : 'left_arm_simul/left_arm_link6'
-//  '<S34>'  : 'left_arm_simul/left_arm_link7'
-//  '<S35>'  : 'left_arm_simul/shoulders_left_link'
-//  '<S36>'  : 'left_arm_simul/PS-Simulink Converter/EVAL_KEY'
-//  '<S37>'  : 'left_arm_simul/PS-Simulink Converter1/EVAL_KEY'
-//  '<S38>'  : 'left_arm_simul/PS-Simulink Converter2/EVAL_KEY'
-//  '<S39>'  : 'left_arm_simul/PS-Simulink Converter3/EVAL_KEY'
-//  '<S40>'  : 'left_arm_simul/PS-Simulink Converter4/EVAL_KEY'
-//  '<S41>'  : 'left_arm_simul/PS-Simulink Converter5/EVAL_KEY'
-//  '<S42>'  : 'left_arm_simul/PS-Simulink Converter6/EVAL_KEY'
-//  '<S43>'  : 'left_arm_simul/Simulink-PS Converter/EVAL_KEY'
-//  '<S44>'  : 'left_arm_simul/Simulink-PS Converter1/EVAL_KEY'
-//  '<S45>'  : 'left_arm_simul/Simulink-PS Converter2/EVAL_KEY'
-//  '<S46>'  : 'left_arm_simul/Simulink-PS Converter3/EVAL_KEY'
-//  '<S47>'  : 'left_arm_simul/Simulink-PS Converter4/EVAL_KEY'
-//  '<S48>'  : 'left_arm_simul/Simulink-PS Converter5/EVAL_KEY'
-//  '<S49>'  : 'left_arm_simul/Simulink-PS Converter6/EVAL_KEY'
-//  '<S50>'  : 'left_arm_simul/Simulink-PS Converter7/EVAL_KEY'
-//  '<S51>'  : 'left_arm_simul/Solver Configuration/EVAL_KEY'
-//  '<S52>'  : 'left_arm_simul/Subscribe/Enabled Subsystem'
-//  '<S53>'  : 'left_arm_simul/Subscribe1/Enabled Subsystem'
+//  '<S1>'   : 'left_arm_simul/Manipulator'
+//  '<S2>'   : 'left_arm_simul/ROS Publishers'
+//  '<S3>'   : 'left_arm_simul/Subscribe'
+//  '<S4>'   : 'left_arm_simul/Subscribe1'
+//  '<S5>'   : 'left_arm_simul/Manipulator/PS-Simulink Converter'
+//  '<S6>'   : 'left_arm_simul/Manipulator/PS-Simulink Converter1'
+//  '<S7>'   : 'left_arm_simul/Manipulator/PS-Simulink Converter2'
+//  '<S8>'   : 'left_arm_simul/Manipulator/PS-Simulink Converter3'
+//  '<S9>'   : 'left_arm_simul/Manipulator/PS-Simulink Converter4'
+//  '<S10>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter5'
+//  '<S11>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter6'
+//  '<S12>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter'
+//  '<S13>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter1'
+//  '<S14>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter2'
+//  '<S15>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter3'
+//  '<S16>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter4'
+//  '<S17>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter5'
+//  '<S18>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter6'
+//  '<S19>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter7'
+//  '<S20>'  : 'left_arm_simul/Manipulator/Solver Configuration'
+//  '<S21>'  : 'left_arm_simul/Manipulator/left_arm_grip_center'
+//  '<S22>'  : 'left_arm_simul/Manipulator/left_arm_grip_left'
+//  '<S23>'  : 'left_arm_simul/Manipulator/left_arm_grip_right'
+//  '<S24>'  : 'left_arm_simul/Manipulator/left_arm_link1'
+//  '<S25>'  : 'left_arm_simul/Manipulator/left_arm_link2'
+//  '<S26>'  : 'left_arm_simul/Manipulator/left_arm_link3'
+//  '<S27>'  : 'left_arm_simul/Manipulator/left_arm_link4'
+//  '<S28>'  : 'left_arm_simul/Manipulator/left_arm_link5'
+//  '<S29>'  : 'left_arm_simul/Manipulator/left_arm_link6'
+//  '<S30>'  : 'left_arm_simul/Manipulator/left_arm_link7'
+//  '<S31>'  : 'left_arm_simul/Manipulator/shoulders_left_link'
+//  '<S32>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter/EVAL_KEY'
+//  '<S33>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter1/EVAL_KEY'
+//  '<S34>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter2/EVAL_KEY'
+//  '<S35>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter3/EVAL_KEY'
+//  '<S36>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter4/EVAL_KEY'
+//  '<S37>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter5/EVAL_KEY'
+//  '<S38>'  : 'left_arm_simul/Manipulator/PS-Simulink Converter6/EVAL_KEY'
+//  '<S39>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter/EVAL_KEY'
+//  '<S40>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter1/EVAL_KEY'
+//  '<S41>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter2/EVAL_KEY'
+//  '<S42>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter3/EVAL_KEY'
+//  '<S43>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter4/EVAL_KEY'
+//  '<S44>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter5/EVAL_KEY'
+//  '<S45>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter6/EVAL_KEY'
+//  '<S46>'  : 'left_arm_simul/Manipulator/Simulink-PS Converter7/EVAL_KEY'
+//  '<S47>'  : 'left_arm_simul/Manipulator/Solver Configuration/EVAL_KEY'
+//  '<S48>'  : 'left_arm_simul/ROS Publishers/Blank Message1'
+//  '<S49>'  : 'left_arm_simul/ROS Publishers/Blank Message2'
+//  '<S50>'  : 'left_arm_simul/ROS Publishers/Blank Message3'
+//  '<S51>'  : 'left_arm_simul/ROS Publishers/MATLAB Function1'
+//  '<S52>'  : 'left_arm_simul/ROS Publishers/Publish1'
+//  '<S53>'  : 'left_arm_simul/ROS Publishers/Publish2'
+//  '<S54>'  : 'left_arm_simul/Subscribe/Enabled Subsystem'
+//  '<S55>'  : 'left_arm_simul/Subscribe1/Enabled Subsystem'
 
 #endif                                 // RTW_HEADER_left_arm_simul_h_
 

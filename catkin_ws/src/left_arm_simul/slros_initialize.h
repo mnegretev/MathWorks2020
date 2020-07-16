@@ -14,10 +14,10 @@ extern SimulinkSubscriber<std_msgs::Float64MultiArray, SL_Bus_left_arm_simul_std
 // For Block left_arm_simul/Subscribe1
 extern SimulinkSubscriber<std_msgs::Float64, SL_Bus_left_arm_simul_std_msgs_Float64> Sub_left_arm_simul_272;
 
-// For Block left_arm_simul/Publish1
+// For Block left_arm_simul/ROS Publishers/Publish1
 extern SimulinkPublisher<std_msgs::Float64MultiArray, SL_Bus_left_arm_simul_std_msgs_Float64MultiArray> Pub_left_arm_simul_163;
 
-// For Block left_arm_simul/Publish2
+// For Block left_arm_simul/ROS Publishers/Publish2
 extern SimulinkPublisher<sensor_msgs::JointState, SL_Bus_left_arm_simul_sensor_msgs_JointState> Pub_left_arm_simul_191;
 
 void slros_node_init(int argc, char** argv);

@@ -1,5 +1,5 @@
 /* Simscape target specific file.
- * This file is generated for the Simscape network associated with the solver block 'left_arm_simul/Solver Configuration'.
+ * This file is generated for the Simscape network associated with the solver block 'left_arm_simul/Manipulator/Solver Configuration'.
  */
 
 #ifdef MATLAB_MEX_FILE
@@ -15,7 +15,7 @@
 void left_arm_simul_e2442d81_1_gateway(void)
 {
   NeModelParameters modelparams = { (NeSolverType) 1, 0.001, 0, 0.004, 0, 0, 0,
-    0, (SscLoggingSetting) 0, 516186901, };
+    0, (SscLoggingSetting) 0, 516810702, };
 
   NeSolverParameters solverparams = { 0, 0, 1, 0, 0, 0.001, 1e-06, 1e-09, 0, 0,
     100, 0, 1, 0, 1e-09, 0, (NeLocalSolverChoice) 0, 0.001, 0, 3, 2,
@@ -37,7 +37,8 @@ void left_arm_simul_e2442d81_1_gateway(void)
   left_arm_simul_e2442d81_1_dae(&dae,
     &modelparams,
     &solverparams);
-  nesl_register_simulator_group("left_arm_simul/Solver Configuration_1",
+  nesl_register_simulator_group(
+    "left_arm_simul/Manipulator/Solver Configuration_1",
     1,
     &dae,
     &solverparams,

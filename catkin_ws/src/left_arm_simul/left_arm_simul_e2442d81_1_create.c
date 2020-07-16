@@ -1,5 +1,5 @@
 /* Simscape target specific file.
- * This file is generated for the Simscape network associated with the solver block 'left_arm_simul/Solver Configuration'.
+ * This file is generated for the Simscape network associated with the solver block 'left_arm_simul/Manipulator/Solver Configuration'.
  */
 
 #include "pm_std.h"
@@ -669,17 +669,7 @@ static
   };
 
   const CTarget targets[14] = {
-    { 0, 26, 0, false, 0, 2, "deg", false, true, +1.000000000000000000e+00, true,
-      1, { +0.000000000000000000e+00, +0.000000000000000000e+00,
-        +0.000000000000000000e+00, +0.000000000000000000e+00 }, { +
-        0.000000000000000000e+00 } },
-
-    { 0, 26, 0, false, 0, 0, "1", true, true, +1.000000000000000000e+00, true, 1,
-      { +0.000000000000000000e+00, +0.000000000000000000e+00,
-        +0.000000000000000000e+00, +0.000000000000000000e+00 }, { +
-        0.000000000000000000e+00 } },
-
-    { 0, 27, 0, false, 0, 0, "1", false, true, +1.000000000000000000e+00, true,
+    { 0, 27, 0, false, 0, 2, "deg", false, true, +1.000000000000000000e+00, true,
       1, { +0.000000000000000000e+00, +0.000000000000000000e+00,
         +0.000000000000000000e+00, +0.000000000000000000e+00 }, { +
         0.000000000000000000e+00 } },
@@ -735,6 +725,16 @@ static
         0.000000000000000000e+00 } },
 
     { 0, 32, 0, false, 0, 0, "1", true, true, +1.000000000000000000e+00, true, 1,
+      { +0.000000000000000000e+00, +0.000000000000000000e+00,
+        +0.000000000000000000e+00, +0.000000000000000000e+00 }, { +
+        0.000000000000000000e+00 } },
+
+    { 0, 33, 0, false, 0, 0, "1", false, true, +1.000000000000000000e+00, true,
+      1, { +0.000000000000000000e+00, +0.000000000000000000e+00,
+        +0.000000000000000000e+00, +0.000000000000000000e+00 }, { +
+        0.000000000000000000e+00 } },
+
+    { 0, 33, 0, false, 0, 0, "1", true, true, +1.000000000000000000e+00, true, 1,
       { +0.000000000000000000e+00, +0.000000000000000000e+00,
         +0.000000000000000000e+00, +0.000000000000000000e+00 }, { +
         0.000000000000000000e+00 } }
@@ -853,37 +853,37 @@ static
   void initVariables(NeDaePrivateData *smData)
 {
   const char *varFullPaths[14] = {
-    "la_1_joint.Rz.q",
-    "la_1_joint.Rz.w",
-    "la_2_joint.Rz.q",
-    "la_2_joint.Rz.w",
-    "la_3_joint.Rz.q",
-    "la_3_joint.Rz.w",
-    "la_4_joint.Rz.q",
-    "la_4_joint.Rz.w",
-    "la_5_joint.Rz.q",
-    "la_5_joint.Rz.w",
-    "la_6_joint.Rz.q",
-    "la_6_joint.Rz.w",
-    "la_7_joint.Rz.q",
-    "la_7_joint.Rz.w"
+    "Manipulator.la_1_joint.Rz.q",
+    "Manipulator.la_1_joint.Rz.w",
+    "Manipulator.la_2_joint.Rz.q",
+    "Manipulator.la_2_joint.Rz.w",
+    "Manipulator.la_3_joint.Rz.q",
+    "Manipulator.la_3_joint.Rz.w",
+    "Manipulator.la_4_joint.Rz.q",
+    "Manipulator.la_4_joint.Rz.w",
+    "Manipulator.la_5_joint.Rz.q",
+    "Manipulator.la_5_joint.Rz.w",
+    "Manipulator.la_6_joint.Rz.q",
+    "Manipulator.la_6_joint.Rz.w",
+    "Manipulator.la_7_joint.Rz.q",
+    "Manipulator.la_7_joint.Rz.w"
   };
 
   const char *varObjects[14] = {
-    "left_arm_simul/la_1_joint",
-    "left_arm_simul/la_1_joint",
-    "left_arm_simul/la_2_joint",
-    "left_arm_simul/la_2_joint",
-    "left_arm_simul/la_3_joint",
-    "left_arm_simul/la_3_joint",
-    "left_arm_simul/la_4_joint",
-    "left_arm_simul/la_4_joint",
-    "left_arm_simul/la_5_joint",
-    "left_arm_simul/la_5_joint",
-    "left_arm_simul/la_6_joint",
-    "left_arm_simul/la_6_joint",
-    "left_arm_simul/la_7_joint",
-    "left_arm_simul/la_7_joint"
+    "left_arm_simul/Manipulator/la_1_joint",
+    "left_arm_simul/Manipulator/la_1_joint",
+    "left_arm_simul/Manipulator/la_2_joint",
+    "left_arm_simul/Manipulator/la_2_joint",
+    "left_arm_simul/Manipulator/la_3_joint",
+    "left_arm_simul/Manipulator/la_3_joint",
+    "left_arm_simul/Manipulator/la_4_joint",
+    "left_arm_simul/Manipulator/la_4_joint",
+    "left_arm_simul/Manipulator/la_5_joint",
+    "left_arm_simul/Manipulator/la_5_joint",
+    "left_arm_simul/Manipulator/la_6_joint",
+    "left_arm_simul/Manipulator/la_6_joint",
+    "left_arm_simul/Manipulator/la_7_joint",
+    "left_arm_simul/Manipulator/la_7_joint"
   };
 
   smData->mNumVarScalars = 14;
@@ -996,14 +996,14 @@ static
   void initIoInfo(NeDaePrivateData *smData)
 {
   const char *inputPortPaths[8] = {
-    "Variable_Brick_Solid.mi",
-    "la_1_joint.ti",
-    "la_2_joint.ti",
-    "la_3_joint.ti",
-    "la_4_joint.ti",
-    "la_5_joint.ti",
-    "la_6_joint.ti",
-    "la_7_joint.ti"
+    "Manipulator.Variable_Brick_Solid.mi",
+    "Manipulator.la_1_joint.ti",
+    "Manipulator.la_2_joint.ti",
+    "Manipulator.la_3_joint.ti",
+    "Manipulator.la_4_joint.ti",
+    "Manipulator.la_5_joint.ti",
+    "Manipulator.la_6_joint.ti",
+    "Manipulator.la_7_joint.ti"
   };
 
   const char *inputUnits[8] = {
@@ -1024,13 +1024,13 @@ static
   };
 
   const char *outputPortPaths[7] = {
-    "la_1_joint.q",
-    "la_2_joint.q",
-    "la_3_joint.q",
-    "la_4_joint.q",
-    "la_5_joint.q",
-    "la_6_joint.q",
-    "la_7_joint.q"
+    "Manipulator.la_1_joint.q",
+    "Manipulator.la_2_joint.q",
+    "Manipulator.la_3_joint.q",
+    "Manipulator.la_4_joint.q",
+    "Manipulator.la_5_joint.q",
+    "Manipulator.la_6_joint.q",
+    "Manipulator.la_7_joint.q"
   };
 
   const char *outputUnits[7] = {
@@ -1152,9 +1152,9 @@ static
 {
   SmMechanismDelegateScratchpad *scratchpad = NULL;
   const SmSizePair jointToStageIdx[10] = {
-    { 26, 0 }, { 27, 1 }, { 28, 2 }, { 29, 3 }, { 30, 4 }, { 31, 5 },
+    { 27, 0 }, { 28, 1 }, { 29, 2 }, { 30, 3 }, { 31, 4 }, { 32, 5 },
 
-    { 32, 6 }, { 33, 7 }, { 34, 8 }, { 35, 9 }
+    { 33, 6 }, { 34, 7 }, { 35, 8 }, { 36, 9 }
   };
 
   const size_t primitiveIndices[10 + 1] = {
@@ -1348,9 +1348,9 @@ static
 {
   SmMechanismDelegateScratchpad *scratchpad = NULL;
   const SmSizePair jointToStageIdx[10] = {
-    { 26, 0 }, { 27, 1 }, { 28, 2 }, { 29, 3 }, { 30, 4 }, { 31, 5 },
+    { 27, 0 }, { 28, 1 }, { 29, 2 }, { 30, 3 }, { 31, 4 }, { 32, 5 },
 
-    { 32, 6 }, { 33, 7 }, { 34, 8 }, { 35, 9 }
+    { 33, 6 }, { 34, 7 }, { 35, 8 }, { 36, 9 }
   };
 
   const size_t primitiveIndices[10 + 1] = {

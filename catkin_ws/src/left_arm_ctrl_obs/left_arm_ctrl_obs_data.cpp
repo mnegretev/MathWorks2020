@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.209
+// Model version                  : 1.216
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Tue Jul 14 14:11:04 2020
+// C/C++ source code generated on : Thu Jul 16 14:58:01 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -22,7 +22,7 @@
 // Block parameters (default storage)
 P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S17>/Out1'
+  //  Referenced by: '<S23>/Out1'
 
   {
     {
@@ -338,7 +338,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value
-  //  Referenced by: '<S14>/Constant'
+  //  Referenced by: '<S21>/Constant'
 
   {
     {
@@ -654,7 +654,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Out1_Y0_a
-  //  Referenced by: '<S16>/Out1'
+  //  Referenced by: '<S22>/Out1'
 
   {
     {
@@ -969,7 +969,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value_o
-  //  Referenced by: '<S13>/Constant'
+  //  Referenced by: '<S20>/Constant'
 
   {
     {
@@ -1284,7 +1284,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value_i
-  //  Referenced by: '<S3>/Constant'
+  //  Referenced by: '<S16>/Constant'
 
   {
     {
@@ -1599,7 +1599,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value_e
-  //  Referenced by: '<S1>/Constant'
+  //  Referenced by: '<S14>/Constant'
 
   {
     {
@@ -1914,14 +1914,14 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value_k
-  //  Referenced by: '<S2>/Constant'
+  //  Referenced by: '<S15>/Constant'
 
   {
     0.0                                // Data
   },
 
   // Expression: zeros(6,10)
-  //  Referenced by: '<Root>/Constant2'
+  //  Referenced by: '<S8>/Constant2'
 
   { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -1929,94 +1929,94 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 
   // Expression: [0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-  //  Referenced by: '<Root>/Integrator'
+  //  Referenced by: '<S8>/Integrator'
 
   { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 
   // Computed Parameter: LowPassz1_A
-  //  Referenced by: '<Root>/Low Pass (z1)'
+  //  Referenced by: '<S1>/Low Pass (z1)'
 
   { -32.360679775, -523.60679774999994, -5236.0679774998, -32360.6797749979,
     -100000.0 },
 
   // Computed Parameter: LowPassz1_C
-  //  Referenced by: '<Root>/Low Pass (z1)'
+  //  Referenced by: '<S1>/Low Pass (z1)'
 
   { 0.0, 0.0, 0.0, 0.0, 100000.0 },
 
   // Computed Parameter: LowPassz2_A
-  //  Referenced by: '<Root>/Low Pass (z2)'
+  //  Referenced by: '<S1>/Low Pass (z2)'
 
   { -32.360679775, -523.60679774999994, -5236.0679774998, -32360.6797749979,
     -100000.0 },
 
   // Computed Parameter: LowPassz2_C
-  //  Referenced by: '<Root>/Low Pass (z2)'
+  //  Referenced by: '<S1>/Low Pass (z2)'
 
   { 0.0, 0.0, 0.0, 0.0, 100000.0 },
 
   // Computed Parameter: LowPassz21_A
-  //  Referenced by: '<Root>/Low Pass (z2)1'
+  //  Referenced by: '<S1>/Low Pass (z2)1'
 
   { -32.360679775, -523.60679774999994, -5236.0679774998, -32360.6797749979,
     -100000.0 },
 
   // Computed Parameter: LowPassz21_C
-  //  Referenced by: '<Root>/Low Pass (z2)1'
+  //  Referenced by: '<S1>/Low Pass (z2)1'
 
   { 0.0, 0.0, 0.0, 0.0, 100000.0 },
 
   // Computed Parameter: LowPassz22_A
-  //  Referenced by: '<Root>/Low Pass (z2)2'
+  //  Referenced by: '<S1>/Low Pass (z2)2'
 
   { -32.360679775, -523.60679774999994, -5236.0679774998, -32360.6797749979,
     -100000.0 },
 
   // Computed Parameter: LowPassz22_C
-  //  Referenced by: '<Root>/Low Pass (z2)2'
+  //  Referenced by: '<S1>/Low Pass (z2)2'
 
   { 0.0, 0.0, 0.0, 0.0, 100000.0 },
 
   // Computed Parameter: LowPassz23_A
-  //  Referenced by: '<Root>/Low Pass (z2)3'
+  //  Referenced by: '<S1>/Low Pass (z2)3'
 
   { -32.360679775, -523.60679774999994, -5236.0679774998, -32360.6797749979,
     -100000.0 },
 
   // Computed Parameter: LowPassz23_C
-  //  Referenced by: '<Root>/Low Pass (z2)3'
+  //  Referenced by: '<S1>/Low Pass (z2)3'
 
   { 0.0, 0.0, 0.0, 0.0, 100000.0 },
 
   // Computed Parameter: LowPassz24_A
-  //  Referenced by: '<Root>/Low Pass (z2)4'
+  //  Referenced by: '<S1>/Low Pass (z2)4'
 
   { -32.360679775, -523.60679774999994, -5236.0679774998, -32360.6797749979,
     -100000.0 },
 
   // Computed Parameter: LowPassz24_C
-  //  Referenced by: '<Root>/Low Pass (z2)4'
+  //  Referenced by: '<S1>/Low Pass (z2)4'
 
   { 0.0, 0.0, 0.0, 0.0, 100000.0 },
 
   // Computed Parameter: LowPassz25_A
-  //  Referenced by: '<Root>/Low Pass (z2)5'
+  //  Referenced by: '<S1>/Low Pass (z2)5'
 
   { -32.360679775, -523.60679774999994, -5236.0679774998, -32360.6797749979,
     -100000.0 },
 
   // Computed Parameter: LowPassz25_C
-  //  Referenced by: '<Root>/Low Pass (z2)5'
+  //  Referenced by: '<S1>/Low Pass (z2)5'
 
   { 0.0, 0.0, 0.0, 0.0, 100000.0 },
 
   // Computed Parameter: Constant_Value_d
-  //  Referenced by: '<Root>/Constant'
+  //  Referenced by: '<S6>/Constant'
 
   7U,
 
   // Computed Parameter: Constant1_Value
-  //  Referenced by: '<Root>/Constant1'
+  //  Referenced by: '<S6>/Constant1'
 
   7U
 };

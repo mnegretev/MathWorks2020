@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.97
+// Model version                  : 1.102
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Thu Jul  9 09:26:25 2020
+// C/C++ source code generated on : Thu Jul 16 14:56:05 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -22,7 +22,7 @@
 // Block parameters (default storage)
 P_left_arm_simul_T left_arm_simul_P = {
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S52>/Out1'
+  //  Referenced by: '<S54>/Out1'
 
   {
     {
@@ -337,7 +337,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Constant_Value
-  //  Referenced by: '<S23>/Constant'
+  //  Referenced by: '<S3>/Constant'
 
   {
     {
@@ -652,7 +652,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Constant_Value_m
-  //  Referenced by: '<S1>/Constant'
+  //  Referenced by: '<S48>/Constant'
 
   {
     {
@@ -967,7 +967,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Constant_Value_b
-  //  Referenced by: '<S3>/Constant'
+  //  Referenced by: '<S50>/Constant'
 
   {
     {
@@ -1096,7 +1096,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Constant_Value_bz
-  //  Referenced by: '<S2>/Constant'
+  //  Referenced by: '<S49>/Constant'
 
   {
     {
@@ -1110,21 +1110,21 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S53>/Out1'
+  //  Referenced by: '<S55>/Out1'
 
   {
     0.0                                // Data
   },
 
   // Computed Parameter: Constant_Value_m3
-  //  Referenced by: '<S24>/Constant'
+  //  Referenced by: '<S4>/Constant'
 
   {
     0.0                                // Data
   },
 
   // Computed Parameter: Constant_Value_mx
-  //  Referenced by: '<Root>/Constant'
+  //  Referenced by: '<S2>/Constant'
 
   7U
 };
