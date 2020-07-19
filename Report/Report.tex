@@ -1,11 +1,59 @@
 \documentclass[a4paper, 10pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb}
+\usepackage{amsmath}
 
 \title{Object Recognition by Physical Properties Detection using Fault Reconstruction Techniques}
 \author{Marco Negrete and Jesús Savage}
-\date{Report of Project Status}
+\date{RCF-MathWorks Fund - Call 2020\\Technical Report}
 
 \begin{document}
 \maketitle
+
+\section{Introduction}
+\subsection{Motivation}
+Consider the following serving-drinks-test scenario: a robot is asked to bring beverages and to do so, the robot performs the following common steps: it navigates to the bar, recognizes the beverages (usually cans or tetra packs), calculate some sort of inverse kinematics, moves its manipulator, grasps the object and returns to the user's location. This is a common situation in @Home tasks, nevertheless, what happens if there are empty cans or tetra packs in the bar? As it is commonly implemented in @Home league, robots are unable to distinguish between empty and full cans, since they commonly rely only in visual recognition of the beverage containers (see, for example, description papers of last edition winner teams \cite{tdp2019Eindhoven, tdp2019Homer, tdp2019UTS}).
+\subsection{Objectives and goals}
+The project we propose consist in applying model based fault reconstruction techniques \cite{ding2013model} to estimate the weight of the object being carried by the robot. If we consider the manipulator without load in the final effector as the nominal system, and the weight of the object as an external perturbation causing a faulty behavior, we can apply MBFRA to estimate such perturbation, i.e., to estimate object's weight. There are several approaches for MBFR. Residual generation is a common technique where an observer is designed to be sensitive to fault signals. On the other hand, Sliding Mode Observers (SMO) are dynamic estimators designed to be robust against fault signals \cite{shtessel2014sliding}. SMOs also provide the ability to reconstruct the fault signal by filtering the so called output error injection term \cite{alwi2011fault}.
+
+\section{Background}
+\subsection{Sliding Mode Observers}
+\subsection{Robot Justina's manipulator}
+Incluir aqui que ya se tiene un urdf. 
+\subsection{Dynamixel motors}
+
+\section{Mass estimation through Sliding Mode Observers}
+\subsection{Dynamic Model}
+  From the Langrangian of the manipulator, a dynamic model of the following form can be obtained:
+  \begin{equation}
+    M(q)\ddot{q} + C(q, \dot{q})\dot{q} + B\dot{q} + G(q) + \Delta(q,\dot{q}, u) = u
+    \label{eq:lagrangian}
+  \end{equation}
+  where $q\in \mathbb{R}^7$ are the joint angles, $M(q)\in \mathbb{R}^{7\times 7}$ is the inertia matrix, $C(q,\dot{q})\in \mathbb{R}^{7\times 7}$ is the Matrix of Coriollis forces, $B\dot{q}\in \mathbb{R}^7$ is the vector of friction forces, $G(q)\in\mathbb{R}^7$ is the vector of gravitational forces, $u$ is the input torque, considered as control signal, and $\Delta(q,\dot{q},u)$ is a vector containing all errors due to uncertanties and disturbances. \\
+  To design a SMO is necessary to write the model in variable states form. Let $x_1 = [q_1\;q_2\;q_3\;q_4\;q_5\;q_6\;q_7]^T$ and $x_2 = [\dot{q}_1\;\dot{q}_2\;\dot{q}_3\;\dot{q}_4\;\dot{q}_5\;\dot{q}_6\;\dot{q}_7]^T$ be the state variables. Then (\ref{eq:lagrangian}) can be written as:
+  \begin{eqnarray}
+    \dot{x}_1 &=& x_2\label{eq:model1}\\
+    \dot{x}_2 &=& -M^{-1}(q)\left(C(q, \dot{q})\dot{q} + B\dot{q} + G(q) + \Delta(q,\dot{q},u) - u\right)\label{eq:model2}
+  \end{eqnarray}
+Equation (\ref{eq:model2} ) can also be written in the form:
+  \begin{equation*}
+    \dot{x}_2 = f(x_1, x_2, u) + g(x_1, x_2, u)
+  \end{equation*}
+  where $f(x_1, x_2, u) = -M^{-1}(q)\left(C(q, \dot{q})\dot{q} + B\dot{q} + G(q) - u\right) \in \mathbb{R}^7$ is the nominal part and $g(x_1, x_2, u) \in \mathbb{R}^7$ contains all terms related to uncertainties and disturbances. If the system is correctly identified, then $g(x_1, x_2, u)$ corresponds only to disturbances, which, in this work, will be caused by the weight of the object being manipulated. 
+
+\subsection{Observer for Disturbance Reconstruction}
+
+\subsection{Mass estimation}
+
+\section{Simulink implementation}
+
+\section{Simulation results}
+
+\section{Experimental results}
+
+\section{Reusability}
+
+\section{Conclusions}
+Se utilizó software de matlab para poder calcular la parte nominal del modelo dinámico para el brazo de 7 dof que de otro modo hubiera sido muy difícil de calcular debido a la complejidad del sistema
+
 \end{document}
