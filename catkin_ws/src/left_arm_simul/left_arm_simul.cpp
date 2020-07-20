@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.102
+// Model version                  : 1.109
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Thu Jul 16 14:56:05 2020
+// C/C++ source code generated on : Sun Jul 19 14:39:06 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -39,6 +39,8 @@ static void left_arm_simul_SystemCore_step(boolean_T *varargout_1, real_T
   SL_Bus_left_arm_simul_std_msgs_MultiArrayDimension varargout_2_Layout_Dim[16],
   uint32_T *varargout_2_Layout_Dim_SL_Info_, uint32_T
   *varargout_2_Layout_Dim_SL_Inf_0);
+static real_T left_arm_sim_eml_rand_mt19937ar(uint32_T state[625]);
+static real_T left_arm_simul_rand(void);
 static void matlabCodegenHandle_matlabC_k10(ros_slros_internal_block_Subs_T *obj);
 static void matlabCodegenHandle_matlabCodeg(ros_slros_internal_block_Curr_T *obj);
 static void matlabCodegenHandle_matlabCod_k(ros_slros_internal_block_Publ_T *obj);
@@ -72,7 +74,7 @@ void left_arm_simul_projection(void)
   int32_T tmp_0;
   char *msg;
 
-  // Projection for SimscapeExecutionBlock: '<S47>/STATE_1'
+  // Projection for SimscapeExecutionBlock: '<S49>/STATE_1'
   simulationData = (NeslSimulationData *)left_arm_simul_DW.STATE_1_SimData;
   time = left_arm_simul_M->Timing.t[0];
   simulationData->mData->mTime.mN = 1;
@@ -152,7 +154,7 @@ void left_arm_simul_projection(void)
     }
   }
 
-  // End of Projection for SimscapeExecutionBlock: '<S47>/STATE_1'
+  // End of Projection for SimscapeExecutionBlock: '<S49>/STATE_1'
 }
 
 //
@@ -320,6 +322,210 @@ static void left_arm_simul_SystemCore_step(boolean_T *varargout_1, real_T
     left_arm_simul_B.b_varargout_2.Layout.Dim_SL_Info.ReceivedLength;
 }
 
+real_T rt_roundd_snf(real_T u)
+{
+  real_T y;
+  if (fabs(u) < 4.503599627370496E+15) {
+    if (u >= 0.5) {
+      y = floor(u + 0.5);
+    } else if (u > -0.5) {
+      y = u * 0.0;
+    } else {
+      y = ceil(u - 0.5);
+    }
+  } else {
+    y = u;
+  }
+
+  return y;
+}
+
+// Function for MATLAB Function: '<S1>/Pose Quantization and Noise'
+static real_T left_arm_sim_eml_rand_mt19937ar(uint32_T state[625])
+{
+  real_T r;
+  uint32_T mti;
+  uint32_T y;
+  int32_T kk;
+  int32_T k;
+  boolean_T b_isvalid;
+  int32_T exitg1;
+  boolean_T exitg2;
+
+  // ========================= COPYRIGHT NOTICE ============================
+  //  This is a uniform (0,1) pseudorandom number generator based on:
+  //
+  //  A C-program for MT19937, with initialization improved 2002/1/26.
+  //  Coded by Takuji Nishimura and Makoto Matsumoto.
+  //
+  //  Copyright (C) 1997 - 2002, Makoto Matsumoto and Takuji Nishimura,
+  //  All rights reserved.
+  //
+  //  Redistribution and use in source and binary forms, with or without
+  //  modification, are permitted provided that the following conditions
+  //  are met:
+  //
+  //    1. Redistributions of source code must retain the above copyright
+  //       notice, this list of conditions and the following disclaimer.
+  //
+  //    2. Redistributions in binary form must reproduce the above copyright
+  //       notice, this list of conditions and the following disclaimer
+  //       in the documentation and/or other materials provided with the
+  //       distribution.
+  //
+  //    3. The names of its contributors may not be used to endorse or
+  //       promote products derived from this software without specific
+  //       prior written permission.
+  //
+  //  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  //  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  //  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  //  A PARTICULAR PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE COPYRIGHT
+  //  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  //  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  //  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  //  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  //  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  //  (INCLUDING  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  //  OF THIS  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  //
+  // =============================   END   =================================
+  do {
+    exitg1 = 0;
+    for (k = 0; k < 2; k++) {
+      mti = state[624] + 1U;
+      if (mti >= 625U) {
+        for (kk = 0; kk < 227; kk++) {
+          y = (state[kk + 1] & 2147483647U) | (state[kk] & 2147483648U);
+          if ((y & 1U) == 0U) {
+            y >>= 1U;
+          } else {
+            y = y >> 1U ^ 2567483615U;
+          }
+
+          state[kk] = state[kk + 397] ^ y;
+        }
+
+        for (kk = 0; kk < 396; kk++) {
+          y = (state[kk + 227] & 2147483648U) | (state[kk + 228] & 2147483647U);
+          if ((y & 1U) == 0U) {
+            y >>= 1U;
+          } else {
+            y = y >> 1U ^ 2567483615U;
+          }
+
+          state[kk + 227] = state[kk] ^ y;
+        }
+
+        y = (state[623] & 2147483648U) | (state[0] & 2147483647U);
+        if ((y & 1U) == 0U) {
+          y >>= 1U;
+        } else {
+          y = y >> 1U ^ 2567483615U;
+        }
+
+        state[623] = state[396] ^ y;
+        mti = 1U;
+      }
+
+      y = state[static_cast<int32_T>(mti) - 1];
+      state[624] = mti;
+      y ^= y >> 11U;
+      y ^= y << 7U & 2636928640U;
+      y ^= y << 15U & 4022730752U;
+      left_arm_simul_B.u[k] = y >> 18U ^ y;
+    }
+
+    r = (static_cast<real_T>(left_arm_simul_B.u[0] >> 5U) * 6.7108864E+7 +
+         static_cast<real_T>(left_arm_simul_B.u[1] >> 6U)) *
+      1.1102230246251565E-16;
+    if (r == 0.0) {
+      b_isvalid = ((state[624] >= 1U) && (state[624] < 625U));
+      if (b_isvalid) {
+        b_isvalid = false;
+        k = 1;
+        exitg2 = false;
+        while ((!exitg2) && (k < 625)) {
+          if (state[k - 1] == 0U) {
+            k++;
+          } else {
+            b_isvalid = true;
+            exitg2 = true;
+          }
+        }
+      }
+
+      if (!b_isvalid) {
+        mti = 5489U;
+        state[0] = 5489U;
+        for (k = 0; k < 623; k++) {
+          mti = ((mti >> 30U ^ mti) * 1812433253U + k) + 1U;
+          state[k + 1] = mti;
+        }
+
+        state[624] = 624U;
+      }
+    } else {
+      exitg1 = 1;
+    }
+  } while (exitg1 == 0);
+
+  return r;
+}
+
+// Function for MATLAB Function: '<S1>/Pose Quantization and Noise'
+static real_T left_arm_simul_rand(void)
+{
+  real_T r;
+  int32_T hi;
+  uint32_T test2;
+  uint32_T b_r;
+  switch (left_arm_simul_DW.method) {
+   case 4U:
+    hi = static_cast<int32_T>(left_arm_simul_DW.state / 127773U);
+    b_r = (left_arm_simul_DW.state - hi * 127773U) * 16807U;
+    test2 = 2836U * hi;
+    if (b_r < test2) {
+      b_r = ~(test2 - b_r) & 2147483647U;
+    } else {
+      b_r -= test2;
+    }
+
+    left_arm_simul_DW.state = b_r;
+    r = static_cast<real_T>(b_r) * 4.6566128752457969E-10;
+    break;
+
+   case 5U:
+    b_r = 69069U * left_arm_simul_DW.state_n[0] + 1234567U;
+    test2 = left_arm_simul_DW.state_n[1] << 13 ^ left_arm_simul_DW.state_n[1];
+    test2 ^= test2 >> 17;
+    test2 ^= test2 << 5;
+    left_arm_simul_DW.state_n[0] = b_r;
+    left_arm_simul_DW.state_n[1] = test2;
+    r = static_cast<real_T>(b_r + test2) * 2.328306436538696E-10;
+    break;
+
+   default:
+    if (!left_arm_simul_DW.state_not_empty) {
+      memset(&left_arm_simul_DW.state_a[0], 0, 625U * sizeof(uint32_T));
+      b_r = 5489U;
+      left_arm_simul_DW.state_a[0] = 5489U;
+      for (hi = 0; hi < 623; hi++) {
+        b_r = ((b_r >> 30U ^ b_r) * 1812433253U + hi) + 1U;
+        left_arm_simul_DW.state_a[hi + 1] = b_r;
+      }
+
+      left_arm_simul_DW.state_a[624] = 624U;
+      left_arm_simul_DW.state_not_empty = true;
+    }
+
+    r = left_arm_sim_eml_rand_mt19937ar(left_arm_simul_DW.state_a);
+    break;
+  }
+
+  return r;
+}
+
 static void matlabCodegenHandle_matlabC_k10(ros_slros_internal_block_Subs_T *obj)
 {
   if (!obj->matlabCodegenIsDeleted) {
@@ -363,13 +569,11 @@ void left_arm_simul_step(void)
     NeuDiagnosticTree *diagnosticTree;
     char *msg;
     boolean_T b_varargout_1;
-    uint32_T b_varargout_2_Data_SL_Info_Curr;
-    uint32_T b_varargout_2_Data_SL_Info_Rece;
-    uint32_T b_varargout_2_Layout_DataOffset;
-    uint32_T b_varargout_2_Layout_Dim_SL_Inf;
-    uint32_T b_varargout_2_Layout_Dim_SL_I_0;
-    int32_T i;
-    static const uint8_T b[10] = { 108U, 97U, 95U, 49U, 95U, 106U, 111U, 105U,
+    static const real_T b[6] = { 138.88888888888889, 138.88888888888889,
+      158.29542289481014, 138.88888888888889, 158.29542289481014,
+      158.29542289481014 };
+
+    static const uint8_T b_0[10] = { 108U, 97U, 95U, 49U, 95U, 106U, 111U, 105U,
       110U, 116U };
 
     static const uint8_T c[10] = { 108U, 97U, 95U, 50U, 95U, 106U, 111U, 105U,
@@ -390,8 +594,8 @@ void left_arm_simul_step(void)
     static const uint8_T h[10] = { 108U, 97U, 95U, 55U, 95U, 106U, 111U, 105U,
       110U, 116U };
 
-    // SimscapeExecutionBlock: '<S47>/STATE_1' incorporates:
-    //   SimscapeExecutionBlock: '<S47>/OUTPUT_1_0'
+    // SimscapeExecutionBlock: '<S49>/STATE_1' incorporates:
+    //   SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
 
     simulationData = (NeslSimulationData *)left_arm_simul_DW.STATE_1_SimData;
     left_arm_simul_B.time_tmp = left_arm_simul_M->Timing.t[0];
@@ -472,9 +676,10 @@ void left_arm_simul_step(void)
     diagnosticManager = (NeuDiagnosticManager *)
       left_arm_simul_DW.STATE_1_DiagMgr;
     diagnosticTree = neu_diagnostic_manager_get_initial_tree(diagnosticManager);
-    i = ne_simulator_method((NeslSimulator *)left_arm_simul_DW.STATE_1_Simulator,
-      NESL_SIM_OUTPUTS, simulationData, diagnosticManager);
-    if (i != 0) {
+    left_arm_simul_B.i = ne_simulator_method((NeslSimulator *)
+      left_arm_simul_DW.STATE_1_Simulator, NESL_SIM_OUTPUTS, simulationData,
+      diagnosticManager);
+    if (left_arm_simul_B.i != 0) {
       b_varargout_1 = error_buffer_is_empty(rtmGetErrorStatus(left_arm_simul_M));
       if (b_varargout_1) {
         msg = rtw_diagnostics_msg(diagnosticTree);
@@ -482,18 +687,17 @@ void left_arm_simul_step(void)
       }
     }
 
-    // End of SimscapeExecutionBlock: '<S47>/STATE_1'
     if (rtmIsMajorTimeStep(left_arm_simul_M) &&
         left_arm_simul_M->Timing.TaskCounters.TID[2] == 0) {
       // Outputs for Atomic SubSystem: '<Root>/Subscribe1'
       // MATLABSystem: '<S4>/SourceBlock' incorporates:
-      //   Inport: '<S55>/In1'
+      //   Inport: '<S57>/In1'
 
       b_varargout_1 = Sub_left_arm_simul_272.getLatestMessage
         (&left_arm_simul_B.b_varargout_2_b);
 
       // Outputs for Enabled SubSystem: '<S4>/Enabled Subsystem' incorporates:
-      //   EnablePort: '<S55>/Enable'
+      //   EnablePort: '<S57>/Enable'
 
       if (b_varargout_1) {
         left_arm_simul_B.In1_j = left_arm_simul_B.b_varargout_2_b;
@@ -504,7 +708,7 @@ void left_arm_simul_step(void)
       // End of Outputs for SubSystem: '<Root>/Subscribe1'
     }
 
-    // SimscapeInputBlock: '<S47>/INPUT_8_1_1'
+    // SimscapeInputBlock: '<S49>/INPUT_8_1_1'
     left_arm_simul_B.INPUT_8_1_1[0] = left_arm_simul_B.In1_j.Data;
     left_arm_simul_B.INPUT_8_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_8_1_1[2] = 0.0;
@@ -518,48 +722,67 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_8_1_1[0] = left_arm_simul_DW.INPUT_8_1_1_Discrete[1];
     left_arm_simul_B.INPUT_8_1_1[3] = left_arm_simul_DW.INPUT_8_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_8_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_8_1_1'
     if (rtmIsMajorTimeStep(left_arm_simul_M) &&
         left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
       // Outputs for Atomic SubSystem: '<Root>/Subscribe'
       // MATLABSystem: '<S3>/SourceBlock' incorporates:
-      //   Inport: '<S54>/In1'
+      //   Inport: '<S56>/In1'
 
       left_arm_simul_SystemCore_step(&b_varargout_1,
-        left_arm_simul_B.b_varargout_2_Data, &b_varargout_2_Data_SL_Info_Curr,
-        &b_varargout_2_Data_SL_Info_Rece, &b_varargout_2_Layout_DataOffset,
+        left_arm_simul_B.b_varargout_2_Data,
+        &left_arm_simul_B.b_varargout_2_Data_SL_Info_Curr,
+        &left_arm_simul_B.b_varargout_2_Data_SL_Info_Rece,
+        &left_arm_simul_B.b_varargout_2_Layout_DataOffset,
         left_arm_simul_B.b_varargout_2_Layout_Dim,
-        &b_varargout_2_Layout_Dim_SL_Inf, &b_varargout_2_Layout_Dim_SL_I_0);
+        &left_arm_simul_B.b_varargout_2_Layout_Dim_SL_Inf,
+        &left_arm_simul_B.b_varargout_2_Layout_Dim_SL_I_g);
 
       // Outputs for Enabled SubSystem: '<S3>/Enabled Subsystem' incorporates:
-      //   EnablePort: '<S54>/Enable'
+      //   EnablePort: '<S56>/Enable'
 
       if (b_varargout_1) {
-        for (i = 0; i < 7; i++) {
-          left_arm_simul_B.In1.Data[i] = left_arm_simul_B.b_varargout_2_Data[i];
+        for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 7; left_arm_simul_B.i
+             ++) {
+          left_arm_simul_B.In1.Data[left_arm_simul_B.i] =
+            left_arm_simul_B.b_varargout_2_Data[left_arm_simul_B.i];
         }
 
         left_arm_simul_B.In1.Data_SL_Info.CurrentLength =
-          b_varargout_2_Data_SL_Info_Curr;
+          left_arm_simul_B.b_varargout_2_Data_SL_Info_Curr;
         left_arm_simul_B.In1.Data_SL_Info.ReceivedLength =
-          b_varargout_2_Data_SL_Info_Rece;
-        left_arm_simul_B.In1.Layout.DataOffset = b_varargout_2_Layout_DataOffset;
+          left_arm_simul_B.b_varargout_2_Data_SL_Info_Rece;
+        left_arm_simul_B.In1.Layout.DataOffset =
+          left_arm_simul_B.b_varargout_2_Layout_DataOffset;
         memcpy(&left_arm_simul_B.In1.Layout.Dim[0],
                &left_arm_simul_B.b_varargout_2_Layout_Dim[0], sizeof
                (SL_Bus_left_arm_simul_std_msgs_MultiArrayDimension) << 4U);
         left_arm_simul_B.In1.Layout.Dim_SL_Info.CurrentLength =
-          b_varargout_2_Layout_Dim_SL_Inf;
+          left_arm_simul_B.b_varargout_2_Layout_Dim_SL_Inf;
         left_arm_simul_B.In1.Layout.Dim_SL_Info.ReceivedLength =
-          b_varargout_2_Layout_Dim_SL_I_0;
+          left_arm_simul_B.b_varargout_2_Layout_Dim_SL_I_g;
       }
 
       // End of MATLABSystem: '<S3>/SourceBlock'
       // End of Outputs for SubSystem: '<S3>/Enabled Subsystem'
       // End of Outputs for SubSystem: '<Root>/Subscribe'
+
+      // MATLAB Function: '<S1>/Torque Quantization' incorporates:
+      //   SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
+      //   SimscapeExecutionBlock: '<S49>/STATE_1'
+
+      for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 7; left_arm_simul_B.i++)
+      {
+        left_arm_simul_B.quantized_torque[left_arm_simul_B.i] = rt_roundd_snf
+          (left_arm_simul_B.In1.Data[left_arm_simul_B.i] * b[left_arm_simul_B.i])
+          / b[left_arm_simul_B.i];
+      }
+
+      // End of MATLAB Function: '<S1>/Torque Quantization'
     }
 
-    // SimscapeInputBlock: '<S47>/INPUT_1_1_1'
-    left_arm_simul_B.INPUT_1_1_1[0] = left_arm_simul_B.In1.Data[0];
+    // SimscapeInputBlock: '<S49>/INPUT_1_1_1'
+    left_arm_simul_B.INPUT_1_1_1[0] = left_arm_simul_B.quantized_torque[0];
     left_arm_simul_B.INPUT_1_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_1_1_1[2] = 0.0;
     if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -572,10 +795,10 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_1_1_1[0] = left_arm_simul_DW.INPUT_1_1_1_Discrete[1];
     left_arm_simul_B.INPUT_1_1_1[3] = left_arm_simul_DW.INPUT_1_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_1_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_1_1_1'
 
-    // SimscapeInputBlock: '<S47>/INPUT_2_1_1'
-    left_arm_simul_B.INPUT_2_1_1[0] = left_arm_simul_B.In1.Data[1];
+    // SimscapeInputBlock: '<S49>/INPUT_2_1_1'
+    left_arm_simul_B.INPUT_2_1_1[0] = left_arm_simul_B.quantized_torque[1];
     left_arm_simul_B.INPUT_2_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_2_1_1[2] = 0.0;
     if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -588,10 +811,10 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_2_1_1[0] = left_arm_simul_DW.INPUT_2_1_1_Discrete[1];
     left_arm_simul_B.INPUT_2_1_1[3] = left_arm_simul_DW.INPUT_2_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_2_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_2_1_1'
 
-    // SimscapeInputBlock: '<S47>/INPUT_3_1_1'
-    left_arm_simul_B.INPUT_3_1_1[0] = left_arm_simul_B.In1.Data[2];
+    // SimscapeInputBlock: '<S49>/INPUT_3_1_1'
+    left_arm_simul_B.INPUT_3_1_1[0] = left_arm_simul_B.quantized_torque[2];
     left_arm_simul_B.INPUT_3_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_3_1_1[2] = 0.0;
     if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -604,10 +827,10 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_3_1_1[0] = left_arm_simul_DW.INPUT_3_1_1_Discrete[1];
     left_arm_simul_B.INPUT_3_1_1[3] = left_arm_simul_DW.INPUT_3_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_3_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_3_1_1'
 
-    // SimscapeInputBlock: '<S47>/INPUT_4_1_1'
-    left_arm_simul_B.INPUT_4_1_1[0] = left_arm_simul_B.In1.Data[3];
+    // SimscapeInputBlock: '<S49>/INPUT_4_1_1'
+    left_arm_simul_B.INPUT_4_1_1[0] = left_arm_simul_B.quantized_torque[3];
     left_arm_simul_B.INPUT_4_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_4_1_1[2] = 0.0;
     if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -620,10 +843,10 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_4_1_1[0] = left_arm_simul_DW.INPUT_4_1_1_Discrete[1];
     left_arm_simul_B.INPUT_4_1_1[3] = left_arm_simul_DW.INPUT_4_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_4_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_4_1_1'
 
-    // SimscapeInputBlock: '<S47>/INPUT_5_1_1'
-    left_arm_simul_B.INPUT_5_1_1[0] = left_arm_simul_B.In1.Data[4];
+    // SimscapeInputBlock: '<S49>/INPUT_5_1_1'
+    left_arm_simul_B.INPUT_5_1_1[0] = left_arm_simul_B.quantized_torque[4];
     left_arm_simul_B.INPUT_5_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_5_1_1[2] = 0.0;
     if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -636,10 +859,10 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_5_1_1[0] = left_arm_simul_DW.INPUT_5_1_1_Discrete[1];
     left_arm_simul_B.INPUT_5_1_1[3] = left_arm_simul_DW.INPUT_5_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_5_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_5_1_1'
 
-    // SimscapeInputBlock: '<S47>/INPUT_6_1_1'
-    left_arm_simul_B.INPUT_6_1_1[0] = left_arm_simul_B.In1.Data[5];
+    // SimscapeInputBlock: '<S49>/INPUT_6_1_1'
+    left_arm_simul_B.INPUT_6_1_1[0] = left_arm_simul_B.quantized_torque[5];
     left_arm_simul_B.INPUT_6_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_6_1_1[2] = 0.0;
     if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -652,10 +875,10 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_6_1_1[0] = left_arm_simul_DW.INPUT_6_1_1_Discrete[1];
     left_arm_simul_B.INPUT_6_1_1[3] = left_arm_simul_DW.INPUT_6_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_6_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_6_1_1'
 
-    // SimscapeInputBlock: '<S47>/INPUT_7_1_1'
-    left_arm_simul_B.INPUT_7_1_1[0] = left_arm_simul_B.In1.Data[6];
+    // SimscapeInputBlock: '<S49>/INPUT_7_1_1'
+    left_arm_simul_B.INPUT_7_1_1[0] = left_arm_simul_B.quantized_torque[6];
     left_arm_simul_B.INPUT_7_1_1[1] = 0.0;
     left_arm_simul_B.INPUT_7_1_1[2] = 0.0;
     if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -668,9 +891,9 @@ void left_arm_simul_step(void)
     left_arm_simul_B.INPUT_7_1_1[0] = left_arm_simul_DW.INPUT_7_1_1_Discrete[1];
     left_arm_simul_B.INPUT_7_1_1[3] = left_arm_simul_DW.INPUT_7_1_1_Discrete[0];
 
-    // End of SimscapeInputBlock: '<S47>/INPUT_7_1_1'
+    // End of SimscapeInputBlock: '<S49>/INPUT_7_1_1'
 
-    // SimscapeExecutionBlock: '<S47>/OUTPUT_1_0'
+    // SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
     simulationData = (NeslSimulationData *)left_arm_simul_DW.OUTPUT_1_0_SimData;
     left_arm_simul_B.time_k = left_arm_simul_B.time_tmp;
     simulationData->mData->mTime.mN = 1;
@@ -750,10 +973,10 @@ void left_arm_simul_step(void)
     diagnosticManager = (NeuDiagnosticManager *)
       left_arm_simul_DW.OUTPUT_1_0_DiagMgr;
     diagnosticTree = neu_diagnostic_manager_get_initial_tree(diagnosticManager);
-    i = ne_simulator_method((NeslSimulator *)
+    left_arm_simul_B.i = ne_simulator_method((NeslSimulator *)
       left_arm_simul_DW.OUTPUT_1_0_Simulator, NESL_SIM_OUTPUTS, simulationData,
       diagnosticManager);
-    if (i != 0) {
+    if (left_arm_simul_B.i != 0) {
       tmp = error_buffer_is_empty(rtmGetErrorStatus(left_arm_simul_M));
       if (tmp) {
         msg = rtw_diagnostics_msg(diagnosticTree);
@@ -761,24 +984,42 @@ void left_arm_simul_step(void)
       }
     }
 
-    // RateTransition: '<S2>/Rate Transition1'
-    if ((rtmIsMajorTimeStep(left_arm_simul_M) &&
-         left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) &&
-        (rtmIsMajorTimeStep(left_arm_simul_M) &&
-         left_arm_simul_M->Timing.TaskCounters.TID[2] == 0)) {
-      for (i = 0; i < 7; i++) {
-        left_arm_simul_DW.RateTransition1_Buffer[i] =
-          left_arm_simul_B.OUTPUT_1_0[i];
+    if (rtmIsMajorTimeStep(left_arm_simul_M) &&
+        left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
+      // MATLAB Function: '<S1>/Pose Quantization and Noise' incorporates:
+      //   SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
+      //   SimscapeExecutionBlock: '<S49>/STATE_1'
+
+      for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 7; left_arm_simul_B.i++)
+      {
+        left_arm_simul_B.time_tmp = left_arm_simul_rand();
+        left_arm_simul_B.quantized_q[left_arm_simul_B.i] = ((floor
+          (left_arm_simul_B.time_tmp * 5.0) + -2.0) + rt_roundd_snf
+          (left_arm_simul_B.OUTPUT_1_0[left_arm_simul_B.i] /
+           0.0015339807878856412)) * 0.0015339807878856412;
+      }
+
+      // End of MATLAB Function: '<S1>/Pose Quantization and Noise'
+
+      // RateTransition: '<S2>/Rate Transition1'
+      if (rtmIsMajorTimeStep(left_arm_simul_M) &&
+          left_arm_simul_M->Timing.TaskCounters.TID[2] == 0) {
+        for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 7; left_arm_simul_B.i
+             ++) {
+          left_arm_simul_DW.RateTransition1_Buffer[left_arm_simul_B.i] =
+            left_arm_simul_B.quantized_q[left_arm_simul_B.i];
+        }
       }
     }
 
+    // RateTransition: '<S2>/Rate Transition1'
     if (rtmIsMajorTimeStep(left_arm_simul_M) &&
         left_arm_simul_M->Timing.TaskCounters.TID[2] == 0) {
       // MATLABSystem: '<S2>/Current Time'
       currentROSTimeBus(&left_arm_simul_B.rtb_CurrentTime_c);
 
       // MATLAB Function: '<S2>/MATLAB Function1' incorporates:
-      //   Constant: '<S50>/Constant'
+      //   Constant: '<S52>/Constant'
       //   MATLABSystem: '<S2>/Current Time'
 
       left_arm_simul_B.js = left_arm_simul_P.Constant_Value_b;
@@ -796,14 +1037,22 @@ void left_arm_simul_step(void)
       left_arm_simul_B.js.Name[5].Data_SL_Info.ReceivedLength = 10U;
       left_arm_simul_B.js.Name[6].Data_SL_Info.CurrentLength = 10U;
       left_arm_simul_B.js.Name[6].Data_SL_Info.ReceivedLength = 10U;
-      for (i = 0; i < 10; i++) {
-        left_arm_simul_B.js.Name[0].Data[i] = b[i];
-        left_arm_simul_B.js.Name[1].Data[i] = c[i];
-        left_arm_simul_B.js.Name[2].Data[i] = d[i];
-        left_arm_simul_B.js.Name[3].Data[i] = e[i];
-        left_arm_simul_B.js.Name[4].Data[i] = f[i];
-        left_arm_simul_B.js.Name[5].Data[i] = g[i];
-        left_arm_simul_B.js.Name[6].Data[i] = h[i];
+      for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 10; left_arm_simul_B.i++)
+      {
+        left_arm_simul_B.js.Name[0].Data[left_arm_simul_B.i] =
+          b_0[left_arm_simul_B.i];
+        left_arm_simul_B.js.Name[1].Data[left_arm_simul_B.i] =
+          c[left_arm_simul_B.i];
+        left_arm_simul_B.js.Name[2].Data[left_arm_simul_B.i] =
+          d[left_arm_simul_B.i];
+        left_arm_simul_B.js.Name[3].Data[left_arm_simul_B.i] =
+          e[left_arm_simul_B.i];
+        left_arm_simul_B.js.Name[4].Data[left_arm_simul_B.i] =
+          f[left_arm_simul_B.i];
+        left_arm_simul_B.js.Name[5].Data[left_arm_simul_B.i] =
+          g[left_arm_simul_B.i];
+        left_arm_simul_B.js.Name[6].Data[left_arm_simul_B.i] =
+          h[left_arm_simul_B.i];
       }
 
       left_arm_simul_B.js.Name_SL_Info.CurrentLength = 7U;
@@ -829,22 +1078,23 @@ void left_arm_simul_step(void)
       // End of MATLAB Function: '<S2>/MATLAB Function1'
 
       // Outputs for Atomic SubSystem: '<S2>/Publish2'
-      // MATLABSystem: '<S53>/SinkBlock'
+      // MATLABSystem: '<S55>/SinkBlock'
       Pub_left_arm_simul_191.publish(&left_arm_simul_B.js);
 
       // End of Outputs for SubSystem: '<S2>/Publish2'
     }
 
-    // End of RateTransition: '<S2>/Rate Transition1'
     if (rtmIsMajorTimeStep(left_arm_simul_M) &&
         left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
       // BusAssignment: '<S2>/Bus Assignment1' incorporates:
       //   Constant: '<S2>/Constant'
-      //   Constant: '<S48>/Constant'
+      //   Constant: '<S50>/Constant'
 
       left_arm_simul_B.BusAssignment1 = left_arm_simul_P.Constant_Value_m;
-      for (i = 0; i < 7; i++) {
-        left_arm_simul_B.BusAssignment1.Data[i] = left_arm_simul_B.OUTPUT_1_0[i];
+      for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 7; left_arm_simul_B.i++)
+      {
+        left_arm_simul_B.BusAssignment1.Data[left_arm_simul_B.i] =
+          left_arm_simul_B.quantized_q[left_arm_simul_B.i];
       }
 
       left_arm_simul_B.BusAssignment1.Data_SL_Info.CurrentLength =
@@ -855,7 +1105,7 @@ void left_arm_simul_step(void)
       // End of BusAssignment: '<S2>/Bus Assignment1'
 
       // Outputs for Atomic SubSystem: '<S2>/Publish1'
-      // MATLABSystem: '<S52>/SinkBlock'
+      // MATLABSystem: '<S54>/SinkBlock'
       Pub_left_arm_simul_163.publish(&left_arm_simul_B.BusAssignment1);
 
       // End of Outputs for SubSystem: '<S2>/Publish1'
@@ -871,7 +1121,7 @@ void left_arm_simul_step(void)
     int32_T tmp_0;
     char *msg;
 
-    // Update for SimscapeExecutionBlock: '<S47>/STATE_1'
+    // Update for SimscapeExecutionBlock: '<S49>/STATE_1'
     simulationData = (NeslSimulationData *)left_arm_simul_DW.STATE_1_SimData;
     time = left_arm_simul_M->Timing.t[0];
     simulationData->mData->mTime.mN = 1;
@@ -953,7 +1203,7 @@ void left_arm_simul_step(void)
       }
     }
 
-    // End of Update for SimscapeExecutionBlock: '<S47>/STATE_1'
+    // End of Update for SimscapeExecutionBlock: '<S49>/STATE_1'
   }                                    // end MajorTimeStep
 
   if (rtmIsMajorTimeStep(left_arm_simul_M)) {
@@ -996,7 +1246,7 @@ void left_arm_simul_derivatives(void)
   XDot_left_arm_simul_T *_rtXdot;
   _rtXdot = ((XDot_left_arm_simul_T *) left_arm_simul_M->derivs);
 
-  // Derivatives for SimscapeExecutionBlock: '<S47>/STATE_1'
+  // Derivatives for SimscapeExecutionBlock: '<S49>/STATE_1'
   simulationData = (NeslSimulationData *)left_arm_simul_DW.STATE_1_SimData;
   time = left_arm_simul_M->Timing.t[0];
   simulationData->mData->mTime.mN = 1;
@@ -1078,7 +1328,7 @@ void left_arm_simul_derivatives(void)
     }
   }
 
-  // End of Derivatives for SimscapeExecutionBlock: '<S47>/STATE_1'
+  // End of Derivatives for SimscapeExecutionBlock: '<S49>/STATE_1'
 }
 
 // Model initialize function
@@ -1147,8 +1397,8 @@ void left_arm_simul_initialize(void)
       'e', '/', 'l', 'a', '_', 'c', 'u', 'r', 'r', 'e', 'n', 't', '_', 'p', 'o',
       's', 'e' };
 
-    // Start for SimscapeExecutionBlock: '<S47>/STATE_1' incorporates:
-    //   SimscapeExecutionBlock: '<S47>/OUTPUT_1_0'
+    // Start for SimscapeExecutionBlock: '<S49>/STATE_1' incorporates:
+    //   SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
 
     tmp = nesl_lease_simulator(
       "left_arm_simul/Manipulator/Solver Configuration_1", 0, 0);
@@ -1174,7 +1424,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters.mUseSimState = false;
     left_arm_simul_B.modelParameters.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.16810702E+8;
+    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.17070287E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters.mSolverTolerance = left_arm_simul_B.d;
     left_arm_simul_B.d = 0.004;
@@ -1241,7 +1491,7 @@ void left_arm_simul_initialize(void)
       }
     }
 
-    // End of Start for SimscapeExecutionBlock: '<S47>/STATE_1'
+    // End of Start for SimscapeExecutionBlock: '<S49>/STATE_1'
 
     // Start for Atomic SubSystem: '<Root>/Subscribe1'
     // Start for MATLABSystem: '<S4>/SourceBlock'
@@ -1279,7 +1529,7 @@ void left_arm_simul_initialize(void)
     // End of Start for MATLABSystem: '<S3>/SourceBlock'
     // End of Start for SubSystem: '<Root>/Subscribe'
 
-    // Start for SimscapeExecutionBlock: '<S47>/OUTPUT_1_0'
+    // Start for SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
     tmp = nesl_lease_simulator(
       "left_arm_simul/Manipulator/Solver Configuration_1", 1, 0);
     left_arm_simul_DW.OUTPUT_1_0_Simulator = (void *)tmp;
@@ -1304,7 +1554,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters_m.mUseSimState = false;
     left_arm_simul_B.modelParameters_m.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters_m.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.16810702E+8;
+    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.17070287E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters_m.mSolverTolerance = left_arm_simul_B.d;
     left_arm_simul_B.d = 0.004;
@@ -1368,7 +1618,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_DW.obj.isSetupComplete = true;
 
     // Start for Atomic SubSystem: '<S2>/Publish2'
-    // Start for MATLABSystem: '<S53>/SinkBlock'
+    // Start for MATLABSystem: '<S55>/SinkBlock'
     left_arm_simul_DW.obj_a.matlabCodegenIsDeleted = true;
     left_arm_simul_DW.obj_a.isInitialized = 0;
     left_arm_simul_DW.obj_a.matlabCodegenIsDeleted = false;
@@ -1382,11 +1632,11 @@ void left_arm_simul_initialize(void)
     Pub_left_arm_simul_191.createPublisher(left_arm_simul_B.cv3, 1);
     left_arm_simul_DW.obj_a.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S53>/SinkBlock'
+    // End of Start for MATLABSystem: '<S55>/SinkBlock'
     // End of Start for SubSystem: '<S2>/Publish2'
 
     // Start for Atomic SubSystem: '<S2>/Publish1'
-    // Start for MATLABSystem: '<S52>/SinkBlock'
+    // Start for MATLABSystem: '<S54>/SinkBlock'
     left_arm_simul_DW.obj_ag.matlabCodegenIsDeleted = true;
     left_arm_simul_DW.obj_ag.isInitialized = 0;
     left_arm_simul_DW.obj_ag.matlabCodegenIsDeleted = false;
@@ -1400,10 +1650,10 @@ void left_arm_simul_initialize(void)
     Pub_left_arm_simul_163.createPublisher(left_arm_simul_B.cv, 1);
     left_arm_simul_DW.obj_ag.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S52>/SinkBlock'
+    // End of Start for MATLABSystem: '<S54>/SinkBlock'
     // End of Start for SubSystem: '<S2>/Publish1'
 
-    // InitializeConditions for SimscapeExecutionBlock: '<S47>/STATE_1'
+    // InitializeConditions for SimscapeExecutionBlock: '<S49>/STATE_1'
     tmp_0 = false;
     if (tmp_0) {
       i = strcmp("ode5", rtsiGetSolverName(&left_arm_simul_M->solverInfo));
@@ -1414,11 +1664,11 @@ void left_arm_simul_initialize(void)
       }
     }
 
-    // End of InitializeConditions for SimscapeExecutionBlock: '<S47>/STATE_1'
+    // End of InitializeConditions for SimscapeExecutionBlock: '<S49>/STATE_1'
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe1'
     // SystemInitialize for Enabled SubSystem: '<S4>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S55>/Out1'
+    // SystemInitialize for Outport: '<S57>/Out1'
     left_arm_simul_B.In1_j = left_arm_simul_P.Out1_Y0_h;
 
     // End of SystemInitialize for SubSystem: '<S4>/Enabled Subsystem'
@@ -1426,18 +1676,24 @@ void left_arm_simul_initialize(void)
 
     // SystemInitialize for Atomic SubSystem: '<Root>/Subscribe'
     // SystemInitialize for Enabled SubSystem: '<S3>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S54>/Out1'
+    // SystemInitialize for Outport: '<S56>/Out1'
     left_arm_simul_B.In1 = left_arm_simul_P.Out1_Y0;
 
     // End of SystemInitialize for SubSystem: '<S3>/Enabled Subsystem'
     // End of SystemInitialize for SubSystem: '<Root>/Subscribe'
+
+    // SystemInitialize for MATLAB Function: '<S1>/Pose Quantization and Noise'
+    left_arm_simul_DW.method = 7U;
+    left_arm_simul_DW.state = 1144108930U;
+    left_arm_simul_DW.state_n[0] = 362436069U;
+    left_arm_simul_DW.state_n[1] = 521288629U;
   }
 }
 
 // Model terminate function
 void left_arm_simul_terminate(void)
 {
-  // Terminate for SimscapeExecutionBlock: '<S47>/STATE_1'
+  // Terminate for SimscapeExecutionBlock: '<S49>/STATE_1'
   neu_destroy_diagnostic_manager((NeuDiagnosticManager *)
     left_arm_simul_DW.STATE_1_DiagMgr);
   nesl_destroy_simulation_data((NeslSimulationData *)
@@ -1456,7 +1712,7 @@ void left_arm_simul_terminate(void)
 
   // End of Terminate for SubSystem: '<Root>/Subscribe'
 
-  // Terminate for SimscapeExecutionBlock: '<S47>/OUTPUT_1_0'
+  // Terminate for SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
   neu_destroy_diagnostic_manager((NeuDiagnosticManager *)
     left_arm_simul_DW.OUTPUT_1_0_DiagMgr);
   nesl_destroy_simulation_data((NeslSimulationData *)
@@ -1467,13 +1723,13 @@ void left_arm_simul_terminate(void)
   matlabCodegenHandle_matlabCodeg(&left_arm_simul_DW.obj);
 
   // Terminate for Atomic SubSystem: '<S2>/Publish2'
-  // Terminate for MATLABSystem: '<S53>/SinkBlock'
+  // Terminate for MATLABSystem: '<S55>/SinkBlock'
   matlabCodegenHandle_matlabCod_k(&left_arm_simul_DW.obj_a);
 
   // End of Terminate for SubSystem: '<S2>/Publish2'
 
   // Terminate for Atomic SubSystem: '<S2>/Publish1'
-  // Terminate for MATLABSystem: '<S52>/SinkBlock'
+  // Terminate for MATLABSystem: '<S54>/SinkBlock'
   matlabCodegenHandle_matlabCod_k(&left_arm_simul_DW.obj_ag);
 
   // End of Terminate for SubSystem: '<S2>/Publish1'

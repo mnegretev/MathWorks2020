@@ -51,12 +51,17 @@ def main():
         t = [torques[j][i] for j in range(len(torques))]
         plt_speeds.append(s)
         plt_torques.append(t)
+    matplotlib.pyplot.title("Estimated speeds")
     for i in range(len(plt_speeds)):
         matplotlib.pyplot.plot(plt_time, plt_speeds[i])
+        
     matplotlib.pyplot.figure()
+    matplotlib.pyplot.title("Torques")
     for i in range(len(plt_torques)):
         matplotlib.pyplot.plot(plt_time, plt_torques[i])
+        
     matplotlib.pyplot.figure()
+    matplotlib.pyplot.title("Estimated mass")
     matplotlib.pyplot.plot(plt_time, plt_masses)
     matplotlib.pyplot.show()
 

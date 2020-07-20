@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.102
+// Model version                  : 1.109
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Thu Jul 16 14:56:05 2020
+// C/C++ source code generated on : Sun Jul 19 14:39:06 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -22,7 +22,7 @@
 // Block parameters (default storage)
 P_left_arm_simul_T left_arm_simul_P = {
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S54>/Out1'
+  //  Referenced by: '<S56>/Out1'
 
   {
     {
@@ -652,7 +652,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Constant_Value_m
-  //  Referenced by: '<S48>/Constant'
+  //  Referenced by: '<S50>/Constant'
 
   {
     {
@@ -967,7 +967,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Constant_Value_b
-  //  Referenced by: '<S50>/Constant'
+  //  Referenced by: '<S52>/Constant'
 
   {
     {
@@ -1096,7 +1096,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Constant_Value_bz
-  //  Referenced by: '<S49>/Constant'
+  //  Referenced by: '<S51>/Constant'
 
   {
     {
@@ -1110,7 +1110,7 @@ P_left_arm_simul_T left_arm_simul_P = {
   },
 
   // Computed Parameter: Out1_Y0_h
-  //  Referenced by: '<S55>/Out1'
+  //  Referenced by: '<S57>/Out1'
 
   {
     0.0                                // Data

@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.102
+// Model version                  : 1.109
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Thu Jul 16 14:56:05 2020
+// C/C++ source code generated on : Sun Jul 19 14:39:06 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -32,6 +32,8 @@
 #ifndef rtmSetTPtr
 # define rtmSetTPtr(rtm, val)          ((rtm)->Timing.t = (val))
 #endif
+
+extern real_T rt_roundd_snf(real_T u);
 
 // private model entry point functions
 extern void left_arm_simul_derivatives(void);
