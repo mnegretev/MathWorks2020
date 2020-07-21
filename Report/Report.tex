@@ -111,11 +111,38 @@ Since,  $x_2 = \hat{x}_2$, then
 where $z_{2_{eq}}$ is the equivalent output error injection which can be obtained by an appropriate low-pass filtering of $z_2$. 
 
 \subsection{Mass estimation}
-The term $g(x_1, x_2, u)$ in equation (\ref{eq:Model2}) is a function of input torque, joint positions and joint speeds. The mass of the object could be calculated in any point of the state space, nevertheless, calculations are much simpler if such estimation is made only when the manipulator is in a constant position. If $\dot{q}=0$, then, from (\ref{eq:Model}), input torque is equal only to the gravitational component $G(q)$ plus disturbances $\Delta (q)$. 
+The term $g(x_1, x_2, u)$ in equation (\ref{eq:Model2}) is a function of input torque, joint positions and joint speeds. The mass of the object could be calculated in any point of the state space, nevertheless, calculations are much simpler if such estimation is made only when the manipulator is in a constant position. If $\dot{q}=0$, then, from (\ref{eq:Model}), input torque is equal only to the gravitational component $G(q)$ plus disturbances $\Delta (q)$.
+
+\subsection{Control for trajectory tracking}
 
 \section{Simulink implementation}
+The Sliding Mode Observer is a copy of the system plus an output error injection term, with the form:
+  \begin{eqnarray}
+    \dot{\hat{x}}_1 &=& \hat{x}_2 + z_1\label{eq:observer1}\\
+    \dot{\hat{x}}_2 &=& -M^{-1}(q)\left(C(q, \dot{\hat{q}})\dot{\hat{q}} + B\dot{\hat{q}} + G(q) - u\right) + z_2\label{eq:observer2}
+  \end{eqnarray}
+  The nominal part can be derived from the lagrangian, nevertheless, the analytic form is too complex due to the number of DOF. Instead, we used the numeric solution provided by the Simulink Robotics Toolbox, as shown in figure:
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.5\textwidth]{Figures/SMOwithSimulink.png}
+  \end{figure}
+
+  Also, from equation (\ref{eq:Mqz}), it is necessary to compute the inertia matrix $M(q)$ to obtain the perturbing torques $\phi$. Similar to the observer, instead of obtaining the algebraic expression of $M(q)$, we used the numeric calculation provided by the Robotics Toolbox:
+
+\subsection{Quantization of input torque and position measurements}
+To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution and can set torque with 10 bit resolution. The implemented simulation add this quantization effect, which is shown in figures ASDFASF and ASDFSAFS. 
+\textbf{Agregar grafica con mucho zoom donde se vean escalonadas las posiciones y los torques. }
+
+\subsection{A ROS node for each task}
 
 \section{Simulation results}
+\subsection{Joint speed estimation in finite time}
+
+\subsection{SMO performance with noisy measurements}
+
+\subsection{Mass estimation}
+
+\subsection{Effects of uncertanties in physical parameters}
 
 \section{Experimental results}
 

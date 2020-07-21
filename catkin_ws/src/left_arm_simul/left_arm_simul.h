@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.109
+// Model version                  : 1.118
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Sun Jul 19 14:39:06 2020
+// C/C++ source code generated on : Mon Jul 20 20:35:51 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -199,6 +199,8 @@ typedef struct {
   SL_Bus_left_arm_simul_std_msgs_Float64 b_varargout_2_b;
   uint32_T u[2];
   int32_T i;
+  int32_T value;
+  int32_T saturatedUnaryMinus;
   uint32_T b_varargout_2_Data_SL_Info_Curr;
   uint32_T b_varargout_2_Data_SL_Info_Rece;
   uint32_T b_varargout_2_Layout_DataOffset;
@@ -208,7 +210,8 @@ typedef struct {
 
 // Block states (default storage) for system '<Root>'
 typedef struct {
-  ros_slros_internal_block_Curr_T obj; // '<S2>/Current Time'
+  ros_slros_internal_block_GetP_T obj; // '<Root>/Get Parameter'
+  ros_slros_internal_block_Curr_T obj_b;// '<S2>/Current Time'
   ros_slros_internal_block_Publ_T obj_a;// '<S55>/SinkBlock'
   ros_slros_internal_block_Publ_T obj_ag;// '<S54>/SinkBlock'
   ros_slros_internal_block_Subs_T obj_k;// '<S4>/SourceBlock'

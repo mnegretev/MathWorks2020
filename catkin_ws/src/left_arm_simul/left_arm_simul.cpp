@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.109
+// Model version                  : 1.118
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Sun Jul 19 14:39:06 2020
+// C/C++ source code generated on : Mon Jul 20 20:35:51 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -41,9 +41,10 @@ static void left_arm_simul_SystemCore_step(boolean_T *varargout_1, real_T
   *varargout_2_Layout_Dim_SL_Inf_0);
 static real_T left_arm_sim_eml_rand_mt19937ar(uint32_T state[625]);
 static real_T left_arm_simul_rand(void);
-static void matlabCodegenHandle_matlabC_k10(ros_slros_internal_block_Subs_T *obj);
-static void matlabCodegenHandle_matlabCodeg(ros_slros_internal_block_Curr_T *obj);
-static void matlabCodegenHandle_matlabCod_k(ros_slros_internal_block_Publ_T *obj);
+static void matlabCodegenHandle_matlab_k10o(ros_slros_internal_block_Subs_T *obj);
+static void matlabCodegenHandle_matlabCodeg(ros_slros_internal_block_GetP_T *obj);
+static void matlabCodegenHandle_matlabCod_k(ros_slros_internal_block_Curr_T *obj);
+static void matlabCodegenHandle_matlabCo_k1(ros_slros_internal_block_Publ_T *obj);
 static void rate_scheduler(void);
 
 //
@@ -526,21 +527,28 @@ static real_T left_arm_simul_rand(void)
   return r;
 }
 
-static void matlabCodegenHandle_matlabC_k10(ros_slros_internal_block_Subs_T *obj)
+static void matlabCodegenHandle_matlab_k10o(ros_slros_internal_block_Subs_T *obj)
 {
   if (!obj->matlabCodegenIsDeleted) {
     obj->matlabCodegenIsDeleted = true;
   }
 }
 
-static void matlabCodegenHandle_matlabCodeg(ros_slros_internal_block_Curr_T *obj)
+static void matlabCodegenHandle_matlabCodeg(ros_slros_internal_block_GetP_T *obj)
 {
   if (!obj->matlabCodegenIsDeleted) {
     obj->matlabCodegenIsDeleted = true;
   }
 }
 
-static void matlabCodegenHandle_matlabCod_k(ros_slros_internal_block_Publ_T *obj)
+static void matlabCodegenHandle_matlabCod_k(ros_slros_internal_block_Curr_T *obj)
+{
+  if (!obj->matlabCodegenIsDeleted) {
+    obj->matlabCodegenIsDeleted = true;
+  }
+}
+
+static void matlabCodegenHandle_matlabCo_k1(ros_slros_internal_block_Publ_T *obj)
 {
   if (!obj->matlabCodegenIsDeleted) {
     obj->matlabCodegenIsDeleted = true;
@@ -986,15 +994,28 @@ void left_arm_simul_step(void)
 
     if (rtmIsMajorTimeStep(left_arm_simul_M) &&
         left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
+      // MATLABSystem: '<Root>/Get Parameter'
+      ParamGet_left_arm_simul_433.get_parameter(&left_arm_simul_B.value);
+
       // MATLAB Function: '<S1>/Pose Quantization and Noise' incorporates:
+      //   MATLABSystem: '<Root>/Get Parameter'
       //   SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
       //   SimscapeExecutionBlock: '<S49>/STATE_1'
+
+      if (left_arm_simul_B.value <= MIN_int32_T) {
+        left_arm_simul_B.saturatedUnaryMinus = MAX_int32_T;
+      } else {
+        left_arm_simul_B.saturatedUnaryMinus = -left_arm_simul_B.value;
+      }
 
       for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 7; left_arm_simul_B.i++)
       {
         left_arm_simul_B.time_tmp = left_arm_simul_rand();
-        left_arm_simul_B.quantized_q[left_arm_simul_B.i] = ((floor
-          (left_arm_simul_B.time_tmp * 5.0) + -2.0) + rt_roundd_snf
+        left_arm_simul_B.quantized_q[left_arm_simul_B.i] = ((floor(((
+          static_cast<real_T>(left_arm_simul_B.value) - static_cast<real_T>
+          (left_arm_simul_B.saturatedUnaryMinus)) + 1.0) *
+          left_arm_simul_B.time_tmp) + static_cast<real_T>
+          (left_arm_simul_B.saturatedUnaryMinus)) + rt_roundd_snf
           (left_arm_simul_B.OUTPUT_1_0[left_arm_simul_B.i] /
            0.0015339807878856412)) * 0.0015339807878856412;
       }
@@ -1390,10 +1411,14 @@ void left_arm_simul_initialize(void)
     static const char_T tmp_3[19] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
       'e', '/', 'l', 'a', '_', 't', 'o', 'r', 'q', 'u', 'e' };
 
-    static const char_T tmp_4[13] = { '/', 'j', 'o', 'i', 'n', 't', '_', 's',
+    static const char_T tmp_4[25] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
+      'e', '/', 'l', 'a', '_', 'n', 'o', 'i', 's', 'e', '_', 'f', 'a', 'c', 't',
+      'o', 'r' };
+
+    static const char_T tmp_5[13] = { '/', 'j', 'o', 'i', 'n', 't', '_', 's',
       't', 'a', 't', 'e', 's' };
 
-    static const char_T tmp_5[25] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
+    static const char_T tmp_6[25] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
       'e', '/', 'l', 'a', '_', 'c', 'u', 'r', 'r', 'e', 'n', 't', '_', 'p', 'o',
       's', 'e' };
 
@@ -1424,7 +1449,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters.mUseSimState = false;
     left_arm_simul_B.modelParameters.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.17070287E+8;
+    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.17178074E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters.mSolverTolerance = left_arm_simul_B.d;
     left_arm_simul_B.d = 0.004;
@@ -1554,7 +1579,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters_m.mUseSimState = false;
     left_arm_simul_B.modelParameters_m.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters_m.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.17070287E+8;
+    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.17178074E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters_m.mSolverTolerance = left_arm_simul_B.d;
     left_arm_simul_B.d = 0.004;
@@ -1609,13 +1634,31 @@ void left_arm_simul_initialize(void)
       }
     }
 
-    // Start for MATLABSystem: '<S2>/Current Time'
+    // Start for MATLABSystem: '<Root>/Get Parameter'
     left_arm_simul_DW.obj.matlabCodegenIsDeleted = true;
     left_arm_simul_DW.obj.isInitialized = 0;
     left_arm_simul_DW.obj.matlabCodegenIsDeleted = false;
     left_arm_simul_DW.obj.isSetupComplete = false;
     left_arm_simul_DW.obj.isInitialized = 1;
+    for (i = 0; i < 25; i++) {
+      left_arm_simul_B.cv[i] = tmp_4[i];
+    }
+
+    left_arm_simul_B.cv[25] = '\x00';
+    ParamGet_left_arm_simul_433.initialize(left_arm_simul_B.cv);
+    ParamGet_left_arm_simul_433.initialize_error_codes(0, 1, 2, 3);
+    ParamGet_left_arm_simul_433.set_initial_value(0);
     left_arm_simul_DW.obj.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<Root>/Get Parameter'
+
+    // Start for MATLABSystem: '<S2>/Current Time'
+    left_arm_simul_DW.obj_b.matlabCodegenIsDeleted = true;
+    left_arm_simul_DW.obj_b.isInitialized = 0;
+    left_arm_simul_DW.obj_b.matlabCodegenIsDeleted = false;
+    left_arm_simul_DW.obj_b.isSetupComplete = false;
+    left_arm_simul_DW.obj_b.isInitialized = 1;
+    left_arm_simul_DW.obj_b.isSetupComplete = true;
 
     // Start for Atomic SubSystem: '<S2>/Publish2'
     // Start for MATLABSystem: '<S55>/SinkBlock'
@@ -1625,7 +1668,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_DW.obj_a.isSetupComplete = false;
     left_arm_simul_DW.obj_a.isInitialized = 1;
     for (i = 0; i < 13; i++) {
-      left_arm_simul_B.cv3[i] = tmp_4[i];
+      left_arm_simul_B.cv3[i] = tmp_5[i];
     }
 
     left_arm_simul_B.cv3[13] = '\x00';
@@ -1643,7 +1686,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_DW.obj_ag.isSetupComplete = false;
     left_arm_simul_DW.obj_ag.isInitialized = 1;
     for (i = 0; i < 25; i++) {
-      left_arm_simul_B.cv[i] = tmp_5[i];
+      left_arm_simul_B.cv[i] = tmp_6[i];
     }
 
     left_arm_simul_B.cv[25] = '\x00';
@@ -1702,13 +1745,13 @@ void left_arm_simul_terminate(void)
 
   // Terminate for Atomic SubSystem: '<Root>/Subscribe1'
   // Terminate for MATLABSystem: '<S4>/SourceBlock'
-  matlabCodegenHandle_matlabC_k10(&left_arm_simul_DW.obj_k);
+  matlabCodegenHandle_matlab_k10o(&left_arm_simul_DW.obj_k);
 
   // End of Terminate for SubSystem: '<Root>/Subscribe1'
 
   // Terminate for Atomic SubSystem: '<Root>/Subscribe'
   // Terminate for MATLABSystem: '<S3>/SourceBlock'
-  matlabCodegenHandle_matlabC_k10(&left_arm_simul_DW.obj_f);
+  matlabCodegenHandle_matlab_k10o(&left_arm_simul_DW.obj_f);
 
   // End of Terminate for SubSystem: '<Root>/Subscribe'
 
@@ -1719,18 +1762,21 @@ void left_arm_simul_terminate(void)
     left_arm_simul_DW.OUTPUT_1_0_SimData);
   nesl_erase_simulator("left_arm_simul/Manipulator/Solver Configuration_1");
 
-  // Terminate for MATLABSystem: '<S2>/Current Time'
+  // Terminate for MATLABSystem: '<Root>/Get Parameter'
   matlabCodegenHandle_matlabCodeg(&left_arm_simul_DW.obj);
+
+  // Terminate for MATLABSystem: '<S2>/Current Time'
+  matlabCodegenHandle_matlabCod_k(&left_arm_simul_DW.obj_b);
 
   // Terminate for Atomic SubSystem: '<S2>/Publish2'
   // Terminate for MATLABSystem: '<S55>/SinkBlock'
-  matlabCodegenHandle_matlabCod_k(&left_arm_simul_DW.obj_a);
+  matlabCodegenHandle_matlabCo_k1(&left_arm_simul_DW.obj_a);
 
   // End of Terminate for SubSystem: '<S2>/Publish2'
 
   // Terminate for Atomic SubSystem: '<S2>/Publish1'
   // Terminate for MATLABSystem: '<S54>/SinkBlock'
-  matlabCodegenHandle_matlabCod_k(&left_arm_simul_DW.obj_ag);
+  matlabCodegenHandle_matlabCo_k1(&left_arm_simul_DW.obj_ag);
 
   // End of Terminate for SubSystem: '<S2>/Publish1'
 }

@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.109
+// Model version                  : 1.118
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Sun Jul 19 14:39:06 2020
+// C/C++ source code generated on : Mon Jul 20 20:35:51 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -175,6 +175,18 @@ typedef struct {
 } d_robotics_slcore_internal_bl_T;
 
 #endif                                 //typedef_d_robotics_slcore_internal_bl_T
+
+#ifndef typedef_ros_slros_internal_block_GetP_T
+#define typedef_ros_slros_internal_block_GetP_T
+
+typedef struct {
+  boolean_T matlabCodegenIsDeleted;
+  int32_T isInitialized;
+  boolean_T isSetupComplete;
+  d_robotics_slcore_internal_bl_T SampleTimeHandler;
+} ros_slros_internal_block_GetP_T;
+
+#endif                                 //typedef_ros_slros_internal_block_GetP_T
 
 #ifndef typedef_ros_slros_internal_block_Curr_T
 #define typedef_ros_slros_internal_block_Curr_T

@@ -15,6 +15,9 @@ SimulinkPublisher<std_msgs::Float64MultiArray, SL_Bus_left_arm_simul_std_msgs_Fl
 // For Block left_arm_simul/ROS Publishers/Publish2
 SimulinkPublisher<sensor_msgs::JointState, SL_Bus_left_arm_simul_sensor_msgs_JointState> Pub_left_arm_simul_191;
 
+// For Block left_arm_simul/Get Parameter
+SimulinkParameterGetter<int32_T, int> ParamGet_left_arm_simul_433;
+
 void slros_node_init(int argc, char** argv)
 {
   ros::init(argc, argv, SLROSNodeName);

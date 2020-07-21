@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.216
+// Model version                  : 1.218
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Thu Jul 16 14:58:01 2020
+// C/C++ source code generated on : Mon Jul 20 20:46:24 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -1218,8 +1218,8 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
       data[left_arm_ctrl_obs_B.b_i_pr].f1);
   }
 
-  left_arm_ctrl_obs_B.c = static_cast<int32_T>((((-1.0 -
-    left_arm_ctrl_obs_B.nb_o) + 1.0) / -1.0)) - 1;
+  left_arm_ctrl_obs_B.c = static_cast<int32_T>(((-1.0 - left_arm_ctrl_obs_B.nb_o)
+    + 1.0) / -1.0) - 1;
   left_arm_ctrl_ob_emxInit_real_T(&Si, 2);
   left_arm_ctrl_ob_emxInit_real_T(&Fi, 2);
   left_arm_ctrl_ob_emxInit_real_T(&Sj, 2);
@@ -1229,8 +1229,7 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
   for (left_arm_ctrl_obs_B.c_tmp = 0; left_arm_ctrl_obs_B.c_tmp <=
        left_arm_ctrl_obs_B.c; left_arm_ctrl_obs_B.c_tmp++) {
     left_arm_ctrl_obs_B.pid_tmp_d = static_cast<int32_T>
-      ((left_arm_ctrl_obs_B.nb_o + -static_cast<real_T>
-        (left_arm_ctrl_obs_B.c_tmp)));
+      (left_arm_ctrl_obs_B.nb_o + -static_cast<real_T>(left_arm_ctrl_obs_B.c_tmp));
     left_arm_ctrl_obs_B.q_size_tmp_j = left_arm_ctrl_obs_B.pid_tmp_d - 1;
     left_arm_ctrl_obs_B.pid_l = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp_j
       ]->ParentIndex;
@@ -1928,7 +1927,7 @@ static void RigidBodyTree_forwardKinematics(k_robotics_manip_internal_Rig_T *obj
       left_arm_ctrl_obs_B.d = 0;
     } else {
       left_arm_ctrl_obs_B.e = static_cast<int32_T>(left_arm_ctrl_obs_B.k_c) - 1;
-      left_arm_ctrl_obs_B.d = static_cast<int32_T>((left_arm_ctrl_obs_B.n - 1.0));
+      left_arm_ctrl_obs_B.d = static_cast<int32_T>(left_arm_ctrl_obs_B.n - 1.0);
     }
 
     left_arm_ctrl_obs_B.b_kstr_m1 = switch_expression->size[0] *
@@ -3233,8 +3232,8 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
   left_arm_ctrl_ob_emxFree_real_T(&vB);
   left_arm_ctrl_ob_emxFree_real_T(&vJ);
   left_arm_c_emxFree_e_cell_wrap1(&Xtree);
-  left_arm_ctrl_obs_B.i_n = static_cast<int32_T>((((-1.0 -
-    left_arm_ctrl_obs_B.nb) + 1.0) / -1.0)) - 1;
+  left_arm_ctrl_obs_B.i_n = static_cast<int32_T>(((-1.0 - left_arm_ctrl_obs_B.nb)
+    + 1.0) / -1.0) - 1;
   left_arm_ctrl_ob_emxInit_real_T(&taui, 1);
   left_arm_ctrl_ob_emxInit_real_T(&a, 2);
   for (left_arm_ctrl_obs_B.t_c = 0; left_arm_ctrl_obs_B.t_c <=
@@ -3546,8 +3545,8 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
       data[left_arm_ctrl_obs_B.b_i_p].f1);
   }
 
-  left_arm_ctrl_obs_B.idx = static_cast<int32_T>((((-1.0 -
-    left_arm_ctrl_obs_B.nb_e) + 1.0) / -1.0)) - 1;
+  left_arm_ctrl_obs_B.idx = static_cast<int32_T>(((-1.0 -
+    left_arm_ctrl_obs_B.nb_e) + 1.0) / -1.0) - 1;
   left_arm_ctrl_ob_emxInit_real_T(&Si, 2);
   left_arm_ctrl_ob_emxInit_real_T(&Fi, 2);
   left_arm_ctrl_ob_emxInit_real_T(&Sj, 2);
@@ -3558,8 +3557,8 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
   for (left_arm_ctrl_obs_B.unnamed_idx_1_c = 0;
        left_arm_ctrl_obs_B.unnamed_idx_1_c <= left_arm_ctrl_obs_B.idx;
        left_arm_ctrl_obs_B.unnamed_idx_1_c++) {
-    left_arm_ctrl_obs_B.pid_tmp = static_cast<int32_T>((left_arm_ctrl_obs_B.nb_e
-      + -static_cast<real_T>(left_arm_ctrl_obs_B.unnamed_idx_1_c)));
+    left_arm_ctrl_obs_B.pid_tmp = static_cast<int32_T>(left_arm_ctrl_obs_B.nb_e
+      + -static_cast<real_T>(left_arm_ctrl_obs_B.unnamed_idx_1_c));
     left_arm_ctrl_obs_B.q_size_tmp = left_arm_ctrl_obs_B.pid_tmp - 1;
     left_arm_ctrl_obs_B.pid = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp]
       ->ParentIndex;
@@ -4995,8 +4994,8 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
   left_arm_ctrl_ob_emxFree_real_T(&vB);
   left_arm_ctrl_ob_emxFree_real_T(&vJ);
   left_arm_ct_emxFree_f_cell_wrap(&Xtree);
-  left_arm_ctrl_obs_B.loop_ub_tmp = static_cast<int32_T>((((-1.0 -
-    left_arm_ctrl_obs_B.nb_c) + 1.0) / -1.0)) - 1;
+  left_arm_ctrl_obs_B.loop_ub_tmp = static_cast<int32_T>(((-1.0 -
+    left_arm_ctrl_obs_B.nb_c) + 1.0) / -1.0) - 1;
   left_arm_ctrl_ob_emxInit_char_T(&a, 2);
   left_arm_ctrl_ob_emxInit_real_T(&a_0, 2);
   if (0 <= left_arm_ctrl_obs_B.loop_ub_tmp) {
@@ -9690,21 +9689,20 @@ void left_arm_ctrl_obs_step(void)
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
        left_arm_ctrl_obs_B.i++) {
     left_arm_ctrl_obs_B.vNum = (static_cast<real32_T>
-      (((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i] -
-         static_cast<real32_T>
-         (left_arm_ctrl_obs_B.In1.Data[left_arm_ctrl_obs_B.i])) *
-        left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.i]))
+      ((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i] -
+        static_cast<real32_T>(left_arm_ctrl_obs_B.In1.Data[left_arm_ctrl_obs_B.i]))
+       * left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.i])
       + left_arm_ctrl_obs_B.MATLABSystem_p[left_arm_ctrl_obs_B.i]) +
       static_cast<real32_T>
-      (((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i + 7] -
-         static_cast<real32_T>
-         (left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i + 7])) *
-        left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_m[left_arm_ctrl_obs_B.i]));
-    if (left_arm_ctrl_obs_B.vNum > 2.0) {
-      left_arm_ctrl_obs_B.vNum = 2.0;
+      ((left_arm_ctrl_obs_B.In1_e.Data[left_arm_ctrl_obs_B.i + 7] -
+        static_cast<real32_T>
+        (left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.i + 7])) *
+       left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_m[left_arm_ctrl_obs_B.i]);
+    if (left_arm_ctrl_obs_B.vNum > 2.5) {
+      left_arm_ctrl_obs_B.vNum = 2.5;
     } else {
-      if (left_arm_ctrl_obs_B.vNum < -2.0) {
-        left_arm_ctrl_obs_B.vNum = -2.0;
+      if (left_arm_ctrl_obs_B.vNum < -2.5) {
+        left_arm_ctrl_obs_B.vNum = -2.5;
       }
     }
 
@@ -9771,8 +9769,8 @@ void left_arm_ctrl_obs_step(void)
   left_arm_ctrl_ob_emxFree_real_T(&b);
 
   // MATLABSystem: '<S24>/MATLAB System'
-  left_arm_ctrl_obs_B.iend = static_cast<int32_T>((((-1.0 - static_cast<real_T>
-    (left_arm_ctrl_obs_B.u1)) + 1.0) / -1.0)) - 1;
+  left_arm_ctrl_obs_B.iend = static_cast<int32_T>(((-1.0 - static_cast<real_T>
+    (left_arm_ctrl_obs_B.u1)) + 1.0) / -1.0) - 1;
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i <=
        left_arm_ctrl_obs_B.iend; left_arm_ctrl_obs_B.i++) {
     left_arm_ctrl_obs_B.j = static_cast<real_T>(left_arm_ctrl_obs_B.u1) + -
@@ -9850,12 +9848,12 @@ void left_arm_ctrl_obs_step(void)
   left_arm_ctrl_ob_emxFree_real_T(&H);
 
   // MATLABSystem: '<S24>/MATLAB System'
-  left_arm_ctrl_obs_B.iend = static_cast<int32_T>((((-1.0 -
-    left_arm_ctrl_obs_B.vNum) + 1.0) / -1.0)) - 1;
+  left_arm_ctrl_obs_B.iend = static_cast<int32_T>(((-1.0 -
+    left_arm_ctrl_obs_B.vNum) + 1.0) / -1.0) - 1;
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i <=
        left_arm_ctrl_obs_B.iend; left_arm_ctrl_obs_B.i++) {
-    left_arm_ctrl_obs_B.j_k = static_cast<int32_T>((left_arm_ctrl_obs_B.vNum + -
-      static_cast<real_T>(left_arm_ctrl_obs_B.i)));
+    left_arm_ctrl_obs_B.j_k = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum + -
+      static_cast<real_T>(left_arm_ctrl_obs_B.i));
     left_arm_ctrl_obs_B.n_a = left_arm_ctrl_obs_B.j_k - 1;
     left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_a] /=
       L->data[(left_arm_ctrl_obs_B.n_a * L->size[0] + left_arm_ctrl_obs_B.j_k) -
