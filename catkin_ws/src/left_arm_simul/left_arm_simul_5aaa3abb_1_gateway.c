@@ -9,13 +9,13 @@
 #endif
 
 #include "nesl_rtw.h"
-#include "left_arm_simul_e2442d81_1.h"
-#include "left_arm_simul_e2442d81_1_gateway.h"
+#include "left_arm_simul_5aaa3abb_1.h"
+#include "left_arm_simul_5aaa3abb_1_gateway.h"
 
-void left_arm_simul_e2442d81_1_gateway(void)
+void left_arm_simul_5aaa3abb_1_gateway(void)
 {
   NeModelParameters modelparams = { (NeSolverType) 1, 0.001, 0, 0.004, 0, 0, 0,
-    0, (SscLoggingSetting) 0, 517178074, };
+    0, (SscLoggingSetting) 0, 517265059, };
 
   NeSolverParameters solverparams = { 0, 0, 1, 0, 0, 0.001, 1e-06, 1e-09, 0, 0,
     100, 0, 1, 0, 1e-09, 0, (NeLocalSolverChoice) 0, 0.001, 0, 3, 2,
@@ -34,7 +34,7 @@ void left_arm_simul_e2442d81_1_gateway(void)
     numOutputs = sizeof(outputparameters_init)/sizeof(outputparameters_init[0]);
   }
 
-  left_arm_simul_e2442d81_1_dae(&dae,
+  left_arm_simul_5aaa3abb_1_dae(&dae,
     &modelparams,
     &solverparams);
   nesl_register_simulator_group(

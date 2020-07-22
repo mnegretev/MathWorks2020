@@ -11,8 +11,8 @@
 #include "sm_ssci_run_time_errors.h"
 #include "sm_RuntimeDerivedValuesBundle.h"
 
-const NeZCData *left_arm_simul_e2442d81_1_ZCData = NULL;
-PmfMessageId left_arm_simul_e2442d81_1_computeAsmModeVector(const double *input,
+const NeZCData *left_arm_simul_5aaa3abb_1_ZCData = NULL;
+PmfMessageId left_arm_simul_5aaa3abb_1_computeAsmModeVector(const double *input,
   const double *inputDot, const double *inputDdot, int *modeVector, double
   *errorResult, NeuDiagnosticManager *neDiagMgr)
 {
@@ -25,7 +25,7 @@ PmfMessageId left_arm_simul_e2442d81_1_computeAsmModeVector(const double *input,
   return NULL;
 }
 
-PmfMessageId left_arm_simul_e2442d81_1_computeSimModeVector(const double *input,
+PmfMessageId left_arm_simul_5aaa3abb_1_computeSimModeVector(const double *input,
   const double *inputDot, const double *inputDdot, int *modeVector, double
   *errorResult, NeuDiagnosticManager *neDiagMgr)
 {
@@ -38,7 +38,7 @@ PmfMessageId left_arm_simul_e2442d81_1_computeSimModeVector(const double *input,
   return NULL;
 }
 
-PmfMessageId left_arm_simul_e2442d81_1_onModeChanged(const double *input, const
+PmfMessageId left_arm_simul_5aaa3abb_1_onModeChanged(const double *input, const
   double *inputDot, const double *inputDdot, const int *prevModeVector, int
   *modeVector, double *solverStateVector, double *discreteStateVector, double
   *errorResult, NeuDiagnosticManager *neDiagMgr)
@@ -55,7 +55,7 @@ PmfMessageId left_arm_simul_e2442d81_1_onModeChanged(const double *input, const
   return NULL;
 }
 
-PmfMessageId left_arm_simul_e2442d81_1_computeZeroCrossings(const double *input,
+PmfMessageId left_arm_simul_5aaa3abb_1_computeZeroCrossings(const double *input,
   const double *inputDot, const double *inputDdot, double *zeroCrossingsVector,
   double *errorResult, NeuDiagnosticManager *neDiagMgr)
 {

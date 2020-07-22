@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.118
+// Model version                  : 1.128
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Mon Jul 20 20:35:51 2020
+// C/C++ source code generated on : Tue Jul 21 20:46:03 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -28,7 +28,7 @@
 #include "rtw_solver.h"
 #include "slros_initialize.h"
 #include "nesl_rtw.h"
-#include "left_arm_simul_e2442d81_1_gateway.h"
+#include "left_arm_simul_5aaa3abb_1_gateway.h"
 #endif                                 // left_arm_simul_COMMON_INCLUDES_
 
 #include "left_arm_simul_types.h"
@@ -198,8 +198,8 @@ typedef struct {
   SL_Bus_left_arm_simul_std_msgs_Float64 In1_j;// '<S57>/In1'
   SL_Bus_left_arm_simul_std_msgs_Float64 b_varargout_2_b;
   uint32_T u[2];
+  int32_T GetParameter_o1;             // '<Root>/Get Parameter'
   int32_T i;
-  int32_T value;
   int32_T saturatedUnaryMinus;
   uint32_T b_varargout_2_Data_SL_Info_Curr;
   uint32_T b_varargout_2_Data_SL_Info_Rece;
@@ -239,8 +239,8 @@ typedef struct {
   void* OUTPUT_1_0_TsIndex;            // '<S49>/OUTPUT_1_0'
   uint32_T method;                     // '<S1>/Pose Quantization and Noise'
   uint32_T state;                      // '<S1>/Pose Quantization and Noise'
-  uint32_T state_n[2];                 // '<S1>/Pose Quantization and Noise'
-  uint32_T state_a[625];               // '<S1>/Pose Quantization and Noise'
+  uint32_T state_b[2];                 // '<S1>/Pose Quantization and Noise'
+  uint32_T state_i[625];               // '<S1>/Pose Quantization and Noise'
   int_T STATE_1_Modes;                 // '<S49>/STATE_1'
   int_T OUTPUT_1_0_Modes;              // '<S49>/OUTPUT_1_0'
   boolean_T STATE_1_FirstOutput;       // '<S49>/STATE_1'
@@ -340,13 +340,13 @@ struct tag_RTM_left_arm_simul_T {
     time_T stepSize0;
     uint32_T clockTick1;
     struct {
-      uint8_T TID[3];
+      uint16_T TID[4];
     } TaskCounters;
 
     SimTimeStep simTimeStep;
     boolean_T stopRequestedFlag;
     time_T *t;
-    time_T tArray[3];
+    time_T tArray[4];
   } Timing;
 };
 

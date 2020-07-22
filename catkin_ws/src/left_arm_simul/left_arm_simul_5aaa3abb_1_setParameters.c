@@ -11,54 +11,54 @@
 #include "sm_ssci_run_time_errors.h"
 #include "sm_RuntimeDerivedValuesBundle.h"
 
-void left_arm_simul_e2442d81_1_computeRuntimeParameters(real_T *in, real_T *out)
+void left_arm_simul_5aaa3abb_1_computeRuntimeParameters(real_T *in, real_T *out)
 {
   (void) in;
   (void) out;
 }
 
-void left_arm_simul_e2442d81_1_computeAsmRuntimeDerivedValuesDoubles(const
+void left_arm_simul_5aaa3abb_1_computeAsmRuntimeDerivedValuesDoubles(const
   double *rtp, double *rtdvd)
 {
   (void) rtp;
   (void) rtdvd;
 }
 
-void left_arm_simul_e2442d81_1_computeAsmRuntimeDerivedValuesInts(const double
+void left_arm_simul_5aaa3abb_1_computeAsmRuntimeDerivedValuesInts(const double
   *rtp, int *rtdvi)
 {
   (void) rtp;
   (void) rtdvi;
 }
 
-void left_arm_simul_e2442d81_1_computeAsmRuntimeDerivedValues(const double *rtp,
+void left_arm_simul_5aaa3abb_1_computeAsmRuntimeDerivedValues(const double *rtp,
   RuntimeDerivedValuesBundle *rtdv)
 {
-  left_arm_simul_e2442d81_1_computeAsmRuntimeDerivedValuesDoubles(rtp,
+  left_arm_simul_5aaa3abb_1_computeAsmRuntimeDerivedValuesDoubles(rtp,
     rtdv->mDoubles.mValues);
-  left_arm_simul_e2442d81_1_computeAsmRuntimeDerivedValuesInts(rtp,
+  left_arm_simul_5aaa3abb_1_computeAsmRuntimeDerivedValuesInts(rtp,
     rtdv->mInts.mValues);
 }
 
-void left_arm_simul_e2442d81_1_computeSimRuntimeDerivedValuesDoubles(const
+void left_arm_simul_5aaa3abb_1_computeSimRuntimeDerivedValuesDoubles(const
   double *rtp, double *rtdvd)
 {
   (void) rtp;
   (void) rtdvd;
 }
 
-void left_arm_simul_e2442d81_1_computeSimRuntimeDerivedValuesInts(const double
+void left_arm_simul_5aaa3abb_1_computeSimRuntimeDerivedValuesInts(const double
   *rtp, int *rtdvi)
 {
   (void) rtp;
   (void) rtdvi;
 }
 
-void left_arm_simul_e2442d81_1_computeSimRuntimeDerivedValues(const double *rtp,
+void left_arm_simul_5aaa3abb_1_computeSimRuntimeDerivedValues(const double *rtp,
   RuntimeDerivedValuesBundle *rtdv)
 {
-  left_arm_simul_e2442d81_1_computeSimRuntimeDerivedValuesDoubles(rtp,
+  left_arm_simul_5aaa3abb_1_computeSimRuntimeDerivedValuesDoubles(rtp,
     rtdv->mDoubles.mValues);
-  left_arm_simul_e2442d81_1_computeSimRuntimeDerivedValuesInts(rtp,
+  left_arm_simul_5aaa3abb_1_computeSimRuntimeDerivedValuesInts(rtp,
     rtdv->mInts.mValues);
 }

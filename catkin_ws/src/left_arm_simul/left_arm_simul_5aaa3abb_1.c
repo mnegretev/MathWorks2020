@@ -9,8 +9,8 @@
 #include "sm_ssci_NeDaePrivateData.h"
 
 NeDae *sm_ssci_constructDae(NeDaePrivateData *smData);
-void left_arm_simul_e2442d81_1_NeDaePrivateData_create(NeDaePrivateData *smData);
-void left_arm_simul_e2442d81_1_dae(
+void left_arm_simul_5aaa3abb_1_NeDaePrivateData_create(NeDaePrivateData *smData);
+void left_arm_simul_5aaa3abb_1_dae(
   NeDae **dae,
   const NeModelParameters *modelParams,
   const NeSolverParameters *solverParams)
@@ -20,6 +20,6 @@ void left_arm_simul_e2442d81_1_dae(
     (NeDaePrivateData *) alloc->mCallocFcn(alloc, sizeof(NeDaePrivateData), 1);
   (void) modelParams;
   (void) solverParams;
-  left_arm_simul_e2442d81_1_NeDaePrivateData_create(smData);
+  left_arm_simul_5aaa3abb_1_NeDaePrivateData_create(smData);
   *dae = sm_ssci_constructDae(smData);
 }

@@ -11,11 +11,11 @@
 #include "sm_ssci_run_time_errors.h"
 #include "sm_RuntimeDerivedValuesBundle.h"
 
-void left_arm_simul_e2442d81_1_validateRuntimeParameters(const double *rtp,
+void left_arm_simul_5aaa3abb_1_validateRuntimeParameters(const double *rtp,
   int32_T *satFlags)
 {
   (void) rtp;
   (void) satFlags;
 }
 
-const NeAssertData *left_arm_simul_e2442d81_1_assertData = NULL;
+const NeAssertData *left_arm_simul_5aaa3abb_1_assertData = NULL;

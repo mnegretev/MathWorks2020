@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.218
+// Model version                  : 1.232
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Mon Jul 20 20:46:24 2020
+// C/C++ source code generated on : Tue Jul 21 21:17:08 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -33,7 +33,6 @@
 #include "left_arm_ctrl_obs_types.h"
 #include "rtGetNaN.h"
 #include "rt_nonfinite.h"
-#include "rt_defines.h"
 #include "rtGetInf.h"
 
 // Macros for accessing real-time model data structure
@@ -162,7 +161,6 @@ typedef struct {
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float32MultiArray b_varargout_2_m;
   SL_Bus_left_arm_ctrl_obs_std_msgs_MultiArrayDimension
     b_varargout_2_Layout_Dim[16];
-  real_T MATLABSystem[49];             // '<S10>/MATLAB System'
   real_T b_I[36];
   real_T tempR[36];
   real_T b_I_c[36];
@@ -170,64 +168,63 @@ typedef struct {
   real_T R[36];
   real_T X[36];
   real_T X_k[36];
-  real_T T1[16];
-  real_T T2[16];
-  real_T R_c[16];
   real_T T[16];
   real_T TJ[16];
   real_T a[16];
   real_T b[16];
-  real_T a_b[16];
-  real_T TJ_p[16];
+  real_T a_c[16];
+  real_T TJ_b[16];
   real_T obj[16];
-  real_T T_c[16];
+  real_T T_p[16];
   real_T Tinv[16];
-  real_T TJ_f[16];
-  real_T obj_g[16];
+  real_T TJ_c[16];
+  real_T obj_f[16];
   real_T T_g[16];
   real_T dv[16];
   real_T c_f1[16];
-  real_T a_m[16];
-  real_T b_n[16];
-  real_T a_p[16];
-  real_T T_l[16];
+  real_T a_g[16];
+  real_T b_m[16];
+  real_T a_n[16];
+  real_T T_pp[16];
   real_T dv1[16];
-  real_T TJ_j[16];
-  real_T obj_d[16];
-  real_T TJ_g[16];
-  real_T obj_l[16];
+  real_T TJ_l[16];
+  real_T obj_j[16];
   real_T TJ_d[16];
-  real_T obj_dy[16];
+  real_T obj_g[16];
+  real_T TJ_ld[16];
+  real_T obj_d[16];
   e_cell_wrap_left_arm_ctrl_obs_T expl_temp;
   real_T xp_est[14];                   // '<S8>/Observer'
-  real_T R_l[9];
-  real_T R_o[9];
-  real_T R_b[9];
-  real_T tempR_n[9];
-  real_T dv2[9];
-  real_T R_bs[9];
+  real_T R_d[9];
   real_T tempR_l[9];
-  real_T R_h[9];
-  real_T R_bn[9];
+  real_T dv2[9];
+  real_T R_o[9];
+  real_T tempR_b[9];
+  real_T R_n[9];
+  real_T R_b[9];
   real_T dv3[9];
   real_T dv4[9];
   real_T dv5[9];
-  real_T R_d[9];
-  real_T tempR_e[9];
+  real_T R_l[9];
+  real_T tempR_h[9];
   real_T dv6[9];
   real_T dv7[9];
+  real_T R_bn[9];
+  real_T tempR_d[9];
+  real_T R_e[9];
   real_T R_bj[9];
-  real_T tempR_j[9];
-  real_T R_f[9];
-  real_T R_a[9];
   real_T R_j[9];
-  real_T tempR_jz[9];
-  real_T R_o4[9];
-  real_T tempR_ny[9];
-  real_T R_i[9];
+  real_T tempR_f[9];
+  real_T R_a[9];
+  real_T tempR_j[9];
+  real_T R_jz[9];
   real_T tempR_o[9];
+  real_T dv8[9];
+  real_T dv9[9];
+  real_T dv10[9];
+  real_T dv11[9];
   real_T z[7];                         // '<S8>/Observer'
-  real_T TmpSignalConversionAtSFun_m[7];// '<S2>/mass estimator'
+  real_T TmpSignalConversionAtSFun_k[7];// '<S2>/mass estimator'
   real_T TmpSignalConversionAtSFunct[7];// '<S3>/MATLAB Function1'
   real_T torque[7];
   real_T tau[7];
@@ -235,78 +232,83 @@ typedef struct {
   real_T qddoti_data[7];
   real_T q_data[7];
   real_T q_data_n[7];
-  real_T q_data_m[7];
+  real_T q_data_i[7];
   real32_T b_varargout_2_Data[14];
   real_T a0[6];
   real_T y[6];
-  real_T X_c[6];
-  real_T b_I_m[6];
+  real_T X_o[6];
+  real_T b_I_n[6];
   real_T a0_m[6];
-  real_T y_j[6];
+  real_T y_c[6];
   real_T vJ[6];
-  real_T b_I_h[6];
-  real_T b_I_c0[6];
-  real_T R_ct[6];
+  real_T b_I_m[6];
+  real_T b_I_m3[6];
+  real_T R_ja[6];
   int32_T nonFixedIndices_data[10];
   int32_T ii_data[10];
   int8_T msubspace_data[36];
   real_T result_data[4];
-  real_T result_data_p[4];
-  real_T result_data_p5[4];
-  real_T result_data_a[4];
+  real_T result_data_h[4];
+  real_T result_data_c[4];
+  real_T result_data_ct[4];
   char_T cv[29];
   int32_T l_data[7];
   int32_T e_data[7];
   char_T cv1[26];
-  real_T CoordinateTransformationConvers[3];
-                                 // '<S2>/Coordinate Transformation Conversion'
-  real32_T MATLABSystem_p[7];          // '<S12>/MATLAB System'
   real_T v[3];
-  real_T v_e[3];
+  real_T v_p[3];
+  real_T v_p5[3];
   real_T v_a[3];
+  real_T v_e[3];
+  real_T v_ax[3];
   real_T v_as[3];
   real_T v_i[3];
   real_T v_l[3];
   real_T v_o[3];
-  real_T v_o2[3];
-  real_T v_ip[3];
-  real_T v_f[3];
   char_T cv2[20];
-  char_T b_i[19];
   char_T cv3[16];
-  char_T b_f[14];
   char_T cv4[12];
-  int32_T rtb_MATLABSystem_d_size[3];
-  int32_T rtb_MATLABSystem_d_size_g[3];
-  int32_T tmp_size[3];
-  int32_T rtb_MATLABSystem_d_size_c[3];
-  int32_T sy_size[3];
   char_T cv5[11];
   boolean_T mask[10];
   char_T b_o[9];
-  char_T b_l[9];
-  char_T b_m[8];
-  char_T b_mj[8];
+  char_T b_i[9];
+  char_T b_f[8];
+  char_T b_iz[8];
+  char_T b_ff[8];
+  char_T b_g[8];
   char_T b_c[8];
-  char_T b_fm[8];
-  char_T b_p[8];
-  char_T b_e[8];
-  char_T b_o4[8];
+  char_T b_o3[8];
+  char_T b_l[8];
+  real_T GetParameter7_o1;             // '<S5>/Get Parameter7'
+  real_T GetParameter8_o1;             // '<S5>/Get Parameter8'
+  real_T GetParameter9_o1;             // '<S5>/Get Parameter9'
+  real_T GetParameter_o1;              // '<S4>/Get Parameter'
+  real_T GetParameter1_o1;             // '<S4>/Get Parameter1'
+  real_T GetParameter2_o1;             // '<S4>/Get Parameter2'
+  real_T GetParameter3_o1;             // '<S4>/Get Parameter3'
+  real_T GetParameter4_o1;             // '<S4>/Get Parameter4'
+  real_T GetParameter5_o1;             // '<S4>/Get Parameter5'
+  real_T GetParameter6_o1;             // '<S4>/Get Parameter6'
+  real_T GetParameter7_o1_n;           // '<S4>/Get Parameter7'
+  real_T GetParameter8_o1_k;           // '<S4>/Get Parameter8'
+  real_T GetParameter9_o1_o;           // '<S4>/Get Parameter9'
+  real_T GetParameter10_o1;            // '<S4>/Get Parameter10'
+  real_T GetParameter11_o1;            // '<S4>/Get Parameter11'
+  real_T GetParameter12_o1;            // '<S4>/Get Parameter12'
+  real_T GetParameter13_o1;            // '<S4>/Get Parameter13'
+  real_T MATLABSystem[49];             // '<S10>/MATLAB System'
+  real32_T MATLABSystem_n[7];          // '<S12>/MATLAB System'
   real_T vel;
   real_T scale;
   real_T absxk;
   real_T t;
-  real_T bid1;
   real_T vNum;
   real_T k;
   real_T j;
-  real_T sy;
   real_T LowPassz25;                   // '<S1>/Low Pass (z2)5'
-  real_T LowPassz21;                   // '<S1>/Low Pass (z2)1'
-  real_T rtb_MATLABSystem_d_data;
-  real_T rtb_MATLABSystem_d_data_h;
-  real_T tmp_data;
-  real_T rtb_MATLABSystem_d_data_l;
+  real_T LowPassz24;                   // '<S1>/Low Pass (z2)4'
+  real_T LowPassz23;                   // '<S1>/Low Pass (z2)3'
+  real_T LowPassz22;                   // '<S1>/Low Pass (z2)2'
   real_T nb;
   real_T sth;
   real_T a_idx_1;
@@ -314,108 +316,106 @@ typedef struct {
   real_T b_idx_0;
   real_T b_idx_1;
   real_T tempR_tmp;
-  real_T tempR_tmp_h;
   real_T tempR_tmp_m;
-  real_T tempR_tmp_mc;
-  real_T tempR_tmp_h3;
-  real_T nb_c;
-  real_T a_idx_1_k;
-  real_T a_idx_0_p;
-  real_T b_idx_0_p;
-  real_T b_idx_1_p;
+  real_T tempR_tmp_mj;
+  real_T tempR_tmp_c;
+  real_T tempR_tmp_f;
+  real_T nb_p;
+  real_T a_idx_1_e;
+  real_T a_idx_0_o;
+  real_T b_idx_0_h;
+  real_T b_idx_1_l;
   real_T cth;
-  real_T sth_a;
-  real_T tempR_tmp_j;
-  real_T tempR_tmp_e;
-  real_T tempR_tmp_o;
-  real_T tempR_tmp_b;
-  real_T tempR_tmp_a;
-  real_T b_g;
-  real_T nb_e;
-  real_T vNum_f;
+  real_T sth_h;
+  real_T tempR_tmp_me;
+  real_T tempR_tmp_mc;
+  real_T tempR_tmp_h;
+  real_T tempR_tmp_cs;
+  real_T tempR_tmp_k;
+  real_T b_p;
+  real_T nb_px;
+  real_T vNum_p;
   real_T pid;
   real_T temp;
   real_T p_idx_1;
-  real_T b_idx_0_h;
-  real_T b_idx_1_e;
+  real_T b_idx_0_a;
+  real_T b_idx_1_j;
   real_T n;
-  real_T k_c;
-  real_T sth_ax;
-  real_T tempR_tmp_d;
-  real_T tempR_tmp_af;
-  real_T tempR_tmp_p;
-  real_T tempR_tmp_ms;
-  real_T nb_o;
-  real_T vNum_n;
-  real_T pid_l;
-  real_T temp_p;
-  real_T p_idx_1_p;
-  real_T b_idx_0_f;
-  real_T b_idx_1_i;
-  real_T cth_o;
-  real_T sth_k;
+  real_T k_e;
+  real_T sth_o;
+  real_T tempR_tmp_b;
+  real_T tempR_tmp_a;
+  real_T tempR_tmp_g;
+  real_T tempR_tmp_e;
+  real_T nb_f;
+  real_T vNum_h;
+  real_T pid_e;
+  real_T temp_c;
+  real_T p_idx_1_a;
+  real_T b_idx_0_d;
+  real_T b_idx_1_a;
+  real_T cth_p;
+  real_T sth_m;
   SL_Bus_left_arm_ctrl_obs_std_msgs_Float64 BusAssignment2;// '<S6>/Bus Assignment2' 
+  char_T b_o3v[5];
+  char_T b_n[5];
+  char_T b_lu[5];
+  char_T b_pe[5];
+  char_T b_pt[5];
+  char_T b_ft[5];
   char_T b_ie[5];
-  char_T b_oc[5];
-  char_T b_m4[5];
-  char_T b_cu[5];
-  char_T b_fb[5];
-  char_T b_h[5];
-  char_T b_m44[5];
-  int32_T n_a;
+  int32_T n_o;
   int32_T iend;
   int32_T j_k;
   int32_T i;
-  int32_T loop_ub;
-  int32_T u1;
-  int32_T i_p;
+  int32_T u0;
+  int32_T i_i;
+  int32_T rtb_TmpSignalConversionAtSFun_o;
   int32_T b_k;
-  int32_T j_b;
+  int32_T j_m;
   int32_T t_c;
   int32_T u;
   int32_T m;
   int32_T inner;
   int32_T aoffset;
   int32_T c_i;
-  int32_T i_n;
+  int32_T i_f;
   int32_T unnamed_idx_1;
   int32_T kstr;
   int32_T b_kstr;
   int32_T obj_tmp;
   int32_T obj_tmp_tmp;
-  int32_T kstr_i;
+  int32_T kstr_h;
   int32_T b_kstr_m;
-  int32_T b_k_j;
-  int32_T m_e;
-  int32_T inner_m;
-  int32_T aoffset_m;
-  int32_T c_i_j;
-  int32_T i_f;
+  int32_T b_k_a;
+  int32_T m_k;
+  int32_T inner_p;
+  int32_T aoffset_b;
+  int32_T c_i_c;
+  int32_T i_n;
   int32_T q_size;
-  int32_T unnamed_idx_1_a;
+  int32_T unnamed_idx_1_i;
   int32_T loop_ub_tmp;
   int32_T p_tmp;
   int32_T o_tmp;
-  int32_T kstr_g;
-  int32_T b_kstr_n;
-  int32_T obj_tmp_d;
-  int32_T obj_tmp_tmp_n;
-  int32_T i_c;
-  int32_T i_fx;
-  int32_T b_i_p;
+  int32_T kstr_m;
+  int32_T b_kstr_j;
+  int32_T obj_tmp_e;
+  int32_T obj_tmp_tmp_m;
+  int32_T b_i_m;
   int32_T cb;
   int32_T idx;
-  int32_T n_p;
-  int32_T aoffset_n;
-  int32_T i_k;
+  int32_T n_j;
+  int32_T aoffset_f;
+  int32_T i_a;
   int32_T b_j;
-  int32_T c_i_n;
+  int32_T c_i_g;
   int32_T nm1d2;
-  int32_T m_o;
+  int32_T m_n;
   int32_T coffset;
   int32_T boffset;
-  int32_T q_size_g;
-  int32_T unnamed_idx_1_c;
+  int32_T q_size_d;
+  int32_T unnamed_idx_1_n;
   int32_T pid_tmp;
   int32_T q_size_tmp;
   int32_T i1;
@@ -426,63 +426,63 @@ typedef struct {
   int32_T e;
   int32_T ntilecols;
   int32_T b_jtilecol;
-  int32_T b_kstr_m1;
-  int32_T loop_ub_j;
-  int32_T kstr_k;
-  int32_T b_kstr_mx;
+  int32_T b_kstr_f;
+  int32_T loop_ub;
+  int32_T kstr_p;
+  int32_T b_kstr_p;
   int32_T c;
-  int32_T b_i_pr;
+  int32_T b_i_n;
   int32_T f;
-  int32_T n_d;
-  int32_T aoffset_g;
-  int32_T i_c3;
-  int32_T b_j_c;
-  int32_T c_i_i;
-  int32_T m_d;
-  int32_T coffset_g;
-  int32_T boffset_l;
-  int32_T q_size_f;
+  int32_T n_k;
+  int32_T aoffset_n;
+  int32_T i_o;
+  int32_T b_j_g;
+  int32_T c_i_cq;
+  int32_T m_c;
+  int32_T coffset_m;
+  int32_T boffset_j;
+  int32_T q_size_k;
   int32_T c_tmp;
-  int32_T pid_tmp_d;
-  int32_T q_size_tmp_j;
-  int32_T X_tmp_i;
+  int32_T pid_tmp_m;
+  int32_T q_size_tmp_p;
+  int32_T X_tmp_d;
   int32_T i3;
   int32_T Tinv_tmp;
   int32_T newNumel;
-  int32_T i_h;
-  int32_T newNumel_n;
-  int32_T i_o;
+  int32_T i_g;
   int32_T newNumel_c;
-  int32_T i_b;
-  int32_T newNumel_e;
+  int32_T i_c;
+  int32_T newNumel_i;
   int32_T i_d;
-  int32_T kstr_ik;
-  int32_T b_kstr_g;
-  int32_T i_nn;
+  int32_T newNumel_g;
   int32_T i_l;
-  int32_T i_ce;
-  int32_T i_nc;
+  int32_T kstr_f;
+  int32_T b_kstr_d;
+  int32_T i_j;
+  int32_T i_i3;
+  int32_T i_h;
+  int32_T i_nm;
   uint32_T b_varargout_2_Data_SL_Info_Curr;
   uint32_T b_varargout_2_Data_SL_Info_Rece;
   uint32_T b_varargout_2_Layout_DataOffset;
   uint32_T b_varargout_2_Layout_Dim_SL_Inf;
-  uint32_T b_varargout_2_Layout_Dim_SL_I_j;
+  uint32_T b_varargout_2_Layout_Dim_SL_I_e;
   boolean_T b_varargout_1;
   boolean_T b_bool;
-  boolean_T b_bool_c;
-  boolean_T b_bool_h;
   boolean_T b_bool_d;
-  boolean_T b_bool_c5;
-  boolean_T b_bool_p;
-  boolean_T b_bool_pi;
-  boolean_T b_bool_a;
+  boolean_T b_bool_i;
+  boolean_T b_bool_g;
+  boolean_T b_bool_n;
+  boolean_T b_bool_l;
+  boolean_T b_bool_c;
+  boolean_T b_bool_nc;
 } B_left_arm_ctrl_obs_T;
 
 // Block states (default storage) for system '<Root>'
 typedef struct {
   robotics_slmanip_internal_e0h_T obj; // '<S24>/MATLAB System'
-  robotics_slmanip_internal__e0_T obj_j;// '<S12>/MATLAB System'
-  robotics_slmanip_internal_b_e_T obj_jz;// '<S10>/MATLAB System'
+  robotics_slmanip_internal__e0_T obj_f;// '<S12>/MATLAB System'
+  robotics_slmanip_internal_b_e_T obj_h;// '<S10>/MATLAB System'
   j_robotics_manip_internal_R_e_T gobj_0;// '<S24>/MATLAB System'
   j_robotics_manip_internal_R_e_T gobj_1;// '<S24>/MATLAB System'
   j_robotics_manip_internal_R_e_T gobj_2;// '<S24>/MATLAB System'
@@ -505,67 +505,67 @@ typedef struct {
   j_robotics_manip_internal_R_e_T gobj_19;// '<S24>/MATLAB System'
   j_robotics_manip_internal_R_e_T gobj_0_f;// '<S12>/MATLAB System'
   j_robotics_manip_internal_R_e_T gobj_1_o;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_2_p;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_3_j;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_4_p;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_5_g;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_6_k;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_7_a;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_8_g;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_9_k;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_10_n;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_11_b;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_12_g;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_13_l;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_14_a;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_15_k;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_16_a;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_17_d;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_18_b;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_2_l;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_3_p;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_4_f;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_5_l;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_6_m;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_7_e;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_8_n;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_9_f;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_10_a;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_11_n;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_12_i;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_13_a;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_14_p;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_15_i;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_16_n;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_17_e;// '<S12>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_18_k;// '<S12>/MATLAB System'
   j_robotics_manip_internal_R_e_T gobj_19_h;// '<S12>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_0_n;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_1_b;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_2_k;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_3_m;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_4_c;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_5_gi;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_6_j;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_7_d;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_8_gc;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_9_p;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_10_b;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_11_j;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_12_l;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_13_h;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_14_k;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_15_l;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_16_c;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_17_l;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_18_k;// '<S10>/MATLAB System'
-  j_robotics_manip_internal_R_e_T gobj_19_d;// '<S10>/MATLAB System'
-  robotics_slmanip_internal_blo_T obj_f;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_0_e;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_1_m;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_2_f;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_3_o;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_4_h;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_5_h;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_6_a;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_7_i;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_8_o;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_9_e;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_10_h;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_11_h;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_12_h;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_13_d;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_14_n;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_15_h;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_16_i;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_17_m;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_18_j;// '<S9>/MATLAB System'
-  j_robotics_manip_internal_Rig_T gobj_19_b;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_0_h;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_1_p;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_2_e;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_3_d;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_4_m;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_5_n;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_6_c;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_7_a;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_8_j;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_9_b;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_10_j;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_11_g;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_12_f;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_13_ak;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_14_m;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_15_j;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_16_f;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_17_a;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_18_i;// '<S10>/MATLAB System'
+  j_robotics_manip_internal_R_e_T gobj_19_g;// '<S10>/MATLAB System'
+  robotics_slmanip_internal_blo_T obj_o;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_0_h4;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_1_h;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_2_h;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_3_l;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_4_n;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_5_nh;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_6_k;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_7_eo;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_8_h;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_9_a;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_10_l;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_11_d;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_12_c;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_13_g;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_14_b;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_15_ih;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_16_e;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_17_p;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_18_d;// '<S9>/MATLAB System'
+  j_robotics_manip_internal_Rig_T gobj_19_e;// '<S9>/MATLAB System'
   ros_slros_internal_block_GetP_T obj_a;// '<S5>/Get Parameter7'
-  ros_slros_internal_block_GetP_T obj_o;// '<S5>/Get Parameter8'
+  ros_slros_internal_block_GetP_T obj_oo;// '<S5>/Get Parameter8'
   ros_slros_internal_block_GetP_T obj_ok;// '<S5>/Get Parameter9'
   ros_slros_internal_block_GetP_T obj_l;// '<S4>/Get Parameter'
   ros_slros_internal_block_GetP_T obj_oi;// '<S4>/Get Parameter1'
@@ -574,7 +574,7 @@ typedef struct {
   ros_slros_internal_block_GetP_T obj_d;// '<S4>/Get Parameter4'
   ros_slros_internal_block_GetP_T obj_i;// '<S4>/Get Parameter5'
   ros_slros_internal_block_GetP_T obj_fn;// '<S4>/Get Parameter6'
-  ros_slros_internal_block_GetP_T obj_h;// '<S4>/Get Parameter7'
+  ros_slros_internal_block_GetP_T obj_hn;// '<S4>/Get Parameter7'
   ros_slros_internal_block_GetP_T obj_og;// '<S4>/Get Parameter8'
   ros_slros_internal_block_GetP_T obj_fy;// '<S4>/Get Parameter9'
   ros_slros_internal_block_GetP_T obj_if;// '<S4>/Get Parameter10'
@@ -753,13 +753,13 @@ struct tag_RTM_left_arm_ctrl_obs_T {
     time_T stepSize0;
     uint32_T clockTick1;
     struct {
-      uint8_T TID[3];
+      uint16_T TID[4];
     } TaskCounters;
 
     SimTimeStep simTimeStep;
     boolean_T stopRequestedFlag;
     time_T *t;
-    time_T tArray[3];
+    time_T tArray[4];
   } Timing;
 };
 
@@ -855,17 +855,17 @@ extern "C" {
 //  '<Root>' : 'left_arm_ctrl_obs'
 //  '<S1>'   : 'left_arm_ctrl_obs/Low Pass Filter'
 //  '<S2>'   : 'left_arm_ctrl_obs/Mass Estimator'
-//  '<S3>'   : 'left_arm_ctrl_obs/PD+ Control'
+//  '<S3>'   : 'left_arm_ctrl_obs/PD+ Control1'
 //  '<S4>'   : 'left_arm_ctrl_obs/ROS Params PD'
 //  '<S5>'   : 'left_arm_ctrl_obs/ROS Params SMO'
 //  '<S6>'   : 'left_arm_ctrl_obs/ROS Publishers'
 //  '<S7>'   : 'left_arm_ctrl_obs/ROS Subscribers'
-//  '<S8>'   : 'left_arm_ctrl_obs/SMO'
+//  '<S8>'   : 'left_arm_ctrl_obs/SMO2'
 //  '<S9>'   : 'left_arm_ctrl_obs/Mass Estimator/Get Transform'
 //  '<S10>'  : 'left_arm_ctrl_obs/Mass Estimator/Joint Space Mass Matrix'
 //  '<S11>'  : 'left_arm_ctrl_obs/Mass Estimator/mass estimator'
-//  '<S12>'  : 'left_arm_ctrl_obs/PD+ Control/Gravity Torque'
-//  '<S13>'  : 'left_arm_ctrl_obs/PD+ Control/MATLAB Function1'
+//  '<S12>'  : 'left_arm_ctrl_obs/PD+ Control1/Gravity Torque'
+//  '<S13>'  : 'left_arm_ctrl_obs/PD+ Control1/MATLAB Function1'
 //  '<S14>'  : 'left_arm_ctrl_obs/ROS Publishers/Blank Message1'
 //  '<S15>'  : 'left_arm_ctrl_obs/ROS Publishers/Blank Message2'
 //  '<S16>'  : 'left_arm_ctrl_obs/ROS Publishers/Blank Message3'
@@ -876,8 +876,8 @@ extern "C" {
 //  '<S21>'  : 'left_arm_ctrl_obs/ROS Subscribers/Subscribe1'
 //  '<S22>'  : 'left_arm_ctrl_obs/ROS Subscribers/Subscribe/Enabled Subsystem'
 //  '<S23>'  : 'left_arm_ctrl_obs/ROS Subscribers/Subscribe1/Enabled Subsystem'
-//  '<S24>'  : 'left_arm_ctrl_obs/SMO/Forward Dynamics'
-//  '<S25>'  : 'left_arm_ctrl_obs/SMO/Observer'
+//  '<S24>'  : 'left_arm_ctrl_obs/SMO2/Forward Dynamics'
+//  '<S25>'  : 'left_arm_ctrl_obs/SMO2/Observer'
 
 #endif                                 // RTW_HEADER_left_arm_ctrl_obs_h_
 

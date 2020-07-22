@@ -11,7 +11,7 @@
 #include "sm_ssci_run_time_errors.h"
 #include "sm_RuntimeDerivedValuesBundle.h"
 
-void left_arm_simul_e2442d81_1_resetSimStateVector(const void *mech, double
+void left_arm_simul_5aaa3abb_1_resetSimStateVector(const void *mech, double
   *state)
 {
   double xx[1];
@@ -110,7 +110,7 @@ static void perturbSimJointPrimitiveState_6_0v(double mag, double *state)
   state[13] = state[13] - 0.875 * mag;
 }
 
-void left_arm_simul_e2442d81_1_perturbSimJointPrimitiveState(const void *mech,
+void left_arm_simul_5aaa3abb_1_perturbSimJointPrimitiveState(const void *mech,
   size_t stageIdx, size_t primIdx, double mag, boolean_T doPerturbVelocity,
   double *state)
 {
@@ -180,7 +180,7 @@ void left_arm_simul_e2442d81_1_perturbSimJointPrimitiveState(const void *mech,
   }
 }
 
-void left_arm_simul_e2442d81_1_perturbFlexibleBodyState(const void *mech, size_t
+void left_arm_simul_5aaa3abb_1_perturbFlexibleBodyState(const void *mech, size_t
   stageIdx, double mag, boolean_T doPerturbVelocity, double *state)
 {
   (void) mech;
@@ -193,7 +193,7 @@ void left_arm_simul_e2442d81_1_perturbFlexibleBodyState(const void *mech, size_t
   }
 }
 
-void left_arm_simul_e2442d81_1_constructStateVector(const void *mech, const
+void left_arm_simul_5aaa3abb_1_constructStateVector(const void *mech, const
   double *solverState, const double *u, const double *uDot, double
   *discreteState, double *fullState)
 {
@@ -217,7 +217,7 @@ void left_arm_simul_e2442d81_1_constructStateVector(const void *mech, const
   fullState[13] = solverState[13];
 }
 
-void left_arm_simul_e2442d81_1_extractSolverStateVector(const void *mech, const
+void left_arm_simul_5aaa3abb_1_extractSolverStateVector(const void *mech, const
   double *fullState, double *solverState)
 {
   (void) mech;
@@ -237,7 +237,7 @@ void left_arm_simul_e2442d81_1_extractSolverStateVector(const void *mech, const
   solverState[13] = fullState[13];
 }
 
-int left_arm_simul_e2442d81_1_isPositionViolation(const void *mech, const
+int left_arm_simul_5aaa3abb_1_isPositionViolation(const void *mech, const
   RuntimeDerivedValuesBundle *rtdv, const int *eqnEnableFlags, const double
   *state, const int *modeVector)
 {
@@ -252,7 +252,7 @@ int left_arm_simul_e2442d81_1_isPositionViolation(const void *mech, const
   return 0;
 }
 
-int left_arm_simul_e2442d81_1_isVelocityViolation(const void *mech, const
+int left_arm_simul_5aaa3abb_1_isVelocityViolation(const void *mech, const
   RuntimeDerivedValuesBundle *rtdv, const int *eqnEnableFlags, const double
   *state, const int *modeVector)
 {
@@ -267,7 +267,7 @@ int left_arm_simul_e2442d81_1_isVelocityViolation(const void *mech, const
   return 0;
 }
 
-PmfMessageId left_arm_simul_e2442d81_1_projectStateSim(const void *mech, const
+PmfMessageId left_arm_simul_5aaa3abb_1_projectStateSim(const void *mech, const
   RuntimeDerivedValuesBundle *rtdv, const int *eqnEnableFlags, const int
   *modeVector, const double *input, double *state, void *neDiagMgr0)
 {
@@ -285,7 +285,7 @@ PmfMessageId left_arm_simul_e2442d81_1_projectStateSim(const void *mech, const
   return NULL;
 }
 
-void left_arm_simul_e2442d81_1_computeConstraintError(const void *mech, const
+void left_arm_simul_5aaa3abb_1_computeConstraintError(const void *mech, const
   RuntimeDerivedValuesBundle *rtdv, const double *state, const int *modeVector,
   double *error)
 {
@@ -299,7 +299,7 @@ void left_arm_simul_e2442d81_1_computeConstraintError(const void *mech, const
   (void) error;
 }
 
-void left_arm_simul_e2442d81_1_resetModeVector(const void *mech, int *modeVector)
+void left_arm_simul_5aaa3abb_1_resetModeVector(const void *mech, int *modeVector)
 {
   (void) mech;
   (void) modeVector;

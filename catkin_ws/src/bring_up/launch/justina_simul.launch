@@ -1,10 +1,10 @@
 <launch>
-  <arg name="lambda" default="30.0"/>
-  <arg name="alpha"  default="21.0"/>
+  <arg name="lambda" default="6.0"/>
+  <arg name="alpha"  default="4.2"/>
   <arg name="gamma"  default="0.001"/>
-  <arg name="controlP"  default="1.0"/>
-  <arg name="controlD"  default="6.0"/>
-  <arg name="noise"  default="1"/>
+  <arg name="controlP"  default="2.5"/>
+  <arg name="controlD"  default="1.5"/>
+  <arg name="noise"  default="0"/>
   
   <param name="/smo/lambda" value="$(arg lambda)"/>
   <param name="/smo/alpha"  value="$(arg alpha)" />

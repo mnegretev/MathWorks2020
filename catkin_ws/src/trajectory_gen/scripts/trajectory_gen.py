@@ -90,7 +90,7 @@ def main():
                 current_state = CALC_TRAJECTORY
         elif current_state == CALC_TRAJECTORY:
             print "TrajectoryGenerator.->Calculating trajectory..."
-            trajectory = get_trajectory(current_pose, goal_pose, 0.4, 1.0/SAMPLING_FREQUENCY)
+            trajectory = get_trajectory(current_pose, goal_pose, 0.2, 1.0/SAMPLING_FREQUENCY)
             current_state = SENDING_TRAJECTORY
             current_k = 0
             print "TrajectoryGenerator.->Sending trajectory..."

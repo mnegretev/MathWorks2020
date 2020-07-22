@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_simul'.
 //
-// Model version                  : 1.118
+// Model version                  : 1.128
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Mon Jul 20 20:35:51 2020
+// C/C++ source code generated on : Tue Jul 21 20:46:03 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -61,6 +61,11 @@ static void rate_scheduler(void)
   (left_arm_simul_M->Timing.TaskCounters.TID[2])++;
   if ((left_arm_simul_M->Timing.TaskCounters.TID[2]) > 9) {// Sample time: [0.04s, 0.0s] 
     left_arm_simul_M->Timing.TaskCounters.TID[2] = 0;
+  }
+
+  (left_arm_simul_M->Timing.TaskCounters.TID[3])++;
+  if ((left_arm_simul_M->Timing.TaskCounters.TID[3]) > 249) {// Sample time: [1.0s, 0.0s] 
+    left_arm_simul_M->Timing.TaskCounters.TID[3] = 0;
   }
 }
 
@@ -497,30 +502,30 @@ static real_T left_arm_simul_rand(void)
     break;
 
    case 5U:
-    b_r = 69069U * left_arm_simul_DW.state_n[0] + 1234567U;
-    test2 = left_arm_simul_DW.state_n[1] << 13 ^ left_arm_simul_DW.state_n[1];
+    b_r = 69069U * left_arm_simul_DW.state_b[0] + 1234567U;
+    test2 = left_arm_simul_DW.state_b[1] << 13 ^ left_arm_simul_DW.state_b[1];
     test2 ^= test2 >> 17;
     test2 ^= test2 << 5;
-    left_arm_simul_DW.state_n[0] = b_r;
-    left_arm_simul_DW.state_n[1] = test2;
+    left_arm_simul_DW.state_b[0] = b_r;
+    left_arm_simul_DW.state_b[1] = test2;
     r = static_cast<real_T>(b_r + test2) * 2.328306436538696E-10;
     break;
 
    default:
     if (!left_arm_simul_DW.state_not_empty) {
-      memset(&left_arm_simul_DW.state_a[0], 0, 625U * sizeof(uint32_T));
+      memset(&left_arm_simul_DW.state_i[0], 0, 625U * sizeof(uint32_T));
       b_r = 5489U;
-      left_arm_simul_DW.state_a[0] = 5489U;
+      left_arm_simul_DW.state_i[0] = 5489U;
       for (hi = 0; hi < 623; hi++) {
         b_r = ((b_r >> 30U ^ b_r) * 1812433253U + hi) + 1U;
-        left_arm_simul_DW.state_a[hi + 1] = b_r;
+        left_arm_simul_DW.state_i[hi + 1] = b_r;
       }
 
-      left_arm_simul_DW.state_a[624] = 624U;
+      left_arm_simul_DW.state_i[624] = 624U;
       left_arm_simul_DW.state_not_empty = true;
     }
 
-    r = left_arm_sim_eml_rand_mt19937ar(left_arm_simul_DW.state_a);
+    r = left_arm_sim_eml_rand_mt19937ar(left_arm_simul_DW.state_i);
     break;
   }
 
@@ -577,9 +582,9 @@ void left_arm_simul_step(void)
     NeuDiagnosticTree *diagnosticTree;
     char *msg;
     boolean_T b_varargout_1;
-    static const real_T b[6] = { 138.88888888888889, 138.88888888888889,
+    static const real_T b[7] = { 138.88888888888889, 138.88888888888889,
       158.29542289481014, 138.88888888888889, 158.29542289481014,
-      158.29542289481014 };
+      158.29542289481014, 158.29542289481014 };
 
     static const uint8_T b_0[10] = { 108U, 97U, 95U, 49U, 95U, 106U, 111U, 105U,
       110U, 116U };
@@ -993,27 +998,28 @@ void left_arm_simul_step(void)
     }
 
     if (rtmIsMajorTimeStep(left_arm_simul_M) &&
-        left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
+        left_arm_simul_M->Timing.TaskCounters.TID[3] == 0) {
       // MATLABSystem: '<Root>/Get Parameter'
-      ParamGet_left_arm_simul_433.get_parameter(&left_arm_simul_B.value);
+      ParamGet_left_arm_simul_433.get_parameter
+        (&left_arm_simul_B.GetParameter_o1);
+    }
 
-      // MATLAB Function: '<S1>/Pose Quantization and Noise' incorporates:
-      //   MATLABSystem: '<Root>/Get Parameter'
-      //   SimscapeExecutionBlock: '<S49>/OUTPUT_1_0'
-      //   SimscapeExecutionBlock: '<S49>/STATE_1'
-
-      if (left_arm_simul_B.value <= MIN_int32_T) {
-        left_arm_simul_B.saturatedUnaryMinus = MAX_int32_T;
-      } else {
-        left_arm_simul_B.saturatedUnaryMinus = -left_arm_simul_B.value;
-      }
-
+    if (rtmIsMajorTimeStep(left_arm_simul_M) &&
+        left_arm_simul_M->Timing.TaskCounters.TID[1] == 0) {
+      // MATLAB Function: '<S1>/Pose Quantization and Noise'
       for (left_arm_simul_B.i = 0; left_arm_simul_B.i < 7; left_arm_simul_B.i++)
       {
+        if (left_arm_simul_B.GetParameter_o1 <= MIN_int32_T) {
+          left_arm_simul_B.saturatedUnaryMinus = MAX_int32_T;
+        } else {
+          left_arm_simul_B.saturatedUnaryMinus =
+            -left_arm_simul_B.GetParameter_o1;
+        }
+
         left_arm_simul_B.time_tmp = left_arm_simul_rand();
         left_arm_simul_B.quantized_q[left_arm_simul_B.i] = ((floor(((
-          static_cast<real_T>(left_arm_simul_B.value) - static_cast<real_T>
-          (left_arm_simul_B.saturatedUnaryMinus)) + 1.0) *
+          static_cast<real_T>(left_arm_simul_B.GetParameter_o1) -
+          static_cast<real_T>(left_arm_simul_B.saturatedUnaryMinus)) + 1.0) *
           left_arm_simul_B.time_tmp) + static_cast<real_T>
           (left_arm_simul_B.saturatedUnaryMinus)) + rt_roundd_snf
           (left_arm_simul_B.OUTPUT_1_0[left_arm_simul_B.i] /
@@ -1430,7 +1436,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_DW.STATE_1_Simulator = (void *)tmp;
     tmp_0 = pointer_is_null(left_arm_simul_DW.STATE_1_Simulator);
     if (tmp_0) {
-      left_arm_simul_e2442d81_1_gateway();
+      left_arm_simul_5aaa3abb_1_gateway();
       tmp = nesl_lease_simulator(
         "left_arm_simul/Manipulator/Solver Configuration_1", 0, 0);
       left_arm_simul_DW.STATE_1_Simulator = (void *)tmp;
@@ -1449,7 +1455,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters.mUseSimState = false;
     left_arm_simul_B.modelParameters.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.17178074E+8;
+    left_arm_simul_B.modelParameters.mRTWModifiedTimeStamp = 5.17265059E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters.mSolverTolerance = left_arm_simul_B.d;
     left_arm_simul_B.d = 0.004;
@@ -1560,7 +1566,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_DW.OUTPUT_1_0_Simulator = (void *)tmp;
     tmp_1 = pointer_is_null(left_arm_simul_DW.OUTPUT_1_0_Simulator);
     if (tmp_1) {
-      left_arm_simul_e2442d81_1_gateway();
+      left_arm_simul_5aaa3abb_1_gateway();
       tmp = nesl_lease_simulator(
         "left_arm_simul/Manipulator/Solver Configuration_1", 1, 0);
       left_arm_simul_DW.OUTPUT_1_0_Simulator = (void *)tmp;
@@ -1579,7 +1585,7 @@ void left_arm_simul_initialize(void)
     left_arm_simul_B.modelParameters_m.mUseSimState = false;
     left_arm_simul_B.modelParameters_m.mLinTrimCompile = false;
     left_arm_simul_B.modelParameters_m.mLoggingMode = SSC_LOGGING_NONE;
-    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.17178074E+8;
+    left_arm_simul_B.modelParameters_m.mRTWModifiedTimeStamp = 5.17265059E+8;
     left_arm_simul_B.d = 0.001;
     left_arm_simul_B.modelParameters_m.mSolverTolerance = left_arm_simul_B.d;
     left_arm_simul_B.d = 0.004;
@@ -1728,8 +1734,8 @@ void left_arm_simul_initialize(void)
     // SystemInitialize for MATLAB Function: '<S1>/Pose Quantization and Noise'
     left_arm_simul_DW.method = 7U;
     left_arm_simul_DW.state = 1144108930U;
-    left_arm_simul_DW.state_n[0] = 362436069U;
-    left_arm_simul_DW.state_n[1] = 521288629U;
+    left_arm_simul_DW.state_b[0] = 362436069U;
+    left_arm_simul_DW.state_b[1] = 521288629U;
   }
 }
 

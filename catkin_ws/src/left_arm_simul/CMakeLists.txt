@@ -16,7 +16,7 @@ std_msgs
 )
 
 add_definitions(
--DMODEL=left_arm_simul -DNUMST=3 -DNCSTATES=14 -DHAVESTDIO -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0 -DUNIX -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0 -DTID01EQ=1 -DTERMFCN=1 -DONESTEPFCN=1 -DMAT_FILE=0 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=0 -DROS_PROJECT -DMW_SCHED_OTHER -DSTACK_SIZE=64 -D__MW_TARGET_USE_HARDWARE_RESOURCES_H__ -DRT=RT )
+-DMODEL=left_arm_simul -DNUMST=4 -DNCSTATES=14 -DHAVESTDIO -DMODEL_HAS_DYNAMICALLY_LOADED_SFCNS=0 -DUNIX -DCLASSIC_INTERFACE=0 -DALLOCATIONFCN=0 -DTID01EQ=1 -DTERMFCN=1 -DONESTEPFCN=1 -DMAT_FILE=0 -DMULTI_INSTANCE_CODE=0 -DINTEGER_CODE=0 -DMT=0 -DROS_PROJECT -DMW_SCHED_OTHER -DSTACK_SIZE=64 -D__MW_TARGET_USE_HARDWARE_RESOURCES_H__ -DRT=RT )
 
 ## The catkin_package macro generates cmake config files for your package
 ## Declare things to be passed to dependent projects
@@ -49,18 +49,18 @@ file(GLOB ${PROJECT_NAME}_CPP_SOURCES RELATIVE ${PROJECT_SOURCE_DIR} ${PROJECT_S
 
 ## Declare executable
 add_executable(${PROJECT_NAME}_node
-   left_arm_simul_e2442d81_1.c
-   left_arm_simul_e2442d81_1_create.c
-   left_arm_simul_e2442d81_1_setParameters.c
-   left_arm_simul_e2442d81_1_asserts.c
-   left_arm_simul_e2442d81_1_deriv.c
-   left_arm_simul_e2442d81_1_checkDynamics.c
-   left_arm_simul_e2442d81_1_output.c
-   left_arm_simul_e2442d81_1_asm_delegate.c
-   left_arm_simul_e2442d81_1_sim_delegate.c
-   left_arm_simul_e2442d81_1_mode_zero_crossings.c
-   left_arm_simul_e2442d81_1_geometries.c
-   left_arm_simul_e2442d81_1_gateway.c
+   left_arm_simul_5aaa3abb_1.c
+   left_arm_simul_5aaa3abb_1_create.c
+   left_arm_simul_5aaa3abb_1_setParameters.c
+   left_arm_simul_5aaa3abb_1_asserts.c
+   left_arm_simul_5aaa3abb_1_deriv.c
+   left_arm_simul_5aaa3abb_1_checkDynamics.c
+   left_arm_simul_5aaa3abb_1_output.c
+   left_arm_simul_5aaa3abb_1_asm_delegate.c
+   left_arm_simul_5aaa3abb_1_sim_delegate.c
+   left_arm_simul_5aaa3abb_1_mode_zero_crossings.c
+   left_arm_simul_5aaa3abb_1_geometries.c
+   left_arm_simul_5aaa3abb_1_gateway.c
    pm_printf.c
    ert_main.cpp
    rt_backsubrr_dbl.c

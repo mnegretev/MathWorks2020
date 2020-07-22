@@ -1,20 +1,19 @@
 // Simscape target specific file.
 //  This file is generated for the Simscape network associated with the solver block 'left_arm_simul/Manipulator/Solver Configuration'.
-#ifndef __left_arm_simul_e2442d81_1_h__
-#define __left_arm_simul_e2442d81_1_h__
+
+
+#ifndef __left_arm_simul_5aaa3abb_1_gateway_h__
+#define __left_arm_simul_5aaa3abb_1_gateway_h__
 #ifdef __cplusplus
 
 extern "C" {
 
 #endif
 
-  extern void left_arm_simul_e2442d81_1_dae( NeDae **dae, const
-    NeModelParameters
-    *modelParams,
-    const NeSolverParameters *solverParams);
+  extern void left_arm_simul_5aaa3abb_1_gateway(void);
 
 #ifdef __cplusplus
 
 }
 #endif
-#endif
+#endif                       // #ifndef __left_arm_simul_5aaa3abb_1_gateway_h__
