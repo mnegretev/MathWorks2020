@@ -34,6 +34,9 @@ def get_single_trajectory(p0, pf, v0, vf, a0, af, t0, tf, delta_t):
 
     B = numpy.array([[p0],[v0],[a0],[pf],[vf],[af]])
     A = numpy.array([A1, A2, A3, A4, A5, A6])
+    if numpy.linalg.matrix_rank(A) != 6:
+        print "Cannot calculate path. Coefficients matrix is singular"
+        return None
     X = numpy.linalg.solve(A,B)
 
     n = int((math.fabs(tf - t0))/delta_t)
@@ -58,7 +61,11 @@ def get_trajectory(current_pose, goal_pose, mean_speed, delta_t):
     all_speeds = []
     trajectory = []
     for i in range(len(current_pose)):
-        positions, speeds = get_single_trajectory(current_pose[i], goal_pose[i], 0,0,0,0,0,goal_t, delta_t)
+        results = get_single_trajectory(current_pose[i], goal_pose[i], 0,0,0,0,0,goal_t, delta_t)
+        if results == None:
+            print "Cannot calculate trajectory :'("
+            return None
+        [positions, speeds] = results
         all_positions.append(positions)
         all_speeds.append(speeds)
     for i in range(len(all_positions[0])):
@@ -91,9 +98,12 @@ def main():
         elif current_state == CALC_TRAJECTORY:
             print "TrajectoryGenerator.->Calculating trajectory..."
             trajectory = get_trajectory(current_pose, goal_pose, 0.2, 1.0/SAMPLING_FREQUENCY)
-            current_state = SENDING_TRAJECTORY
-            current_k = 0
-            print "TrajectoryGenerator.->Sending trajectory..."
+            if trajectory == None:
+                current_state = WAIT_FOR_NEW_GOAL
+            else:
+                current_state = SENDING_TRAJECTORY
+                current_k = 0
+                print "TrajectoryGenerator.->Sending trajectory..."
         elif current_state ==SENDING_TRAJECTORY:
             if current_k == len(trajectory):
                 current_state = TRAJECTORY_DONE
