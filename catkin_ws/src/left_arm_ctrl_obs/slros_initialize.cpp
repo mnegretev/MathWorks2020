@@ -18,6 +18,15 @@ SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> 
 // For Block left_arm_ctrl_obs/ROS Publishers/Publish3
 SimulinkPublisher<std_msgs::Float64MultiArray, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64MultiArray> Pub_left_arm_ctrl_obs_331;
 
+// For Block left_arm_ctrl_obs/ROS Publishers1/Publish1
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_518;
+
+// For Block left_arm_ctrl_obs/ROS Publishers1/Publish2
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_511;
+
+// For Block left_arm_ctrl_obs/ROS Publishers1/Publish3
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_522;
+
 // For Block left_arm_ctrl_obs/ROS Params PD/Get Parameter
 SimulinkParameterGetter<real64_T, double> ParamGet_left_arm_ctrl_obs_368;
 
