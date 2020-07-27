@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.239
+// Model version                  : 1.244
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Fri Jul 24 15:13:06 2020
+// C/C++ source code generated on : Fri Jul 24 22:50:18 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -107,10 +107,30 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
 static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
   *robot, const real_T q[7], const real_T qdot[7], const
   emxArray_real_T_left_arm_ctrl_T *qddot, const real_T fext[60], real_T tau[7]);
+static creal_T left_arm_ctrl_obs_sqrt(const creal_T x);
+static real_T left_arm_ctrl_obs_xnrm2(int32_T n, const real_T x[9], int32_T ix0);
+static real_T left_arm_ctrl_obs_xdotc(int32_T n, const real_T x[9], int32_T ix0,
+  const real_T y[9], int32_T iy0);
+static void left_arm_ctrl_obs_xaxpy(int32_T n, real_T a, int32_T ix0, const
+  real_T y[9], int32_T iy0, real_T b_y[9]);
+static real_T left_arm_ctrl_obs_xnrm2_e(const real_T x[3], int32_T ix0);
+static void left_arm_ctrl_obs_xaxpy_e0h(int32_T n, real_T a, const real_T x[9],
+  int32_T ix0, real_T y[3], int32_T iy0);
+static void left_arm_ctrl_obs_xaxpy_e0(int32_T n, real_T a, const real_T x[3],
+  int32_T ix0, const real_T y[9], int32_T iy0, real_T b_y[9]);
+static void left_arm_ctrl_obs_xswap(const real_T x[9], int32_T ix0, int32_T iy0,
+  real_T b_x[9]);
+static void left_arm_ctrl_obs_xrotg(real_T a, real_T b, real_T *b_a, real_T *b_b,
+  real_T *c, real_T *s);
+static void left_arm_ctrl_obs_xrot(const real_T x[9], int32_T ix0, int32_T iy0,
+  real_T c, real_T s, real_T b_x[9]);
+static void left_arm_ctrl_obs_svd(const real_T A[9], real_T U[9], real_T s[3],
+  real_T V[9]);
+static void CoordinateTransformationConvers(const real_T in[16], real_T out[4]);
 static void left_arm_ctrl_obs_atan2(const real_T y_data[], const int32_T y_size
   [3], const real_T x_data[], const int32_T x_size[3], real_T r_data[], int32_T
   r_size[3]);
-static void left_arm_ctr_matlabCodegenHa_ek(ros_slros_internal_block_Subs_T *obj);
+static void left_arm_ctr_matlabCodegenHa_pe(ros_slros_internal_block_Subs_T *obj);
 static void le_emxFreeStruct_rigidBodyJoint(rigidBodyJoint_left_arm_ctr_e_T
   *pStruct);
 static void emxFreeStruct_i_robotics_manip_(i_robotics_manip_internal_R_e_T
@@ -343,9 +363,9 @@ static void left_arm_ctrl_ob_emxInit_real_T(emxArray_real_T_left_arm_ctrl_T
   emxArray->size = (int32_T *)malloc(sizeof(int32_T) * numDimensions);
   emxArray->allocatedSize = 0;
   emxArray->canFreeData = true;
-  for (left_arm_ctrl_obs_B.i_nn = 0; left_arm_ctrl_obs_B.i_nn < numDimensions;
-       left_arm_ctrl_obs_B.i_nn++) {
-    emxArray->size[left_arm_ctrl_obs_B.i_nn] = 0;
+  for (left_arm_ctrl_obs_B.i_i = 0; left_arm_ctrl_obs_B.i_i < numDimensions;
+       left_arm_ctrl_obs_B.i_i++) {
+    emxArray->size[left_arm_ctrl_obs_B.i_i] = 0;
   }
 }
 
@@ -358,10 +378,10 @@ static void left_arm_ctrl_o_SystemCore_step(boolean_T *varargout_1, real_T
 {
   *varargout_1 = Sub_left_arm_ctrl_obs_299.getLatestMessage
     (&left_arm_ctrl_obs_B.b_varargout_2);
-  for (left_arm_ctrl_obs_B.i_c = 0; left_arm_ctrl_obs_B.i_c < 7;
-       left_arm_ctrl_obs_B.i_c++) {
-    varargout_2_Data[left_arm_ctrl_obs_B.i_c] =
-      left_arm_ctrl_obs_B.b_varargout_2.Data[left_arm_ctrl_obs_B.i_c];
+  for (left_arm_ctrl_obs_B.i_c3 = 0; left_arm_ctrl_obs_B.i_c3 < 7;
+       left_arm_ctrl_obs_B.i_c3++) {
+    varargout_2_Data[left_arm_ctrl_obs_B.i_c3] =
+      left_arm_ctrl_obs_B.b_varargout_2.Data[left_arm_ctrl_obs_B.i_c3];
   }
 
   *varargout_2_Data_SL_Info_Curren =
@@ -388,26 +408,26 @@ static void left_a_emxEnsureCapacity_real_T(emxArray_real_T_left_arm_ctrl_T
   }
 
   left_arm_ctrl_obs_B.newNumel = 1;
-  for (left_arm_ctrl_obs_B.i_h = 0; left_arm_ctrl_obs_B.i_h <
-       emxArray->numDimensions; left_arm_ctrl_obs_B.i_h++) {
-    left_arm_ctrl_obs_B.newNumel *= emxArray->size[left_arm_ctrl_obs_B.i_h];
+  for (left_arm_ctrl_obs_B.i_p = 0; left_arm_ctrl_obs_B.i_p <
+       emxArray->numDimensions; left_arm_ctrl_obs_B.i_p++) {
+    left_arm_ctrl_obs_B.newNumel *= emxArray->size[left_arm_ctrl_obs_B.i_p];
   }
 
   if (left_arm_ctrl_obs_B.newNumel > emxArray->allocatedSize) {
-    left_arm_ctrl_obs_B.i_h = emxArray->allocatedSize;
-    if (left_arm_ctrl_obs_B.i_h < 16) {
-      left_arm_ctrl_obs_B.i_h = 16;
+    left_arm_ctrl_obs_B.i_p = emxArray->allocatedSize;
+    if (left_arm_ctrl_obs_B.i_p < 16) {
+      left_arm_ctrl_obs_B.i_p = 16;
     }
 
-    while (left_arm_ctrl_obs_B.i_h < left_arm_ctrl_obs_B.newNumel) {
-      if (left_arm_ctrl_obs_B.i_h > 1073741823) {
-        left_arm_ctrl_obs_B.i_h = MAX_int32_T;
+    while (left_arm_ctrl_obs_B.i_p < left_arm_ctrl_obs_B.newNumel) {
+      if (left_arm_ctrl_obs_B.i_p > 1073741823) {
+        left_arm_ctrl_obs_B.i_p = MAX_int32_T;
       } else {
-        left_arm_ctrl_obs_B.i_h <<= 1;
+        left_arm_ctrl_obs_B.i_p <<= 1;
       }
     }
 
-    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_h), sizeof
+    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_p), sizeof
                      (real_T));
     if (emxArray->data != NULL) {
       memcpy(newData, emxArray->data, sizeof(real_T) * oldNumel);
@@ -417,7 +437,7 @@ static void left_a_emxEnsureCapacity_real_T(emxArray_real_T_left_arm_ctrl_T
     }
 
     emxArray->data = (real_T *)newData;
-    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_h;
+    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_p;
     emxArray->canFreeData = true;
   }
 }
@@ -434,9 +454,9 @@ static void left_arm_c_emxInit_e_cell_wrap1(emxArray_e_cell_wrap_left_a_e_T
   emxArray->size = (int32_T *)malloc(sizeof(int32_T) * numDimensions);
   emxArray->allocatedSize = 0;
   emxArray->canFreeData = true;
-  for (left_arm_ctrl_obs_B.i_nc = 0; left_arm_ctrl_obs_B.i_nc < numDimensions;
-       left_arm_ctrl_obs_B.i_nc++) {
-    emxArray->size[left_arm_ctrl_obs_B.i_nc] = 0;
+  for (left_arm_ctrl_obs_B.i_k = 0; left_arm_ctrl_obs_B.i_k < numDimensions;
+       left_arm_ctrl_obs_B.i_k++) {
+    emxArray->size[left_arm_ctrl_obs_B.i_k] = 0;
   }
 }
 
@@ -448,27 +468,27 @@ static void emxEnsureCapacity_e_cell_wrap1(emxArray_e_cell_wrap_left_a_e_T
     oldNumel = 0;
   }
 
-  left_arm_ctrl_obs_B.newNumel_e = 1;
-  for (left_arm_ctrl_obs_B.i_d = 0; left_arm_ctrl_obs_B.i_d <
-       emxArray->numDimensions; left_arm_ctrl_obs_B.i_d++) {
-    left_arm_ctrl_obs_B.newNumel_e *= emxArray->size[left_arm_ctrl_obs_B.i_d];
+  left_arm_ctrl_obs_B.newNumel_f = 1;
+  for (left_arm_ctrl_obs_B.i_cm = 0; left_arm_ctrl_obs_B.i_cm <
+       emxArray->numDimensions; left_arm_ctrl_obs_B.i_cm++) {
+    left_arm_ctrl_obs_B.newNumel_f *= emxArray->size[left_arm_ctrl_obs_B.i_cm];
   }
 
-  if (left_arm_ctrl_obs_B.newNumel_e > emxArray->allocatedSize) {
-    left_arm_ctrl_obs_B.i_d = emxArray->allocatedSize;
-    if (left_arm_ctrl_obs_B.i_d < 16) {
-      left_arm_ctrl_obs_B.i_d = 16;
+  if (left_arm_ctrl_obs_B.newNumel_f > emxArray->allocatedSize) {
+    left_arm_ctrl_obs_B.i_cm = emxArray->allocatedSize;
+    if (left_arm_ctrl_obs_B.i_cm < 16) {
+      left_arm_ctrl_obs_B.i_cm = 16;
     }
 
-    while (left_arm_ctrl_obs_B.i_d < left_arm_ctrl_obs_B.newNumel_e) {
-      if (left_arm_ctrl_obs_B.i_d > 1073741823) {
-        left_arm_ctrl_obs_B.i_d = MAX_int32_T;
+    while (left_arm_ctrl_obs_B.i_cm < left_arm_ctrl_obs_B.newNumel_f) {
+      if (left_arm_ctrl_obs_B.i_cm > 1073741823) {
+        left_arm_ctrl_obs_B.i_cm = MAX_int32_T;
       } else {
-        left_arm_ctrl_obs_B.i_d <<= 1;
+        left_arm_ctrl_obs_B.i_cm <<= 1;
       }
     }
 
-    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_d), sizeof
+    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_cm), sizeof
                      (e_cell_wrap_left_arm_ctrl_o_e_T));
     if (emxArray->data != NULL) {
       memcpy(newData, emxArray->data, sizeof(e_cell_wrap_left_arm_ctrl_o_e_T)
@@ -479,7 +499,7 @@ static void emxEnsureCapacity_e_cell_wrap1(emxArray_e_cell_wrap_left_a_e_T
     }
 
     emxArray->data = (e_cell_wrap_left_arm_ctrl_o_e_T *)newData;
-    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_d;
+    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_cm;
     emxArray->canFreeData = true;
   }
 }
@@ -493,63 +513,63 @@ static void rigidBodyJoint_get_JointAxis_e(const rigidBodyJoint_left_arm_ctr_e_T
 
   boolean_T guard1 = false;
   int32_T exitg1;
-  for (left_arm_ctrl_obs_B.b_kstr_m = 0; left_arm_ctrl_obs_B.b_kstr_m < 8;
-       left_arm_ctrl_obs_B.b_kstr_m++) {
-    left_arm_ctrl_obs_B.b_fm[left_arm_ctrl_obs_B.b_kstr_m] =
-      tmp[left_arm_ctrl_obs_B.b_kstr_m];
+  for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 8;
+       left_arm_ctrl_obs_B.b_kstr_n++) {
+    left_arm_ctrl_obs_B.b_h3[left_arm_ctrl_obs_B.b_kstr_n] =
+      tmp[left_arm_ctrl_obs_B.b_kstr_n];
   }
 
-  left_arm_ctrl_obs_B.b_bool_h = false;
+  left_arm_ctrl_obs_B.b_bool_b = false;
   if (obj->Type->size[1] == 8) {
-    left_arm_ctrl_obs_B.b_kstr_m = 1;
+    left_arm_ctrl_obs_B.b_kstr_n = 1;
     do {
       exitg1 = 0;
-      if (left_arm_ctrl_obs_B.b_kstr_m - 1 < 8) {
-        left_arm_ctrl_obs_B.kstr_i = left_arm_ctrl_obs_B.b_kstr_m - 1;
-        if (obj->Type->data[left_arm_ctrl_obs_B.kstr_i] !=
-            left_arm_ctrl_obs_B.b_fm[left_arm_ctrl_obs_B.kstr_i]) {
+      if (left_arm_ctrl_obs_B.b_kstr_n - 1 < 8) {
+        left_arm_ctrl_obs_B.kstr_k = left_arm_ctrl_obs_B.b_kstr_n - 1;
+        if (obj->Type->data[left_arm_ctrl_obs_B.kstr_k] !=
+            left_arm_ctrl_obs_B.b_h3[left_arm_ctrl_obs_B.kstr_k]) {
           exitg1 = 1;
         } else {
-          left_arm_ctrl_obs_B.b_kstr_m++;
+          left_arm_ctrl_obs_B.b_kstr_n++;
         }
       } else {
-        left_arm_ctrl_obs_B.b_bool_h = true;
+        left_arm_ctrl_obs_B.b_bool_b = true;
         exitg1 = 1;
       }
     } while (exitg1 == 0);
   }
 
   guard1 = false;
-  if (left_arm_ctrl_obs_B.b_bool_h) {
+  if (left_arm_ctrl_obs_B.b_bool_b) {
     guard1 = true;
   } else {
-    for (left_arm_ctrl_obs_B.b_kstr_m = 0; left_arm_ctrl_obs_B.b_kstr_m < 9;
-         left_arm_ctrl_obs_B.b_kstr_m++) {
-      left_arm_ctrl_obs_B.b_o[left_arm_ctrl_obs_B.b_kstr_m] =
-        tmp_0[left_arm_ctrl_obs_B.b_kstr_m];
+    for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 9;
+         left_arm_ctrl_obs_B.b_kstr_n++) {
+      left_arm_ctrl_obs_B.b_h[left_arm_ctrl_obs_B.b_kstr_n] =
+        tmp_0[left_arm_ctrl_obs_B.b_kstr_n];
     }
 
-    left_arm_ctrl_obs_B.b_bool_h = false;
+    left_arm_ctrl_obs_B.b_bool_b = false;
     if (obj->Type->size[1] == 9) {
-      left_arm_ctrl_obs_B.b_kstr_m = 1;
+      left_arm_ctrl_obs_B.b_kstr_n = 1;
       do {
         exitg1 = 0;
-        if (left_arm_ctrl_obs_B.b_kstr_m - 1 < 9) {
-          left_arm_ctrl_obs_B.kstr_i = left_arm_ctrl_obs_B.b_kstr_m - 1;
-          if (obj->Type->data[left_arm_ctrl_obs_B.kstr_i] !=
-              left_arm_ctrl_obs_B.b_o[left_arm_ctrl_obs_B.kstr_i]) {
+        if (left_arm_ctrl_obs_B.b_kstr_n - 1 < 9) {
+          left_arm_ctrl_obs_B.kstr_k = left_arm_ctrl_obs_B.b_kstr_n - 1;
+          if (obj->Type->data[left_arm_ctrl_obs_B.kstr_k] !=
+              left_arm_ctrl_obs_B.b_h[left_arm_ctrl_obs_B.kstr_k]) {
             exitg1 = 1;
           } else {
-            left_arm_ctrl_obs_B.b_kstr_m++;
+            left_arm_ctrl_obs_B.b_kstr_n++;
           }
         } else {
-          left_arm_ctrl_obs_B.b_bool_h = true;
+          left_arm_ctrl_obs_B.b_bool_b = true;
           exitg1 = 1;
         }
       } while (exitg1 == 0);
     }
 
-    if (left_arm_ctrl_obs_B.b_bool_h) {
+    if (left_arm_ctrl_obs_B.b_bool_b) {
       guard1 = true;
     } else {
       ax[0] = (rtNaN);
@@ -568,11 +588,11 @@ static void rigidBodyJoint_get_JointAxis_e(const rigidBodyJoint_left_arm_ctr_e_T
 static void left_arm_ctrl_obs_normalizeRows(const real_T matrix[3], real_T
   normRowMatrix[3])
 {
-  left_arm_ctrl_obs_B.b_ex = 1.0 / sqrt((matrix[0] * matrix[0] + matrix[1] *
+  left_arm_ctrl_obs_B.b_pt = 1.0 / sqrt((matrix[0] * matrix[0] + matrix[1] *
     matrix[1]) + matrix[2] * matrix[2]);
-  normRowMatrix[0] = matrix[0] * left_arm_ctrl_obs_B.b_ex;
-  normRowMatrix[1] = matrix[1] * left_arm_ctrl_obs_B.b_ex;
-  normRowMatrix[2] = matrix[2] * left_arm_ctrl_obs_B.b_ex;
+  normRowMatrix[0] = matrix[0] * left_arm_ctrl_obs_B.b_pt;
+  normRowMatrix[1] = matrix[1] * left_arm_ctrl_obs_B.b_pt;
+  normRowMatrix[2] = matrix[2] * left_arm_ctrl_obs_B.b_pt;
 }
 
 static void left_arm_ctrl_obs_cat(real_T varargin_1, real_T varargin_2, real_T
@@ -599,69 +619,69 @@ static void rigidBodyJoint_transformBodyT_e(const
   static const char_T tmp_0[8] = { 'r', 'e', 'v', 'o', 'l', 'u', 't', 'e' };
 
   int32_T exitg1;
-  for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 5;
-       left_arm_ctrl_obs_B.b_kstr_n++) {
-    left_arm_ctrl_obs_B.b_cu[left_arm_ctrl_obs_B.b_kstr_n] =
-      tmp[left_arm_ctrl_obs_B.b_kstr_n];
+  for (left_arm_ctrl_obs_B.b_kstr_p = 0; left_arm_ctrl_obs_B.b_kstr_p < 5;
+       left_arm_ctrl_obs_B.b_kstr_p++) {
+    left_arm_ctrl_obs_B.b_f[left_arm_ctrl_obs_B.b_kstr_p] =
+      tmp[left_arm_ctrl_obs_B.b_kstr_p];
   }
 
-  left_arm_ctrl_obs_B.b_bool_c5 = false;
+  left_arm_ctrl_obs_B.b_bool_i = false;
   if (obj->Type->size[1] == 5) {
-    left_arm_ctrl_obs_B.b_kstr_n = 1;
+    left_arm_ctrl_obs_B.b_kstr_p = 1;
     do {
       exitg1 = 0;
-      if (left_arm_ctrl_obs_B.b_kstr_n - 1 < 5) {
-        left_arm_ctrl_obs_B.kstr_g = left_arm_ctrl_obs_B.b_kstr_n - 1;
-        if (obj->Type->data[left_arm_ctrl_obs_B.kstr_g] !=
-            left_arm_ctrl_obs_B.b_cu[left_arm_ctrl_obs_B.kstr_g]) {
+      if (left_arm_ctrl_obs_B.b_kstr_p - 1 < 5) {
+        left_arm_ctrl_obs_B.kstr_m = left_arm_ctrl_obs_B.b_kstr_p - 1;
+        if (obj->Type->data[left_arm_ctrl_obs_B.kstr_m] !=
+            left_arm_ctrl_obs_B.b_f[left_arm_ctrl_obs_B.kstr_m]) {
           exitg1 = 1;
         } else {
-          left_arm_ctrl_obs_B.b_kstr_n++;
+          left_arm_ctrl_obs_B.b_kstr_p++;
         }
       } else {
-        left_arm_ctrl_obs_B.b_bool_c5 = true;
+        left_arm_ctrl_obs_B.b_bool_i = true;
         exitg1 = 1;
       }
     } while (exitg1 == 0);
   }
 
-  if (left_arm_ctrl_obs_B.b_bool_c5) {
-    left_arm_ctrl_obs_B.b_kstr_n = 0;
+  if (left_arm_ctrl_obs_B.b_bool_i) {
+    left_arm_ctrl_obs_B.b_kstr_p = 0;
   } else {
-    for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 8;
-         left_arm_ctrl_obs_B.b_kstr_n++) {
-      left_arm_ctrl_obs_B.b_p[left_arm_ctrl_obs_B.b_kstr_n] =
-        tmp_0[left_arm_ctrl_obs_B.b_kstr_n];
+    for (left_arm_ctrl_obs_B.b_kstr_p = 0; left_arm_ctrl_obs_B.b_kstr_p < 8;
+         left_arm_ctrl_obs_B.b_kstr_p++) {
+      left_arm_ctrl_obs_B.b_cs[left_arm_ctrl_obs_B.b_kstr_p] =
+        tmp_0[left_arm_ctrl_obs_B.b_kstr_p];
     }
 
-    left_arm_ctrl_obs_B.b_bool_c5 = false;
+    left_arm_ctrl_obs_B.b_bool_i = false;
     if (obj->Type->size[1] == 8) {
-      left_arm_ctrl_obs_B.b_kstr_n = 1;
+      left_arm_ctrl_obs_B.b_kstr_p = 1;
       do {
         exitg1 = 0;
-        if (left_arm_ctrl_obs_B.b_kstr_n - 1 < 8) {
-          left_arm_ctrl_obs_B.kstr_g = left_arm_ctrl_obs_B.b_kstr_n - 1;
-          if (obj->Type->data[left_arm_ctrl_obs_B.kstr_g] !=
-              left_arm_ctrl_obs_B.b_p[left_arm_ctrl_obs_B.kstr_g]) {
+        if (left_arm_ctrl_obs_B.b_kstr_p - 1 < 8) {
+          left_arm_ctrl_obs_B.kstr_m = left_arm_ctrl_obs_B.b_kstr_p - 1;
+          if (obj->Type->data[left_arm_ctrl_obs_B.kstr_m] !=
+              left_arm_ctrl_obs_B.b_cs[left_arm_ctrl_obs_B.kstr_m]) {
             exitg1 = 1;
           } else {
-            left_arm_ctrl_obs_B.b_kstr_n++;
+            left_arm_ctrl_obs_B.b_kstr_p++;
           }
         } else {
-          left_arm_ctrl_obs_B.b_bool_c5 = true;
+          left_arm_ctrl_obs_B.b_bool_i = true;
           exitg1 = 1;
         }
       } while (exitg1 == 0);
     }
 
-    if (left_arm_ctrl_obs_B.b_bool_c5) {
-      left_arm_ctrl_obs_B.b_kstr_n = 1;
+    if (left_arm_ctrl_obs_B.b_bool_i) {
+      left_arm_ctrl_obs_B.b_kstr_p = 1;
     } else {
-      left_arm_ctrl_obs_B.b_kstr_n = -1;
+      left_arm_ctrl_obs_B.b_kstr_p = -1;
     }
   }
 
-  switch (left_arm_ctrl_obs_B.b_kstr_n) {
+  switch (left_arm_ctrl_obs_B.b_kstr_p) {
    case 0:
     memset(&left_arm_ctrl_obs_B.TJ_f[0], 0, sizeof(real_T) << 4U);
     left_arm_ctrl_obs_B.TJ_f[0] = 1.0;
@@ -671,95 +691,95 @@ static void rigidBodyJoint_transformBodyT_e(const
     break;
 
    case 1:
-    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_as);
-    left_arm_ctrl_obs_B.result_data_p[0] = left_arm_ctrl_obs_B.v_as[0];
-    left_arm_ctrl_obs_B.result_data_p[1] = left_arm_ctrl_obs_B.v_as[1];
-    left_arm_ctrl_obs_B.result_data_p[2] = left_arm_ctrl_obs_B.v_as[2];
+    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_l);
+    left_arm_ctrl_obs_B.result_data_a[0] = left_arm_ctrl_obs_B.v_l[0];
+    left_arm_ctrl_obs_B.result_data_a[1] = left_arm_ctrl_obs_B.v_l[1];
+    left_arm_ctrl_obs_B.result_data_a[2] = left_arm_ctrl_obs_B.v_l[2];
     if (0 <= (*q_size != 0) - 1) {
-      left_arm_ctrl_obs_B.result_data_p[3] = q_data[0];
+      left_arm_ctrl_obs_B.result_data_a[3] = q_data[0];
     }
 
-    left_arm_ctrl_obs_normalizeRows(&left_arm_ctrl_obs_B.result_data_p[0],
-      left_arm_ctrl_obs_B.v_as);
-    left_arm_ctrl_obs_B.cth = cos(left_arm_ctrl_obs_B.result_data_p[3]);
-    left_arm_ctrl_obs_B.sth_j = sin(left_arm_ctrl_obs_B.result_data_p[3]);
-    left_arm_ctrl_obs_B.tempR_tmp_e = left_arm_ctrl_obs_B.v_as[1] *
-      left_arm_ctrl_obs_B.v_as[0] * (1.0 - left_arm_ctrl_obs_B.cth);
-    left_arm_ctrl_obs_B.tempR_tmp_o = left_arm_ctrl_obs_B.v_as[2] *
-      left_arm_ctrl_obs_B.sth_j;
-    left_arm_ctrl_obs_B.tempR_tmp_b = left_arm_ctrl_obs_B.v_as[2] *
-      left_arm_ctrl_obs_B.v_as[0] * (1.0 - left_arm_ctrl_obs_B.cth);
-    left_arm_ctrl_obs_B.tempR_tmp_a = left_arm_ctrl_obs_B.v_as[1] *
-      left_arm_ctrl_obs_B.sth_j;
-    left_arm_ctrl_obs_B.tempR_tmp_g = left_arm_ctrl_obs_B.v_as[2] *
-      left_arm_ctrl_obs_B.v_as[1] * (1.0 - left_arm_ctrl_obs_B.cth);
-    left_arm_ctrl_obs_B.sth_j *= left_arm_ctrl_obs_B.v_as[0];
-    left_arm_ctrl_obs_cat(left_arm_ctrl_obs_B.v_as[0] *
-                          left_arm_ctrl_obs_B.v_as[0] * (1.0 -
-      left_arm_ctrl_obs_B.cth) + left_arm_ctrl_obs_B.cth,
-                          left_arm_ctrl_obs_B.tempR_tmp_e -
+    left_arm_ctrl_obs_normalizeRows(&left_arm_ctrl_obs_B.result_data_a[0],
+      left_arm_ctrl_obs_B.v_l);
+    left_arm_ctrl_obs_B.cth = cos(left_arm_ctrl_obs_B.result_data_a[3]);
+    left_arm_ctrl_obs_B.sth_p = sin(left_arm_ctrl_obs_B.result_data_a[3]);
+    left_arm_ctrl_obs_B.tempR_tmp_m = left_arm_ctrl_obs_B.v_l[1] *
+      left_arm_ctrl_obs_B.v_l[0] * (1.0 - left_arm_ctrl_obs_B.cth);
+    left_arm_ctrl_obs_B.tempR_tmp_o = left_arm_ctrl_obs_B.v_l[2] *
+      left_arm_ctrl_obs_B.sth_p;
+    left_arm_ctrl_obs_B.tempR_tmp_n = left_arm_ctrl_obs_B.v_l[2] *
+      left_arm_ctrl_obs_B.v_l[0] * (1.0 - left_arm_ctrl_obs_B.cth);
+    left_arm_ctrl_obs_B.tempR_tmp_l = left_arm_ctrl_obs_B.v_l[1] *
+      left_arm_ctrl_obs_B.sth_p;
+    left_arm_ctrl_obs_B.tempR_tmp_p = left_arm_ctrl_obs_B.v_l[2] *
+      left_arm_ctrl_obs_B.v_l[1] * (1.0 - left_arm_ctrl_obs_B.cth);
+    left_arm_ctrl_obs_B.sth_p *= left_arm_ctrl_obs_B.v_l[0];
+    left_arm_ctrl_obs_cat(left_arm_ctrl_obs_B.v_l[0] * left_arm_ctrl_obs_B.v_l[0]
+                          * (1.0 - left_arm_ctrl_obs_B.cth) +
+                          left_arm_ctrl_obs_B.cth,
+                          left_arm_ctrl_obs_B.tempR_tmp_m -
                           left_arm_ctrl_obs_B.tempR_tmp_o,
-                          left_arm_ctrl_obs_B.tempR_tmp_b +
-                          left_arm_ctrl_obs_B.tempR_tmp_a,
-                          left_arm_ctrl_obs_B.tempR_tmp_e +
+                          left_arm_ctrl_obs_B.tempR_tmp_n +
+                          left_arm_ctrl_obs_B.tempR_tmp_l,
+                          left_arm_ctrl_obs_B.tempR_tmp_m +
                           left_arm_ctrl_obs_B.tempR_tmp_o,
-                          left_arm_ctrl_obs_B.v_as[1] *
-                          left_arm_ctrl_obs_B.v_as[1] * (1.0 -
-      left_arm_ctrl_obs_B.cth) + left_arm_ctrl_obs_B.cth,
-                          left_arm_ctrl_obs_B.tempR_tmp_g -
-                          left_arm_ctrl_obs_B.sth_j,
-                          left_arm_ctrl_obs_B.tempR_tmp_b -
-                          left_arm_ctrl_obs_B.tempR_tmp_a,
-                          left_arm_ctrl_obs_B.tempR_tmp_g +
-                          left_arm_ctrl_obs_B.sth_j, left_arm_ctrl_obs_B.v_as[2]
-                          * left_arm_ctrl_obs_B.v_as[2] * (1.0 -
+                          left_arm_ctrl_obs_B.v_l[1] * left_arm_ctrl_obs_B.v_l[1]
+                          * (1.0 - left_arm_ctrl_obs_B.cth) +
+                          left_arm_ctrl_obs_B.cth,
+                          left_arm_ctrl_obs_B.tempR_tmp_p -
+                          left_arm_ctrl_obs_B.sth_p,
+                          left_arm_ctrl_obs_B.tempR_tmp_n -
+                          left_arm_ctrl_obs_B.tempR_tmp_l,
+                          left_arm_ctrl_obs_B.tempR_tmp_p +
+                          left_arm_ctrl_obs_B.sth_p, left_arm_ctrl_obs_B.v_l[2] *
+                          left_arm_ctrl_obs_B.v_l[2] * (1.0 -
       left_arm_ctrl_obs_B.cth) + left_arm_ctrl_obs_B.cth,
                           left_arm_ctrl_obs_B.tempR_e);
-    for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 3;
-         left_arm_ctrl_obs_B.b_kstr_n++) {
-      left_arm_ctrl_obs_B.kstr_g = left_arm_ctrl_obs_B.b_kstr_n + 1;
-      left_arm_ctrl_obs_B.R_d[left_arm_ctrl_obs_B.kstr_g - 1] =
-        left_arm_ctrl_obs_B.tempR_e[(left_arm_ctrl_obs_B.kstr_g - 1) * 3];
-      left_arm_ctrl_obs_B.kstr_g = left_arm_ctrl_obs_B.b_kstr_n + 1;
-      left_arm_ctrl_obs_B.R_d[left_arm_ctrl_obs_B.kstr_g + 2] =
-        left_arm_ctrl_obs_B.tempR_e[(left_arm_ctrl_obs_B.kstr_g - 1) * 3 + 1];
-      left_arm_ctrl_obs_B.kstr_g = left_arm_ctrl_obs_B.b_kstr_n + 1;
-      left_arm_ctrl_obs_B.R_d[left_arm_ctrl_obs_B.kstr_g + 5] =
-        left_arm_ctrl_obs_B.tempR_e[(left_arm_ctrl_obs_B.kstr_g - 1) * 3 + 2];
+    for (left_arm_ctrl_obs_B.b_kstr_p = 0; left_arm_ctrl_obs_B.b_kstr_p < 3;
+         left_arm_ctrl_obs_B.b_kstr_p++) {
+      left_arm_ctrl_obs_B.kstr_m = left_arm_ctrl_obs_B.b_kstr_p + 1;
+      left_arm_ctrl_obs_B.R_d[left_arm_ctrl_obs_B.kstr_m - 1] =
+        left_arm_ctrl_obs_B.tempR_e[(left_arm_ctrl_obs_B.kstr_m - 1) * 3];
+      left_arm_ctrl_obs_B.kstr_m = left_arm_ctrl_obs_B.b_kstr_p + 1;
+      left_arm_ctrl_obs_B.R_d[left_arm_ctrl_obs_B.kstr_m + 2] =
+        left_arm_ctrl_obs_B.tempR_e[(left_arm_ctrl_obs_B.kstr_m - 1) * 3 + 1];
+      left_arm_ctrl_obs_B.kstr_m = left_arm_ctrl_obs_B.b_kstr_p + 1;
+      left_arm_ctrl_obs_B.R_d[left_arm_ctrl_obs_B.kstr_m + 5] =
+        left_arm_ctrl_obs_B.tempR_e[(left_arm_ctrl_obs_B.kstr_m - 1) * 3 + 2];
     }
 
     memset(&left_arm_ctrl_obs_B.TJ_f[0], 0, sizeof(real_T) << 4U);
-    for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 3;
-         left_arm_ctrl_obs_B.b_kstr_n++) {
-      left_arm_ctrl_obs_B.kstr_g = left_arm_ctrl_obs_B.b_kstr_n << 2;
-      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_g] =
-        left_arm_ctrl_obs_B.R_d[3 * left_arm_ctrl_obs_B.b_kstr_n];
-      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_g + 1] =
-        left_arm_ctrl_obs_B.R_d[3 * left_arm_ctrl_obs_B.b_kstr_n + 1];
-      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_g + 2] =
-        left_arm_ctrl_obs_B.R_d[3 * left_arm_ctrl_obs_B.b_kstr_n + 2];
+    for (left_arm_ctrl_obs_B.b_kstr_p = 0; left_arm_ctrl_obs_B.b_kstr_p < 3;
+         left_arm_ctrl_obs_B.b_kstr_p++) {
+      left_arm_ctrl_obs_B.kstr_m = left_arm_ctrl_obs_B.b_kstr_p << 2;
+      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_m] =
+        left_arm_ctrl_obs_B.R_d[3 * left_arm_ctrl_obs_B.b_kstr_p];
+      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_m + 1] =
+        left_arm_ctrl_obs_B.R_d[3 * left_arm_ctrl_obs_B.b_kstr_p + 1];
+      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_m + 2] =
+        left_arm_ctrl_obs_B.R_d[3 * left_arm_ctrl_obs_B.b_kstr_p + 2];
     }
 
     left_arm_ctrl_obs_B.TJ_f[15] = 1.0;
     break;
 
    default:
-    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_as);
+    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_l);
     memset(&left_arm_ctrl_obs_B.tempR_e[0], 0, 9U * sizeof(real_T));
     left_arm_ctrl_obs_B.tempR_e[0] = 1.0;
     left_arm_ctrl_obs_B.tempR_e[4] = 1.0;
     left_arm_ctrl_obs_B.tempR_e[8] = 1.0;
-    for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 3;
-         left_arm_ctrl_obs_B.b_kstr_n++) {
-      left_arm_ctrl_obs_B.kstr_g = left_arm_ctrl_obs_B.b_kstr_n << 2;
-      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_g] =
-        left_arm_ctrl_obs_B.tempR_e[3 * left_arm_ctrl_obs_B.b_kstr_n];
-      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_g + 1] =
-        left_arm_ctrl_obs_B.tempR_e[3 * left_arm_ctrl_obs_B.b_kstr_n + 1];
-      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_g + 2] =
-        left_arm_ctrl_obs_B.tempR_e[3 * left_arm_ctrl_obs_B.b_kstr_n + 2];
-      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.b_kstr_n + 12] =
-        left_arm_ctrl_obs_B.v_as[left_arm_ctrl_obs_B.b_kstr_n] * q_data[0];
+    for (left_arm_ctrl_obs_B.b_kstr_p = 0; left_arm_ctrl_obs_B.b_kstr_p < 3;
+         left_arm_ctrl_obs_B.b_kstr_p++) {
+      left_arm_ctrl_obs_B.kstr_m = left_arm_ctrl_obs_B.b_kstr_p << 2;
+      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_m] =
+        left_arm_ctrl_obs_B.tempR_e[3 * left_arm_ctrl_obs_B.b_kstr_p];
+      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_m + 1] =
+        left_arm_ctrl_obs_B.tempR_e[3 * left_arm_ctrl_obs_B.b_kstr_p + 1];
+      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.kstr_m + 2] =
+        left_arm_ctrl_obs_B.tempR_e[3 * left_arm_ctrl_obs_B.b_kstr_p + 2];
+      left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.b_kstr_p + 12] =
+        left_arm_ctrl_obs_B.v_l[left_arm_ctrl_obs_B.b_kstr_p] * q_data[0];
     }
 
     left_arm_ctrl_obs_B.TJ_f[3] = 0.0;
@@ -769,46 +789,46 @@ static void rigidBodyJoint_transformBodyT_e(const
     break;
   }
 
-  for (left_arm_ctrl_obs_B.b_kstr_n = 0; left_arm_ctrl_obs_B.b_kstr_n < 4;
-       left_arm_ctrl_obs_B.b_kstr_n++) {
-    for (left_arm_ctrl_obs_B.kstr_g = 0; left_arm_ctrl_obs_B.kstr_g < 4;
-         left_arm_ctrl_obs_B.kstr_g++) {
-      left_arm_ctrl_obs_B.obj_tmp_tmp_n = left_arm_ctrl_obs_B.kstr_g << 2;
-      left_arm_ctrl_obs_B.obj_tmp_d = left_arm_ctrl_obs_B.b_kstr_n +
-        left_arm_ctrl_obs_B.obj_tmp_tmp_n;
+  for (left_arm_ctrl_obs_B.b_kstr_p = 0; left_arm_ctrl_obs_B.b_kstr_p < 4;
+       left_arm_ctrl_obs_B.b_kstr_p++) {
+    for (left_arm_ctrl_obs_B.kstr_m = 0; left_arm_ctrl_obs_B.kstr_m < 4;
+         left_arm_ctrl_obs_B.kstr_m++) {
+      left_arm_ctrl_obs_B.obj_tmp_tmp_g = left_arm_ctrl_obs_B.kstr_m << 2;
+      left_arm_ctrl_obs_B.obj_tmp_d = left_arm_ctrl_obs_B.b_kstr_p +
+        left_arm_ctrl_obs_B.obj_tmp_tmp_g;
       left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.obj_tmp_d] = 0.0;
       left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.obj_tmp_d] +=
-        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_n] *
-        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_n];
+        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_g] *
+        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_p];
       left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.obj_tmp_d] +=
-        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_n + 1] *
-        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_n + 4];
+        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_g + 1] *
+        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_p + 4];
       left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.obj_tmp_d] +=
-        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_n + 2] *
-        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_n + 8];
+        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_g + 2] *
+        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_p + 8];
       left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.obj_tmp_d] +=
-        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_n + 3] *
-        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_n + 12];
+        left_arm_ctrl_obs_B.TJ_f[left_arm_ctrl_obs_B.obj_tmp_tmp_g + 3] *
+        obj->JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_p + 12];
     }
 
-    for (left_arm_ctrl_obs_B.kstr_g = 0; left_arm_ctrl_obs_B.kstr_g < 4;
-         left_arm_ctrl_obs_B.kstr_g++) {
-      left_arm_ctrl_obs_B.obj_tmp_tmp_n = left_arm_ctrl_obs_B.kstr_g << 2;
-      left_arm_ctrl_obs_B.obj_tmp_d = left_arm_ctrl_obs_B.b_kstr_n +
-        left_arm_ctrl_obs_B.obj_tmp_tmp_n;
+    for (left_arm_ctrl_obs_B.kstr_m = 0; left_arm_ctrl_obs_B.kstr_m < 4;
+         left_arm_ctrl_obs_B.kstr_m++) {
+      left_arm_ctrl_obs_B.obj_tmp_tmp_g = left_arm_ctrl_obs_B.kstr_m << 2;
+      left_arm_ctrl_obs_B.obj_tmp_d = left_arm_ctrl_obs_B.b_kstr_p +
+        left_arm_ctrl_obs_B.obj_tmp_tmp_g;
       T[left_arm_ctrl_obs_B.obj_tmp_d] = 0.0;
       T[left_arm_ctrl_obs_B.obj_tmp_d] += obj->
-        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_n] *
-        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_n];
+        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_g] *
+        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_p];
       T[left_arm_ctrl_obs_B.obj_tmp_d] += obj->
-        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_n + 1] *
-        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_n + 4];
+        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_g + 1] *
+        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_p + 4];
       T[left_arm_ctrl_obs_B.obj_tmp_d] += obj->
-        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_n + 2] *
-        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_n + 8];
+        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_g + 2] *
+        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_p + 8];
       T[left_arm_ctrl_obs_B.obj_tmp_d] += obj->
-        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_n + 3] *
-        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_n + 12];
+        ChildToJointTransform[left_arm_ctrl_obs_B.obj_tmp_tmp_g + 3] *
+        left_arm_ctrl_obs_B.obj_g[left_arm_ctrl_obs_B.b_kstr_p + 12];
     }
   }
 }
@@ -823,11 +843,11 @@ static void rigidBodyJoint_transformBodyToP(const
   int32_T exitg1;
   for (left_arm_ctrl_obs_B.b_kstr = 0; left_arm_ctrl_obs_B.b_kstr < 5;
        left_arm_ctrl_obs_B.b_kstr++) {
-    left_arm_ctrl_obs_B.b_oc[left_arm_ctrl_obs_B.b_kstr] =
+    left_arm_ctrl_obs_B.b_m0[left_arm_ctrl_obs_B.b_kstr] =
       tmp[left_arm_ctrl_obs_B.b_kstr];
   }
 
-  left_arm_ctrl_obs_B.b_bool_c = false;
+  left_arm_ctrl_obs_B.b_bool_e = false;
   if (obj->Type->size[1] == 5) {
     left_arm_ctrl_obs_B.b_kstr = 1;
     do {
@@ -835,28 +855,28 @@ static void rigidBodyJoint_transformBodyToP(const
       if (left_arm_ctrl_obs_B.b_kstr - 1 < 5) {
         left_arm_ctrl_obs_B.kstr = left_arm_ctrl_obs_B.b_kstr - 1;
         if (obj->Type->data[left_arm_ctrl_obs_B.kstr] !=
-            left_arm_ctrl_obs_B.b_oc[left_arm_ctrl_obs_B.kstr]) {
+            left_arm_ctrl_obs_B.b_m0[left_arm_ctrl_obs_B.kstr]) {
           exitg1 = 1;
         } else {
           left_arm_ctrl_obs_B.b_kstr++;
         }
       } else {
-        left_arm_ctrl_obs_B.b_bool_c = true;
+        left_arm_ctrl_obs_B.b_bool_e = true;
         exitg1 = 1;
       }
     } while (exitg1 == 0);
   }
 
-  if (left_arm_ctrl_obs_B.b_bool_c) {
+  if (left_arm_ctrl_obs_B.b_bool_e) {
     left_arm_ctrl_obs_B.b_kstr = 0;
   } else {
     for (left_arm_ctrl_obs_B.b_kstr = 0; left_arm_ctrl_obs_B.b_kstr < 8;
          left_arm_ctrl_obs_B.b_kstr++) {
-      left_arm_ctrl_obs_B.b_c[left_arm_ctrl_obs_B.b_kstr] =
+      left_arm_ctrl_obs_B.b_mc[left_arm_ctrl_obs_B.b_kstr] =
         tmp_0[left_arm_ctrl_obs_B.b_kstr];
     }
 
-    left_arm_ctrl_obs_B.b_bool_c = false;
+    left_arm_ctrl_obs_B.b_bool_e = false;
     if (obj->Type->size[1] == 8) {
       left_arm_ctrl_obs_B.b_kstr = 1;
       do {
@@ -864,19 +884,19 @@ static void rigidBodyJoint_transformBodyToP(const
         if (left_arm_ctrl_obs_B.b_kstr - 1 < 8) {
           left_arm_ctrl_obs_B.kstr = left_arm_ctrl_obs_B.b_kstr - 1;
           if (obj->Type->data[left_arm_ctrl_obs_B.kstr] !=
-              left_arm_ctrl_obs_B.b_c[left_arm_ctrl_obs_B.kstr]) {
+              left_arm_ctrl_obs_B.b_mc[left_arm_ctrl_obs_B.kstr]) {
             exitg1 = 1;
           } else {
             left_arm_ctrl_obs_B.b_kstr++;
           }
         } else {
-          left_arm_ctrl_obs_B.b_bool_c = true;
+          left_arm_ctrl_obs_B.b_bool_e = true;
           exitg1 = 1;
         }
       } while (exitg1 == 0);
     }
 
-    if (left_arm_ctrl_obs_B.b_bool_c) {
+    if (left_arm_ctrl_obs_B.b_bool_e) {
       left_arm_ctrl_obs_B.b_kstr = 1;
     } else {
       left_arm_ctrl_obs_B.b_kstr = -1;
@@ -893,33 +913,33 @@ static void rigidBodyJoint_transformBodyToP(const
     break;
 
    case 1:
-    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_e);
-    left_arm_ctrl_obs_B.v_a[0] = left_arm_ctrl_obs_B.v_e[0];
-    left_arm_ctrl_obs_B.v_a[1] = left_arm_ctrl_obs_B.v_e[1];
-    left_arm_ctrl_obs_B.v_a[2] = left_arm_ctrl_obs_B.v_e[2];
-    left_arm_ctrl_obs_normalizeRows(left_arm_ctrl_obs_B.v_a,
-      left_arm_ctrl_obs_B.v_e);
-    left_arm_ctrl_obs_B.tempR_tmp_mc = left_arm_ctrl_obs_B.v_e[1] *
-      left_arm_ctrl_obs_B.v_e[0] * 0.0;
-    left_arm_ctrl_obs_B.tempR_tmp_h = left_arm_ctrl_obs_B.v_e[2] *
-      left_arm_ctrl_obs_B.v_e[0] * 0.0;
-    left_arm_ctrl_obs_B.tempR_tmp_c = left_arm_ctrl_obs_B.v_e[2] *
-      left_arm_ctrl_obs_B.v_e[1] * 0.0;
-    left_arm_ctrl_obs_cat(left_arm_ctrl_obs_B.v_e[0] * left_arm_ctrl_obs_B.v_e[0]
-                          * 0.0 + 1.0, left_arm_ctrl_obs_B.tempR_tmp_mc -
-                          left_arm_ctrl_obs_B.v_e[2] * 0.0,
+    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_a);
+    left_arm_ctrl_obs_B.v_i[0] = left_arm_ctrl_obs_B.v_a[0];
+    left_arm_ctrl_obs_B.v_i[1] = left_arm_ctrl_obs_B.v_a[1];
+    left_arm_ctrl_obs_B.v_i[2] = left_arm_ctrl_obs_B.v_a[2];
+    left_arm_ctrl_obs_normalizeRows(left_arm_ctrl_obs_B.v_i,
+      left_arm_ctrl_obs_B.v_a);
+    left_arm_ctrl_obs_B.tempR_tmp_e = left_arm_ctrl_obs_B.v_a[1] *
+      left_arm_ctrl_obs_B.v_a[0] * 0.0;
+    left_arm_ctrl_obs_B.tempR_tmp_f = left_arm_ctrl_obs_B.v_a[2] *
+      left_arm_ctrl_obs_B.v_a[0] * 0.0;
+    left_arm_ctrl_obs_B.tempR_tmp_h = left_arm_ctrl_obs_B.v_a[2] *
+      left_arm_ctrl_obs_B.v_a[1] * 0.0;
+    left_arm_ctrl_obs_cat(left_arm_ctrl_obs_B.v_a[0] * left_arm_ctrl_obs_B.v_a[0]
+                          * 0.0 + 1.0, left_arm_ctrl_obs_B.tempR_tmp_e -
+                          left_arm_ctrl_obs_B.v_a[2] * 0.0,
+                          left_arm_ctrl_obs_B.tempR_tmp_f +
+                          left_arm_ctrl_obs_B.v_a[1] * 0.0,
+                          left_arm_ctrl_obs_B.tempR_tmp_e +
+                          left_arm_ctrl_obs_B.v_a[2] * 0.0,
+                          left_arm_ctrl_obs_B.v_a[1] * left_arm_ctrl_obs_B.v_a[1]
+                          * 0.0 + 1.0, left_arm_ctrl_obs_B.tempR_tmp_h -
+                          left_arm_ctrl_obs_B.v_a[0] * 0.0,
+                          left_arm_ctrl_obs_B.tempR_tmp_f -
+                          left_arm_ctrl_obs_B.v_a[1] * 0.0,
                           left_arm_ctrl_obs_B.tempR_tmp_h +
-                          left_arm_ctrl_obs_B.v_e[1] * 0.0,
-                          left_arm_ctrl_obs_B.tempR_tmp_mc +
-                          left_arm_ctrl_obs_B.v_e[2] * 0.0,
-                          left_arm_ctrl_obs_B.v_e[1] * left_arm_ctrl_obs_B.v_e[1]
-                          * 0.0 + 1.0, left_arm_ctrl_obs_B.tempR_tmp_c -
-                          left_arm_ctrl_obs_B.v_e[0] * 0.0,
-                          left_arm_ctrl_obs_B.tempR_tmp_h -
-                          left_arm_ctrl_obs_B.v_e[1] * 0.0,
-                          left_arm_ctrl_obs_B.tempR_tmp_c +
-                          left_arm_ctrl_obs_B.v_e[0] * 0.0,
-                          left_arm_ctrl_obs_B.v_e[2] * left_arm_ctrl_obs_B.v_e[2]
+                          left_arm_ctrl_obs_B.v_a[0] * 0.0,
+                          left_arm_ctrl_obs_B.v_a[2] * left_arm_ctrl_obs_B.v_a[2]
                           * 0.0 + 1.0, left_arm_ctrl_obs_B.tempR_l);
     for (left_arm_ctrl_obs_B.b_kstr = 0; left_arm_ctrl_obs_B.b_kstr < 3;
          left_arm_ctrl_obs_B.b_kstr++) {
@@ -950,7 +970,7 @@ static void rigidBodyJoint_transformBodyToP(const
     break;
 
    default:
-    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_e);
+    rigidBodyJoint_get_JointAxis_e(obj, left_arm_ctrl_obs_B.v_a);
     memset(&left_arm_ctrl_obs_B.tempR_l[0], 0, 9U * sizeof(real_T));
     left_arm_ctrl_obs_B.tempR_l[0] = 1.0;
     left_arm_ctrl_obs_B.tempR_l[4] = 1.0;
@@ -965,7 +985,7 @@ static void rigidBodyJoint_transformBodyToP(const
       left_arm_ctrl_obs_B.TJ_p[left_arm_ctrl_obs_B.kstr + 2] =
         left_arm_ctrl_obs_B.tempR_l[3 * left_arm_ctrl_obs_B.b_kstr + 2];
       left_arm_ctrl_obs_B.TJ_p[left_arm_ctrl_obs_B.b_kstr + 12] =
-        left_arm_ctrl_obs_B.v_e[left_arm_ctrl_obs_B.b_kstr] * 0.0;
+        left_arm_ctrl_obs_B.v_a[left_arm_ctrl_obs_B.b_kstr] * 0.0;
     }
 
     left_arm_ctrl_obs_B.TJ_p[3] = 0.0;
@@ -1060,32 +1080,32 @@ static void left_arm_ctrl_obs_tforminv(const real_T T[16], real_T Tinv[16])
 
 static void left_arm_ct_tformToSpatialXform(const real_T T[16], real_T X[36])
 {
-  left_arm_ctrl_obs_B.dv6[0] = 0.0;
-  left_arm_ctrl_obs_B.dv6[3] = -T[14];
-  left_arm_ctrl_obs_B.dv6[6] = T[13];
-  left_arm_ctrl_obs_B.dv6[1] = T[14];
-  left_arm_ctrl_obs_B.dv6[4] = 0.0;
-  left_arm_ctrl_obs_B.dv6[7] = -T[12];
-  left_arm_ctrl_obs_B.dv6[2] = -T[13];
-  left_arm_ctrl_obs_B.dv6[5] = T[12];
-  left_arm_ctrl_obs_B.dv6[8] = 0.0;
+  left_arm_ctrl_obs_B.dv7[0] = 0.0;
+  left_arm_ctrl_obs_B.dv7[3] = -T[14];
+  left_arm_ctrl_obs_B.dv7[6] = T[13];
+  left_arm_ctrl_obs_B.dv7[1] = T[14];
+  left_arm_ctrl_obs_B.dv7[4] = 0.0;
+  left_arm_ctrl_obs_B.dv7[7] = -T[12];
+  left_arm_ctrl_obs_B.dv7[2] = -T[13];
+  left_arm_ctrl_obs_B.dv7[5] = T[12];
+  left_arm_ctrl_obs_B.dv7[8] = 0.0;
   for (left_arm_ctrl_obs_B.i1 = 0; left_arm_ctrl_obs_B.i1 < 3;
        left_arm_ctrl_obs_B.i1++) {
     for (left_arm_ctrl_obs_B.X_tmp = 0; left_arm_ctrl_obs_B.X_tmp < 3;
          left_arm_ctrl_obs_B.X_tmp++) {
-      left_arm_ctrl_obs_B.X_tmp_c = left_arm_ctrl_obs_B.i1 + 3 *
+      left_arm_ctrl_obs_B.X_tmp_h = left_arm_ctrl_obs_B.i1 + 3 *
         left_arm_ctrl_obs_B.X_tmp;
-      left_arm_ctrl_obs_B.dv7[left_arm_ctrl_obs_B.X_tmp_c] = 0.0;
+      left_arm_ctrl_obs_B.dv8[left_arm_ctrl_obs_B.X_tmp_h] = 0.0;
       left_arm_ctrl_obs_B.i2 = left_arm_ctrl_obs_B.X_tmp << 2;
-      left_arm_ctrl_obs_B.dv7[left_arm_ctrl_obs_B.X_tmp_c] +=
+      left_arm_ctrl_obs_B.dv8[left_arm_ctrl_obs_B.X_tmp_h] +=
         T[left_arm_ctrl_obs_B.i2] *
-        left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.i1];
-      left_arm_ctrl_obs_B.dv7[left_arm_ctrl_obs_B.X_tmp_c] +=
+        left_arm_ctrl_obs_B.dv7[left_arm_ctrl_obs_B.i1];
+      left_arm_ctrl_obs_B.dv8[left_arm_ctrl_obs_B.X_tmp_h] +=
         T[left_arm_ctrl_obs_B.i2 + 1] *
-        left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.i1 + 3];
-      left_arm_ctrl_obs_B.dv7[left_arm_ctrl_obs_B.X_tmp_c] +=
+        left_arm_ctrl_obs_B.dv7[left_arm_ctrl_obs_B.i1 + 3];
+      left_arm_ctrl_obs_B.dv8[left_arm_ctrl_obs_B.X_tmp_h] +=
         T[left_arm_ctrl_obs_B.i2 + 2] *
-        left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.i1 + 6];
+        left_arm_ctrl_obs_B.dv7[left_arm_ctrl_obs_B.i1 + 6];
       X[left_arm_ctrl_obs_B.X_tmp + 6 * left_arm_ctrl_obs_B.i1] = T
         [(left_arm_ctrl_obs_B.i1 << 2) + left_arm_ctrl_obs_B.X_tmp];
       X[left_arm_ctrl_obs_B.X_tmp + 6 * (left_arm_ctrl_obs_B.i1 + 3)] = 0.0;
@@ -1094,17 +1114,17 @@ static void left_arm_ct_tformToSpatialXform(const real_T T[16], real_T X[36])
 
   for (left_arm_ctrl_obs_B.i1 = 0; left_arm_ctrl_obs_B.i1 < 3;
        left_arm_ctrl_obs_B.i1++) {
-    X[6 * left_arm_ctrl_obs_B.i1 + 3] = left_arm_ctrl_obs_B.dv7[3 *
+    X[6 * left_arm_ctrl_obs_B.i1 + 3] = left_arm_ctrl_obs_B.dv8[3 *
       left_arm_ctrl_obs_B.i1];
     left_arm_ctrl_obs_B.X_tmp = left_arm_ctrl_obs_B.i1 << 2;
-    left_arm_ctrl_obs_B.X_tmp_c = 6 * (left_arm_ctrl_obs_B.i1 + 3);
-    X[left_arm_ctrl_obs_B.X_tmp_c + 3] = T[left_arm_ctrl_obs_B.X_tmp];
-    X[6 * left_arm_ctrl_obs_B.i1 + 4] = left_arm_ctrl_obs_B.dv7[3 *
+    left_arm_ctrl_obs_B.X_tmp_h = 6 * (left_arm_ctrl_obs_B.i1 + 3);
+    X[left_arm_ctrl_obs_B.X_tmp_h + 3] = T[left_arm_ctrl_obs_B.X_tmp];
+    X[6 * left_arm_ctrl_obs_B.i1 + 4] = left_arm_ctrl_obs_B.dv8[3 *
       left_arm_ctrl_obs_B.i1 + 1];
-    X[left_arm_ctrl_obs_B.X_tmp_c + 4] = T[left_arm_ctrl_obs_B.X_tmp + 1];
-    X[6 * left_arm_ctrl_obs_B.i1 + 5] = left_arm_ctrl_obs_B.dv7[3 *
+    X[left_arm_ctrl_obs_B.X_tmp_h + 4] = T[left_arm_ctrl_obs_B.X_tmp + 1];
+    X[6 * left_arm_ctrl_obs_B.i1 + 5] = left_arm_ctrl_obs_B.dv8[3 *
       left_arm_ctrl_obs_B.i1 + 2];
-    X[left_arm_ctrl_obs_B.X_tmp_c + 5] = T[left_arm_ctrl_obs_B.X_tmp + 2];
+    X[left_arm_ctrl_obs_B.X_tmp_h + 5] = T[left_arm_ctrl_obs_B.X_tmp + 2];
   }
 }
 
@@ -1149,23 +1169,23 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
   j_robotics_manip_internal_R_e_T *obj;
   emxArray_real_T_left_arm_ctrl_T *a;
   emxArray_real_T_left_arm_ctrl_T *B;
-  left_arm_ctrl_obs_B.nb_o = robot->NumBodies;
-  left_arm_ctrl_obs_B.vNum_n = robot->VelocityNumber;
+  left_arm_ctrl_obs_B.nb_h = robot->NumBodies;
+  left_arm_ctrl_obs_B.vNum_m = robot->VelocityNumber;
   left_arm_ctrl_obs_B.f = H->size[0] * H->size[1];
-  left_arm_ctrl_obs_B.b_i_pr = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_n);
-  H->size[0] = left_arm_ctrl_obs_B.b_i_pr;
-  H->size[1] = left_arm_ctrl_obs_B.b_i_pr;
+  left_arm_ctrl_obs_B.b_i_d = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_m);
+  H->size[0] = left_arm_ctrl_obs_B.b_i_d;
+  H->size[1] = left_arm_ctrl_obs_B.b_i_d;
   left_a_emxEnsureCapacity_real_T(H, left_arm_ctrl_obs_B.f);
-  left_arm_ctrl_obs_B.n_d = left_arm_ctrl_obs_B.b_i_pr *
-    left_arm_ctrl_obs_B.b_i_pr - 1;
+  left_arm_ctrl_obs_B.n_ik = left_arm_ctrl_obs_B.b_i_d *
+    left_arm_ctrl_obs_B.b_i_d - 1;
   for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <=
-       left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
+       left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
     H->data[left_arm_ctrl_obs_B.f] = 0.0;
   }
 
   left_arm_c_emxInit_e_cell_wrap1(&Ic, 2);
   left_arm_c_emxInit_e_cell_wrap1(&X, 2);
-  left_arm_ctrl_obs_B.c_tmp = static_cast<int32_T>(left_arm_ctrl_obs_B.nb_o);
+  left_arm_ctrl_obs_B.c_tmp = static_cast<int32_T>(left_arm_ctrl_obs_B.nb_h);
   left_arm_ctrl_obs_B.c = left_arm_ctrl_obs_B.c_tmp - 1;
   left_arm_ctrl_obs_B.f = Ic->size[0] * Ic->size[1];
   Ic->size[0] = 1;
@@ -1175,55 +1195,54 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
   X->size[0] = 1;
   X->size[1] = left_arm_ctrl_obs_B.c_tmp;
   emxEnsureCapacity_e_cell_wrap1(X, left_arm_ctrl_obs_B.f);
-  for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <=
-       left_arm_ctrl_obs_B.c; left_arm_ctrl_obs_B.b_i_pr++) {
+  for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <=
+       left_arm_ctrl_obs_B.c; left_arm_ctrl_obs_B.b_i_d++) {
     for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f < 36;
          left_arm_ctrl_obs_B.f++) {
-      Ic->data[left_arm_ctrl_obs_B.b_i_pr].f1[left_arm_ctrl_obs_B.f] =
-        robot->Bodies[left_arm_ctrl_obs_B.b_i_pr]->
+      Ic->data[left_arm_ctrl_obs_B.b_i_d].f1[left_arm_ctrl_obs_B.f] =
+        robot->Bodies[left_arm_ctrl_obs_B.b_i_d]->
         SpatialInertia[left_arm_ctrl_obs_B.f];
     }
 
-    left_arm_ctrl_obs_B.vNum_n = robot->
-      PositionDoFMap[left_arm_ctrl_obs_B.b_i_pr];
+    left_arm_ctrl_obs_B.vNum_m = robot->PositionDoFMap[left_arm_ctrl_obs_B.b_i_d];
     left_arm_ctrl_obs_B.p_idx_1_p = robot->
-      PositionDoFMap[left_arm_ctrl_obs_B.b_i_pr + 10];
-    if (left_arm_ctrl_obs_B.p_idx_1_p < left_arm_ctrl_obs_B.vNum_n) {
-      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i_pr];
+      PositionDoFMap[left_arm_ctrl_obs_B.b_i_d + 10];
+    if (left_arm_ctrl_obs_B.p_idx_1_p < left_arm_ctrl_obs_B.vNum_m) {
+      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i_d];
       rigidBodyJoint_transformBodyToP(&obj->JointInternal,
         left_arm_ctrl_obs_B.T_l);
     } else {
-      if (left_arm_ctrl_obs_B.vNum_n > left_arm_ctrl_obs_B.p_idx_1_p) {
+      if (left_arm_ctrl_obs_B.vNum_m > left_arm_ctrl_obs_B.p_idx_1_p) {
         left_arm_ctrl_obs_B.c_tmp = 0;
         left_arm_ctrl_obs_B.f = -1;
       } else {
         left_arm_ctrl_obs_B.c_tmp = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.vNum_n) - 1;
+          (left_arm_ctrl_obs_B.vNum_m) - 1;
         left_arm_ctrl_obs_B.f = static_cast<int32_T>
           (left_arm_ctrl_obs_B.p_idx_1_p) - 1;
       }
 
-      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i_pr];
-      left_arm_ctrl_obs_B.q_size_tmp_j = left_arm_ctrl_obs_B.f -
+      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i_d];
+      left_arm_ctrl_obs_B.q_size_tmp_c = left_arm_ctrl_obs_B.f -
         left_arm_ctrl_obs_B.c_tmp;
-      left_arm_ctrl_obs_B.q_size_f = left_arm_ctrl_obs_B.q_size_tmp_j + 1;
+      left_arm_ctrl_obs_B.q_size_o = left_arm_ctrl_obs_B.q_size_tmp_c + 1;
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <=
-           left_arm_ctrl_obs_B.q_size_tmp_j; left_arm_ctrl_obs_B.f++) {
+           left_arm_ctrl_obs_B.q_size_tmp_c; left_arm_ctrl_obs_B.f++) {
         left_arm_ctrl_obs_B.q_data_m[left_arm_ctrl_obs_B.f] =
           q[left_arm_ctrl_obs_B.c_tmp + left_arm_ctrl_obs_B.f];
       }
 
       rigidBodyJoint_transformBodyT_e(&obj->JointInternal,
-        left_arm_ctrl_obs_B.q_data_m, &left_arm_ctrl_obs_B.q_size_f,
+        left_arm_ctrl_obs_B.q_data_m, &left_arm_ctrl_obs_B.q_size_o,
         left_arm_ctrl_obs_B.T_l);
     }
 
-    left_arm_ctrl_obs_tforminv(left_arm_ctrl_obs_B.T_l, left_arm_ctrl_obs_B.dv1);
-    left_arm_ct_tformToSpatialXform(left_arm_ctrl_obs_B.dv1, X->
-      data[left_arm_ctrl_obs_B.b_i_pr].f1);
+    left_arm_ctrl_obs_tforminv(left_arm_ctrl_obs_B.T_l, left_arm_ctrl_obs_B.dv2);
+    left_arm_ct_tformToSpatialXform(left_arm_ctrl_obs_B.dv2, X->
+      data[left_arm_ctrl_obs_B.b_i_d].f1);
   }
 
-  left_arm_ctrl_obs_B.c = static_cast<int32_T>(((-1.0 - left_arm_ctrl_obs_B.nb_o)
+  left_arm_ctrl_obs_B.c = static_cast<int32_T>(((-1.0 - left_arm_ctrl_obs_B.nb_h)
     + 1.0) / -1.0) - 1;
   left_arm_ctrl_ob_emxInit_real_T(&Si, 2);
   left_arm_ctrl_ob_emxInit_real_T(&Fi, 2);
@@ -1233,112 +1252,112 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
   left_arm_ctrl_ob_emxInit_real_T(&B, 2);
   for (left_arm_ctrl_obs_B.c_tmp = 0; left_arm_ctrl_obs_B.c_tmp <=
        left_arm_ctrl_obs_B.c; left_arm_ctrl_obs_B.c_tmp++) {
-    left_arm_ctrl_obs_B.pid_tmp_d = static_cast<int32_T>
-      (left_arm_ctrl_obs_B.nb_o + -static_cast<real_T>(left_arm_ctrl_obs_B.c_tmp));
-    left_arm_ctrl_obs_B.q_size_tmp_j = left_arm_ctrl_obs_B.pid_tmp_d - 1;
-    left_arm_ctrl_obs_B.pid_l = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp_j
+    left_arm_ctrl_obs_B.pid_tmp_j = static_cast<int32_T>
+      (left_arm_ctrl_obs_B.nb_h + -static_cast<real_T>(left_arm_ctrl_obs_B.c_tmp));
+    left_arm_ctrl_obs_B.q_size_tmp_c = left_arm_ctrl_obs_B.pid_tmp_j - 1;
+    left_arm_ctrl_obs_B.pid_a = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp_c
       ]->ParentIndex;
-    left_arm_ctrl_obs_B.vNum_n = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_d - 1];
+    left_arm_ctrl_obs_B.vNum_m = robot->
+      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_j - 1];
     left_arm_ctrl_obs_B.p_idx_1_p = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_d + 9];
-    if (left_arm_ctrl_obs_B.pid_l > 0.0) {
+      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_j + 9];
+    if (left_arm_ctrl_obs_B.pid_a > 0.0) {
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f < 6;
            left_arm_ctrl_obs_B.f++) {
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          left_arm_ctrl_obs_B.X_tmp_i = left_arm_ctrl_obs_B.f + 6 *
-            left_arm_ctrl_obs_B.b_i_pr;
-          left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.X_tmp_i] = 0.0;
-          for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 6;
-               left_arm_ctrl_obs_B.n_d++) {
-            left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.X_tmp_i] += X->
-              data[left_arm_ctrl_obs_B.q_size_tmp_j].f1[6 *
-              left_arm_ctrl_obs_B.f + left_arm_ctrl_obs_B.n_d] * Ic->
-              data[left_arm_ctrl_obs_B.q_size_tmp_j].f1[6 *
-              left_arm_ctrl_obs_B.b_i_pr + left_arm_ctrl_obs_B.n_d];
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          left_arm_ctrl_obs_B.X_tmp_hp = left_arm_ctrl_obs_B.f + 6 *
+            left_arm_ctrl_obs_B.b_i_d;
+          left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.X_tmp_hp] = 0.0;
+          for (left_arm_ctrl_obs_B.n_ik = 0; left_arm_ctrl_obs_B.n_ik < 6;
+               left_arm_ctrl_obs_B.n_ik++) {
+            left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.X_tmp_hp] += X->
+              data[left_arm_ctrl_obs_B.q_size_tmp_c].f1[6 *
+              left_arm_ctrl_obs_B.f + left_arm_ctrl_obs_B.n_ik] * Ic->
+              data[left_arm_ctrl_obs_B.q_size_tmp_c].f1[6 *
+              left_arm_ctrl_obs_B.b_i_d + left_arm_ctrl_obs_B.n_ik];
           }
         }
       }
 
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f < 6;
            left_arm_ctrl_obs_B.f++) {
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          left_arm_ctrl_obs_B.b_idx_0_f = 0.0;
-          for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 6;
-               left_arm_ctrl_obs_B.n_d++) {
-            left_arm_ctrl_obs_B.b_idx_0_f += left_arm_ctrl_obs_B.X_k[6 *
-              left_arm_ctrl_obs_B.n_d + left_arm_ctrl_obs_B.f] * X->
-              data[left_arm_ctrl_obs_B.q_size_tmp_j].f1[6 *
-              left_arm_ctrl_obs_B.b_i_pr + left_arm_ctrl_obs_B.n_d];
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          left_arm_ctrl_obs_B.b_idx_0_b = 0.0;
+          for (left_arm_ctrl_obs_B.n_ik = 0; left_arm_ctrl_obs_B.n_ik < 6;
+               left_arm_ctrl_obs_B.n_ik++) {
+            left_arm_ctrl_obs_B.b_idx_0_b += left_arm_ctrl_obs_B.X_k[6 *
+              left_arm_ctrl_obs_B.n_ik + left_arm_ctrl_obs_B.f] * X->
+              data[left_arm_ctrl_obs_B.q_size_tmp_c].f1[6 *
+              left_arm_ctrl_obs_B.b_i_d + left_arm_ctrl_obs_B.n_ik];
           }
 
-          left_arm_ctrl_obs_B.n_d = 6 * left_arm_ctrl_obs_B.b_i_pr +
+          left_arm_ctrl_obs_B.n_ik = 6 * left_arm_ctrl_obs_B.b_i_d +
             left_arm_ctrl_obs_B.f;
-          Ic->data[static_cast<int32_T>(left_arm_ctrl_obs_B.pid_l) - 1]
-            .f1[left_arm_ctrl_obs_B.n_d] += left_arm_ctrl_obs_B.b_idx_0_f;
+          Ic->data[static_cast<int32_T>(left_arm_ctrl_obs_B.pid_a) - 1]
+            .f1[left_arm_ctrl_obs_B.n_ik] += left_arm_ctrl_obs_B.b_idx_0_b;
         }
       }
     }
 
-    left_arm_ctrl_obs_B.b_idx_0_f = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_d - 1];
-    left_arm_ctrl_obs_B.b_idx_1_i = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_d + 9];
-    if (left_arm_ctrl_obs_B.b_idx_0_f <= left_arm_ctrl_obs_B.b_idx_1_i) {
-      obj = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp_j];
+    left_arm_ctrl_obs_B.b_idx_0_b = robot->
+      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_j - 1];
+    left_arm_ctrl_obs_B.b_idx_1_c = robot->
+      VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_j + 9];
+    if (left_arm_ctrl_obs_B.b_idx_0_b <= left_arm_ctrl_obs_B.b_idx_1_c) {
+      obj = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp_c];
       left_arm_ctrl_obs_B.f = Si->size[0] * Si->size[1];
       Si->size[0] = 6;
       Si->size[1] = obj->JointInternal.MotionSubspace->size[1];
       left_a_emxEnsureCapacity_real_T(Si, left_arm_ctrl_obs_B.f);
-      left_arm_ctrl_obs_B.n_d = obj->JointInternal.MotionSubspace->size[0] *
+      left_arm_ctrl_obs_B.n_ik = obj->JointInternal.MotionSubspace->size[0] *
         obj->JointInternal.MotionSubspace->size[1] - 1;
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <=
-           left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
+           left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
         Si->data[left_arm_ctrl_obs_B.f] = obj->
           JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.f];
       }
 
-      left_arm_ctrl_obs_B.n_d = Si->size[1] - 1;
+      left_arm_ctrl_obs_B.n_ik = Si->size[1] - 1;
       left_arm_ctrl_obs_B.f = Fi->size[0] * Fi->size[1];
       Fi->size[0] = 6;
       Fi->size[1] = Si->size[1];
       left_a_emxEnsureCapacity_real_T(Fi, left_arm_ctrl_obs_B.f);
-      for (left_arm_ctrl_obs_B.b_j_c = 0; left_arm_ctrl_obs_B.b_j_c <=
-           left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.b_j_c++) {
-        left_arm_ctrl_obs_B.pid_tmp_d = left_arm_ctrl_obs_B.b_j_c * 6 - 1;
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          Fi->data[(left_arm_ctrl_obs_B.pid_tmp_d + left_arm_ctrl_obs_B.b_i_pr)
-            + 1] = 0.0;
+      for (left_arm_ctrl_obs_B.b_j_l0 = 0; left_arm_ctrl_obs_B.b_j_l0 <=
+           left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.b_j_l0++) {
+        left_arm_ctrl_obs_B.pid_tmp_j = left_arm_ctrl_obs_B.b_j_l0 * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          Fi->data[(left_arm_ctrl_obs_B.pid_tmp_j + left_arm_ctrl_obs_B.b_i_d) +
+            1] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_pr * 6 - 1;
-          left_arm_ctrl_obs_B.temp_p = Si->data[(left_arm_ctrl_obs_B.pid_tmp_d +
-            left_arm_ctrl_obs_B.b_i_pr) + 1];
-          for (left_arm_ctrl_obs_B.c_i_i = 0; left_arm_ctrl_obs_B.c_i_i < 6;
-               left_arm_ctrl_obs_B.c_i_i++) {
-            left_arm_ctrl_obs_B.i_c3 = left_arm_ctrl_obs_B.c_i_i + 1;
-            left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.pid_tmp_d +
-              left_arm_ctrl_obs_B.i_c3;
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_d * 6 - 1;
+          left_arm_ctrl_obs_B.temp_k = Si->data[(left_arm_ctrl_obs_B.pid_tmp_j +
+            left_arm_ctrl_obs_B.b_i_d) + 1];
+          for (left_arm_ctrl_obs_B.c_i_c = 0; left_arm_ctrl_obs_B.c_i_c < 6;
+               left_arm_ctrl_obs_B.c_i_c++) {
+            left_arm_ctrl_obs_B.i_nn = left_arm_ctrl_obs_B.c_i_c + 1;
+            left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.pid_tmp_j +
+              left_arm_ctrl_obs_B.i_nn;
             Fi->data[left_arm_ctrl_obs_B.f] += Ic->
-              data[left_arm_ctrl_obs_B.q_size_tmp_j]
-              .f1[left_arm_ctrl_obs_B.aoffset_g + left_arm_ctrl_obs_B.i_c3] *
-              left_arm_ctrl_obs_B.temp_p;
+              data[left_arm_ctrl_obs_B.q_size_tmp_c]
+              .f1[left_arm_ctrl_obs_B.aoffset_g + left_arm_ctrl_obs_B.i_nn] *
+              left_arm_ctrl_obs_B.temp_k;
           }
         }
       }
 
-      if (left_arm_ctrl_obs_B.vNum_n > left_arm_ctrl_obs_B.p_idx_1_p) {
-        left_arm_ctrl_obs_B.pid_tmp_d = 0;
-        left_arm_ctrl_obs_B.X_tmp_i = 0;
+      if (left_arm_ctrl_obs_B.vNum_m > left_arm_ctrl_obs_B.p_idx_1_p) {
+        left_arm_ctrl_obs_B.pid_tmp_j = 0;
+        left_arm_ctrl_obs_B.X_tmp_hp = 0;
       } else {
-        left_arm_ctrl_obs_B.pid_tmp_d = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.vNum_n) - 1;
-        left_arm_ctrl_obs_B.X_tmp_i = left_arm_ctrl_obs_B.pid_tmp_d;
+        left_arm_ctrl_obs_B.pid_tmp_j = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.vNum_m) - 1;
+        left_arm_ctrl_obs_B.X_tmp_hp = left_arm_ctrl_obs_B.pid_tmp_j;
       }
 
       left_arm_ctrl_obs_B.f = a->size[0] * a->size[1];
@@ -1347,70 +1366,69 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
       left_a_emxEnsureCapacity_real_T(a, left_arm_ctrl_obs_B.f);
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f < 6;
            left_arm_ctrl_obs_B.f++) {
-        left_arm_ctrl_obs_B.n_d = Si->size[1];
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <
-             left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.b_i_pr++) {
-          a->data[left_arm_ctrl_obs_B.b_i_pr + a->size[0] *
-            left_arm_ctrl_obs_B.f] = Si->data[6 * left_arm_ctrl_obs_B.b_i_pr +
-            left_arm_ctrl_obs_B.f];
+        left_arm_ctrl_obs_B.n_ik = Si->size[1];
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <
+             left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.b_i_d++) {
+          a->data[left_arm_ctrl_obs_B.b_i_d + a->size[0] * left_arm_ctrl_obs_B.f]
+            = Si->data[6 * left_arm_ctrl_obs_B.b_i_d + left_arm_ctrl_obs_B.f];
         }
       }
 
-      left_arm_ctrl_obs_B.m_d = a->size[0];
-      left_arm_ctrl_obs_B.n_d = Fi->size[1] - 1;
+      left_arm_ctrl_obs_B.m_n = a->size[0];
+      left_arm_ctrl_obs_B.n_ik = Fi->size[1] - 1;
       left_arm_ctrl_obs_B.f = Hji->size[0] * Hji->size[1];
       Hji->size[0] = a->size[0];
       Hji->size[1] = Fi->size[1];
       left_a_emxEnsureCapacity_real_T(Hji, left_arm_ctrl_obs_B.f);
-      for (left_arm_ctrl_obs_B.b_j_c = 0; left_arm_ctrl_obs_B.b_j_c <=
-           left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.b_j_c++) {
-        left_arm_ctrl_obs_B.coffset_g = left_arm_ctrl_obs_B.b_j_c *
-          left_arm_ctrl_obs_B.m_d - 1;
-        left_arm_ctrl_obs_B.boffset_l = left_arm_ctrl_obs_B.b_j_c * 6 - 1;
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <
-             left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.b_i_pr++) {
-          Hji->data[(left_arm_ctrl_obs_B.coffset_g + left_arm_ctrl_obs_B.b_i_pr)
+      for (left_arm_ctrl_obs_B.b_j_l0 = 0; left_arm_ctrl_obs_B.b_j_l0 <=
+           left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.b_j_l0++) {
+        left_arm_ctrl_obs_B.coffset_p = left_arm_ctrl_obs_B.b_j_l0 *
+          left_arm_ctrl_obs_B.m_n - 1;
+        left_arm_ctrl_obs_B.boffset_d = left_arm_ctrl_obs_B.b_j_l0 * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <
+             left_arm_ctrl_obs_B.m_n; left_arm_ctrl_obs_B.b_i_d++) {
+          Hji->data[(left_arm_ctrl_obs_B.coffset_p + left_arm_ctrl_obs_B.b_i_d)
             + 1] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_pr *
-            left_arm_ctrl_obs_B.m_d - 1;
-          left_arm_ctrl_obs_B.temp_p = Fi->data[(left_arm_ctrl_obs_B.boffset_l +
-            left_arm_ctrl_obs_B.b_i_pr) + 1];
-          for (left_arm_ctrl_obs_B.c_i_i = 0; left_arm_ctrl_obs_B.c_i_i <
-               left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.c_i_i++) {
-            left_arm_ctrl_obs_B.i_c3 = left_arm_ctrl_obs_B.c_i_i + 1;
-            left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.coffset_g +
-              left_arm_ctrl_obs_B.i_c3;
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_d *
+            left_arm_ctrl_obs_B.m_n - 1;
+          left_arm_ctrl_obs_B.temp_k = Fi->data[(left_arm_ctrl_obs_B.boffset_d +
+            left_arm_ctrl_obs_B.b_i_d) + 1];
+          for (left_arm_ctrl_obs_B.c_i_c = 0; left_arm_ctrl_obs_B.c_i_c <
+               left_arm_ctrl_obs_B.m_n; left_arm_ctrl_obs_B.c_i_c++) {
+            left_arm_ctrl_obs_B.i_nn = left_arm_ctrl_obs_B.c_i_c + 1;
+            left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.coffset_p +
+              left_arm_ctrl_obs_B.i_nn;
             Hji->data[left_arm_ctrl_obs_B.f] += a->
-              data[left_arm_ctrl_obs_B.aoffset_g + left_arm_ctrl_obs_B.i_c3] *
-              left_arm_ctrl_obs_B.temp_p;
+              data[left_arm_ctrl_obs_B.aoffset_g + left_arm_ctrl_obs_B.i_nn] *
+              left_arm_ctrl_obs_B.temp_k;
           }
         }
       }
 
-      left_arm_ctrl_obs_B.n_d = Hji->size[1];
+      left_arm_ctrl_obs_B.n_ik = Hji->size[1];
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <
-           left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
-        left_arm_ctrl_obs_B.b_j_c = Hji->size[0];
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <
-             left_arm_ctrl_obs_B.b_j_c; left_arm_ctrl_obs_B.b_i_pr++) {
-          H->data[(left_arm_ctrl_obs_B.pid_tmp_d + left_arm_ctrl_obs_B.b_i_pr) +
-            H->size[0] * (left_arm_ctrl_obs_B.X_tmp_i + left_arm_ctrl_obs_B.f)] =
-            Hji->data[Hji->size[0] * left_arm_ctrl_obs_B.f +
-            left_arm_ctrl_obs_B.b_i_pr];
+           left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
+        left_arm_ctrl_obs_B.b_j_l0 = Hji->size[0];
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <
+             left_arm_ctrl_obs_B.b_j_l0; left_arm_ctrl_obs_B.b_i_d++) {
+          H->data[(left_arm_ctrl_obs_B.pid_tmp_j + left_arm_ctrl_obs_B.b_i_d) +
+            H->size[0] * (left_arm_ctrl_obs_B.X_tmp_hp + left_arm_ctrl_obs_B.f)]
+            = Hji->data[Hji->size[0] * left_arm_ctrl_obs_B.f +
+            left_arm_ctrl_obs_B.b_i_d];
         }
       }
 
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f < 6;
            left_arm_ctrl_obs_B.f++) {
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.b_i_pr + 6 *
-            left_arm_ctrl_obs_B.f] = X->data[left_arm_ctrl_obs_B.q_size_tmp_j].
-            f1[6 * left_arm_ctrl_obs_B.b_i_pr + left_arm_ctrl_obs_B.f];
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.b_i_d + 6 *
+            left_arm_ctrl_obs_B.f] = X->data[left_arm_ctrl_obs_B.q_size_tmp_c].
+            f1[6 * left_arm_ctrl_obs_B.b_i_d + left_arm_ctrl_obs_B.f];
         }
       }
 
@@ -1418,180 +1436,177 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
       B->size[0] = 6;
       B->size[1] = Fi->size[1];
       left_a_emxEnsureCapacity_real_T(B, left_arm_ctrl_obs_B.f);
-      left_arm_ctrl_obs_B.n_d = Fi->size[0] * Fi->size[1] - 1;
+      left_arm_ctrl_obs_B.n_ik = Fi->size[0] * Fi->size[1] - 1;
       for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <=
-           left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
+           left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
         B->data[left_arm_ctrl_obs_B.f] = Fi->data[left_arm_ctrl_obs_B.f];
       }
 
-      left_arm_ctrl_obs_B.n_d = Fi->size[1];
+      left_arm_ctrl_obs_B.n_ik = Fi->size[1];
       left_arm_ctrl_obs_B.f = Fi->size[0] * Fi->size[1];
       Fi->size[0] = 6;
-      Fi->size[1] = left_arm_ctrl_obs_B.n_d;
+      Fi->size[1] = left_arm_ctrl_obs_B.n_ik;
       left_a_emxEnsureCapacity_real_T(Fi, left_arm_ctrl_obs_B.f);
-      for (left_arm_ctrl_obs_B.b_j_c = 0; left_arm_ctrl_obs_B.b_j_c <
-           left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.b_j_c++) {
-        left_arm_ctrl_obs_B.pid_tmp_d = left_arm_ctrl_obs_B.b_j_c * 6 - 1;
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          Fi->data[(left_arm_ctrl_obs_B.pid_tmp_d + left_arm_ctrl_obs_B.b_i_pr)
-            + 1] = 0.0;
+      for (left_arm_ctrl_obs_B.b_j_l0 = 0; left_arm_ctrl_obs_B.b_j_l0 <
+           left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.b_j_l0++) {
+        left_arm_ctrl_obs_B.pid_tmp_j = left_arm_ctrl_obs_B.b_j_l0 * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          Fi->data[(left_arm_ctrl_obs_B.pid_tmp_j + left_arm_ctrl_obs_B.b_i_d) +
+            1] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-             left_arm_ctrl_obs_B.b_i_pr++) {
-          left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_pr * 6 - 1;
-          left_arm_ctrl_obs_B.temp_p = B->data[(left_arm_ctrl_obs_B.pid_tmp_d +
-            left_arm_ctrl_obs_B.b_i_pr) + 1];
-          for (left_arm_ctrl_obs_B.c_i_i = 0; left_arm_ctrl_obs_B.c_i_i < 6;
-               left_arm_ctrl_obs_B.c_i_i++) {
-            left_arm_ctrl_obs_B.i_c3 = left_arm_ctrl_obs_B.c_i_i + 1;
-            left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.pid_tmp_d +
-              left_arm_ctrl_obs_B.i_c3;
+        for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+             left_arm_ctrl_obs_B.b_i_d++) {
+          left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_d * 6 - 1;
+          left_arm_ctrl_obs_B.temp_k = B->data[(left_arm_ctrl_obs_B.pid_tmp_j +
+            left_arm_ctrl_obs_B.b_i_d) + 1];
+          for (left_arm_ctrl_obs_B.c_i_c = 0; left_arm_ctrl_obs_B.c_i_c < 6;
+               left_arm_ctrl_obs_B.c_i_c++) {
+            left_arm_ctrl_obs_B.i_nn = left_arm_ctrl_obs_B.c_i_c + 1;
+            left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.pid_tmp_j +
+              left_arm_ctrl_obs_B.i_nn;
             Fi->data[left_arm_ctrl_obs_B.f] +=
               left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.aoffset_g +
-              left_arm_ctrl_obs_B.i_c3] * left_arm_ctrl_obs_B.temp_p;
+              left_arm_ctrl_obs_B.i_nn] * left_arm_ctrl_obs_B.temp_k;
           }
         }
       }
 
-      while (left_arm_ctrl_obs_B.pid_l > 0.0) {
-        left_arm_ctrl_obs_B.pid_tmp_d = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.pid_l);
-        left_arm_ctrl_obs_B.q_size_tmp_j = left_arm_ctrl_obs_B.pid_tmp_d - 1;
-        obj = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp_j];
+      while (left_arm_ctrl_obs_B.pid_a > 0.0) {
+        left_arm_ctrl_obs_B.pid_tmp_j = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.pid_a);
+        left_arm_ctrl_obs_B.q_size_tmp_c = left_arm_ctrl_obs_B.pid_tmp_j - 1;
+        obj = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp_c];
         left_arm_ctrl_obs_B.f = Sj->size[0] * Sj->size[1];
         Sj->size[0] = 6;
         Sj->size[1] = obj->JointInternal.MotionSubspace->size[1];
         left_a_emxEnsureCapacity_real_T(Sj, left_arm_ctrl_obs_B.f);
-        left_arm_ctrl_obs_B.n_d = obj->JointInternal.MotionSubspace->size[0] *
+        left_arm_ctrl_obs_B.n_ik = obj->JointInternal.MotionSubspace->size[0] *
           obj->JointInternal.MotionSubspace->size[1] - 1;
         for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <=
-             left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
+             left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
           Sj->data[left_arm_ctrl_obs_B.f] = obj->
             JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.f];
         }
 
-        left_arm_ctrl_obs_B.b_idx_0_f = robot->
-          VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_d - 1];
-        left_arm_ctrl_obs_B.b_idx_1_i = robot->
-          VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_d + 9];
-        if (left_arm_ctrl_obs_B.b_idx_0_f <= left_arm_ctrl_obs_B.b_idx_1_i) {
+        left_arm_ctrl_obs_B.b_idx_0_b = robot->
+          VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_j - 1];
+        left_arm_ctrl_obs_B.b_idx_1_c = robot->
+          VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp_j + 9];
+        if (left_arm_ctrl_obs_B.b_idx_0_b <= left_arm_ctrl_obs_B.b_idx_1_c) {
           left_arm_ctrl_obs_B.f = a->size[0] * a->size[1];
           a->size[0] = Sj->size[1];
           a->size[1] = 6;
           left_a_emxEnsureCapacity_real_T(a, left_arm_ctrl_obs_B.f);
           for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f < 6;
                left_arm_ctrl_obs_B.f++) {
-            left_arm_ctrl_obs_B.n_d = Sj->size[1];
-            for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <
-                 left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.b_i_pr++) {
-              a->data[left_arm_ctrl_obs_B.b_i_pr + a->size[0] *
-                left_arm_ctrl_obs_B.f] = Sj->data[6 * left_arm_ctrl_obs_B.b_i_pr
+            left_arm_ctrl_obs_B.n_ik = Sj->size[1];
+            for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <
+                 left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.b_i_d++) {
+              a->data[left_arm_ctrl_obs_B.b_i_d + a->size[0] *
+                left_arm_ctrl_obs_B.f] = Sj->data[6 * left_arm_ctrl_obs_B.b_i_d
                 + left_arm_ctrl_obs_B.f];
             }
           }
 
-          left_arm_ctrl_obs_B.m_d = a->size[0];
-          left_arm_ctrl_obs_B.n_d = Fi->size[1] - 1;
+          left_arm_ctrl_obs_B.m_n = a->size[0];
+          left_arm_ctrl_obs_B.n_ik = Fi->size[1] - 1;
           left_arm_ctrl_obs_B.f = Hji->size[0] * Hji->size[1];
           Hji->size[0] = a->size[0];
           Hji->size[1] = Fi->size[1];
           left_a_emxEnsureCapacity_real_T(Hji, left_arm_ctrl_obs_B.f);
-          for (left_arm_ctrl_obs_B.b_j_c = 0; left_arm_ctrl_obs_B.b_j_c <=
-               left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.b_j_c++) {
-            left_arm_ctrl_obs_B.coffset_g = left_arm_ctrl_obs_B.b_j_c *
-              left_arm_ctrl_obs_B.m_d - 1;
-            left_arm_ctrl_obs_B.boffset_l = left_arm_ctrl_obs_B.b_j_c * 6 - 1;
-            for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <
-                 left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.b_i_pr++) {
-              Hji->data[(left_arm_ctrl_obs_B.coffset_g +
-                         left_arm_ctrl_obs_B.b_i_pr) + 1] = 0.0;
+          for (left_arm_ctrl_obs_B.b_j_l0 = 0; left_arm_ctrl_obs_B.b_j_l0 <=
+               left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.b_j_l0++) {
+            left_arm_ctrl_obs_B.coffset_p = left_arm_ctrl_obs_B.b_j_l0 *
+              left_arm_ctrl_obs_B.m_n - 1;
+            left_arm_ctrl_obs_B.boffset_d = left_arm_ctrl_obs_B.b_j_l0 * 6 - 1;
+            for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <
+                 left_arm_ctrl_obs_B.m_n; left_arm_ctrl_obs_B.b_i_d++) {
+              Hji->data[(left_arm_ctrl_obs_B.coffset_p +
+                         left_arm_ctrl_obs_B.b_i_d) + 1] = 0.0;
             }
 
-            for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-                 left_arm_ctrl_obs_B.b_i_pr++) {
-              left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_pr *
-                left_arm_ctrl_obs_B.m_d - 1;
-              left_arm_ctrl_obs_B.temp_p = Fi->data
-                [(left_arm_ctrl_obs_B.boffset_l + left_arm_ctrl_obs_B.b_i_pr) +
-                1];
-              for (left_arm_ctrl_obs_B.c_i_i = 0; left_arm_ctrl_obs_B.c_i_i <
-                   left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.c_i_i++) {
-                left_arm_ctrl_obs_B.i_c3 = left_arm_ctrl_obs_B.c_i_i + 1;
-                left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.coffset_g +
-                  left_arm_ctrl_obs_B.i_c3;
+            for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+                 left_arm_ctrl_obs_B.b_i_d++) {
+              left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_d *
+                left_arm_ctrl_obs_B.m_n - 1;
+              left_arm_ctrl_obs_B.temp_k = Fi->data
+                [(left_arm_ctrl_obs_B.boffset_d + left_arm_ctrl_obs_B.b_i_d) + 1];
+              for (left_arm_ctrl_obs_B.c_i_c = 0; left_arm_ctrl_obs_B.c_i_c <
+                   left_arm_ctrl_obs_B.m_n; left_arm_ctrl_obs_B.c_i_c++) {
+                left_arm_ctrl_obs_B.i_nn = left_arm_ctrl_obs_B.c_i_c + 1;
+                left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.coffset_p +
+                  left_arm_ctrl_obs_B.i_nn;
                 Hji->data[left_arm_ctrl_obs_B.f] += a->
-                  data[left_arm_ctrl_obs_B.aoffset_g + left_arm_ctrl_obs_B.i_c3]
-                  * left_arm_ctrl_obs_B.temp_p;
+                  data[left_arm_ctrl_obs_B.aoffset_g + left_arm_ctrl_obs_B.i_nn]
+                  * left_arm_ctrl_obs_B.temp_k;
               }
             }
           }
 
-          if (left_arm_ctrl_obs_B.b_idx_0_f > left_arm_ctrl_obs_B.b_idx_1_i) {
-            left_arm_ctrl_obs_B.pid_tmp_d = 0;
+          if (left_arm_ctrl_obs_B.b_idx_0_b > left_arm_ctrl_obs_B.b_idx_1_c) {
+            left_arm_ctrl_obs_B.pid_tmp_j = 0;
           } else {
-            left_arm_ctrl_obs_B.pid_tmp_d = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.b_idx_0_f) - 1;
+            left_arm_ctrl_obs_B.pid_tmp_j = static_cast<int32_T>
+              (left_arm_ctrl_obs_B.b_idx_0_b) - 1;
           }
 
-          if (left_arm_ctrl_obs_B.vNum_n > left_arm_ctrl_obs_B.p_idx_1_p) {
-            left_arm_ctrl_obs_B.X_tmp_i = 0;
+          if (left_arm_ctrl_obs_B.vNum_m > left_arm_ctrl_obs_B.p_idx_1_p) {
+            left_arm_ctrl_obs_B.X_tmp_hp = 0;
           } else {
-            left_arm_ctrl_obs_B.X_tmp_i = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.vNum_n) - 1;
+            left_arm_ctrl_obs_B.X_tmp_hp = static_cast<int32_T>
+              (left_arm_ctrl_obs_B.vNum_m) - 1;
           }
 
-          left_arm_ctrl_obs_B.n_d = Hji->size[1];
+          left_arm_ctrl_obs_B.n_ik = Hji->size[1];
           for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <
-               left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
-            left_arm_ctrl_obs_B.b_j_c = Hji->size[0];
-            for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <
-                 left_arm_ctrl_obs_B.b_j_c; left_arm_ctrl_obs_B.b_i_pr++) {
-              H->data[(left_arm_ctrl_obs_B.pid_tmp_d +
-                       left_arm_ctrl_obs_B.b_i_pr) + H->size[0] *
-                (left_arm_ctrl_obs_B.X_tmp_i + left_arm_ctrl_obs_B.f)] =
-                Hji->data[Hji->size[0] * left_arm_ctrl_obs_B.f +
-                left_arm_ctrl_obs_B.b_i_pr];
+               left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
+            left_arm_ctrl_obs_B.b_j_l0 = Hji->size[0];
+            for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <
+                 left_arm_ctrl_obs_B.b_j_l0; left_arm_ctrl_obs_B.b_i_d++) {
+              H->data[(left_arm_ctrl_obs_B.pid_tmp_j + left_arm_ctrl_obs_B.b_i_d)
+                + H->size[0] * (left_arm_ctrl_obs_B.X_tmp_hp +
+                                left_arm_ctrl_obs_B.f)] = Hji->data[Hji->size[0]
+                * left_arm_ctrl_obs_B.f + left_arm_ctrl_obs_B.b_i_d];
             }
           }
 
-          if (left_arm_ctrl_obs_B.vNum_n > left_arm_ctrl_obs_B.p_idx_1_p) {
-            left_arm_ctrl_obs_B.pid_tmp_d = 0;
+          if (left_arm_ctrl_obs_B.vNum_m > left_arm_ctrl_obs_B.p_idx_1_p) {
+            left_arm_ctrl_obs_B.pid_tmp_j = 0;
           } else {
-            left_arm_ctrl_obs_B.pid_tmp_d = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.vNum_n) - 1;
+            left_arm_ctrl_obs_B.pid_tmp_j = static_cast<int32_T>
+              (left_arm_ctrl_obs_B.vNum_m) - 1;
           }
 
-          if (left_arm_ctrl_obs_B.b_idx_0_f > left_arm_ctrl_obs_B.b_idx_1_i) {
-            left_arm_ctrl_obs_B.X_tmp_i = 0;
+          if (left_arm_ctrl_obs_B.b_idx_0_b > left_arm_ctrl_obs_B.b_idx_1_c) {
+            left_arm_ctrl_obs_B.X_tmp_hp = 0;
           } else {
-            left_arm_ctrl_obs_B.X_tmp_i = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.b_idx_0_f) - 1;
+            left_arm_ctrl_obs_B.X_tmp_hp = static_cast<int32_T>
+              (left_arm_ctrl_obs_B.b_idx_0_b) - 1;
           }
 
-          left_arm_ctrl_obs_B.n_d = Hji->size[0];
+          left_arm_ctrl_obs_B.n_ik = Hji->size[0];
           for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <
-               left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
-            left_arm_ctrl_obs_B.b_j_c = Hji->size[1];
-            for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr <
-                 left_arm_ctrl_obs_B.b_j_c; left_arm_ctrl_obs_B.b_i_pr++) {
-              H->data[(left_arm_ctrl_obs_B.pid_tmp_d +
-                       left_arm_ctrl_obs_B.b_i_pr) + H->size[0] *
-                (left_arm_ctrl_obs_B.X_tmp_i + left_arm_ctrl_obs_B.f)] =
-                Hji->data[Hji->size[0] * left_arm_ctrl_obs_B.b_i_pr +
-                left_arm_ctrl_obs_B.f];
+               left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
+            left_arm_ctrl_obs_B.b_j_l0 = Hji->size[1];
+            for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d <
+                 left_arm_ctrl_obs_B.b_j_l0; left_arm_ctrl_obs_B.b_i_d++) {
+              H->data[(left_arm_ctrl_obs_B.pid_tmp_j + left_arm_ctrl_obs_B.b_i_d)
+                + H->size[0] * (left_arm_ctrl_obs_B.X_tmp_hp +
+                                left_arm_ctrl_obs_B.f)] = Hji->data[Hji->size[0]
+                * left_arm_ctrl_obs_B.b_i_d + left_arm_ctrl_obs_B.f];
             }
           }
         }
 
         for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f < 6;
              left_arm_ctrl_obs_B.f++) {
-          for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-               left_arm_ctrl_obs_B.b_i_pr++) {
-            left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.b_i_pr + 6 *
-              left_arm_ctrl_obs_B.f] = X->data[left_arm_ctrl_obs_B.q_size_tmp_j]
-              .f1[6 * left_arm_ctrl_obs_B.b_i_pr + left_arm_ctrl_obs_B.f];
+          for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+               left_arm_ctrl_obs_B.b_i_d++) {
+            left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.b_i_d + 6 *
+              left_arm_ctrl_obs_B.f] = X->data[left_arm_ctrl_obs_B.q_size_tmp_c]
+              .f1[6 * left_arm_ctrl_obs_B.b_i_d + left_arm_ctrl_obs_B.f];
           }
         }
 
@@ -1599,45 +1614,45 @@ static void RigidBodyTreeDynamics_massMatri(k_robotics_manip_internal_R_e_T
         B->size[0] = 6;
         B->size[1] = Fi->size[1];
         left_a_emxEnsureCapacity_real_T(B, left_arm_ctrl_obs_B.f);
-        left_arm_ctrl_obs_B.n_d = Fi->size[0] * Fi->size[1] - 1;
+        left_arm_ctrl_obs_B.n_ik = Fi->size[0] * Fi->size[1] - 1;
         for (left_arm_ctrl_obs_B.f = 0; left_arm_ctrl_obs_B.f <=
-             left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.f++) {
+             left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.f++) {
           B->data[left_arm_ctrl_obs_B.f] = Fi->data[left_arm_ctrl_obs_B.f];
         }
 
-        left_arm_ctrl_obs_B.n_d = Fi->size[1];
+        left_arm_ctrl_obs_B.n_ik = Fi->size[1];
         left_arm_ctrl_obs_B.f = Fi->size[0] * Fi->size[1];
         Fi->size[0] = 6;
-        Fi->size[1] = left_arm_ctrl_obs_B.n_d;
+        Fi->size[1] = left_arm_ctrl_obs_B.n_ik;
         left_a_emxEnsureCapacity_real_T(Fi, left_arm_ctrl_obs_B.f);
-        for (left_arm_ctrl_obs_B.b_j_c = 0; left_arm_ctrl_obs_B.b_j_c <
-             left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.b_j_c++) {
-          left_arm_ctrl_obs_B.pid_tmp_d = left_arm_ctrl_obs_B.b_j_c * 6 - 1;
-          for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-               left_arm_ctrl_obs_B.b_i_pr++) {
-            Fi->data[(left_arm_ctrl_obs_B.pid_tmp_d + left_arm_ctrl_obs_B.b_i_pr)
+        for (left_arm_ctrl_obs_B.b_j_l0 = 0; left_arm_ctrl_obs_B.b_j_l0 <
+             left_arm_ctrl_obs_B.n_ik; left_arm_ctrl_obs_B.b_j_l0++) {
+          left_arm_ctrl_obs_B.pid_tmp_j = left_arm_ctrl_obs_B.b_j_l0 * 6 - 1;
+          for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+               left_arm_ctrl_obs_B.b_i_d++) {
+            Fi->data[(left_arm_ctrl_obs_B.pid_tmp_j + left_arm_ctrl_obs_B.b_i_d)
               + 1] = 0.0;
           }
 
-          for (left_arm_ctrl_obs_B.b_i_pr = 0; left_arm_ctrl_obs_B.b_i_pr < 6;
-               left_arm_ctrl_obs_B.b_i_pr++) {
-            left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_pr * 6 - 1;
-            left_arm_ctrl_obs_B.temp_p = B->data[(left_arm_ctrl_obs_B.pid_tmp_d
-              + left_arm_ctrl_obs_B.b_i_pr) + 1];
-            for (left_arm_ctrl_obs_B.c_i_i = 0; left_arm_ctrl_obs_B.c_i_i < 6;
-                 left_arm_ctrl_obs_B.c_i_i++) {
-              left_arm_ctrl_obs_B.i_c3 = left_arm_ctrl_obs_B.c_i_i + 1;
-              left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.pid_tmp_d +
-                left_arm_ctrl_obs_B.i_c3;
+          for (left_arm_ctrl_obs_B.b_i_d = 0; left_arm_ctrl_obs_B.b_i_d < 6;
+               left_arm_ctrl_obs_B.b_i_d++) {
+            left_arm_ctrl_obs_B.aoffset_g = left_arm_ctrl_obs_B.b_i_d * 6 - 1;
+            left_arm_ctrl_obs_B.temp_k = B->data[(left_arm_ctrl_obs_B.pid_tmp_j
+              + left_arm_ctrl_obs_B.b_i_d) + 1];
+            for (left_arm_ctrl_obs_B.c_i_c = 0; left_arm_ctrl_obs_B.c_i_c < 6;
+                 left_arm_ctrl_obs_B.c_i_c++) {
+              left_arm_ctrl_obs_B.i_nn = left_arm_ctrl_obs_B.c_i_c + 1;
+              left_arm_ctrl_obs_B.f = left_arm_ctrl_obs_B.pid_tmp_j +
+                left_arm_ctrl_obs_B.i_nn;
               Fi->data[left_arm_ctrl_obs_B.f] +=
                 left_arm_ctrl_obs_B.X_k[left_arm_ctrl_obs_B.aoffset_g +
-                left_arm_ctrl_obs_B.i_c3] * left_arm_ctrl_obs_B.temp_p;
+                left_arm_ctrl_obs_B.i_nn] * left_arm_ctrl_obs_B.temp_k;
             }
           }
         }
 
-        left_arm_ctrl_obs_B.pid_l = robot->
-          Bodies[left_arm_ctrl_obs_B.q_size_tmp_j]->ParentIndex;
+        left_arm_ctrl_obs_B.pid_a = robot->
+          Bodies[left_arm_ctrl_obs_B.q_size_tmp_c]->ParentIndex;
       }
     }
   }
@@ -1682,9 +1697,9 @@ static void left_arm_ctrl_ob_emxInit_char_T(emxArray_char_T_left_arm_ctrl_T
   emxArray->size = (int32_T *)malloc(sizeof(int32_T) * numDimensions);
   emxArray->allocatedSize = 0;
   emxArray->canFreeData = true;
-  for (left_arm_ctrl_obs_B.i_l = 0; left_arm_ctrl_obs_B.i_l < numDimensions;
-       left_arm_ctrl_obs_B.i_l++) {
-    emxArray->size[left_arm_ctrl_obs_B.i_l] = 0;
+  for (left_arm_ctrl_obs_B.i_l4 = 0; left_arm_ctrl_obs_B.i_l4 < numDimensions;
+       left_arm_ctrl_obs_B.i_l4++) {
+    emxArray->size[left_arm_ctrl_obs_B.i_l4] = 0;
   }
 }
 
@@ -1741,27 +1756,27 @@ static void left_a_emxEnsureCapacity_char_T(emxArray_char_T_left_arm_ctrl_T
     oldNumel = 0;
   }
 
-  left_arm_ctrl_obs_B.newNumel_n = 1;
-  for (left_arm_ctrl_obs_B.i_o = 0; left_arm_ctrl_obs_B.i_o <
-       emxArray->numDimensions; left_arm_ctrl_obs_B.i_o++) {
-    left_arm_ctrl_obs_B.newNumel_n *= emxArray->size[left_arm_ctrl_obs_B.i_o];
+  left_arm_ctrl_obs_B.newNumel_o = 1;
+  for (left_arm_ctrl_obs_B.i_l = 0; left_arm_ctrl_obs_B.i_l <
+       emxArray->numDimensions; left_arm_ctrl_obs_B.i_l++) {
+    left_arm_ctrl_obs_B.newNumel_o *= emxArray->size[left_arm_ctrl_obs_B.i_l];
   }
 
-  if (left_arm_ctrl_obs_B.newNumel_n > emxArray->allocatedSize) {
-    left_arm_ctrl_obs_B.i_o = emxArray->allocatedSize;
-    if (left_arm_ctrl_obs_B.i_o < 16) {
-      left_arm_ctrl_obs_B.i_o = 16;
+  if (left_arm_ctrl_obs_B.newNumel_o > emxArray->allocatedSize) {
+    left_arm_ctrl_obs_B.i_l = emxArray->allocatedSize;
+    if (left_arm_ctrl_obs_B.i_l < 16) {
+      left_arm_ctrl_obs_B.i_l = 16;
     }
 
-    while (left_arm_ctrl_obs_B.i_o < left_arm_ctrl_obs_B.newNumel_n) {
-      if (left_arm_ctrl_obs_B.i_o > 1073741823) {
-        left_arm_ctrl_obs_B.i_o = MAX_int32_T;
+    while (left_arm_ctrl_obs_B.i_l < left_arm_ctrl_obs_B.newNumel_o) {
+      if (left_arm_ctrl_obs_B.i_l > 1073741823) {
+        left_arm_ctrl_obs_B.i_l = MAX_int32_T;
       } else {
-        left_arm_ctrl_obs_B.i_o <<= 1;
+        left_arm_ctrl_obs_B.i_l <<= 1;
       }
     }
 
-    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_o), sizeof
+    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_l), sizeof
                      (char_T));
     if (emxArray->data != NULL) {
       memcpy(newData, emxArray->data, sizeof(char_T) * oldNumel);
@@ -1771,7 +1786,7 @@ static void left_a_emxEnsureCapacity_char_T(emxArray_char_T_left_arm_ctrl_T
     }
 
     emxArray->data = (char_T *)newData;
-    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_o;
+    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_l;
     emxArray->canFreeData = true;
   }
 }
@@ -1785,63 +1800,63 @@ static void le_rigidBodyJoint_get_JointAxis(const
 
   boolean_T guard1 = false;
   int32_T exitg1;
-  for (left_arm_ctrl_obs_B.b_kstr_mx = 0; left_arm_ctrl_obs_B.b_kstr_mx < 8;
-       left_arm_ctrl_obs_B.b_kstr_mx++) {
-    left_arm_ctrl_obs_B.b_o4[left_arm_ctrl_obs_B.b_kstr_mx] =
-      tmp[left_arm_ctrl_obs_B.b_kstr_mx];
+  for (left_arm_ctrl_obs_B.b_kstr_e = 0; left_arm_ctrl_obs_B.b_kstr_e < 8;
+       left_arm_ctrl_obs_B.b_kstr_e++) {
+    left_arm_ctrl_obs_B.b_p[left_arm_ctrl_obs_B.b_kstr_e] =
+      tmp[left_arm_ctrl_obs_B.b_kstr_e];
   }
 
-  left_arm_ctrl_obs_B.b_bool_a = false;
+  left_arm_ctrl_obs_B.b_bool_o = false;
   if (obj->Type->size[1] == 8) {
-    left_arm_ctrl_obs_B.b_kstr_mx = 1;
+    left_arm_ctrl_obs_B.b_kstr_e = 1;
     do {
       exitg1 = 0;
-      if (left_arm_ctrl_obs_B.b_kstr_mx - 1 < 8) {
-        left_arm_ctrl_obs_B.kstr_k = left_arm_ctrl_obs_B.b_kstr_mx - 1;
-        if (obj->Type->data[left_arm_ctrl_obs_B.kstr_k] !=
-            left_arm_ctrl_obs_B.b_o4[left_arm_ctrl_obs_B.kstr_k]) {
+      if (left_arm_ctrl_obs_B.b_kstr_e - 1 < 8) {
+        left_arm_ctrl_obs_B.kstr_b = left_arm_ctrl_obs_B.b_kstr_e - 1;
+        if (obj->Type->data[left_arm_ctrl_obs_B.kstr_b] !=
+            left_arm_ctrl_obs_B.b_p[left_arm_ctrl_obs_B.kstr_b]) {
           exitg1 = 1;
         } else {
-          left_arm_ctrl_obs_B.b_kstr_mx++;
+          left_arm_ctrl_obs_B.b_kstr_e++;
         }
       } else {
-        left_arm_ctrl_obs_B.b_bool_a = true;
+        left_arm_ctrl_obs_B.b_bool_o = true;
         exitg1 = 1;
       }
     } while (exitg1 == 0);
   }
 
   guard1 = false;
-  if (left_arm_ctrl_obs_B.b_bool_a) {
+  if (left_arm_ctrl_obs_B.b_bool_o) {
     guard1 = true;
   } else {
-    for (left_arm_ctrl_obs_B.b_kstr_mx = 0; left_arm_ctrl_obs_B.b_kstr_mx < 9;
-         left_arm_ctrl_obs_B.b_kstr_mx++) {
-      left_arm_ctrl_obs_B.b_l[left_arm_ctrl_obs_B.b_kstr_mx] =
-        tmp_0[left_arm_ctrl_obs_B.b_kstr_mx];
+    for (left_arm_ctrl_obs_B.b_kstr_e = 0; left_arm_ctrl_obs_B.b_kstr_e < 9;
+         left_arm_ctrl_obs_B.b_kstr_e++) {
+      left_arm_ctrl_obs_B.b_l[left_arm_ctrl_obs_B.b_kstr_e] =
+        tmp_0[left_arm_ctrl_obs_B.b_kstr_e];
     }
 
-    left_arm_ctrl_obs_B.b_bool_a = false;
+    left_arm_ctrl_obs_B.b_bool_o = false;
     if (obj->Type->size[1] == 9) {
-      left_arm_ctrl_obs_B.b_kstr_mx = 1;
+      left_arm_ctrl_obs_B.b_kstr_e = 1;
       do {
         exitg1 = 0;
-        if (left_arm_ctrl_obs_B.b_kstr_mx - 1 < 9) {
-          left_arm_ctrl_obs_B.kstr_k = left_arm_ctrl_obs_B.b_kstr_mx - 1;
-          if (obj->Type->data[left_arm_ctrl_obs_B.kstr_k] !=
-              left_arm_ctrl_obs_B.b_l[left_arm_ctrl_obs_B.kstr_k]) {
+        if (left_arm_ctrl_obs_B.b_kstr_e - 1 < 9) {
+          left_arm_ctrl_obs_B.kstr_b = left_arm_ctrl_obs_B.b_kstr_e - 1;
+          if (obj->Type->data[left_arm_ctrl_obs_B.kstr_b] !=
+              left_arm_ctrl_obs_B.b_l[left_arm_ctrl_obs_B.kstr_b]) {
             exitg1 = 1;
           } else {
-            left_arm_ctrl_obs_B.b_kstr_mx++;
+            left_arm_ctrl_obs_B.b_kstr_e++;
           }
         } else {
-          left_arm_ctrl_obs_B.b_bool_a = true;
+          left_arm_ctrl_obs_B.b_bool_o = true;
           exitg1 = 1;
         }
       } while (exitg1 == 0);
     }
 
-    if (left_arm_ctrl_obs_B.b_bool_a) {
+    if (left_arm_ctrl_obs_B.b_bool_o) {
       guard1 = true;
     } else {
       ax[0] = (rtNaN);
@@ -1885,17 +1900,17 @@ static void RigidBodyTree_forwardKinematics(k_robotics_manip_internal_Rig_T *obj
 
   int32_T exitg1;
   left_arm_ctrl_obs_B.n = obj->NumBodies;
-  for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 16;
-       left_arm_ctrl_obs_B.b_kstr_m1++) {
-    left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.b_kstr_m1] =
-      tmp[left_arm_ctrl_obs_B.b_kstr_m1];
+  for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 16;
+       left_arm_ctrl_obs_B.b_kstr_o++) {
+    left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.b_kstr_o] =
+      tmp[left_arm_ctrl_obs_B.b_kstr_o];
   }
 
   left_arm_ctrl_obs_B.ntilecols = static_cast<int32_T>(left_arm_ctrl_obs_B.n);
-  left_arm_ctrl_obs_B.b_kstr_m1 = Ttree->size[0] * Ttree->size[1];
+  left_arm_ctrl_obs_B.b_kstr_o = Ttree->size[0] * Ttree->size[1];
   Ttree->size[0] = 1;
   Ttree->size[1] = left_arm_ctrl_obs_B.ntilecols;
-  l_emxEnsureCapacity_e_cell_wrap(Ttree, left_arm_ctrl_obs_B.b_kstr_m1);
+  l_emxEnsureCapacity_e_cell_wrap(Ttree, left_arm_ctrl_obs_B.b_kstr_o);
   if (left_arm_ctrl_obs_B.ntilecols != 0) {
     left_arm_ctrl_obs_B.ntilecols--;
     if (0 <= left_arm_ctrl_obs_B.ntilecols) {
@@ -1915,10 +1930,10 @@ static void RigidBodyTree_forwardKinematics(k_robotics_manip_internal_Rig_T *obj
     1;
   left_arm_ctrl_ob_emxInit_char_T(&switch_expression, 2);
   if (0 <= left_arm_ctrl_obs_B.ntilecols) {
-    for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 5;
-         left_arm_ctrl_obs_B.b_kstr_m1++) {
-      left_arm_ctrl_obs_B.b_hc[left_arm_ctrl_obs_B.b_kstr_m1] =
-        tmp_0[left_arm_ctrl_obs_B.b_kstr_m1];
+    for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 5;
+         left_arm_ctrl_obs_B.b_kstr_o++) {
+      left_arm_ctrl_obs_B.b_g[left_arm_ctrl_obs_B.b_kstr_o] =
+        tmp_0[left_arm_ctrl_obs_B.b_kstr_o];
     }
   }
 
@@ -1928,84 +1943,84 @@ static void RigidBodyTree_forwardKinematics(k_robotics_manip_internal_Rig_T *obj
     left_arm_ctrl_obs_B.n = body->JointInternal.PositionNumber;
     left_arm_ctrl_obs_B.n += left_arm_ctrl_obs_B.k;
     if (left_arm_ctrl_obs_B.k > left_arm_ctrl_obs_B.n - 1.0) {
-      left_arm_ctrl_obs_B.e = 0;
+      left_arm_ctrl_obs_B.e_n = 0;
       left_arm_ctrl_obs_B.d = 0;
     } else {
-      left_arm_ctrl_obs_B.e = static_cast<int32_T>(left_arm_ctrl_obs_B.k) - 1;
+      left_arm_ctrl_obs_B.e_n = static_cast<int32_T>(left_arm_ctrl_obs_B.k) - 1;
       left_arm_ctrl_obs_B.d = static_cast<int32_T>(left_arm_ctrl_obs_B.n - 1.0);
     }
 
-    left_arm_ctrl_obs_B.b_kstr_m1 = switch_expression->size[0] *
+    left_arm_ctrl_obs_B.b_kstr_o = switch_expression->size[0] *
       switch_expression->size[1];
     switch_expression->size[0] = 1;
     switch_expression->size[1] = body->JointInternal.Type->size[1];
     left_a_emxEnsureCapacity_char_T(switch_expression,
-      left_arm_ctrl_obs_B.b_kstr_m1);
-    left_arm_ctrl_obs_B.loop_ub_j = body->JointInternal.Type->size[0] *
+      left_arm_ctrl_obs_B.b_kstr_o);
+    left_arm_ctrl_obs_B.loop_ub_c = body->JointInternal.Type->size[0] *
       body->JointInternal.Type->size[1] - 1;
-    for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 <=
-         left_arm_ctrl_obs_B.loop_ub_j; left_arm_ctrl_obs_B.b_kstr_m1++) {
-      switch_expression->data[left_arm_ctrl_obs_B.b_kstr_m1] =
-        body->JointInternal.Type->data[left_arm_ctrl_obs_B.b_kstr_m1];
+    for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o <=
+         left_arm_ctrl_obs_B.loop_ub_c; left_arm_ctrl_obs_B.b_kstr_o++) {
+      switch_expression->data[left_arm_ctrl_obs_B.b_kstr_o] =
+        body->JointInternal.Type->data[left_arm_ctrl_obs_B.b_kstr_o];
     }
 
-    left_arm_ctrl_obs_B.b_bool_pi = false;
+    left_arm_ctrl_obs_B.b_bool_j = false;
     if (switch_expression->size[1] == 5) {
-      left_arm_ctrl_obs_B.b_kstr_m1 = 1;
+      left_arm_ctrl_obs_B.b_kstr_o = 1;
       do {
         exitg1 = 0;
-        if (left_arm_ctrl_obs_B.b_kstr_m1 - 1 < 5) {
-          left_arm_ctrl_obs_B.loop_ub_j = left_arm_ctrl_obs_B.b_kstr_m1 - 1;
-          if (switch_expression->data[left_arm_ctrl_obs_B.loop_ub_j] !=
-              left_arm_ctrl_obs_B.b_hc[left_arm_ctrl_obs_B.loop_ub_j]) {
+        if (left_arm_ctrl_obs_B.b_kstr_o - 1 < 5) {
+          left_arm_ctrl_obs_B.loop_ub_c = left_arm_ctrl_obs_B.b_kstr_o - 1;
+          if (switch_expression->data[left_arm_ctrl_obs_B.loop_ub_c] !=
+              left_arm_ctrl_obs_B.b_g[left_arm_ctrl_obs_B.loop_ub_c]) {
             exitg1 = 1;
           } else {
-            left_arm_ctrl_obs_B.b_kstr_m1++;
+            left_arm_ctrl_obs_B.b_kstr_o++;
           }
         } else {
-          left_arm_ctrl_obs_B.b_bool_pi = true;
+          left_arm_ctrl_obs_B.b_bool_j = true;
           exitg1 = 1;
         }
       } while (exitg1 == 0);
     }
 
-    if (left_arm_ctrl_obs_B.b_bool_pi) {
-      left_arm_ctrl_obs_B.b_kstr_m1 = 0;
+    if (left_arm_ctrl_obs_B.b_bool_j) {
+      left_arm_ctrl_obs_B.b_kstr_o = 0;
     } else {
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 8;
-           left_arm_ctrl_obs_B.b_kstr_m1++) {
-        left_arm_ctrl_obs_B.b_e[left_arm_ctrl_obs_B.b_kstr_m1] =
-          tmp_1[left_arm_ctrl_obs_B.b_kstr_m1];
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 8;
+           left_arm_ctrl_obs_B.b_kstr_o++) {
+        left_arm_ctrl_obs_B.b_k[left_arm_ctrl_obs_B.b_kstr_o] =
+          tmp_1[left_arm_ctrl_obs_B.b_kstr_o];
       }
 
-      left_arm_ctrl_obs_B.b_bool_pi = false;
+      left_arm_ctrl_obs_B.b_bool_j = false;
       if (switch_expression->size[1] == 8) {
-        left_arm_ctrl_obs_B.b_kstr_m1 = 1;
+        left_arm_ctrl_obs_B.b_kstr_o = 1;
         do {
           exitg1 = 0;
-          if (left_arm_ctrl_obs_B.b_kstr_m1 - 1 < 8) {
-            left_arm_ctrl_obs_B.loop_ub_j = left_arm_ctrl_obs_B.b_kstr_m1 - 1;
-            if (switch_expression->data[left_arm_ctrl_obs_B.loop_ub_j] !=
-                left_arm_ctrl_obs_B.b_e[left_arm_ctrl_obs_B.loop_ub_j]) {
+          if (left_arm_ctrl_obs_B.b_kstr_o - 1 < 8) {
+            left_arm_ctrl_obs_B.loop_ub_c = left_arm_ctrl_obs_B.b_kstr_o - 1;
+            if (switch_expression->data[left_arm_ctrl_obs_B.loop_ub_c] !=
+                left_arm_ctrl_obs_B.b_k[left_arm_ctrl_obs_B.loop_ub_c]) {
               exitg1 = 1;
             } else {
-              left_arm_ctrl_obs_B.b_kstr_m1++;
+              left_arm_ctrl_obs_B.b_kstr_o++;
             }
           } else {
-            left_arm_ctrl_obs_B.b_bool_pi = true;
+            left_arm_ctrl_obs_B.b_bool_j = true;
             exitg1 = 1;
           }
         } while (exitg1 == 0);
       }
 
-      if (left_arm_ctrl_obs_B.b_bool_pi) {
-        left_arm_ctrl_obs_B.b_kstr_m1 = 1;
+      if (left_arm_ctrl_obs_B.b_bool_j) {
+        left_arm_ctrl_obs_B.b_kstr_o = 1;
       } else {
-        left_arm_ctrl_obs_B.b_kstr_m1 = -1;
+        left_arm_ctrl_obs_B.b_kstr_o = -1;
       }
     }
 
-    switch (left_arm_ctrl_obs_B.b_kstr_m1) {
+    switch (left_arm_ctrl_obs_B.b_kstr_o) {
      case 0:
       memset(&left_arm_ctrl_obs_B.c_f1[0], 0, sizeof(real_T) << 4U);
       left_arm_ctrl_obs_B.c_f1[0] = 1.0;
@@ -2016,92 +2031,91 @@ static void RigidBodyTree_forwardKinematics(k_robotics_manip_internal_Rig_T *obj
 
      case 1:
       le_rigidBodyJoint_get_JointAxis(&body->JointInternal,
-        left_arm_ctrl_obs_B.v_i);
-      left_arm_ctrl_obs_B.d -= left_arm_ctrl_obs_B.e;
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 <
-           left_arm_ctrl_obs_B.d; left_arm_ctrl_obs_B.b_kstr_m1++) {
-        left_arm_ctrl_obs_B.e_data[left_arm_ctrl_obs_B.b_kstr_m1] =
-          left_arm_ctrl_obs_B.e + left_arm_ctrl_obs_B.b_kstr_m1;
+        left_arm_ctrl_obs_B.v_o);
+      left_arm_ctrl_obs_B.d -= left_arm_ctrl_obs_B.e_n;
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o <
+           left_arm_ctrl_obs_B.d; left_arm_ctrl_obs_B.b_kstr_o++) {
+        left_arm_ctrl_obs_B.e_data[left_arm_ctrl_obs_B.b_kstr_o] =
+          left_arm_ctrl_obs_B.e_n + left_arm_ctrl_obs_B.b_kstr_o;
       }
 
-      left_arm_ctrl_obs_B.result_data_p5[0] = left_arm_ctrl_obs_B.v_i[0];
-      left_arm_ctrl_obs_B.result_data_p5[1] = left_arm_ctrl_obs_B.v_i[1];
-      left_arm_ctrl_obs_B.result_data_p5[2] = left_arm_ctrl_obs_B.v_i[2];
+      left_arm_ctrl_obs_B.result_data_e[0] = left_arm_ctrl_obs_B.v_o[0];
+      left_arm_ctrl_obs_B.result_data_e[1] = left_arm_ctrl_obs_B.v_o[1];
+      left_arm_ctrl_obs_B.result_data_e[2] = left_arm_ctrl_obs_B.v_o[2];
       if (0 <= (left_arm_ctrl_obs_B.d != 0) - 1) {
-        left_arm_ctrl_obs_B.result_data_p5[3] = qvec[left_arm_ctrl_obs_B.e_data
-          [0]];
+        left_arm_ctrl_obs_B.result_data_e[3] = qvec[left_arm_ctrl_obs_B.e_data[0]];
       }
 
-      left_arm_ctrl_obs_B.k = 1.0 / sqrt((left_arm_ctrl_obs_B.result_data_p5[0] *
-        left_arm_ctrl_obs_B.result_data_p5[0] +
-        left_arm_ctrl_obs_B.result_data_p5[1] *
-        left_arm_ctrl_obs_B.result_data_p5[1]) +
-        left_arm_ctrl_obs_B.result_data_p5[2] *
-        left_arm_ctrl_obs_B.result_data_p5[2]);
-      left_arm_ctrl_obs_B.v_i[0] = left_arm_ctrl_obs_B.result_data_p5[0] *
+      left_arm_ctrl_obs_B.k = 1.0 / sqrt((left_arm_ctrl_obs_B.result_data_e[0] *
+        left_arm_ctrl_obs_B.result_data_e[0] +
+        left_arm_ctrl_obs_B.result_data_e[1] *
+        left_arm_ctrl_obs_B.result_data_e[1]) +
+        left_arm_ctrl_obs_B.result_data_e[2] *
+        left_arm_ctrl_obs_B.result_data_e[2]);
+      left_arm_ctrl_obs_B.v_o[0] = left_arm_ctrl_obs_B.result_data_e[0] *
         left_arm_ctrl_obs_B.k;
-      left_arm_ctrl_obs_B.v_i[1] = left_arm_ctrl_obs_B.result_data_p5[1] *
+      left_arm_ctrl_obs_B.v_o[1] = left_arm_ctrl_obs_B.result_data_e[1] *
         left_arm_ctrl_obs_B.k;
-      left_arm_ctrl_obs_B.v_i[2] = left_arm_ctrl_obs_B.result_data_p5[2] *
+      left_arm_ctrl_obs_B.v_o[2] = left_arm_ctrl_obs_B.result_data_e[2] *
         left_arm_ctrl_obs_B.k;
-      left_arm_ctrl_obs_B.k = cos(left_arm_ctrl_obs_B.result_data_p5[3]);
-      left_arm_ctrl_obs_B.sth_a = sin(left_arm_ctrl_obs_B.result_data_p5[3]);
-      left_arm_ctrl_obs_B.tempR_j[0] = left_arm_ctrl_obs_B.v_i[0] *
-        left_arm_ctrl_obs_B.v_i[0] * (1.0 - left_arm_ctrl_obs_B.k) +
+      left_arm_ctrl_obs_B.k = cos(left_arm_ctrl_obs_B.result_data_e[3]);
+      left_arm_ctrl_obs_B.sth_i = sin(left_arm_ctrl_obs_B.result_data_e[3]);
+      left_arm_ctrl_obs_B.tempR_j[0] = left_arm_ctrl_obs_B.v_o[0] *
+        left_arm_ctrl_obs_B.v_o[0] * (1.0 - left_arm_ctrl_obs_B.k) +
         left_arm_ctrl_obs_B.k;
-      left_arm_ctrl_obs_B.tempR_tmp_d = left_arm_ctrl_obs_B.v_i[1] *
-        left_arm_ctrl_obs_B.v_i[0] * (1.0 - left_arm_ctrl_obs_B.k);
-      left_arm_ctrl_obs_B.tempR_tmp_af = left_arm_ctrl_obs_B.v_i[2] *
-        left_arm_ctrl_obs_B.sth_a;
-      left_arm_ctrl_obs_B.tempR_j[1] = left_arm_ctrl_obs_B.tempR_tmp_d -
-        left_arm_ctrl_obs_B.tempR_tmp_af;
-      left_arm_ctrl_obs_B.tempR_tmp_p = left_arm_ctrl_obs_B.v_i[2] *
-        left_arm_ctrl_obs_B.v_i[0] * (1.0 - left_arm_ctrl_obs_B.k);
-      left_arm_ctrl_obs_B.tempR_tmp_ms = left_arm_ctrl_obs_B.v_i[1] *
-        left_arm_ctrl_obs_B.sth_a;
-      left_arm_ctrl_obs_B.tempR_j[2] = left_arm_ctrl_obs_B.tempR_tmp_p +
-        left_arm_ctrl_obs_B.tempR_tmp_ms;
-      left_arm_ctrl_obs_B.tempR_j[3] = left_arm_ctrl_obs_B.tempR_tmp_d +
-        left_arm_ctrl_obs_B.tempR_tmp_af;
-      left_arm_ctrl_obs_B.tempR_j[4] = left_arm_ctrl_obs_B.v_i[1] *
-        left_arm_ctrl_obs_B.v_i[1] * (1.0 - left_arm_ctrl_obs_B.k) +
+      left_arm_ctrl_obs_B.tempR_tmp_oc = left_arm_ctrl_obs_B.v_o[1] *
+        left_arm_ctrl_obs_B.v_o[0] * (1.0 - left_arm_ctrl_obs_B.k);
+      left_arm_ctrl_obs_B.tempR_tmp_m4 = left_arm_ctrl_obs_B.v_o[2] *
+        left_arm_ctrl_obs_B.sth_i;
+      left_arm_ctrl_obs_B.tempR_j[1] = left_arm_ctrl_obs_B.tempR_tmp_oc -
+        left_arm_ctrl_obs_B.tempR_tmp_m4;
+      left_arm_ctrl_obs_B.tempR_tmp_c = left_arm_ctrl_obs_B.v_o[2] *
+        left_arm_ctrl_obs_B.v_o[0] * (1.0 - left_arm_ctrl_obs_B.k);
+      left_arm_ctrl_obs_B.tempR_tmp_fb = left_arm_ctrl_obs_B.v_o[1] *
+        left_arm_ctrl_obs_B.sth_i;
+      left_arm_ctrl_obs_B.tempR_j[2] = left_arm_ctrl_obs_B.tempR_tmp_c +
+        left_arm_ctrl_obs_B.tempR_tmp_fb;
+      left_arm_ctrl_obs_B.tempR_j[3] = left_arm_ctrl_obs_B.tempR_tmp_oc +
+        left_arm_ctrl_obs_B.tempR_tmp_m4;
+      left_arm_ctrl_obs_B.tempR_j[4] = left_arm_ctrl_obs_B.v_o[1] *
+        left_arm_ctrl_obs_B.v_o[1] * (1.0 - left_arm_ctrl_obs_B.k) +
         left_arm_ctrl_obs_B.k;
-      left_arm_ctrl_obs_B.tempR_tmp_d = left_arm_ctrl_obs_B.v_i[2] *
-        left_arm_ctrl_obs_B.v_i[1] * (1.0 - left_arm_ctrl_obs_B.k);
-      left_arm_ctrl_obs_B.tempR_tmp_af = left_arm_ctrl_obs_B.v_i[0] *
-        left_arm_ctrl_obs_B.sth_a;
-      left_arm_ctrl_obs_B.tempR_j[5] = left_arm_ctrl_obs_B.tempR_tmp_d -
-        left_arm_ctrl_obs_B.tempR_tmp_af;
-      left_arm_ctrl_obs_B.tempR_j[6] = left_arm_ctrl_obs_B.tempR_tmp_p -
-        left_arm_ctrl_obs_B.tempR_tmp_ms;
-      left_arm_ctrl_obs_B.tempR_j[7] = left_arm_ctrl_obs_B.tempR_tmp_d +
-        left_arm_ctrl_obs_B.tempR_tmp_af;
-      left_arm_ctrl_obs_B.tempR_j[8] = left_arm_ctrl_obs_B.v_i[2] *
-        left_arm_ctrl_obs_B.v_i[2] * (1.0 - left_arm_ctrl_obs_B.k) +
+      left_arm_ctrl_obs_B.tempR_tmp_oc = left_arm_ctrl_obs_B.v_o[2] *
+        left_arm_ctrl_obs_B.v_o[1] * (1.0 - left_arm_ctrl_obs_B.k);
+      left_arm_ctrl_obs_B.tempR_tmp_m4 = left_arm_ctrl_obs_B.v_o[0] *
+        left_arm_ctrl_obs_B.sth_i;
+      left_arm_ctrl_obs_B.tempR_j[5] = left_arm_ctrl_obs_B.tempR_tmp_oc -
+        left_arm_ctrl_obs_B.tempR_tmp_m4;
+      left_arm_ctrl_obs_B.tempR_j[6] = left_arm_ctrl_obs_B.tempR_tmp_c -
+        left_arm_ctrl_obs_B.tempR_tmp_fb;
+      left_arm_ctrl_obs_B.tempR_j[7] = left_arm_ctrl_obs_B.tempR_tmp_oc +
+        left_arm_ctrl_obs_B.tempR_tmp_m4;
+      left_arm_ctrl_obs_B.tempR_j[8] = left_arm_ctrl_obs_B.v_o[2] *
+        left_arm_ctrl_obs_B.v_o[2] * (1.0 - left_arm_ctrl_obs_B.k) +
         left_arm_ctrl_obs_B.k;
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 3;
-           left_arm_ctrl_obs_B.b_kstr_m1++) {
-        left_arm_ctrl_obs_B.e = left_arm_ctrl_obs_B.b_kstr_m1 + 1;
-        left_arm_ctrl_obs_B.R_bj[left_arm_ctrl_obs_B.e - 1] =
-          left_arm_ctrl_obs_B.tempR_j[(left_arm_ctrl_obs_B.e - 1) * 3];
-        left_arm_ctrl_obs_B.e = left_arm_ctrl_obs_B.b_kstr_m1 + 1;
-        left_arm_ctrl_obs_B.R_bj[left_arm_ctrl_obs_B.e + 2] =
-          left_arm_ctrl_obs_B.tempR_j[(left_arm_ctrl_obs_B.e - 1) * 3 + 1];
-        left_arm_ctrl_obs_B.e = left_arm_ctrl_obs_B.b_kstr_m1 + 1;
-        left_arm_ctrl_obs_B.R_bj[left_arm_ctrl_obs_B.e + 5] =
-          left_arm_ctrl_obs_B.tempR_j[(left_arm_ctrl_obs_B.e - 1) * 3 + 2];
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 3;
+           left_arm_ctrl_obs_B.b_kstr_o++) {
+        left_arm_ctrl_obs_B.e_n = left_arm_ctrl_obs_B.b_kstr_o + 1;
+        left_arm_ctrl_obs_B.R_bj[left_arm_ctrl_obs_B.e_n - 1] =
+          left_arm_ctrl_obs_B.tempR_j[(left_arm_ctrl_obs_B.e_n - 1) * 3];
+        left_arm_ctrl_obs_B.e_n = left_arm_ctrl_obs_B.b_kstr_o + 1;
+        left_arm_ctrl_obs_B.R_bj[left_arm_ctrl_obs_B.e_n + 2] =
+          left_arm_ctrl_obs_B.tempR_j[(left_arm_ctrl_obs_B.e_n - 1) * 3 + 1];
+        left_arm_ctrl_obs_B.e_n = left_arm_ctrl_obs_B.b_kstr_o + 1;
+        left_arm_ctrl_obs_B.R_bj[left_arm_ctrl_obs_B.e_n + 5] =
+          left_arm_ctrl_obs_B.tempR_j[(left_arm_ctrl_obs_B.e_n - 1) * 3 + 2];
       }
 
       memset(&left_arm_ctrl_obs_B.c_f1[0], 0, sizeof(real_T) << 4U);
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 3;
-           left_arm_ctrl_obs_B.b_kstr_m1++) {
-        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.b_kstr_m1 << 2;
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 3;
+           left_arm_ctrl_obs_B.b_kstr_o++) {
+        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.b_kstr_o << 2;
         left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d] =
-          left_arm_ctrl_obs_B.R_bj[3 * left_arm_ctrl_obs_B.b_kstr_m1];
+          left_arm_ctrl_obs_B.R_bj[3 * left_arm_ctrl_obs_B.b_kstr_o];
         left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d + 1] =
-          left_arm_ctrl_obs_B.R_bj[3 * left_arm_ctrl_obs_B.b_kstr_m1 + 1];
+          left_arm_ctrl_obs_B.R_bj[3 * left_arm_ctrl_obs_B.b_kstr_o + 1];
         left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d + 2] =
-          left_arm_ctrl_obs_B.R_bj[3 * left_arm_ctrl_obs_B.b_kstr_m1 + 2];
+          left_arm_ctrl_obs_B.R_bj[3 * left_arm_ctrl_obs_B.b_kstr_o + 2];
       }
 
       left_arm_ctrl_obs_B.c_f1[15] = 1.0;
@@ -2109,23 +2123,23 @@ static void RigidBodyTree_forwardKinematics(k_robotics_manip_internal_Rig_T *obj
 
      default:
       le_rigidBodyJoint_get_JointAxis(&body->JointInternal,
-        left_arm_ctrl_obs_B.v_i);
+        left_arm_ctrl_obs_B.v_o);
       memset(&left_arm_ctrl_obs_B.tempR_j[0], 0, 9U * sizeof(real_T));
       left_arm_ctrl_obs_B.tempR_j[0] = 1.0;
       left_arm_ctrl_obs_B.tempR_j[4] = 1.0;
       left_arm_ctrl_obs_B.tempR_j[8] = 1.0;
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 3;
-           left_arm_ctrl_obs_B.b_kstr_m1++) {
-        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.b_kstr_m1 << 2;
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 3;
+           left_arm_ctrl_obs_B.b_kstr_o++) {
+        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.b_kstr_o << 2;
         left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d] =
-          left_arm_ctrl_obs_B.tempR_j[3 * left_arm_ctrl_obs_B.b_kstr_m1];
+          left_arm_ctrl_obs_B.tempR_j[3 * left_arm_ctrl_obs_B.b_kstr_o];
         left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d + 1] =
-          left_arm_ctrl_obs_B.tempR_j[3 * left_arm_ctrl_obs_B.b_kstr_m1 + 1];
+          left_arm_ctrl_obs_B.tempR_j[3 * left_arm_ctrl_obs_B.b_kstr_o + 1];
         left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d + 2] =
-          left_arm_ctrl_obs_B.tempR_j[3 * left_arm_ctrl_obs_B.b_kstr_m1 + 2];
-        left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.b_kstr_m1 + 12] =
-          left_arm_ctrl_obs_B.v_i[left_arm_ctrl_obs_B.b_kstr_m1] *
-          qvec[left_arm_ctrl_obs_B.e];
+          left_arm_ctrl_obs_B.tempR_j[3 * left_arm_ctrl_obs_B.b_kstr_o + 2];
+        left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.b_kstr_o + 12] =
+          left_arm_ctrl_obs_B.v_o[left_arm_ctrl_obs_B.b_kstr_o] *
+          qvec[left_arm_ctrl_obs_B.e_n];
       }
 
       left_arm_ctrl_obs_B.c_f1[3] = 0.0;
@@ -2135,103 +2149,103 @@ static void RigidBodyTree_forwardKinematics(k_robotics_manip_internal_Rig_T *obj
       break;
     }
 
-    for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 16;
-         left_arm_ctrl_obs_B.b_kstr_m1++) {
-      left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1] =
-        body->JointInternal.JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_m1];
+    for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 16;
+         left_arm_ctrl_obs_B.b_kstr_o++) {
+      left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o] =
+        body->JointInternal.JointToParentTransform[left_arm_ctrl_obs_B.b_kstr_o];
     }
 
-    for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 16;
-         left_arm_ctrl_obs_B.b_kstr_m1++) {
-      left_arm_ctrl_obs_B.b_n[left_arm_ctrl_obs_B.b_kstr_m1] =
-        body->JointInternal.ChildToJointTransform[left_arm_ctrl_obs_B.b_kstr_m1];
+    for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 16;
+         left_arm_ctrl_obs_B.b_kstr_o++) {
+      left_arm_ctrl_obs_B.b_n[left_arm_ctrl_obs_B.b_kstr_o] =
+        body->JointInternal.ChildToJointTransform[left_arm_ctrl_obs_B.b_kstr_o];
     }
 
-    for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 4;
-         left_arm_ctrl_obs_B.b_kstr_m1++) {
-      for (left_arm_ctrl_obs_B.e = 0; left_arm_ctrl_obs_B.e < 4;
-           left_arm_ctrl_obs_B.e++) {
-        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.e << 2;
-        left_arm_ctrl_obs_B.loop_ub_j = left_arm_ctrl_obs_B.b_kstr_m1 +
+    for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 4;
+         left_arm_ctrl_obs_B.b_kstr_o++) {
+      for (left_arm_ctrl_obs_B.e_n = 0; left_arm_ctrl_obs_B.e_n < 4;
+           left_arm_ctrl_obs_B.e_n++) {
+        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.e_n << 2;
+        left_arm_ctrl_obs_B.loop_ub_c = left_arm_ctrl_obs_B.b_kstr_o +
           left_arm_ctrl_obs_B.d;
-        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] = 0.0;
-        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] +=
+        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] = 0.0;
+        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d] *
-          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1];
-        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] +=
+          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o];
+        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d + 1] *
-          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1 + 4];
-        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] +=
+          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o + 4];
+        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d + 2] *
-          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1 + 8];
-        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] +=
+          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o + 8];
+        left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.c_f1[left_arm_ctrl_obs_B.d + 3] *
-          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1 + 12];
+          left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o + 12];
       }
 
-      for (left_arm_ctrl_obs_B.e = 0; left_arm_ctrl_obs_B.e < 4;
-           left_arm_ctrl_obs_B.e++) {
-        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.e << 2;
-        left_arm_ctrl_obs_B.loop_ub_j = left_arm_ctrl_obs_B.b_kstr_m1 +
+      for (left_arm_ctrl_obs_B.e_n = 0; left_arm_ctrl_obs_B.e_n < 4;
+           left_arm_ctrl_obs_B.e_n++) {
+        left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.e_n << 2;
+        left_arm_ctrl_obs_B.loop_ub_c = left_arm_ctrl_obs_B.b_kstr_o +
           left_arm_ctrl_obs_B.d;
         Ttree->data[left_arm_ctrl_obs_B.b_jtilecol]
-          .f1[left_arm_ctrl_obs_B.loop_ub_j] = 0.0;
+          .f1[left_arm_ctrl_obs_B.loop_ub_c] = 0.0;
         Ttree->data[left_arm_ctrl_obs_B.b_jtilecol]
-          .f1[left_arm_ctrl_obs_B.loop_ub_j] +=
+          .f1[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.b_n[left_arm_ctrl_obs_B.d] *
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_m1];
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_o];
         Ttree->data[left_arm_ctrl_obs_B.b_jtilecol]
-          .f1[left_arm_ctrl_obs_B.loop_ub_j] +=
+          .f1[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.b_n[left_arm_ctrl_obs_B.d + 1] *
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_m1 + 4];
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_o + 4];
         Ttree->data[left_arm_ctrl_obs_B.b_jtilecol]
-          .f1[left_arm_ctrl_obs_B.loop_ub_j] +=
+          .f1[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.b_n[left_arm_ctrl_obs_B.d + 2] *
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_m1 + 8];
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_o + 8];
         Ttree->data[left_arm_ctrl_obs_B.b_jtilecol]
-          .f1[left_arm_ctrl_obs_B.loop_ub_j] +=
+          .f1[left_arm_ctrl_obs_B.loop_ub_c] +=
           left_arm_ctrl_obs_B.b_n[left_arm_ctrl_obs_B.d + 3] *
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_m1 + 12];
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_o + 12];
       }
     }
 
     left_arm_ctrl_obs_B.k = left_arm_ctrl_obs_B.n;
     if (body->ParentIndex > 0.0) {
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 16;
-           left_arm_ctrl_obs_B.b_kstr_m1++) {
-        left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1] = Ttree->data[
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 16;
+           left_arm_ctrl_obs_B.b_kstr_o++) {
+        left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o] = Ttree->data[
           static_cast<int32_T>(body->ParentIndex) - 1]
-          .f1[left_arm_ctrl_obs_B.b_kstr_m1];
+          .f1[left_arm_ctrl_obs_B.b_kstr_o];
       }
 
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 4;
-           left_arm_ctrl_obs_B.b_kstr_m1++) {
-        for (left_arm_ctrl_obs_B.e = 0; left_arm_ctrl_obs_B.e < 4;
-             left_arm_ctrl_obs_B.e++) {
-          left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.e << 2;
-          left_arm_ctrl_obs_B.loop_ub_j = left_arm_ctrl_obs_B.b_kstr_m1 +
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 4;
+           left_arm_ctrl_obs_B.b_kstr_o++) {
+        for (left_arm_ctrl_obs_B.e_n = 0; left_arm_ctrl_obs_B.e_n < 4;
+             left_arm_ctrl_obs_B.e_n++) {
+          left_arm_ctrl_obs_B.d = left_arm_ctrl_obs_B.e_n << 2;
+          left_arm_ctrl_obs_B.loop_ub_c = left_arm_ctrl_obs_B.b_kstr_o +
             left_arm_ctrl_obs_B.d;
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] = 0.0;
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] += Ttree->
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] = 0.0;
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] += Ttree->
             data[left_arm_ctrl_obs_B.b_jtilecol].f1[left_arm_ctrl_obs_B.d] *
-            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1];
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] += Ttree->
+            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o];
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] += Ttree->
             data[left_arm_ctrl_obs_B.b_jtilecol].f1[left_arm_ctrl_obs_B.d + 1] *
-            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1 + 4];
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] += Ttree->
+            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o + 4];
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] += Ttree->
             data[left_arm_ctrl_obs_B.b_jtilecol].f1[left_arm_ctrl_obs_B.d + 2] *
-            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1 + 8];
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_j] += Ttree->
+            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o + 8];
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.loop_ub_c] += Ttree->
             data[left_arm_ctrl_obs_B.b_jtilecol].f1[left_arm_ctrl_obs_B.d + 3] *
-            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_m1 + 12];
+            left_arm_ctrl_obs_B.a_m[left_arm_ctrl_obs_B.b_kstr_o + 12];
         }
       }
 
-      for (left_arm_ctrl_obs_B.b_kstr_m1 = 0; left_arm_ctrl_obs_B.b_kstr_m1 < 16;
-           left_arm_ctrl_obs_B.b_kstr_m1++) {
+      for (left_arm_ctrl_obs_B.b_kstr_o = 0; left_arm_ctrl_obs_B.b_kstr_o < 16;
+           left_arm_ctrl_obs_B.b_kstr_o++) {
         Ttree->data[left_arm_ctrl_obs_B.b_jtilecol]
-          .f1[left_arm_ctrl_obs_B.b_kstr_m1] =
-          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_m1];
+          .f1[left_arm_ctrl_obs_B.b_kstr_o] =
+          left_arm_ctrl_obs_B.a_p[left_arm_ctrl_obs_B.b_kstr_o];
       }
     }
   }
@@ -2263,10 +2277,10 @@ static void left_arm_ctrl_SystemCore_step_e(boolean_T *varargout_1, real32_T
 {
   *varargout_1 = Sub_left_arm_ctrl_obs_318.getLatestMessage
     (&left_arm_ctrl_obs_B.b_varargout_2_m);
-  for (left_arm_ctrl_obs_B.i_fx = 0; left_arm_ctrl_obs_B.i_fx < 14;
-       left_arm_ctrl_obs_B.i_fx++) {
-    varargout_2_Data[left_arm_ctrl_obs_B.i_fx] =
-      left_arm_ctrl_obs_B.b_varargout_2_m.Data[left_arm_ctrl_obs_B.i_fx];
+  for (left_arm_ctrl_obs_B.i_cx = 0; left_arm_ctrl_obs_B.i_cx < 14;
+       left_arm_ctrl_obs_B.i_cx++) {
+    varargout_2_Data[left_arm_ctrl_obs_B.i_cx] =
+      left_arm_ctrl_obs_B.b_varargout_2_m.Data[left_arm_ctrl_obs_B.i_cx];
   }
 
   *varargout_2_Data_SL_Info_Curren =
@@ -2300,24 +2314,24 @@ static boolean_T left_arm_ctrl_obs_strcmp(const emxArray_char_T_left_arm_ctrl_T 
   static const char_T tmp[5] = { 'f', 'i', 'x', 'e', 'd' };
 
   int32_T exitg1;
-  for (left_arm_ctrl_obs_B.b_kstr_g = 0; left_arm_ctrl_obs_B.b_kstr_g < 5;
-       left_arm_ctrl_obs_B.b_kstr_g++) {
-    left_arm_ctrl_obs_B.b_m44[left_arm_ctrl_obs_B.b_kstr_g] =
-      tmp[left_arm_ctrl_obs_B.b_kstr_g];
+  for (left_arm_ctrl_obs_B.b_kstr_nl = 0; left_arm_ctrl_obs_B.b_kstr_nl < 5;
+       left_arm_ctrl_obs_B.b_kstr_nl++) {
+    left_arm_ctrl_obs_B.b_nr[left_arm_ctrl_obs_B.b_kstr_nl] =
+      tmp[left_arm_ctrl_obs_B.b_kstr_nl];
   }
 
   b_bool = false;
   if (a->size[1] == 5) {
-    left_arm_ctrl_obs_B.b_kstr_g = 1;
+    left_arm_ctrl_obs_B.b_kstr_nl = 1;
     do {
       exitg1 = 0;
-      if (left_arm_ctrl_obs_B.b_kstr_g - 1 < 5) {
-        left_arm_ctrl_obs_B.kstr_ik = left_arm_ctrl_obs_B.b_kstr_g - 1;
-        if (a->data[left_arm_ctrl_obs_B.kstr_ik] !=
-            left_arm_ctrl_obs_B.b_m44[left_arm_ctrl_obs_B.kstr_ik]) {
+      if (left_arm_ctrl_obs_B.b_kstr_nl - 1 < 5) {
+        left_arm_ctrl_obs_B.kstr_f = left_arm_ctrl_obs_B.b_kstr_nl - 1;
+        if (a->data[left_arm_ctrl_obs_B.kstr_f] !=
+            left_arm_ctrl_obs_B.b_nr[left_arm_ctrl_obs_B.kstr_f]) {
           exitg1 = 1;
         } else {
-          left_arm_ctrl_obs_B.b_kstr_g++;
+          left_arm_ctrl_obs_B.b_kstr_nl++;
         }
       } else {
         b_bool = true;
@@ -2363,36 +2377,36 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
   left_arm_ctrl_obs_B.a0[5] = -obj->TreeInternal.Gravity[2];
   left_arm_ctrl_ob_emxInit_real_T(&vJ, 2);
   left_arm_ctrl_obs_B.nb = obj->TreeInternal.NumBodies;
-  left_arm_ctrl_obs_B.u = vJ->size[0] * vJ->size[1];
+  left_arm_ctrl_obs_B.u_p = vJ->size[0] * vJ->size[1];
   vJ->size[0] = 6;
   left_arm_ctrl_obs_B.unnamed_idx_1 = static_cast<int32_T>
     (left_arm_ctrl_obs_B.nb);
   vJ->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1;
-  left_a_emxEnsureCapacity_real_T(vJ, left_arm_ctrl_obs_B.u);
+  left_a_emxEnsureCapacity_real_T(vJ, left_arm_ctrl_obs_B.u_p);
   left_arm_ctrl_obs_B.aoffset = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 - 1;
-  for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <=
-       left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u++) {
-    vJ->data[left_arm_ctrl_obs_B.u] = 0.0;
+  for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <=
+       left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u_p++) {
+    vJ->data[left_arm_ctrl_obs_B.u_p] = 0.0;
   }
 
   left_arm_ctrl_ob_emxInit_real_T(&vB, 2);
-  left_arm_ctrl_obs_B.u = vB->size[0] * vB->size[1];
+  left_arm_ctrl_obs_B.u_p = vB->size[0] * vB->size[1];
   vB->size[0] = 6;
   vB->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1;
-  left_a_emxEnsureCapacity_real_T(vB, left_arm_ctrl_obs_B.u);
-  for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <=
-       left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u++) {
-    vB->data[left_arm_ctrl_obs_B.u] = 0.0;
+  left_a_emxEnsureCapacity_real_T(vB, left_arm_ctrl_obs_B.u_p);
+  for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <=
+       left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u_p++) {
+    vB->data[left_arm_ctrl_obs_B.u_p] = 0.0;
   }
 
   left_arm_ctrl_ob_emxInit_real_T(&aB, 2);
-  left_arm_ctrl_obs_B.u = aB->size[0] * aB->size[1];
+  left_arm_ctrl_obs_B.u_p = aB->size[0] * aB->size[1];
   aB->size[0] = 6;
   aB->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1;
-  left_a_emxEnsureCapacity_real_T(aB, left_arm_ctrl_obs_B.u);
-  for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <=
-       left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u++) {
-    aB->data[left_arm_ctrl_obs_B.u] = 0.0;
+  left_a_emxEnsureCapacity_real_T(aB, left_arm_ctrl_obs_B.u_p);
+  for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <=
+       left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u_p++) {
+    aB->data[left_arm_ctrl_obs_B.u_p] = 0.0;
   }
 
   for (left_arm_ctrl_obs_B.i_n = 0; left_arm_ctrl_obs_B.i_n < 7;
@@ -2403,49 +2417,49 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
   left_arm_c_emxInit_e_cell_wrap1(&X, 2);
   left_arm_c_emxInit_e_cell_wrap1(&Xtree, 2);
   left_arm_ctrl_obs_B.i_n = left_arm_ctrl_obs_B.unnamed_idx_1 - 1;
-  left_arm_ctrl_obs_B.u = Xtree->size[0] * Xtree->size[1];
+  left_arm_ctrl_obs_B.u_p = Xtree->size[0] * Xtree->size[1];
   Xtree->size[0] = 1;
   Xtree->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1;
-  emxEnsureCapacity_e_cell_wrap1(Xtree, left_arm_ctrl_obs_B.u);
-  left_arm_ctrl_obs_B.u = X->size[0] * X->size[1];
+  emxEnsureCapacity_e_cell_wrap1(Xtree, left_arm_ctrl_obs_B.u_p);
+  left_arm_ctrl_obs_B.u_p = X->size[0] * X->size[1];
   X->size[0] = 1;
   X->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1;
-  emxEnsureCapacity_e_cell_wrap1(X, left_arm_ctrl_obs_B.u);
+  emxEnsureCapacity_e_cell_wrap1(X, left_arm_ctrl_obs_B.u_p);
   if (0 <= left_arm_ctrl_obs_B.i_n) {
     left_arm_ctrl_obs_eye(left_arm_ctrl_obs_B.b_I);
   }
 
-  for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k <=
-       left_arm_ctrl_obs_B.i_n; left_arm_ctrl_obs_B.b_k++) {
-    for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 36;
-         left_arm_ctrl_obs_B.u++) {
-      Xtree->data[left_arm_ctrl_obs_B.b_k].f1[left_arm_ctrl_obs_B.u] =
-        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.u];
-      X->data[left_arm_ctrl_obs_B.b_k].f1[left_arm_ctrl_obs_B.u] =
-        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.u];
+  for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f <=
+       left_arm_ctrl_obs_B.i_n; left_arm_ctrl_obs_B.b_k_f++) {
+    for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 36;
+         left_arm_ctrl_obs_B.u_p++) {
+      Xtree->data[left_arm_ctrl_obs_B.b_k_f].f1[left_arm_ctrl_obs_B.u_p] =
+        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.u_p];
+      X->data[left_arm_ctrl_obs_B.b_k_f].f1[left_arm_ctrl_obs_B.u_p] =
+        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.u_p];
     }
   }
 
   left_arm_ctrl_ob_emxInit_real_T(&f, 2);
-  left_arm_ctrl_obs_B.u = f->size[0] * f->size[1];
+  left_arm_ctrl_obs_B.u_p = f->size[0] * f->size[1];
   f->size[0] = 6;
   f->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1;
-  left_a_emxEnsureCapacity_real_T(f, left_arm_ctrl_obs_B.u);
+  left_a_emxEnsureCapacity_real_T(f, left_arm_ctrl_obs_B.u_p);
   left_arm_ctrl_ob_emxInit_real_T(&S, 2);
   left_arm_ctrl_ob_emxInit_char_T(&switch_expression, 2);
   for (left_arm_ctrl_obs_B.unnamed_idx_1 = 0; left_arm_ctrl_obs_B.unnamed_idx_1 <=
        left_arm_ctrl_obs_B.i_n; left_arm_ctrl_obs_B.unnamed_idx_1++) {
     obj_0 = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1];
-    left_arm_ctrl_obs_B.u = S->size[0] * S->size[1];
+    left_arm_ctrl_obs_B.u_p = S->size[0] * S->size[1];
     S->size[0] = 6;
     S->size[1] = obj_0->JointInternal.MotionSubspace->size[1];
-    left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.u);
+    left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.u_p);
     left_arm_ctrl_obs_B.aoffset = obj_0->JointInternal.MotionSubspace->size[0] *
       obj_0->JointInternal.MotionSubspace->size[1] - 1;
-    for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <=
-         left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u++) {
-      S->data[left_arm_ctrl_obs_B.u] = obj_0->JointInternal.MotionSubspace->
-        data[left_arm_ctrl_obs_B.u];
+    for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <=
+         left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u_p++) {
+      S->data[left_arm_ctrl_obs_B.u_p] = obj_0->
+        JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.u_p];
     }
 
     left_arm_ctrl_obs_B.a_idx_0 = robot->
@@ -2460,77 +2474,77 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
       obj_0 = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1];
       rigidBodyJoint_transformBodyToP(&obj_0->JointInternal,
         left_arm_ctrl_obs_B.T);
-      left_arm_ctrl_obs_B.t_c = 1;
+      left_arm_ctrl_obs_B.t = 1;
       left_arm_ctrl_obs_B.qddoti_data[0] = 0.0;
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
-        vJ->data[left_arm_ctrl_obs_B.u + 6 * left_arm_ctrl_obs_B.unnamed_idx_1] =
-          0.0;
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
+        vJ->data[left_arm_ctrl_obs_B.u_p + 6 * left_arm_ctrl_obs_B.unnamed_idx_1]
+          = 0.0;
       }
     } else {
       if (left_arm_ctrl_obs_B.a_idx_0 > left_arm_ctrl_obs_B.a_idx_1) {
-        left_arm_ctrl_obs_B.b_k = 0;
-        left_arm_ctrl_obs_B.j_b = 0;
+        left_arm_ctrl_obs_B.b_k_f = 0;
+        left_arm_ctrl_obs_B.j_p = 0;
       } else {
-        left_arm_ctrl_obs_B.b_k = static_cast<int32_T>
+        left_arm_ctrl_obs_B.b_k_f = static_cast<int32_T>
           (left_arm_ctrl_obs_B.a_idx_0) - 1;
-        left_arm_ctrl_obs_B.j_b = static_cast<int32_T>
+        left_arm_ctrl_obs_B.j_p = static_cast<int32_T>
           (left_arm_ctrl_obs_B.a_idx_1);
       }
 
       if (left_arm_ctrl_obs_B.b_idx_0 > left_arm_ctrl_obs_B.b_idx_1) {
-        left_arm_ctrl_obs_B.m = 0;
+        left_arm_ctrl_obs_B.p_tmp = 0;
         left_arm_ctrl_obs_B.inner = 0;
-        left_arm_ctrl_obs_B.u = 0;
-        left_arm_ctrl_obs_B.t_c = -1;
+        left_arm_ctrl_obs_B.u_p = 0;
+        left_arm_ctrl_obs_B.t = -1;
       } else {
-        left_arm_ctrl_obs_B.m = static_cast<int32_T>(left_arm_ctrl_obs_B.b_idx_0)
-          - 1;
+        left_arm_ctrl_obs_B.p_tmp = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.b_idx_0) - 1;
         left_arm_ctrl_obs_B.inner = static_cast<int32_T>
           (left_arm_ctrl_obs_B.b_idx_1);
-        left_arm_ctrl_obs_B.u = left_arm_ctrl_obs_B.m;
-        left_arm_ctrl_obs_B.t_c = left_arm_ctrl_obs_B.inner - 1;
+        left_arm_ctrl_obs_B.u_p = left_arm_ctrl_obs_B.p_tmp;
+        left_arm_ctrl_obs_B.t = left_arm_ctrl_obs_B.inner - 1;
       }
 
-      left_arm_ctrl_obs_B.u = left_arm_ctrl_obs_B.t_c - left_arm_ctrl_obs_B.u;
-      left_arm_ctrl_obs_B.t_c = left_arm_ctrl_obs_B.u + 1;
-      if (0 <= left_arm_ctrl_obs_B.u) {
-        memset(&left_arm_ctrl_obs_B.qddoti_data[0], 0, (left_arm_ctrl_obs_B.u +
-                1) * sizeof(real_T));
+      left_arm_ctrl_obs_B.u_p = left_arm_ctrl_obs_B.t - left_arm_ctrl_obs_B.u_p;
+      left_arm_ctrl_obs_B.t = left_arm_ctrl_obs_B.u_p + 1;
+      if (0 <= left_arm_ctrl_obs_B.u_p) {
+        memset(&left_arm_ctrl_obs_B.qddoti_data[0], 0, (left_arm_ctrl_obs_B.u_p
+                + 1) * sizeof(real_T));
       }
 
       obj_0 = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1];
-      left_arm_ctrl_obs_B.u = switch_expression->size[0] *
+      left_arm_ctrl_obs_B.u_p = switch_expression->size[0] *
         switch_expression->size[1];
       switch_expression->size[0] = 1;
       switch_expression->size[1] = obj_0->JointInternal.Type->size[1];
-      left_a_emxEnsureCapacity_char_T(switch_expression, left_arm_ctrl_obs_B.u);
+      left_a_emxEnsureCapacity_char_T(switch_expression, left_arm_ctrl_obs_B.u_p);
       left_arm_ctrl_obs_B.aoffset = obj_0->JointInternal.Type->size[0] *
         obj_0->JointInternal.Type->size[1] - 1;
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <=
-           left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u++) {
-        switch_expression->data[left_arm_ctrl_obs_B.u] =
-          obj_0->JointInternal.Type->data[left_arm_ctrl_obs_B.u];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <=
+           left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u_p++) {
+        switch_expression->data[left_arm_ctrl_obs_B.u_p] =
+          obj_0->JointInternal.Type->data[left_arm_ctrl_obs_B.u_p];
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 5;
-           left_arm_ctrl_obs_B.u++) {
-        left_arm_ctrl_obs_B.b_ie[left_arm_ctrl_obs_B.u] =
-          tmp[left_arm_ctrl_obs_B.u];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 5;
+           left_arm_ctrl_obs_B.u_p++) {
+        left_arm_ctrl_obs_B.b_mv[left_arm_ctrl_obs_B.u_p] =
+          tmp[left_arm_ctrl_obs_B.u_p];
       }
 
       left_arm_ctrl_obs_B.b_bool = false;
       if (switch_expression->size[1] == 5) {
-        left_arm_ctrl_obs_B.u = 1;
+        left_arm_ctrl_obs_B.u_p = 1;
         do {
           exitg1 = 0;
-          if (left_arm_ctrl_obs_B.u - 1 < 5) {
-            left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u - 1;
+          if (left_arm_ctrl_obs_B.u_p - 1 < 5) {
+            left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u_p - 1;
             if (switch_expression->data[left_arm_ctrl_obs_B.aoffset] !=
-                left_arm_ctrl_obs_B.b_ie[left_arm_ctrl_obs_B.aoffset]) {
+                left_arm_ctrl_obs_B.b_mv[left_arm_ctrl_obs_B.aoffset]) {
               exitg1 = 1;
             } else {
-              left_arm_ctrl_obs_B.u++;
+              left_arm_ctrl_obs_B.u_p++;
             }
           } else {
             left_arm_ctrl_obs_B.b_bool = true;
@@ -2540,26 +2554,26 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
       }
 
       if (left_arm_ctrl_obs_B.b_bool) {
-        left_arm_ctrl_obs_B.u = 0;
+        left_arm_ctrl_obs_B.u_p = 0;
       } else {
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 8;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.b_mj[left_arm_ctrl_obs_B.u] =
-            tmp_0[left_arm_ctrl_obs_B.u];
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 8;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.b_me[left_arm_ctrl_obs_B.u_p] =
+            tmp_0[left_arm_ctrl_obs_B.u_p];
         }
 
         left_arm_ctrl_obs_B.b_bool = false;
         if (switch_expression->size[1] == 8) {
-          left_arm_ctrl_obs_B.u = 1;
+          left_arm_ctrl_obs_B.u_p = 1;
           do {
             exitg1 = 0;
-            if (left_arm_ctrl_obs_B.u - 1 < 8) {
-              left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u - 1;
+            if (left_arm_ctrl_obs_B.u_p - 1 < 8) {
+              left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u_p - 1;
               if (switch_expression->data[left_arm_ctrl_obs_B.aoffset] !=
-                  left_arm_ctrl_obs_B.b_mj[left_arm_ctrl_obs_B.aoffset]) {
+                  left_arm_ctrl_obs_B.b_me[left_arm_ctrl_obs_B.aoffset]) {
                 exitg1 = 1;
               } else {
-                left_arm_ctrl_obs_B.u++;
+                left_arm_ctrl_obs_B.u_p++;
               }
             } else {
               left_arm_ctrl_obs_B.b_bool = true;
@@ -2569,13 +2583,13 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
         }
 
         if (left_arm_ctrl_obs_B.b_bool) {
-          left_arm_ctrl_obs_B.u = 1;
+          left_arm_ctrl_obs_B.u_p = 1;
         } else {
-          left_arm_ctrl_obs_B.u = -1;
+          left_arm_ctrl_obs_B.u_p = -1;
         }
       }
 
-      switch (left_arm_ctrl_obs_B.u) {
+      switch (left_arm_ctrl_obs_B.u_p) {
        case 0:
         memset(&left_arm_ctrl_obs_B.TJ[0], 0, sizeof(real_T) << 4U);
         left_arm_ctrl_obs_B.TJ[0] = 1.0;
@@ -2587,12 +2601,12 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
        case 1:
         rigidBodyJoint_get_JointAxis_e(&obj_0->JointInternal,
           left_arm_ctrl_obs_B.v);
-        left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.j_b -
-          left_arm_ctrl_obs_B.b_k;
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <
-             left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.l_data[left_arm_ctrl_obs_B.u] =
-            left_arm_ctrl_obs_B.b_k + left_arm_ctrl_obs_B.u;
+        left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.j_p -
+          left_arm_ctrl_obs_B.b_k_f;
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <
+             left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.l_data[left_arm_ctrl_obs_B.u_p] =
+            left_arm_ctrl_obs_B.b_k_f + left_arm_ctrl_obs_B.u_p;
         }
 
         left_arm_ctrl_obs_B.result_data[0] = left_arm_ctrl_obs_B.v[0];
@@ -2615,7 +2629,7 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
           left_arm_ctrl_obs_B.v[0] * (1.0 - left_arm_ctrl_obs_B.a_idx_0);
         left_arm_ctrl_obs_B.tempR_tmp = left_arm_ctrl_obs_B.v[1] *
           left_arm_ctrl_obs_B.sth;
-        left_arm_ctrl_obs_B.tempR_tmp_m = left_arm_ctrl_obs_B.v[2] *
+        left_arm_ctrl_obs_B.tempR_tmp_g = left_arm_ctrl_obs_B.v[2] *
           left_arm_ctrl_obs_B.v[1] * (1.0 - left_arm_ctrl_obs_B.a_idx_0);
         left_arm_ctrl_obs_B.sth *= left_arm_ctrl_obs_B.v[0];
         left_arm_ctrl_obs_cat(left_arm_ctrl_obs_B.v[0] * left_arm_ctrl_obs_B.v[0]
@@ -2630,38 +2644,38 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
                               left_arm_ctrl_obs_B.v[1] * left_arm_ctrl_obs_B.v[1]
                               * (1.0 - left_arm_ctrl_obs_B.a_idx_0) +
                               left_arm_ctrl_obs_B.a_idx_0,
-                              left_arm_ctrl_obs_B.tempR_tmp_m -
+                              left_arm_ctrl_obs_B.tempR_tmp_g -
                               left_arm_ctrl_obs_B.sth,
                               left_arm_ctrl_obs_B.b_idx_1 -
                               left_arm_ctrl_obs_B.tempR_tmp,
-                              left_arm_ctrl_obs_B.tempR_tmp_m +
+                              left_arm_ctrl_obs_B.tempR_tmp_g +
                               left_arm_ctrl_obs_B.sth, left_arm_ctrl_obs_B.v[2] *
                               left_arm_ctrl_obs_B.v[2] * (1.0 -
           left_arm_ctrl_obs_B.a_idx_0) + left_arm_ctrl_obs_B.a_idx_0,
                               left_arm_ctrl_obs_B.tempR_n);
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 3;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.u = left_arm_ctrl_obs_B.b_k + 1;
-          left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u - 1] =
-            left_arm_ctrl_obs_B.tempR_n[(left_arm_ctrl_obs_B.u - 1) * 3];
-          left_arm_ctrl_obs_B.u = left_arm_ctrl_obs_B.b_k + 1;
-          left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u + 2] =
-            left_arm_ctrl_obs_B.tempR_n[(left_arm_ctrl_obs_B.u - 1) * 3 + 1];
-          left_arm_ctrl_obs_B.u = left_arm_ctrl_obs_B.b_k + 1;
-          left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u + 5] =
-            left_arm_ctrl_obs_B.tempR_n[(left_arm_ctrl_obs_B.u - 1) * 3 + 2];
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 3;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.u_p = left_arm_ctrl_obs_B.b_k_f + 1;
+          left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p - 1] =
+            left_arm_ctrl_obs_B.tempR_n[(left_arm_ctrl_obs_B.u_p - 1) * 3];
+          left_arm_ctrl_obs_B.u_p = left_arm_ctrl_obs_B.b_k_f + 1;
+          left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p + 2] =
+            left_arm_ctrl_obs_B.tempR_n[(left_arm_ctrl_obs_B.u_p - 1) * 3 + 1];
+          left_arm_ctrl_obs_B.u_p = left_arm_ctrl_obs_B.b_k_f + 1;
+          left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p + 5] =
+            left_arm_ctrl_obs_B.tempR_n[(left_arm_ctrl_obs_B.u_p - 1) * 3 + 2];
         }
 
         memset(&left_arm_ctrl_obs_B.TJ[0], 0, sizeof(real_T) << 4U);
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u << 2;
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u_p << 2;
           left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset] =
-            left_arm_ctrl_obs_B.R_b[3 * left_arm_ctrl_obs_B.u];
+            left_arm_ctrl_obs_B.R_b[3 * left_arm_ctrl_obs_B.u_p];
           left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset + 1] =
-            left_arm_ctrl_obs_B.R_b[3 * left_arm_ctrl_obs_B.u + 1];
+            left_arm_ctrl_obs_B.R_b[3 * left_arm_ctrl_obs_B.u_p + 1];
           left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset + 2] =
-            left_arm_ctrl_obs_B.R_b[3 * left_arm_ctrl_obs_B.u + 2];
+            left_arm_ctrl_obs_B.R_b[3 * left_arm_ctrl_obs_B.u_p + 2];
         }
 
         left_arm_ctrl_obs_B.TJ[15] = 1.0;
@@ -2674,18 +2688,18 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
         left_arm_ctrl_obs_B.tempR_n[0] = 1.0;
         left_arm_ctrl_obs_B.tempR_n[4] = 1.0;
         left_arm_ctrl_obs_B.tempR_n[8] = 1.0;
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u << 2;
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u_p << 2;
           left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset] =
-            left_arm_ctrl_obs_B.tempR_n[3 * left_arm_ctrl_obs_B.u];
+            left_arm_ctrl_obs_B.tempR_n[3 * left_arm_ctrl_obs_B.u_p];
           left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset + 1] =
-            left_arm_ctrl_obs_B.tempR_n[3 * left_arm_ctrl_obs_B.u + 1];
+            left_arm_ctrl_obs_B.tempR_n[3 * left_arm_ctrl_obs_B.u_p + 1];
           left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset + 2] =
-            left_arm_ctrl_obs_B.tempR_n[3 * left_arm_ctrl_obs_B.u + 2];
-          left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.u + 12] =
-            left_arm_ctrl_obs_B.v[left_arm_ctrl_obs_B.u] *
-            left_arm_ctrl_obs_B.q[left_arm_ctrl_obs_B.b_k];
+            left_arm_ctrl_obs_B.tempR_n[3 * left_arm_ctrl_obs_B.u_p + 2];
+          left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.u_p + 12] =
+            left_arm_ctrl_obs_B.v[left_arm_ctrl_obs_B.u_p] *
+            left_arm_ctrl_obs_B.q[left_arm_ctrl_obs_B.b_k_f];
         }
 
         left_arm_ctrl_obs_B.TJ[3] = 0.0;
@@ -2695,246 +2709,247 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
         break;
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 16;
-           left_arm_ctrl_obs_B.u++) {
-        left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u] =
-          obj_0->JointInternal.JointToParentTransform[left_arm_ctrl_obs_B.u];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 16;
+           left_arm_ctrl_obs_B.u_p++) {
+        left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u_p] =
+          obj_0->JointInternal.JointToParentTransform[left_arm_ctrl_obs_B.u_p];
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 16;
-           left_arm_ctrl_obs_B.u++) {
-        left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.u] =
-          obj_0->JointInternal.ChildToJointTransform[left_arm_ctrl_obs_B.u];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 16;
+           left_arm_ctrl_obs_B.u_p++) {
+        left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.u_p] =
+          obj_0->JointInternal.ChildToJointTransform[left_arm_ctrl_obs_B.u_p];
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 4;
-           left_arm_ctrl_obs_B.u++) {
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 4;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k << 2;
-          left_arm_ctrl_obs_B.j_b = left_arm_ctrl_obs_B.u +
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 4;
+           left_arm_ctrl_obs_B.u_p++) {
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 4;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k_f << 2;
+          left_arm_ctrl_obs_B.j_p = left_arm_ctrl_obs_B.u_p +
             left_arm_ctrl_obs_B.aoffset;
-          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_b] = 0.0;
-          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_b] +=
+          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_p] = 0.0;
+          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_p] +=
             left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset] *
-            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u];
-          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_b] +=
+            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u_p];
+          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_p] +=
             left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset + 1] *
-            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u + 4];
-          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_b] +=
+            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u_p + 4];
+          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_p] +=
             left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset + 2] *
-            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u + 8];
-          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_b] +=
+            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u_p + 8];
+          left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.j_p] +=
             left_arm_ctrl_obs_B.TJ[left_arm_ctrl_obs_B.aoffset + 3] *
-            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u + 12];
+            left_arm_ctrl_obs_B.a[left_arm_ctrl_obs_B.u_p + 12];
         }
 
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 4;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.j_b = left_arm_ctrl_obs_B.b_k << 2;
-          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u +
-            left_arm_ctrl_obs_B.j_b;
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 4;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.j_p = left_arm_ctrl_obs_B.b_k_f << 2;
+          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u_p +
+            left_arm_ctrl_obs_B.j_p;
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset] = 0.0;
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset] +=
-            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_b] *
-            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u];
+            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_p] *
+            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u_p];
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset] +=
-            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_b + 1] *
-            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u + 4];
+            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_p + 1] *
+            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u_p + 4];
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset] +=
-            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_b + 2] *
-            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u + 8];
+            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_p + 2] *
+            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u_p + 8];
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset] +=
-            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_b + 3] *
-            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u + 12];
+            left_arm_ctrl_obs_B.b[left_arm_ctrl_obs_B.j_p + 3] *
+            left_arm_ctrl_obs_B.a_b[left_arm_ctrl_obs_B.u_p + 12];
         }
       }
 
       if ((S->size[1] == 1) || (left_arm_ctrl_obs_B.inner -
-           left_arm_ctrl_obs_B.m == 1)) {
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.b_k = left_arm_ctrl_obs_B.u + 6 *
+           left_arm_ctrl_obs_B.p_tmp == 1)) {
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.b_k_f = left_arm_ctrl_obs_B.u_p + 6 *
             left_arm_ctrl_obs_B.unnamed_idx_1;
-          vJ->data[left_arm_ctrl_obs_B.b_k] = 0.0;
+          vJ->data[left_arm_ctrl_obs_B.b_k_f] = 0.0;
           left_arm_ctrl_obs_B.aoffset = S->size[1];
-          for (left_arm_ctrl_obs_B.m = 0; left_arm_ctrl_obs_B.m <
-               left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.m++) {
-            vJ->data[left_arm_ctrl_obs_B.b_k] += S->data[6 *
-              left_arm_ctrl_obs_B.m + left_arm_ctrl_obs_B.u] * 0.0;
+          for (left_arm_ctrl_obs_B.p_tmp = 0; left_arm_ctrl_obs_B.p_tmp <
+               left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.p_tmp++) {
+            vJ->data[left_arm_ctrl_obs_B.b_k_f] += S->data[6 *
+              left_arm_ctrl_obs_B.p_tmp + left_arm_ctrl_obs_B.u_p] * 0.0;
           }
         }
       } else {
         left_arm_ctrl_obs_B.inner = S->size[1] - 1;
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-             left_arm_ctrl_obs_B.u++) {
-          vJ->data[left_arm_ctrl_obs_B.u + 6 * left_arm_ctrl_obs_B.unnamed_idx_1]
-            = 0.0;
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+             left_arm_ctrl_obs_B.u_p++) {
+          vJ->data[left_arm_ctrl_obs_B.u_p + 6 *
+            left_arm_ctrl_obs_B.unnamed_idx_1] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k <=
-             left_arm_ctrl_obs_B.inner; left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k * 6 - 1;
-          for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i < 6;
-               left_arm_ctrl_obs_B.c_i++) {
-            left_arm_ctrl_obs_B.u = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 +
-              left_arm_ctrl_obs_B.c_i;
-            vJ->data[left_arm_ctrl_obs_B.u] += S->data
-              [(left_arm_ctrl_obs_B.aoffset + left_arm_ctrl_obs_B.c_i) + 1] *
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f <=
+             left_arm_ctrl_obs_B.inner; left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k_f * 6 - 1;
+          for (left_arm_ctrl_obs_B.j_p = 0; left_arm_ctrl_obs_B.j_p < 6;
+               left_arm_ctrl_obs_B.j_p++) {
+            left_arm_ctrl_obs_B.u_p = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 +
+              left_arm_ctrl_obs_B.j_p;
+            vJ->data[left_arm_ctrl_obs_B.u_p] += S->data
+              [(left_arm_ctrl_obs_B.aoffset + left_arm_ctrl_obs_B.j_p) + 1] *
               0.0;
           }
         }
       }
     }
 
-    left_arm_ctrl_obs_tforminv(left_arm_ctrl_obs_B.T, left_arm_ctrl_obs_B.TJ);
-    left_arm_ct_tformToSpatialXform(left_arm_ctrl_obs_B.TJ, X->
+    left_arm_ctrl_obs_tforminv(left_arm_ctrl_obs_B.T, left_arm_ctrl_obs_B.dv);
+    left_arm_ct_tformToSpatialXform(left_arm_ctrl_obs_B.dv, X->
       data[left_arm_ctrl_obs_B.unnamed_idx_1].f1);
     left_arm_ctrl_obs_B.a_idx_0 = robot->
       Bodies[left_arm_ctrl_obs_B.unnamed_idx_1]->ParentIndex;
     if (left_arm_ctrl_obs_B.a_idx_0 > 0.0) {
-      left_arm_ctrl_obs_B.m = static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0);
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
+      left_arm_ctrl_obs_B.p_tmp = static_cast<int32_T>
+        (left_arm_ctrl_obs_B.a_idx_0);
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
         left_arm_ctrl_obs_B.a_idx_1 = 0.0;
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.a_idx_1 += vB->data[(left_arm_ctrl_obs_B.m - 1) *
-            6 + left_arm_ctrl_obs_B.b_k] * X->
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.a_idx_1 += vB->data[(left_arm_ctrl_obs_B.p_tmp - 1)
+            * 6 + left_arm_ctrl_obs_B.b_k_f] * X->
             data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 *
-            left_arm_ctrl_obs_B.b_k + left_arm_ctrl_obs_B.u];
+            left_arm_ctrl_obs_B.b_k_f + left_arm_ctrl_obs_B.u_p];
         }
 
-        left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] = vJ->data[6 *
-          left_arm_ctrl_obs_B.unnamed_idx_1 + left_arm_ctrl_obs_B.u] +
+        left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] = vJ->data[6 *
+          left_arm_ctrl_obs_B.unnamed_idx_1 + left_arm_ctrl_obs_B.u_p] +
           left_arm_ctrl_obs_B.a_idx_1;
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
-        vB->data[left_arm_ctrl_obs_B.u + 6 * left_arm_ctrl_obs_B.unnamed_idx_1] =
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
+        vB->data[left_arm_ctrl_obs_B.u_p + 6 * left_arm_ctrl_obs_B.unnamed_idx_1]
+          = left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p];
       }
 
-      if ((S->size[1] == 1) || (left_arm_ctrl_obs_B.t_c == 1)) {
+      if ((S->size[1] == 1) || (left_arm_ctrl_obs_B.t == 1)) {
         left_arm_ctrl_obs_B.aoffset = S->size[1];
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] = 0.0;
-          for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k <
-               left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.b_k++) {
-            left_arm_ctrl_obs_B.a_idx_1 = S->data[6 * left_arm_ctrl_obs_B.b_k +
-              left_arm_ctrl_obs_B.u] *
-              left_arm_ctrl_obs_B.qddoti_data[left_arm_ctrl_obs_B.b_k] +
-              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u];
-            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] =
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] = 0.0;
+          for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f <
+               left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.b_k_f++) {
+            left_arm_ctrl_obs_B.a_idx_1 = S->data[6 * left_arm_ctrl_obs_B.b_k_f
+              + left_arm_ctrl_obs_B.u_p] *
+              left_arm_ctrl_obs_B.qddoti_data[left_arm_ctrl_obs_B.b_k_f] +
+              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p];
+            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] =
               left_arm_ctrl_obs_B.a_idx_1;
           }
         }
       } else {
         left_arm_ctrl_obs_B.inner = S->size[1] - 1;
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] = 0.0;
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k <=
-             left_arm_ctrl_obs_B.inner; left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k * 6 - 1;
-          for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i < 6;
-               left_arm_ctrl_obs_B.c_i++) {
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f <=
+             left_arm_ctrl_obs_B.inner; left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k_f * 6 - 1;
+          for (left_arm_ctrl_obs_B.j_p = 0; left_arm_ctrl_obs_B.j_p < 6;
+               left_arm_ctrl_obs_B.j_p++) {
             left_arm_ctrl_obs_B.a_idx_1 = S->data[(left_arm_ctrl_obs_B.aoffset +
-              left_arm_ctrl_obs_B.c_i) + 1] * 0.0 +
-              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.c_i];
-            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.c_i] =
+              left_arm_ctrl_obs_B.j_p) + 1] * 0.0 +
+              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.j_p];
+            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.j_p] =
               left_arm_ctrl_obs_B.a_idx_1;
           }
         }
       }
 
       left_arm_ctrl_obs_B.tempR_n[0] = 0.0;
-      left_arm_ctrl_obs_B.t_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 2;
-      left_arm_ctrl_obs_B.tempR_n[3] = -vB->data[left_arm_ctrl_obs_B.t_c];
-      left_arm_ctrl_obs_B.u = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 1;
-      left_arm_ctrl_obs_B.tempR_n[6] = vB->data[left_arm_ctrl_obs_B.u];
-      left_arm_ctrl_obs_B.tempR_n[1] = vB->data[left_arm_ctrl_obs_B.t_c];
+      left_arm_ctrl_obs_B.t = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 2;
+      left_arm_ctrl_obs_B.tempR_n[3] = -vB->data[left_arm_ctrl_obs_B.t];
+      left_arm_ctrl_obs_B.u_p = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 1;
+      left_arm_ctrl_obs_B.tempR_n[6] = vB->data[left_arm_ctrl_obs_B.u_p];
+      left_arm_ctrl_obs_B.tempR_n[1] = vB->data[left_arm_ctrl_obs_B.t];
       left_arm_ctrl_obs_B.tempR_n[4] = 0.0;
       left_arm_ctrl_obs_B.tempR_n[7] = -vB->data[6 *
         left_arm_ctrl_obs_B.unnamed_idx_1];
-      left_arm_ctrl_obs_B.tempR_n[2] = -vB->data[left_arm_ctrl_obs_B.u];
+      left_arm_ctrl_obs_B.tempR_n[2] = -vB->data[left_arm_ctrl_obs_B.u_p];
       left_arm_ctrl_obs_B.tempR_n[5] = vB->data[6 *
         left_arm_ctrl_obs_B.unnamed_idx_1];
       left_arm_ctrl_obs_B.tempR_n[8] = 0.0;
       left_arm_ctrl_obs_B.tempR[3] = 0.0;
-      left_arm_ctrl_obs_B.t_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 5;
-      left_arm_ctrl_obs_B.tempR[9] = -vB->data[left_arm_ctrl_obs_B.t_c];
-      left_arm_ctrl_obs_B.u = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 4;
-      left_arm_ctrl_obs_B.tempR[15] = vB->data[left_arm_ctrl_obs_B.u];
-      left_arm_ctrl_obs_B.tempR[4] = vB->data[left_arm_ctrl_obs_B.t_c];
+      left_arm_ctrl_obs_B.t = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 5;
+      left_arm_ctrl_obs_B.tempR[9] = -vB->data[left_arm_ctrl_obs_B.t];
+      left_arm_ctrl_obs_B.u_p = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 4;
+      left_arm_ctrl_obs_B.tempR[15] = vB->data[left_arm_ctrl_obs_B.u_p];
+      left_arm_ctrl_obs_B.tempR[4] = vB->data[left_arm_ctrl_obs_B.t];
       left_arm_ctrl_obs_B.tempR[10] = 0.0;
-      left_arm_ctrl_obs_B.t_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 3;
-      left_arm_ctrl_obs_B.tempR[16] = -vB->data[left_arm_ctrl_obs_B.t_c];
-      left_arm_ctrl_obs_B.tempR[5] = -vB->data[left_arm_ctrl_obs_B.u];
-      left_arm_ctrl_obs_B.tempR[11] = vB->data[left_arm_ctrl_obs_B.t_c];
+      left_arm_ctrl_obs_B.t = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 3;
+      left_arm_ctrl_obs_B.tempR[16] = -vB->data[left_arm_ctrl_obs_B.t];
+      left_arm_ctrl_obs_B.tempR[5] = -vB->data[left_arm_ctrl_obs_B.u_p];
+      left_arm_ctrl_obs_B.tempR[11] = vB->data[left_arm_ctrl_obs_B.t];
       left_arm_ctrl_obs_B.tempR[17] = 0.0;
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-           left_arm_ctrl_obs_B.u++) {
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+           left_arm_ctrl_obs_B.u_p++) {
         left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
-          left_arm_ctrl_obs_B.u];
-        left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u] =
+          left_arm_ctrl_obs_B.u_p];
+        left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p] =
           left_arm_ctrl_obs_B.a_idx_1;
-        left_arm_ctrl_obs_B.t_c = 6 * (left_arm_ctrl_obs_B.u + 3);
-        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c] = 0.0;
-        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 3] =
-          left_arm_ctrl_obs_B.a_idx_1;
-        left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
-          left_arm_ctrl_obs_B.u + 1];
-        left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u + 1] =
-          left_arm_ctrl_obs_B.a_idx_1;
-        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 1] = 0.0;
-        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 4] =
+        left_arm_ctrl_obs_B.t = 6 * (left_arm_ctrl_obs_B.u_p + 3);
+        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t] = 0.0;
+        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 3] =
           left_arm_ctrl_obs_B.a_idx_1;
         left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
-          left_arm_ctrl_obs_B.u + 2];
-        left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u + 2] =
+          left_arm_ctrl_obs_B.u_p + 1];
+        left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p + 1] =
           left_arm_ctrl_obs_B.a_idx_1;
-        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 2] = 0.0;
-        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 5] =
+        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 1] = 0.0;
+        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 4] =
+          left_arm_ctrl_obs_B.a_idx_1;
+        left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
+          left_arm_ctrl_obs_B.u_p + 2];
+        left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p + 2] =
+          left_arm_ctrl_obs_B.a_idx_1;
+        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 2] = 0.0;
+        left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 5] =
           left_arm_ctrl_obs_B.a_idx_1;
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
         left_arm_ctrl_obs_B.a_idx_1 = 0.0;
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.a_idx_1 += aB->data[(left_arm_ctrl_obs_B.m - 1) *
-            6 + left_arm_ctrl_obs_B.b_k] * X->
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.a_idx_1 += aB->data[(left_arm_ctrl_obs_B.p_tmp - 1)
+            * 6 + left_arm_ctrl_obs_B.b_k_f] * X->
             data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 *
-            left_arm_ctrl_obs_B.b_k + left_arm_ctrl_obs_B.u];
+            left_arm_ctrl_obs_B.b_k_f + left_arm_ctrl_obs_B.u_p];
         }
 
-        left_arm_ctrl_obs_B.X_c[left_arm_ctrl_obs_B.u] =
+        left_arm_ctrl_obs_B.X_m[left_arm_ctrl_obs_B.u_p] =
           left_arm_ctrl_obs_B.a_idx_1 +
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u];
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p];
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
-        left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] = 0.0;
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-             left_arm_ctrl_obs_B.b_k++) {
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
+        left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] = 0.0;
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+             left_arm_ctrl_obs_B.b_k_f++) {
           left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR[6 *
-            left_arm_ctrl_obs_B.b_k + left_arm_ctrl_obs_B.u] * vJ->data[6 *
-            left_arm_ctrl_obs_B.unnamed_idx_1 + left_arm_ctrl_obs_B.b_k] +
-            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u];
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] =
+            left_arm_ctrl_obs_B.b_k_f + left_arm_ctrl_obs_B.u_p] * vJ->data[6 *
+            left_arm_ctrl_obs_B.unnamed_idx_1 + left_arm_ctrl_obs_B.b_k_f] +
+            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p];
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] =
             left_arm_ctrl_obs_B.a_idx_1;
         }
 
-        aB->data[left_arm_ctrl_obs_B.u + 6 * left_arm_ctrl_obs_B.unnamed_idx_1] =
-          left_arm_ctrl_obs_B.X_c[left_arm_ctrl_obs_B.u] +
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u];
+        aB->data[left_arm_ctrl_obs_B.u_p + 6 * left_arm_ctrl_obs_B.unnamed_idx_1]
+          = left_arm_ctrl_obs_B.X_m[left_arm_ctrl_obs_B.u_p] +
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p];
       }
 
       left_arm_ctrl_obs_B.R_b[0] = 0.0;
@@ -2946,130 +2961,131 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
       left_arm_ctrl_obs_B.R_b[2] = -left_arm_ctrl_obs_B.T[13];
       left_arm_ctrl_obs_B.R_b[5] = left_arm_ctrl_obs_B.T[12];
       left_arm_ctrl_obs_B.R_b[8] = 0.0;
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-           left_arm_ctrl_obs_B.u++) {
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 3;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.m = left_arm_ctrl_obs_B.u + 3 *
-            left_arm_ctrl_obs_B.b_k;
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] = 0.0;
-          left_arm_ctrl_obs_B.t_c = left_arm_ctrl_obs_B.b_k << 2;
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] +=
-            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t_c] *
-            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u];
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] +=
-            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t_c + 1] *
-            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u + 3];
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] +=
-            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t_c + 2] *
-            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u + 6];
-          left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.b_k + 6 *
-            left_arm_ctrl_obs_B.u] = left_arm_ctrl_obs_B.T
-            [(left_arm_ctrl_obs_B.u << 2) + left_arm_ctrl_obs_B.b_k];
-          left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.b_k + 6 *
-            (left_arm_ctrl_obs_B.u + 3)] = 0.0;
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+           left_arm_ctrl_obs_B.u_p++) {
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 3;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.u_p + 3 *
+            left_arm_ctrl_obs_B.b_k_f;
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] = 0.0;
+          left_arm_ctrl_obs_B.t = left_arm_ctrl_obs_B.b_k_f << 2;
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] +=
+            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t] *
+            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p];
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] +=
+            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t + 1] *
+            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p + 3];
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] +=
+            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t + 2] *
+            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p + 6];
+          left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.b_k_f + 6 *
+            left_arm_ctrl_obs_B.u_p] = left_arm_ctrl_obs_B.T
+            [(left_arm_ctrl_obs_B.u_p << 2) + left_arm_ctrl_obs_B.b_k_f];
+          left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.b_k_f + 6 *
+            (left_arm_ctrl_obs_B.u_p + 3)] = 0.0;
         }
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-           left_arm_ctrl_obs_B.u++) {
-        left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.u + 3] =
-          left_arm_ctrl_obs_B.dv2[3 * left_arm_ctrl_obs_B.u];
-        left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u << 2;
-        left_arm_ctrl_obs_B.t_c = 6 * (left_arm_ctrl_obs_B.u + 3);
-        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.t_c + 3] =
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+           left_arm_ctrl_obs_B.u_p++) {
+        left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.u_p + 3] =
+          left_arm_ctrl_obs_B.dv3[3 * left_arm_ctrl_obs_B.u_p];
+        left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.u_p << 2;
+        left_arm_ctrl_obs_B.t = 6 * (left_arm_ctrl_obs_B.u_p + 3);
+        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.t + 3] =
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset];
-        left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.u + 4] =
-          left_arm_ctrl_obs_B.dv2[3 * left_arm_ctrl_obs_B.u + 1];
-        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.t_c + 4] =
+        left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.u_p + 4] =
+          left_arm_ctrl_obs_B.dv3[3 * left_arm_ctrl_obs_B.u_p + 1];
+        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.t + 4] =
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset + 1];
-        left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.u + 5] =
-          left_arm_ctrl_obs_B.dv2[3 * left_arm_ctrl_obs_B.u + 2];
-        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.t_c + 5] =
+        left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.u_p + 5] =
+          left_arm_ctrl_obs_B.dv3[3 * left_arm_ctrl_obs_B.u_p + 2];
+        left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.t + 5] =
           left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.aoffset + 2];
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.t_c = left_arm_ctrl_obs_B.u + 6 *
-            left_arm_ctrl_obs_B.b_k;
-          left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c] = 0.0;
-          for (left_arm_ctrl_obs_B.m = 0; left_arm_ctrl_obs_B.m < 6;
-               left_arm_ctrl_obs_B.m++) {
-            left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c] += Xtree->data[
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.t = left_arm_ctrl_obs_B.u_p + 6 *
+            left_arm_ctrl_obs_B.b_k_f;
+          left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t] = 0.0;
+          for (left_arm_ctrl_obs_B.p_tmp = 0; left_arm_ctrl_obs_B.p_tmp < 6;
+               left_arm_ctrl_obs_B.p_tmp++) {
+            left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t] += Xtree->data[
               static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0) - 1].f1[6 *
-              left_arm_ctrl_obs_B.m + left_arm_ctrl_obs_B.u] *
-              left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.b_k +
-              left_arm_ctrl_obs_B.m];
+              left_arm_ctrl_obs_B.p_tmp + left_arm_ctrl_obs_B.u_p] *
+              left_arm_ctrl_obs_B.b_I[6 * left_arm_ctrl_obs_B.b_k_f +
+              left_arm_ctrl_obs_B.p_tmp];
           }
         }
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 36;
-           left_arm_ctrl_obs_B.u++) {
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[left_arm_ctrl_obs_B.u]
-          = left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.u];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 36;
+           left_arm_ctrl_obs_B.u_p++) {
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1]
+          .f1[left_arm_ctrl_obs_B.u_p] =
+          left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.u_p];
       }
     } else {
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
-        left_arm_ctrl_obs_B.b_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 +
-          left_arm_ctrl_obs_B.u;
-        vB->data[left_arm_ctrl_obs_B.b_k] = vJ->data[left_arm_ctrl_obs_B.b_k];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
+        left_arm_ctrl_obs_B.b_k_f = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 +
+          left_arm_ctrl_obs_B.u_p;
+        vB->data[left_arm_ctrl_obs_B.b_k_f] = vJ->data[left_arm_ctrl_obs_B.b_k_f];
       }
 
-      if ((S->size[1] == 1) || (left_arm_ctrl_obs_B.t_c == 1)) {
+      if ((S->size[1] == 1) || (left_arm_ctrl_obs_B.t == 1)) {
         left_arm_ctrl_obs_B.aoffset = S->size[1];
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] = 0.0;
-          for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k <
-               left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.b_k++) {
-            left_arm_ctrl_obs_B.a_idx_1 = S->data[6 * left_arm_ctrl_obs_B.b_k +
-              left_arm_ctrl_obs_B.u] *
-              left_arm_ctrl_obs_B.qddoti_data[left_arm_ctrl_obs_B.b_k] +
-              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u];
-            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] =
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] = 0.0;
+          for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f <
+               left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.b_k_f++) {
+            left_arm_ctrl_obs_B.a_idx_1 = S->data[6 * left_arm_ctrl_obs_B.b_k_f
+              + left_arm_ctrl_obs_B.u_p] *
+              left_arm_ctrl_obs_B.qddoti_data[left_arm_ctrl_obs_B.b_k_f] +
+              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p];
+            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] =
               left_arm_ctrl_obs_B.a_idx_1;
           }
         }
       } else {
         left_arm_ctrl_obs_B.inner = S->size[1] - 1;
-        for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-             left_arm_ctrl_obs_B.u++) {
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] = 0.0;
+        for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+             left_arm_ctrl_obs_B.u_p++) {
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k <=
-             left_arm_ctrl_obs_B.inner; left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k * 6 - 1;
-          for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i < 6;
-               left_arm_ctrl_obs_B.c_i++) {
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f <=
+             left_arm_ctrl_obs_B.inner; left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.aoffset = left_arm_ctrl_obs_B.b_k_f * 6 - 1;
+          for (left_arm_ctrl_obs_B.j_p = 0; left_arm_ctrl_obs_B.j_p < 6;
+               left_arm_ctrl_obs_B.j_p++) {
             left_arm_ctrl_obs_B.a_idx_1 = S->data[(left_arm_ctrl_obs_B.aoffset +
-              left_arm_ctrl_obs_B.c_i) + 1] * 0.0 +
-              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.c_i];
-            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.c_i] =
+              left_arm_ctrl_obs_B.j_p) + 1] * 0.0 +
+              left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.j_p];
+            left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.j_p] =
               left_arm_ctrl_obs_B.a_idx_1;
           }
         }
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
         left_arm_ctrl_obs_B.a_idx_1 = 0.0;
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-             left_arm_ctrl_obs_B.b_k++) {
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+             left_arm_ctrl_obs_B.b_k_f++) {
           left_arm_ctrl_obs_B.a_idx_1 += X->
             data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 *
-            left_arm_ctrl_obs_B.b_k + left_arm_ctrl_obs_B.u] *
-            left_arm_ctrl_obs_B.a0[left_arm_ctrl_obs_B.b_k];
+            left_arm_ctrl_obs_B.b_k_f + left_arm_ctrl_obs_B.u_p] *
+            left_arm_ctrl_obs_B.a0[left_arm_ctrl_obs_B.b_k_f];
         }
 
-        aB->data[left_arm_ctrl_obs_B.u + 6 * left_arm_ctrl_obs_B.unnamed_idx_1] =
-          left_arm_ctrl_obs_B.a_idx_1 +
-          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u];
+        aB->data[left_arm_ctrl_obs_B.u_p + 6 * left_arm_ctrl_obs_B.unnamed_idx_1]
+          = left_arm_ctrl_obs_B.a_idx_1 +
+          left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p];
       }
 
       left_arm_ctrl_obs_B.R_b[0] = 0.0;
@@ -3081,153 +3097,157 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
       left_arm_ctrl_obs_B.R_b[2] = -left_arm_ctrl_obs_B.T[13];
       left_arm_ctrl_obs_B.R_b[5] = left_arm_ctrl_obs_B.T[12];
       left_arm_ctrl_obs_B.R_b[8] = 0.0;
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-           left_arm_ctrl_obs_B.u++) {
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 3;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.m = left_arm_ctrl_obs_B.u + 3 *
-            left_arm_ctrl_obs_B.b_k;
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] = 0.0;
-          left_arm_ctrl_obs_B.t_c = left_arm_ctrl_obs_B.b_k << 2;
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] +=
-            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t_c] *
-            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u];
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] +=
-            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t_c + 1] *
-            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u + 3];
-          left_arm_ctrl_obs_B.dv2[left_arm_ctrl_obs_B.m] +=
-            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t_c + 2] *
-            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u + 6];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+           left_arm_ctrl_obs_B.u_p++) {
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 3;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.u_p + 3 *
+            left_arm_ctrl_obs_B.b_k_f;
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] = 0.0;
+          left_arm_ctrl_obs_B.t = left_arm_ctrl_obs_B.b_k_f << 2;
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] +=
+            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t] *
+            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p];
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] +=
+            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t + 1] *
+            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p + 3];
+          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.p_tmp] +=
+            left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.t + 2] *
+            left_arm_ctrl_obs_B.R_b[left_arm_ctrl_obs_B.u_p + 6];
           Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1]
-            .f1[left_arm_ctrl_obs_B.b_k + 6 * left_arm_ctrl_obs_B.u] =
-            left_arm_ctrl_obs_B.T[(left_arm_ctrl_obs_B.u << 2) +
-            left_arm_ctrl_obs_B.b_k];
+            .f1[left_arm_ctrl_obs_B.b_k_f + 6 * left_arm_ctrl_obs_B.u_p] =
+            left_arm_ctrl_obs_B.T[(left_arm_ctrl_obs_B.u_p << 2) +
+            left_arm_ctrl_obs_B.b_k_f];
           Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1]
-            .f1[left_arm_ctrl_obs_B.b_k + 6 * (left_arm_ctrl_obs_B.u + 3)] = 0.0;
+            .f1[left_arm_ctrl_obs_B.b_k_f + 6 * (left_arm_ctrl_obs_B.u_p + 3)] =
+            0.0;
         }
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-           left_arm_ctrl_obs_B.u++) {
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+           left_arm_ctrl_obs_B.u_p++) {
         Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 *
-          left_arm_ctrl_obs_B.u + 3] = left_arm_ctrl_obs_B.dv2[3 *
-          left_arm_ctrl_obs_B.u];
-        left_arm_ctrl_obs_B.b_k = left_arm_ctrl_obs_B.u << 2;
-        left_arm_ctrl_obs_B.m = 6 * (left_arm_ctrl_obs_B.u + 3);
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[left_arm_ctrl_obs_B.m
-          + 3] = left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.b_k];
+          left_arm_ctrl_obs_B.u_p + 3] = left_arm_ctrl_obs_B.dv3[3 *
+          left_arm_ctrl_obs_B.u_p];
+        left_arm_ctrl_obs_B.b_k_f = left_arm_ctrl_obs_B.u_p << 2;
+        left_arm_ctrl_obs_B.p_tmp = 6 * (left_arm_ctrl_obs_B.u_p + 3);
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1]
+          .f1[left_arm_ctrl_obs_B.p_tmp + 3] =
+          left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.b_k_f];
         Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 *
-          left_arm_ctrl_obs_B.u + 4] = left_arm_ctrl_obs_B.dv2[3 *
-          left_arm_ctrl_obs_B.u + 1];
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[left_arm_ctrl_obs_B.m
-          + 4] = left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.b_k + 1];
+          left_arm_ctrl_obs_B.u_p + 4] = left_arm_ctrl_obs_B.dv3[3 *
+          left_arm_ctrl_obs_B.u_p + 1];
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1]
+          .f1[left_arm_ctrl_obs_B.p_tmp + 4] =
+          left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.b_k_f + 1];
         Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 *
-          left_arm_ctrl_obs_B.u + 5] = left_arm_ctrl_obs_B.dv2[3 *
-          left_arm_ctrl_obs_B.u + 2];
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[left_arm_ctrl_obs_B.m
-          + 5] = left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.b_k + 2];
+          left_arm_ctrl_obs_B.u_p + 5] = left_arm_ctrl_obs_B.dv3[3 *
+          left_arm_ctrl_obs_B.u_p + 2];
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1]
+          .f1[left_arm_ctrl_obs_B.p_tmp + 5] =
+          left_arm_ctrl_obs_B.T[left_arm_ctrl_obs_B.b_k_f + 2];
       }
     }
 
-    for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 36;
-         left_arm_ctrl_obs_B.u++) {
-      left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.u] = robot->
+    for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 36;
+         left_arm_ctrl_obs_B.u_p++) {
+      left_arm_ctrl_obs_B.b_I[left_arm_ctrl_obs_B.u_p] = robot->
         Bodies[left_arm_ctrl_obs_B.unnamed_idx_1]->
-        SpatialInertia[left_arm_ctrl_obs_B.u];
+        SpatialInertia[left_arm_ctrl_obs_B.u_p];
     }
 
     left_arm_ctrl_obs_B.tempR_n[0] = 0.0;
-    left_arm_ctrl_obs_B.t_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 2;
-    left_arm_ctrl_obs_B.tempR_n[3] = -vB->data[left_arm_ctrl_obs_B.t_c];
-    left_arm_ctrl_obs_B.u = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 1;
-    left_arm_ctrl_obs_B.tempR_n[6] = vB->data[left_arm_ctrl_obs_B.u];
-    left_arm_ctrl_obs_B.tempR_n[1] = vB->data[left_arm_ctrl_obs_B.t_c];
+    left_arm_ctrl_obs_B.t = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 2;
+    left_arm_ctrl_obs_B.tempR_n[3] = -vB->data[left_arm_ctrl_obs_B.t];
+    left_arm_ctrl_obs_B.u_p = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 1;
+    left_arm_ctrl_obs_B.tempR_n[6] = vB->data[left_arm_ctrl_obs_B.u_p];
+    left_arm_ctrl_obs_B.tempR_n[1] = vB->data[left_arm_ctrl_obs_B.t];
     left_arm_ctrl_obs_B.tempR_n[4] = 0.0;
     left_arm_ctrl_obs_B.tempR_n[7] = -vB->data[6 *
       left_arm_ctrl_obs_B.unnamed_idx_1];
-    left_arm_ctrl_obs_B.tempR_n[2] = -vB->data[left_arm_ctrl_obs_B.u];
+    left_arm_ctrl_obs_B.tempR_n[2] = -vB->data[left_arm_ctrl_obs_B.u_p];
     left_arm_ctrl_obs_B.tempR_n[5] = vB->data[6 *
       left_arm_ctrl_obs_B.unnamed_idx_1];
     left_arm_ctrl_obs_B.tempR_n[8] = 0.0;
     left_arm_ctrl_obs_B.tempR[18] = 0.0;
-    left_arm_ctrl_obs_B.t_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 5;
-    left_arm_ctrl_obs_B.tempR[24] = -vB->data[left_arm_ctrl_obs_B.t_c];
-    left_arm_ctrl_obs_B.u = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 4;
-    left_arm_ctrl_obs_B.tempR[30] = vB->data[left_arm_ctrl_obs_B.u];
-    left_arm_ctrl_obs_B.tempR[19] = vB->data[left_arm_ctrl_obs_B.t_c];
+    left_arm_ctrl_obs_B.t = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 5;
+    left_arm_ctrl_obs_B.tempR[24] = -vB->data[left_arm_ctrl_obs_B.t];
+    left_arm_ctrl_obs_B.u_p = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 4;
+    left_arm_ctrl_obs_B.tempR[30] = vB->data[left_arm_ctrl_obs_B.u_p];
+    left_arm_ctrl_obs_B.tempR[19] = vB->data[left_arm_ctrl_obs_B.t];
     left_arm_ctrl_obs_B.tempR[25] = 0.0;
-    left_arm_ctrl_obs_B.t_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 3;
-    left_arm_ctrl_obs_B.tempR[31] = -vB->data[left_arm_ctrl_obs_B.t_c];
-    left_arm_ctrl_obs_B.tempR[20] = -vB->data[left_arm_ctrl_obs_B.u];
-    left_arm_ctrl_obs_B.tempR[26] = vB->data[left_arm_ctrl_obs_B.t_c];
+    left_arm_ctrl_obs_B.t = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 + 3;
+    left_arm_ctrl_obs_B.tempR[31] = -vB->data[left_arm_ctrl_obs_B.t];
+    left_arm_ctrl_obs_B.tempR[20] = -vB->data[left_arm_ctrl_obs_B.u_p];
+    left_arm_ctrl_obs_B.tempR[26] = vB->data[left_arm_ctrl_obs_B.t];
     left_arm_ctrl_obs_B.tempR[32] = 0.0;
-    for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 3;
-         left_arm_ctrl_obs_B.u++) {
+    for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 3;
+         left_arm_ctrl_obs_B.u_p++) {
       left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
-        left_arm_ctrl_obs_B.u];
-      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u] =
+        left_arm_ctrl_obs_B.u_p];
+      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p] =
         left_arm_ctrl_obs_B.a_idx_1;
-      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u + 3] = 0.0;
-      left_arm_ctrl_obs_B.t_c = 6 * (left_arm_ctrl_obs_B.u + 3);
-      left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 3] =
-        left_arm_ctrl_obs_B.a_idx_1;
-      left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
-        left_arm_ctrl_obs_B.u + 1];
-      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u + 1] =
-        left_arm_ctrl_obs_B.a_idx_1;
-      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u + 4] = 0.0;
-      left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 4] =
+      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p + 3] = 0.0;
+      left_arm_ctrl_obs_B.t = 6 * (left_arm_ctrl_obs_B.u_p + 3);
+      left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 3] =
         left_arm_ctrl_obs_B.a_idx_1;
       left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
-        left_arm_ctrl_obs_B.u + 2];
-      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u + 2] =
+        left_arm_ctrl_obs_B.u_p + 1];
+      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p + 1] =
         left_arm_ctrl_obs_B.a_idx_1;
-      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u + 5] = 0.0;
-      left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t_c + 5] =
+      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p + 4] = 0.0;
+      left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 4] =
+        left_arm_ctrl_obs_B.a_idx_1;
+      left_arm_ctrl_obs_B.a_idx_1 = left_arm_ctrl_obs_B.tempR_n[3 *
+        left_arm_ctrl_obs_B.u_p + 2];
+      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p + 2] =
+        left_arm_ctrl_obs_B.a_idx_1;
+      left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.u_p + 5] = 0.0;
+      left_arm_ctrl_obs_B.tempR[left_arm_ctrl_obs_B.t + 5] =
         left_arm_ctrl_obs_B.a_idx_1;
     }
 
-    for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-         left_arm_ctrl_obs_B.u++) {
-      left_arm_ctrl_obs_B.X_c[left_arm_ctrl_obs_B.u] = 0.0;
-      left_arm_ctrl_obs_B.b_I_m[left_arm_ctrl_obs_B.u] = 0.0;
-      for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-           left_arm_ctrl_obs_B.b_k++) {
+    for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+         left_arm_ctrl_obs_B.u_p++) {
+      left_arm_ctrl_obs_B.X_m[left_arm_ctrl_obs_B.u_p] = 0.0;
+      left_arm_ctrl_obs_B.b_I_ja[left_arm_ctrl_obs_B.u_p] = 0.0;
+      for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+           left_arm_ctrl_obs_B.b_k_f++) {
         left_arm_ctrl_obs_B.a_idx_0 = left_arm_ctrl_obs_B.b_I[6 *
-          left_arm_ctrl_obs_B.b_k + left_arm_ctrl_obs_B.u];
-        left_arm_ctrl_obs_B.t_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 +
-          left_arm_ctrl_obs_B.b_k;
-        left_arm_ctrl_obs_B.a_idx_1 = vB->data[left_arm_ctrl_obs_B.t_c] *
+          left_arm_ctrl_obs_B.b_k_f + left_arm_ctrl_obs_B.u_p];
+        left_arm_ctrl_obs_B.t = 6 * left_arm_ctrl_obs_B.unnamed_idx_1 +
+          left_arm_ctrl_obs_B.b_k_f;
+        left_arm_ctrl_obs_B.a_idx_1 = vB->data[left_arm_ctrl_obs_B.t] *
           left_arm_ctrl_obs_B.a_idx_0 +
-          left_arm_ctrl_obs_B.X_c[left_arm_ctrl_obs_B.u];
-        left_arm_ctrl_obs_B.a_idx_0 = aB->data[left_arm_ctrl_obs_B.t_c] *
+          left_arm_ctrl_obs_B.X_m[left_arm_ctrl_obs_B.u_p];
+        left_arm_ctrl_obs_B.a_idx_0 = aB->data[left_arm_ctrl_obs_B.t] *
           left_arm_ctrl_obs_B.a_idx_0 +
-          left_arm_ctrl_obs_B.b_I_m[left_arm_ctrl_obs_B.u];
-        left_arm_ctrl_obs_B.X_c[left_arm_ctrl_obs_B.u] =
+          left_arm_ctrl_obs_B.b_I_ja[left_arm_ctrl_obs_B.u_p];
+        left_arm_ctrl_obs_B.X_m[left_arm_ctrl_obs_B.u_p] =
           left_arm_ctrl_obs_B.a_idx_1;
-        left_arm_ctrl_obs_B.b_I_m[left_arm_ctrl_obs_B.u] =
+        left_arm_ctrl_obs_B.b_I_ja[left_arm_ctrl_obs_B.u_p] =
           left_arm_ctrl_obs_B.a_idx_0;
       }
     }
 
-    for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-         left_arm_ctrl_obs_B.u++) {
-      left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] = 0.0;
+    for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+         left_arm_ctrl_obs_B.u_p++) {
+      left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] = 0.0;
       left_arm_ctrl_obs_B.a_idx_1 = 0.0;
-      for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-           left_arm_ctrl_obs_B.b_k++) {
+      for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+           left_arm_ctrl_obs_B.b_k_f++) {
         left_arm_ctrl_obs_B.a_idx_1 += Xtree->
-          data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 * left_arm_ctrl_obs_B.u +
-          left_arm_ctrl_obs_B.b_k] * 0.0;
-        left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u] +=
-          left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.b_k +
-          left_arm_ctrl_obs_B.u] *
-          left_arm_ctrl_obs_B.X_c[left_arm_ctrl_obs_B.b_k];
+          data[left_arm_ctrl_obs_B.unnamed_idx_1].f1[6 * left_arm_ctrl_obs_B.u_p
+          + left_arm_ctrl_obs_B.b_k_f] * 0.0;
+        left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p] +=
+          left_arm_ctrl_obs_B.tempR[6 * left_arm_ctrl_obs_B.b_k_f +
+          left_arm_ctrl_obs_B.u_p] *
+          left_arm_ctrl_obs_B.X_m[left_arm_ctrl_obs_B.b_k_f];
       }
 
-      f->data[left_arm_ctrl_obs_B.u + 6 * left_arm_ctrl_obs_B.unnamed_idx_1] =
-        (left_arm_ctrl_obs_B.b_I_m[left_arm_ctrl_obs_B.u] +
-         left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u]) -
+      f->data[left_arm_ctrl_obs_B.u_p + 6 * left_arm_ctrl_obs_B.unnamed_idx_1] =
+        (left_arm_ctrl_obs_B.b_I_ja[left_arm_ctrl_obs_B.u_p] +
+         left_arm_ctrl_obs_B.y[left_arm_ctrl_obs_B.u_p]) -
         left_arm_ctrl_obs_B.a_idx_1;
     }
   }
@@ -3241,108 +3261,112 @@ static void lef_GravityTorqueBlock_stepImpl(robotics_slmanip_internal__e0_T *obj
     + 1.0) / -1.0) - 1;
   left_arm_ctrl_ob_emxInit_real_T(&taui, 1);
   left_arm_ctrl_ob_emxInit_real_T(&a, 2);
-  for (left_arm_ctrl_obs_B.t_c = 0; left_arm_ctrl_obs_B.t_c <=
-       left_arm_ctrl_obs_B.i_n; left_arm_ctrl_obs_B.t_c++) {
+  for (left_arm_ctrl_obs_B.t = 0; left_arm_ctrl_obs_B.t <=
+       left_arm_ctrl_obs_B.i_n; left_arm_ctrl_obs_B.t++) {
     left_arm_ctrl_obs_B.a_idx_0 = left_arm_ctrl_obs_B.nb + -static_cast<real_T>
-      (left_arm_ctrl_obs_B.t_c);
-    left_arm_ctrl_obs_B.inner = static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0);
-    left_arm_ctrl_obs_B.j_b = left_arm_ctrl_obs_B.inner - 1;
-    obj_0 = robot->Bodies[left_arm_ctrl_obs_B.j_b];
+      (left_arm_ctrl_obs_B.t);
+    left_arm_ctrl_obs_B.p_tmp = static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0);
+    left_arm_ctrl_obs_B.inner = left_arm_ctrl_obs_B.p_tmp - 1;
+    obj_0 = robot->Bodies[left_arm_ctrl_obs_B.inner];
     if (!left_arm_ctrl_obs_strcmp(obj_0->JointInternal.Type)) {
-      obj_0 = robot->Bodies[left_arm_ctrl_obs_B.j_b];
-      left_arm_ctrl_obs_B.u = S->size[0] * S->size[1];
+      obj_0 = robot->Bodies[left_arm_ctrl_obs_B.inner];
+      left_arm_ctrl_obs_B.u_p = S->size[0] * S->size[1];
       S->size[0] = 6;
       S->size[1] = obj_0->JointInternal.MotionSubspace->size[1];
-      left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.u);
+      left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.u_p);
       left_arm_ctrl_obs_B.aoffset = obj_0->JointInternal.MotionSubspace->size[0]
         * obj_0->JointInternal.MotionSubspace->size[1] - 1;
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <=
-           left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u++) {
-        S->data[left_arm_ctrl_obs_B.u] = obj_0->
-          JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.u];
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <=
+           left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.u_p++) {
+        S->data[left_arm_ctrl_obs_B.u_p] = obj_0->
+          JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.u_p];
       }
 
-      left_arm_ctrl_obs_B.u = a->size[0] * a->size[1];
+      left_arm_ctrl_obs_B.u_p = a->size[0] * a->size[1];
       a->size[0] = S->size[1];
       a->size[1] = 6;
-      left_a_emxEnsureCapacity_real_T(a, left_arm_ctrl_obs_B.u);
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
+      left_a_emxEnsureCapacity_real_T(a, left_arm_ctrl_obs_B.u_p);
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
         left_arm_ctrl_obs_B.aoffset = S->size[1];
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k <
-             left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.b_k++) {
-          a->data[left_arm_ctrl_obs_B.b_k + a->size[0] * left_arm_ctrl_obs_B.u] =
-            S->data[6 * left_arm_ctrl_obs_B.b_k + left_arm_ctrl_obs_B.u];
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f <
+             left_arm_ctrl_obs_B.aoffset; left_arm_ctrl_obs_B.b_k_f++) {
+          a->data[left_arm_ctrl_obs_B.b_k_f + a->size[0] *
+            left_arm_ctrl_obs_B.u_p] = S->data[6 * left_arm_ctrl_obs_B.b_k_f +
+            left_arm_ctrl_obs_B.u_p];
         }
       }
 
       left_arm_ctrl_obs_B.m = a->size[0] - 1;
-      left_arm_ctrl_obs_B.u = taui->size[0];
+      left_arm_ctrl_obs_B.u_p = taui->size[0];
       taui->size[0] = a->size[0];
-      left_a_emxEnsureCapacity_real_T(taui, left_arm_ctrl_obs_B.u);
+      left_a_emxEnsureCapacity_real_T(taui, left_arm_ctrl_obs_B.u_p);
       for (left_arm_ctrl_obs_B.unnamed_idx_1 = 0;
            left_arm_ctrl_obs_B.unnamed_idx_1 <= left_arm_ctrl_obs_B.m;
            left_arm_ctrl_obs_B.unnamed_idx_1++) {
         taui->data[left_arm_ctrl_obs_B.unnamed_idx_1] = 0.0;
       }
 
-      for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-           left_arm_ctrl_obs_B.b_k++) {
+      for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+           left_arm_ctrl_obs_B.b_k_f++) {
         left_arm_ctrl_obs_B.aoffset = (left_arm_ctrl_obs_B.m + 1) *
-          left_arm_ctrl_obs_B.b_k - 1;
-        for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i <=
-             left_arm_ctrl_obs_B.m; left_arm_ctrl_obs_B.c_i++) {
-          taui->data[left_arm_ctrl_obs_B.c_i] += f->data[(static_cast<int32_T>
-            (left_arm_ctrl_obs_B.a_idx_0) - 1) * 6 + left_arm_ctrl_obs_B.b_k] *
-            a->data[(left_arm_ctrl_obs_B.aoffset + left_arm_ctrl_obs_B.c_i) + 1];
+          left_arm_ctrl_obs_B.b_k_f - 1;
+        for (left_arm_ctrl_obs_B.j_p = 0; left_arm_ctrl_obs_B.j_p <=
+             left_arm_ctrl_obs_B.m; left_arm_ctrl_obs_B.j_p++) {
+          taui->data[left_arm_ctrl_obs_B.j_p] += f->data[(static_cast<int32_T>
+            (left_arm_ctrl_obs_B.a_idx_0) - 1) * 6 + left_arm_ctrl_obs_B.b_k_f] *
+            a->data[(left_arm_ctrl_obs_B.aoffset + left_arm_ctrl_obs_B.j_p) + 1];
         }
       }
 
       left_arm_ctrl_obs_B.b_idx_0 = robot->
-        VelocityDoFMap[left_arm_ctrl_obs_B.inner - 1];
+        VelocityDoFMap[left_arm_ctrl_obs_B.p_tmp - 1];
       left_arm_ctrl_obs_B.b_idx_1 = robot->
-        VelocityDoFMap[left_arm_ctrl_obs_B.inner + 9];
+        VelocityDoFMap[left_arm_ctrl_obs_B.p_tmp + 9];
       if (left_arm_ctrl_obs_B.b_idx_0 > left_arm_ctrl_obs_B.b_idx_1) {
-        left_arm_ctrl_obs_B.m = 0;
+        left_arm_ctrl_obs_B.b_k_f = 0;
         left_arm_ctrl_obs_B.unnamed_idx_1 = 0;
       } else {
-        left_arm_ctrl_obs_B.m = static_cast<int32_T>(left_arm_ctrl_obs_B.b_idx_0)
-          - 1;
+        left_arm_ctrl_obs_B.b_k_f = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.b_idx_0) - 1;
         left_arm_ctrl_obs_B.unnamed_idx_1 = static_cast<int32_T>
           (left_arm_ctrl_obs_B.b_idx_1);
       }
 
-      left_arm_ctrl_obs_B.unnamed_idx_1 -= left_arm_ctrl_obs_B.m;
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u <
-           left_arm_ctrl_obs_B.unnamed_idx_1; left_arm_ctrl_obs_B.u++) {
-        left_arm_ctrl_obs_B.tau[left_arm_ctrl_obs_B.m + left_arm_ctrl_obs_B.u] =
-          taui->data[left_arm_ctrl_obs_B.u];
+      left_arm_ctrl_obs_B.unnamed_idx_1 -= left_arm_ctrl_obs_B.b_k_f;
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p <
+           left_arm_ctrl_obs_B.unnamed_idx_1; left_arm_ctrl_obs_B.u_p++) {
+        left_arm_ctrl_obs_B.tau[left_arm_ctrl_obs_B.b_k_f +
+          left_arm_ctrl_obs_B.u_p] = taui->data[left_arm_ctrl_obs_B.u_p];
       }
     }
 
-    left_arm_ctrl_obs_B.a_idx_0 = robot->Bodies[left_arm_ctrl_obs_B.j_b]
+    left_arm_ctrl_obs_B.a_idx_0 = robot->Bodies[left_arm_ctrl_obs_B.inner]
       ->ParentIndex;
     if (left_arm_ctrl_obs_B.a_idx_0 > 0.0) {
-      left_arm_ctrl_obs_B.m = static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0);
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
+      left_arm_ctrl_obs_B.unnamed_idx_1 = static_cast<int32_T>
+        (left_arm_ctrl_obs_B.a_idx_0);
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
         left_arm_ctrl_obs_B.a_idx_1 = 0.0;
-        for (left_arm_ctrl_obs_B.b_k = 0; left_arm_ctrl_obs_B.b_k < 6;
-             left_arm_ctrl_obs_B.b_k++) {
-          left_arm_ctrl_obs_B.a_idx_1 += f->data[(left_arm_ctrl_obs_B.inner - 1)
-            * 6 + left_arm_ctrl_obs_B.b_k] * X->data[left_arm_ctrl_obs_B.j_b]
-            .f1[6 * left_arm_ctrl_obs_B.u + left_arm_ctrl_obs_B.b_k];
+        for (left_arm_ctrl_obs_B.b_k_f = 0; left_arm_ctrl_obs_B.b_k_f < 6;
+             left_arm_ctrl_obs_B.b_k_f++) {
+          left_arm_ctrl_obs_B.a_idx_1 += f->data[(left_arm_ctrl_obs_B.p_tmp - 1)
+            * 6 + left_arm_ctrl_obs_B.b_k_f] * X->data[left_arm_ctrl_obs_B.inner]
+            .f1[6 * left_arm_ctrl_obs_B.u_p + left_arm_ctrl_obs_B.b_k_f];
         }
 
-        left_arm_ctrl_obs_B.a0[left_arm_ctrl_obs_B.u] = f->data
-          [(left_arm_ctrl_obs_B.m - 1) * 6 + left_arm_ctrl_obs_B.u] +
-          left_arm_ctrl_obs_B.a_idx_1;
+        left_arm_ctrl_obs_B.a0[left_arm_ctrl_obs_B.u_p] = f->data
+          [(left_arm_ctrl_obs_B.unnamed_idx_1 - 1) * 6 + left_arm_ctrl_obs_B.u_p]
+          + left_arm_ctrl_obs_B.a_idx_1;
       }
 
-      for (left_arm_ctrl_obs_B.u = 0; left_arm_ctrl_obs_B.u < 6;
-           left_arm_ctrl_obs_B.u++) {
-        f->data[left_arm_ctrl_obs_B.u + 6 * (left_arm_ctrl_obs_B.m - 1)] =
-          left_arm_ctrl_obs_B.a0[left_arm_ctrl_obs_B.u];
+      left_arm_ctrl_obs_B.unnamed_idx_1 = static_cast<int32_T>
+        (left_arm_ctrl_obs_B.a_idx_0);
+      for (left_arm_ctrl_obs_B.u_p = 0; left_arm_ctrl_obs_B.u_p < 6;
+           left_arm_ctrl_obs_B.u_p++) {
+        f->data[left_arm_ctrl_obs_B.u_p + 6 * (left_arm_ctrl_obs_B.unnamed_idx_1
+          - 1)] = left_arm_ctrl_obs_B.a0[left_arm_ctrl_obs_B.u_p];
       }
     }
   }
@@ -3371,9 +3395,9 @@ static void left_arm_ct_emxInit_f_cell_wrap(emxArray_f_cell_wrap_left_arm_T
   emxArray->size = (int32_T *)malloc(sizeof(int32_T) * numDimensions);
   emxArray->allocatedSize = 0;
   emxArray->canFreeData = true;
-  for (left_arm_ctrl_obs_B.i_ce = 0; left_arm_ctrl_obs_B.i_ce < numDimensions;
-       left_arm_ctrl_obs_B.i_ce++) {
-    emxArray->size[left_arm_ctrl_obs_B.i_ce] = 0;
+  for (left_arm_ctrl_obs_B.i_i3 = 0; left_arm_ctrl_obs_B.i_i3 < numDimensions;
+       left_arm_ctrl_obs_B.i_i3++) {
+    emxArray->size[left_arm_ctrl_obs_B.i_i3] = 0;
   }
 }
 
@@ -3385,27 +3409,27 @@ static void l_emxEnsureCapacity_f_cell_wrap(emxArray_f_cell_wrap_left_arm_T
     oldNumel = 0;
   }
 
-  left_arm_ctrl_obs_B.newNumel_c = 1;
-  for (left_arm_ctrl_obs_B.i_b = 0; left_arm_ctrl_obs_B.i_b <
-       emxArray->numDimensions; left_arm_ctrl_obs_B.i_b++) {
-    left_arm_ctrl_obs_B.newNumel_c *= emxArray->size[left_arm_ctrl_obs_B.i_b];
+  left_arm_ctrl_obs_B.newNumel_k = 1;
+  for (left_arm_ctrl_obs_B.i_j = 0; left_arm_ctrl_obs_B.i_j <
+       emxArray->numDimensions; left_arm_ctrl_obs_B.i_j++) {
+    left_arm_ctrl_obs_B.newNumel_k *= emxArray->size[left_arm_ctrl_obs_B.i_j];
   }
 
-  if (left_arm_ctrl_obs_B.newNumel_c > emxArray->allocatedSize) {
-    left_arm_ctrl_obs_B.i_b = emxArray->allocatedSize;
-    if (left_arm_ctrl_obs_B.i_b < 16) {
-      left_arm_ctrl_obs_B.i_b = 16;
+  if (left_arm_ctrl_obs_B.newNumel_k > emxArray->allocatedSize) {
+    left_arm_ctrl_obs_B.i_j = emxArray->allocatedSize;
+    if (left_arm_ctrl_obs_B.i_j < 16) {
+      left_arm_ctrl_obs_B.i_j = 16;
     }
 
-    while (left_arm_ctrl_obs_B.i_b < left_arm_ctrl_obs_B.newNumel_c) {
-      if (left_arm_ctrl_obs_B.i_b > 1073741823) {
-        left_arm_ctrl_obs_B.i_b = MAX_int32_T;
+    while (left_arm_ctrl_obs_B.i_j < left_arm_ctrl_obs_B.newNumel_k) {
+      if (left_arm_ctrl_obs_B.i_j > 1073741823) {
+        left_arm_ctrl_obs_B.i_j = MAX_int32_T;
       } else {
-        left_arm_ctrl_obs_B.i_b <<= 1;
+        left_arm_ctrl_obs_B.i_j <<= 1;
       }
     }
 
-    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_b), sizeof
+    newData = calloc(static_cast<uint32_T>(left_arm_ctrl_obs_B.i_j), sizeof
                      (f_cell_wrap_left_arm_ctrl_obs_T));
     if (emxArray->data != NULL) {
       memcpy(newData, emxArray->data, sizeof(f_cell_wrap_left_arm_ctrl_obs_T)
@@ -3416,7 +3440,7 @@ static void l_emxEnsureCapacity_f_cell_wrap(emxArray_f_cell_wrap_left_arm_T
     }
 
     emxArray->data = (f_cell_wrap_left_arm_ctrl_obs_T *)newData;
-    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_b;
+    emxArray->allocatedSize = left_arm_ctrl_obs_B.i_j;
     emxArray->canFreeData = true;
   }
 }
@@ -3457,27 +3481,27 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
   boolean_T exitg1;
   int32_T exitg2;
   left_arm_ctrl_obs_B.nb_f = robot->NumBodies;
-  left_arm_ctrl_obs_B.vNum_h = robot->VelocityNumber;
+  left_arm_ctrl_obs_B.vNum_i = robot->VelocityNumber;
   left_arm_ctrl_obs_B.nm1d2 = H->size[0] * H->size[1];
-  left_arm_ctrl_obs_B.b_i_p = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_h);
-  H->size[0] = left_arm_ctrl_obs_B.b_i_p;
-  H->size[1] = left_arm_ctrl_obs_B.b_i_p;
+  left_arm_ctrl_obs_B.b_i = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_i);
+  H->size[0] = left_arm_ctrl_obs_B.b_i;
+  H->size[1] = left_arm_ctrl_obs_B.b_i;
   left_a_emxEnsureCapacity_real_T(H, left_arm_ctrl_obs_B.nm1d2);
-  left_arm_ctrl_obs_B.n_p = left_arm_ctrl_obs_B.b_i_p *
-    left_arm_ctrl_obs_B.b_i_p - 1;
+  left_arm_ctrl_obs_B.n_i = left_arm_ctrl_obs_B.b_i * left_arm_ctrl_obs_B.b_i -
+    1;
   for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-       left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+       left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
     H->data[left_arm_ctrl_obs_B.nm1d2] = 0.0;
   }
 
   left_arm_ctrl_ob_emxInit_real_T(&lambda_, 2);
   left_arm_ctrl_obs_B.nm1d2 = lambda_->size[0] * lambda_->size[1];
   lambda_->size[0] = 1;
-  left_arm_ctrl_obs_B.unnamed_idx_1_c = static_cast<int32_T>
+  left_arm_ctrl_obs_B.unnamed_idx_1_i = static_cast<int32_T>
     (left_arm_ctrl_obs_B.nb_f);
-  lambda_->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_c;
+  lambda_->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_i;
   left_a_emxEnsureCapacity_real_T(lambda_, left_arm_ctrl_obs_B.nm1d2);
-  left_arm_ctrl_obs_B.idx = left_arm_ctrl_obs_B.unnamed_idx_1_c - 1;
+  left_arm_ctrl_obs_B.idx = left_arm_ctrl_obs_B.unnamed_idx_1_i - 1;
   for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
        left_arm_ctrl_obs_B.idx; left_arm_ctrl_obs_B.nm1d2++) {
     lambda_->data[left_arm_ctrl_obs_B.nm1d2] = 0.0;
@@ -3485,11 +3509,11 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
 
   left_arm_ctrl_obs_B.nm1d2 = lambda->size[0] * lambda->size[1];
   lambda->size[0] = 1;
-  lambda->size[1] = left_arm_ctrl_obs_B.b_i_p;
+  lambda->size[1] = left_arm_ctrl_obs_B.b_i;
   left_a_emxEnsureCapacity_real_T(lambda, left_arm_ctrl_obs_B.nm1d2);
-  left_arm_ctrl_obs_B.n_p = left_arm_ctrl_obs_B.b_i_p - 1;
+  left_arm_ctrl_obs_B.n_i = left_arm_ctrl_obs_B.b_i - 1;
   for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-       left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+       left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
     lambda->data[left_arm_ctrl_obs_B.nm1d2] = 0.0;
   }
 
@@ -3497,57 +3521,57 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
   left_arm_ct_emxInit_f_cell_wrap(&X, 2);
   left_arm_ctrl_obs_B.nm1d2 = Ic->size[0] * Ic->size[1];
   Ic->size[0] = 1;
-  Ic->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_c;
+  Ic->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_i;
   l_emxEnsureCapacity_f_cell_wrap(Ic, left_arm_ctrl_obs_B.nm1d2);
   left_arm_ctrl_obs_B.nm1d2 = X->size[0] * X->size[1];
   X->size[0] = 1;
-  X->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_c;
+  X->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_i;
   l_emxEnsureCapacity_f_cell_wrap(X, left_arm_ctrl_obs_B.nm1d2);
-  for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <=
-       left_arm_ctrl_obs_B.idx; left_arm_ctrl_obs_B.b_i_p++) {
+  for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <=
+       left_arm_ctrl_obs_B.idx; left_arm_ctrl_obs_B.b_i++) {
     for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 36;
          left_arm_ctrl_obs_B.nm1d2++) {
-      Ic->data[left_arm_ctrl_obs_B.b_i_p].f1[left_arm_ctrl_obs_B.nm1d2] =
-        robot->Bodies[left_arm_ctrl_obs_B.b_i_p]->
+      Ic->data[left_arm_ctrl_obs_B.b_i].f1[left_arm_ctrl_obs_B.nm1d2] =
+        robot->Bodies[left_arm_ctrl_obs_B.b_i]->
         SpatialInertia[left_arm_ctrl_obs_B.nm1d2];
     }
 
-    left_arm_ctrl_obs_B.vNum_h = robot->PositionDoFMap[left_arm_ctrl_obs_B.b_i_p];
-    left_arm_ctrl_obs_B.p_idx_1 = robot->
-      PositionDoFMap[left_arm_ctrl_obs_B.b_i_p + 10];
-    if (left_arm_ctrl_obs_B.p_idx_1 < left_arm_ctrl_obs_B.vNum_h) {
-      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i_p];
+    left_arm_ctrl_obs_B.vNum_i = robot->PositionDoFMap[left_arm_ctrl_obs_B.b_i];
+    left_arm_ctrl_obs_B.p_idx_1 = robot->PositionDoFMap[left_arm_ctrl_obs_B.b_i
+      + 10];
+    if (left_arm_ctrl_obs_B.p_idx_1 < left_arm_ctrl_obs_B.vNum_i) {
+      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i];
       rigidBodyJoint_transformBodyToP(&obj->JointInternal,
         left_arm_ctrl_obs_B.T_g);
     } else {
-      if (left_arm_ctrl_obs_B.vNum_h > left_arm_ctrl_obs_B.p_idx_1) {
-        left_arm_ctrl_obs_B.unnamed_idx_1_c = 0;
+      if (left_arm_ctrl_obs_B.vNum_i > left_arm_ctrl_obs_B.p_idx_1) {
+        left_arm_ctrl_obs_B.unnamed_idx_1_i = 0;
         left_arm_ctrl_obs_B.nm1d2 = -1;
       } else {
-        left_arm_ctrl_obs_B.unnamed_idx_1_c = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.vNum_h) - 1;
+        left_arm_ctrl_obs_B.unnamed_idx_1_i = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.vNum_i) - 1;
         left_arm_ctrl_obs_B.nm1d2 = static_cast<int32_T>
           (left_arm_ctrl_obs_B.p_idx_1) - 1;
       }
 
-      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i_p];
+      obj = robot->Bodies[left_arm_ctrl_obs_B.b_i];
       left_arm_ctrl_obs_B.q_size_tmp = left_arm_ctrl_obs_B.nm1d2 -
-        left_arm_ctrl_obs_B.unnamed_idx_1_c;
-      left_arm_ctrl_obs_B.q_size_g = left_arm_ctrl_obs_B.q_size_tmp + 1;
+        left_arm_ctrl_obs_B.unnamed_idx_1_i;
+      left_arm_ctrl_obs_B.q_size_j = left_arm_ctrl_obs_B.q_size_tmp + 1;
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
            left_arm_ctrl_obs_B.q_size_tmp; left_arm_ctrl_obs_B.nm1d2++) {
-        left_arm_ctrl_obs_B.q_data_n[left_arm_ctrl_obs_B.nm1d2] =
-          q[left_arm_ctrl_obs_B.unnamed_idx_1_c + left_arm_ctrl_obs_B.nm1d2];
+        left_arm_ctrl_obs_B.q_data_c[left_arm_ctrl_obs_B.nm1d2] =
+          q[left_arm_ctrl_obs_B.unnamed_idx_1_i + left_arm_ctrl_obs_B.nm1d2];
       }
 
       rigidBodyJoint_transformBodyT_e(&obj->JointInternal,
-        left_arm_ctrl_obs_B.q_data_n, &left_arm_ctrl_obs_B.q_size_g,
+        left_arm_ctrl_obs_B.q_data_c, &left_arm_ctrl_obs_B.q_size_j,
         left_arm_ctrl_obs_B.T_g);
     }
 
-    left_arm_ctrl_obs_tforminv(left_arm_ctrl_obs_B.T_g, left_arm_ctrl_obs_B.dv);
-    left_arm_ct_tformToSpatialXform(left_arm_ctrl_obs_B.dv, X->
-      data[left_arm_ctrl_obs_B.b_i_p].f1);
+    left_arm_ctrl_obs_tforminv(left_arm_ctrl_obs_B.T_g, left_arm_ctrl_obs_B.dv1);
+    left_arm_ct_tformToSpatialXform(left_arm_ctrl_obs_B.dv1, X->
+      data[left_arm_ctrl_obs_B.b_i].f1);
   }
 
   left_arm_ctrl_obs_B.idx = static_cast<int32_T>(((-1.0 -
@@ -3559,54 +3583,54 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
   left_arm_ctrl_ob_emxInit_char_T(&a, 2);
   left_arm_ctrl_ob_emxInit_real_T(&a_0, 2);
   left_arm_ctrl_ob_emxInit_real_T(&B, 2);
-  for (left_arm_ctrl_obs_B.unnamed_idx_1_c = 0;
-       left_arm_ctrl_obs_B.unnamed_idx_1_c <= left_arm_ctrl_obs_B.idx;
-       left_arm_ctrl_obs_B.unnamed_idx_1_c++) {
+  for (left_arm_ctrl_obs_B.unnamed_idx_1_i = 0;
+       left_arm_ctrl_obs_B.unnamed_idx_1_i <= left_arm_ctrl_obs_B.idx;
+       left_arm_ctrl_obs_B.unnamed_idx_1_i++) {
     left_arm_ctrl_obs_B.pid_tmp = static_cast<int32_T>(left_arm_ctrl_obs_B.nb_f
-      + -static_cast<real_T>(left_arm_ctrl_obs_B.unnamed_idx_1_c));
+      + -static_cast<real_T>(left_arm_ctrl_obs_B.unnamed_idx_1_i));
     left_arm_ctrl_obs_B.q_size_tmp = left_arm_ctrl_obs_B.pid_tmp - 1;
     left_arm_ctrl_obs_B.pid = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp]
       ->ParentIndex;
-    left_arm_ctrl_obs_B.vNum_h = robot->
+    left_arm_ctrl_obs_B.vNum_i = robot->
       VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp - 1];
     left_arm_ctrl_obs_B.p_idx_1 = robot->
       VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp + 9];
     if (left_arm_ctrl_obs_B.pid > 0.0) {
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 6;
            left_arm_ctrl_obs_B.nm1d2++) {
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          left_arm_ctrl_obs_B.n_p = left_arm_ctrl_obs_B.nm1d2 + 6 *
-            left_arm_ctrl_obs_B.b_i_p;
-          left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.n_p] = 0.0;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          left_arm_ctrl_obs_B.n_i = left_arm_ctrl_obs_B.nm1d2 + 6 *
+            left_arm_ctrl_obs_B.b_i;
+          left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.n_i] = 0.0;
           for (left_arm_ctrl_obs_B.cb = 0; left_arm_ctrl_obs_B.cb < 6;
                left_arm_ctrl_obs_B.cb++) {
-            left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.n_p] += X->
+            left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.n_i] += X->
               data[left_arm_ctrl_obs_B.q_size_tmp].f1[6 *
               left_arm_ctrl_obs_B.nm1d2 + left_arm_ctrl_obs_B.cb] * Ic->
               data[left_arm_ctrl_obs_B.q_size_tmp].f1[6 *
-              left_arm_ctrl_obs_B.b_i_p + left_arm_ctrl_obs_B.cb];
+              left_arm_ctrl_obs_B.b_i + left_arm_ctrl_obs_B.cb];
           }
         }
       }
 
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 6;
            left_arm_ctrl_obs_B.nm1d2++) {
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          left_arm_ctrl_obs_B.b_idx_0_e = 0.0;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          left_arm_ctrl_obs_B.b_idx_0_o = 0.0;
           for (left_arm_ctrl_obs_B.cb = 0; left_arm_ctrl_obs_B.cb < 6;
                left_arm_ctrl_obs_B.cb++) {
-            left_arm_ctrl_obs_B.b_idx_0_e += left_arm_ctrl_obs_B.X[6 *
+            left_arm_ctrl_obs_B.b_idx_0_o += left_arm_ctrl_obs_B.X[6 *
               left_arm_ctrl_obs_B.cb + left_arm_ctrl_obs_B.nm1d2] * X->
               data[left_arm_ctrl_obs_B.q_size_tmp].f1[6 *
-              left_arm_ctrl_obs_B.b_i_p + left_arm_ctrl_obs_B.cb];
+              left_arm_ctrl_obs_B.b_i + left_arm_ctrl_obs_B.cb];
           }
 
-          left_arm_ctrl_obs_B.cb = 6 * left_arm_ctrl_obs_B.b_i_p +
+          left_arm_ctrl_obs_B.cb = 6 * left_arm_ctrl_obs_B.b_i +
             left_arm_ctrl_obs_B.nm1d2;
           Ic->data[static_cast<int32_T>(left_arm_ctrl_obs_B.pid) - 1]
-            .f1[left_arm_ctrl_obs_B.cb] += left_arm_ctrl_obs_B.b_idx_0_e;
+            .f1[left_arm_ctrl_obs_B.cb] += left_arm_ctrl_obs_B.b_idx_0_o;
         }
       }
 
@@ -3614,7 +3638,7 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
       if (lambda_->data[left_arm_ctrl_obs_B.q_size_tmp] > 0.0) {
         for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 5;
              left_arm_ctrl_obs_B.nm1d2++) {
-          left_arm_ctrl_obs_B.b_fb[left_arm_ctrl_obs_B.nm1d2] =
+          left_arm_ctrl_obs_B.b_a[left_arm_ctrl_obs_B.nm1d2] =
             tmp[left_arm_ctrl_obs_B.nm1d2];
         }
       }
@@ -3628,35 +3652,35 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
         a->size[0] = 1;
         a->size[1] = obj->JointInternal.Type->size[1];
         left_a_emxEnsureCapacity_char_T(a, left_arm_ctrl_obs_B.nm1d2);
-        left_arm_ctrl_obs_B.n_p = obj->JointInternal.Type->size[0] *
+        left_arm_ctrl_obs_B.n_i = obj->JointInternal.Type->size[0] *
           obj->JointInternal.Type->size[1] - 1;
         for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-             left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+             left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
           a->data[left_arm_ctrl_obs_B.nm1d2] = obj->JointInternal.Type->
             data[left_arm_ctrl_obs_B.nm1d2];
         }
 
-        left_arm_ctrl_obs_B.b_bool_p = false;
+        left_arm_ctrl_obs_B.b_bool_f = false;
         if (a->size[1] == 5) {
           left_arm_ctrl_obs_B.nm1d2 = 1;
           do {
             exitg2 = 0;
             if (left_arm_ctrl_obs_B.nm1d2 - 1 < 5) {
-              left_arm_ctrl_obs_B.n_p = left_arm_ctrl_obs_B.nm1d2 - 1;
-              if (a->data[left_arm_ctrl_obs_B.n_p] !=
-                  left_arm_ctrl_obs_B.b_fb[left_arm_ctrl_obs_B.n_p]) {
+              left_arm_ctrl_obs_B.n_i = left_arm_ctrl_obs_B.nm1d2 - 1;
+              if (a->data[left_arm_ctrl_obs_B.n_i] !=
+                  left_arm_ctrl_obs_B.b_a[left_arm_ctrl_obs_B.n_i]) {
                 exitg2 = 1;
               } else {
                 left_arm_ctrl_obs_B.nm1d2++;
               }
             } else {
-              left_arm_ctrl_obs_B.b_bool_p = true;
+              left_arm_ctrl_obs_B.b_bool_f = true;
               exitg2 = 1;
             }
           } while (exitg2 == 0);
         }
 
-        if (left_arm_ctrl_obs_B.b_bool_p) {
+        if (left_arm_ctrl_obs_B.b_bool_f) {
           lambda_->data[left_arm_ctrl_obs_B.q_size_tmp] = robot->Bodies[
             static_cast<int32_T>(lambda_->data[left_arm_ctrl_obs_B.q_size_tmp])
             - 1]->ParentIndex;
@@ -3666,62 +3690,62 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
       }
     }
 
-    left_arm_ctrl_obs_B.b_idx_0_e = robot->
+    left_arm_ctrl_obs_B.b_idx_0_o = robot->
       VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp - 1];
-    left_arm_ctrl_obs_B.b_idx_1_c = robot->
+    left_arm_ctrl_obs_B.b_idx_1_k = robot->
       VelocityDoFMap[left_arm_ctrl_obs_B.pid_tmp + 9];
-    if (left_arm_ctrl_obs_B.b_idx_0_e <= left_arm_ctrl_obs_B.b_idx_1_c) {
+    if (left_arm_ctrl_obs_B.b_idx_0_o <= left_arm_ctrl_obs_B.b_idx_1_k) {
       obj = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp];
       left_arm_ctrl_obs_B.nm1d2 = Si->size[0] * Si->size[1];
       Si->size[0] = 6;
       Si->size[1] = obj->JointInternal.MotionSubspace->size[1];
       left_a_emxEnsureCapacity_real_T(Si, left_arm_ctrl_obs_B.nm1d2);
-      left_arm_ctrl_obs_B.n_p = obj->JointInternal.MotionSubspace->size[0] *
+      left_arm_ctrl_obs_B.n_i = obj->JointInternal.MotionSubspace->size[0] *
         obj->JointInternal.MotionSubspace->size[1] - 1;
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-           left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+           left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
         Si->data[left_arm_ctrl_obs_B.nm1d2] = obj->
           JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.nm1d2];
       }
 
-      left_arm_ctrl_obs_B.n_p = Si->size[1] - 1;
+      left_arm_ctrl_obs_B.n_i = Si->size[1] - 1;
       left_arm_ctrl_obs_B.nm1d2 = Fi->size[0] * Fi->size[1];
       Fi->size[0] = 6;
       Fi->size[1] = Si->size[1];
       left_a_emxEnsureCapacity_real_T(Fi, left_arm_ctrl_obs_B.nm1d2);
-      for (left_arm_ctrl_obs_B.b_j = 0; left_arm_ctrl_obs_B.b_j <=
-           left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.b_j++) {
-        left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_j * 6 - 1;
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          Fi->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i_p) + 1]
-            = 0.0;
+      for (left_arm_ctrl_obs_B.b_j_l = 0; left_arm_ctrl_obs_B.b_j_l <=
+           left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.b_j_l++) {
+        left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_j_l * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          Fi->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i) + 1] =
+            0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          left_arm_ctrl_obs_B.aoffset_n = left_arm_ctrl_obs_B.b_i_p * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          left_arm_ctrl_obs_B.aoffset_d = left_arm_ctrl_obs_B.b_i * 6 - 1;
           left_arm_ctrl_obs_B.temp = Si->data[(left_arm_ctrl_obs_B.pid_tmp +
-            left_arm_ctrl_obs_B.b_i_p) + 1];
-          for (left_arm_ctrl_obs_B.c_i_n = 0; left_arm_ctrl_obs_B.c_i_n < 6;
-               left_arm_ctrl_obs_B.c_i_n++) {
-            left_arm_ctrl_obs_B.i_k = left_arm_ctrl_obs_B.c_i_n + 1;
+            left_arm_ctrl_obs_B.b_i) + 1];
+          for (left_arm_ctrl_obs_B.c_i_f = 0; left_arm_ctrl_obs_B.c_i_f < 6;
+               left_arm_ctrl_obs_B.c_i_f++) {
+            left_arm_ctrl_obs_B.i_g = left_arm_ctrl_obs_B.c_i_f + 1;
             left_arm_ctrl_obs_B.nm1d2 = left_arm_ctrl_obs_B.pid_tmp +
-              left_arm_ctrl_obs_B.i_k;
+              left_arm_ctrl_obs_B.i_g;
             Fi->data[left_arm_ctrl_obs_B.nm1d2] += Ic->
               data[left_arm_ctrl_obs_B.q_size_tmp]
-              .f1[left_arm_ctrl_obs_B.aoffset_n + left_arm_ctrl_obs_B.i_k] *
+              .f1[left_arm_ctrl_obs_B.aoffset_d + left_arm_ctrl_obs_B.i_g] *
               left_arm_ctrl_obs_B.temp;
           }
         }
       }
 
-      if (left_arm_ctrl_obs_B.vNum_h > left_arm_ctrl_obs_B.p_idx_1) {
+      if (left_arm_ctrl_obs_B.vNum_i > left_arm_ctrl_obs_B.p_idx_1) {
         left_arm_ctrl_obs_B.pid_tmp = 0;
         left_arm_ctrl_obs_B.cb = 0;
       } else {
         left_arm_ctrl_obs_B.pid_tmp = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.vNum_h) - 1;
+          (left_arm_ctrl_obs_B.vNum_i) - 1;
         left_arm_ctrl_obs_B.cb = left_arm_ctrl_obs_B.pid_tmp;
       }
 
@@ -3731,70 +3755,70 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
       left_a_emxEnsureCapacity_real_T(a_0, left_arm_ctrl_obs_B.nm1d2);
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 6;
            left_arm_ctrl_obs_B.nm1d2++) {
-        left_arm_ctrl_obs_B.n_p = Si->size[1];
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <
-             left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.b_i_p++) {
-          a_0->data[left_arm_ctrl_obs_B.b_i_p + a_0->size[0] *
-            left_arm_ctrl_obs_B.nm1d2] = Si->data[6 * left_arm_ctrl_obs_B.b_i_p
-            + left_arm_ctrl_obs_B.nm1d2];
+        left_arm_ctrl_obs_B.n_i = Si->size[1];
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <
+             left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.b_i++) {
+          a_0->data[left_arm_ctrl_obs_B.b_i + a_0->size[0] *
+            left_arm_ctrl_obs_B.nm1d2] = Si->data[6 * left_arm_ctrl_obs_B.b_i +
+            left_arm_ctrl_obs_B.nm1d2];
         }
       }
 
-      left_arm_ctrl_obs_B.m_o = a_0->size[0];
-      left_arm_ctrl_obs_B.n_p = Fi->size[1] - 1;
+      left_arm_ctrl_obs_B.m_d = a_0->size[0];
+      left_arm_ctrl_obs_B.n_i = Fi->size[1] - 1;
       left_arm_ctrl_obs_B.nm1d2 = Hji->size[0] * Hji->size[1];
       Hji->size[0] = a_0->size[0];
       Hji->size[1] = Fi->size[1];
       left_a_emxEnsureCapacity_real_T(Hji, left_arm_ctrl_obs_B.nm1d2);
-      for (left_arm_ctrl_obs_B.b_j = 0; left_arm_ctrl_obs_B.b_j <=
-           left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.b_j++) {
-        left_arm_ctrl_obs_B.coffset = left_arm_ctrl_obs_B.b_j *
-          left_arm_ctrl_obs_B.m_o - 1;
-        left_arm_ctrl_obs_B.boffset = left_arm_ctrl_obs_B.b_j * 6 - 1;
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <
-             left_arm_ctrl_obs_B.m_o; left_arm_ctrl_obs_B.b_i_p++) {
-          Hji->data[(left_arm_ctrl_obs_B.coffset + left_arm_ctrl_obs_B.b_i_p) +
-            1] = 0.0;
+      for (left_arm_ctrl_obs_B.b_j_l = 0; left_arm_ctrl_obs_B.b_j_l <=
+           left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.b_j_l++) {
+        left_arm_ctrl_obs_B.coffset = left_arm_ctrl_obs_B.b_j_l *
+          left_arm_ctrl_obs_B.m_d - 1;
+        left_arm_ctrl_obs_B.boffset = left_arm_ctrl_obs_B.b_j_l * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <
+             left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.b_i++) {
+          Hji->data[(left_arm_ctrl_obs_B.coffset + left_arm_ctrl_obs_B.b_i) + 1]
+            = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          left_arm_ctrl_obs_B.aoffset_n = left_arm_ctrl_obs_B.b_i_p *
-            left_arm_ctrl_obs_B.m_o - 1;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          left_arm_ctrl_obs_B.aoffset_d = left_arm_ctrl_obs_B.b_i *
+            left_arm_ctrl_obs_B.m_d - 1;
           left_arm_ctrl_obs_B.temp = Fi->data[(left_arm_ctrl_obs_B.boffset +
-            left_arm_ctrl_obs_B.b_i_p) + 1];
-          for (left_arm_ctrl_obs_B.c_i_n = 0; left_arm_ctrl_obs_B.c_i_n <
-               left_arm_ctrl_obs_B.m_o; left_arm_ctrl_obs_B.c_i_n++) {
-            left_arm_ctrl_obs_B.i_k = left_arm_ctrl_obs_B.c_i_n + 1;
+            left_arm_ctrl_obs_B.b_i) + 1];
+          for (left_arm_ctrl_obs_B.c_i_f = 0; left_arm_ctrl_obs_B.c_i_f <
+               left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.c_i_f++) {
+            left_arm_ctrl_obs_B.i_g = left_arm_ctrl_obs_B.c_i_f + 1;
             left_arm_ctrl_obs_B.nm1d2 = left_arm_ctrl_obs_B.coffset +
-              left_arm_ctrl_obs_B.i_k;
+              left_arm_ctrl_obs_B.i_g;
             Hji->data[left_arm_ctrl_obs_B.nm1d2] += a_0->
-              data[left_arm_ctrl_obs_B.aoffset_n + left_arm_ctrl_obs_B.i_k] *
+              data[left_arm_ctrl_obs_B.aoffset_d + left_arm_ctrl_obs_B.i_g] *
               left_arm_ctrl_obs_B.temp;
           }
         }
       }
 
-      left_arm_ctrl_obs_B.n_p = Hji->size[1];
+      left_arm_ctrl_obs_B.n_i = Hji->size[1];
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <
-           left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
-        left_arm_ctrl_obs_B.b_j = Hji->size[0];
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <
-             left_arm_ctrl_obs_B.b_j; left_arm_ctrl_obs_B.b_i_p++) {
-          H->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i_p) +
+           left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
+        left_arm_ctrl_obs_B.b_j_l = Hji->size[0];
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <
+             left_arm_ctrl_obs_B.b_j_l; left_arm_ctrl_obs_B.b_i++) {
+          H->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i) +
             H->size[0] * (left_arm_ctrl_obs_B.cb + left_arm_ctrl_obs_B.nm1d2)] =
             Hji->data[Hji->size[0] * left_arm_ctrl_obs_B.nm1d2 +
-            left_arm_ctrl_obs_B.b_i_p];
+            left_arm_ctrl_obs_B.b_i];
         }
       }
 
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 6;
            left_arm_ctrl_obs_B.nm1d2++) {
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.b_i_p + 6 *
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.b_i + 6 *
             left_arm_ctrl_obs_B.nm1d2] = X->data[left_arm_ctrl_obs_B.q_size_tmp]
-            .f1[6 * left_arm_ctrl_obs_B.b_i_p + left_arm_ctrl_obs_B.nm1d2];
+            .f1[6 * left_arm_ctrl_obs_B.b_i + left_arm_ctrl_obs_B.nm1d2];
         }
       }
 
@@ -3802,166 +3826,164 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
       B->size[0] = 6;
       B->size[1] = Fi->size[1];
       left_a_emxEnsureCapacity_real_T(B, left_arm_ctrl_obs_B.nm1d2);
-      left_arm_ctrl_obs_B.n_p = Fi->size[0] * Fi->size[1] - 1;
+      left_arm_ctrl_obs_B.n_i = Fi->size[0] * Fi->size[1] - 1;
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-           left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+           left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
         B->data[left_arm_ctrl_obs_B.nm1d2] = Fi->data[left_arm_ctrl_obs_B.nm1d2];
       }
 
-      left_arm_ctrl_obs_B.n_p = Fi->size[1];
+      left_arm_ctrl_obs_B.n_i = Fi->size[1];
       left_arm_ctrl_obs_B.nm1d2 = Fi->size[0] * Fi->size[1];
       Fi->size[0] = 6;
-      Fi->size[1] = left_arm_ctrl_obs_B.n_p;
+      Fi->size[1] = left_arm_ctrl_obs_B.n_i;
       left_a_emxEnsureCapacity_real_T(Fi, left_arm_ctrl_obs_B.nm1d2);
-      for (left_arm_ctrl_obs_B.b_j = 0; left_arm_ctrl_obs_B.b_j <
-           left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.b_j++) {
-        left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_j * 6 - 1;
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          Fi->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i_p) + 1]
-            = 0.0;
+      for (left_arm_ctrl_obs_B.b_j_l = 0; left_arm_ctrl_obs_B.b_j_l <
+           left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.b_j_l++) {
+        left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_j_l * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          Fi->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i) + 1] =
+            0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-             left_arm_ctrl_obs_B.b_i_p++) {
-          left_arm_ctrl_obs_B.aoffset_n = left_arm_ctrl_obs_B.b_i_p * 6 - 1;
+        for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+             left_arm_ctrl_obs_B.b_i++) {
+          left_arm_ctrl_obs_B.aoffset_d = left_arm_ctrl_obs_B.b_i * 6 - 1;
           left_arm_ctrl_obs_B.temp = B->data[(left_arm_ctrl_obs_B.pid_tmp +
-            left_arm_ctrl_obs_B.b_i_p) + 1];
-          for (left_arm_ctrl_obs_B.c_i_n = 0; left_arm_ctrl_obs_B.c_i_n < 6;
-               left_arm_ctrl_obs_B.c_i_n++) {
-            left_arm_ctrl_obs_B.i_k = left_arm_ctrl_obs_B.c_i_n + 1;
+            left_arm_ctrl_obs_B.b_i) + 1];
+          for (left_arm_ctrl_obs_B.c_i_f = 0; left_arm_ctrl_obs_B.c_i_f < 6;
+               left_arm_ctrl_obs_B.c_i_f++) {
+            left_arm_ctrl_obs_B.i_g = left_arm_ctrl_obs_B.c_i_f + 1;
             left_arm_ctrl_obs_B.nm1d2 = left_arm_ctrl_obs_B.pid_tmp +
-              left_arm_ctrl_obs_B.i_k;
+              left_arm_ctrl_obs_B.i_g;
             Fi->data[left_arm_ctrl_obs_B.nm1d2] +=
-              left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.aoffset_n +
-              left_arm_ctrl_obs_B.i_k] * left_arm_ctrl_obs_B.temp;
+              left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.aoffset_d +
+              left_arm_ctrl_obs_B.i_g] * left_arm_ctrl_obs_B.temp;
           }
         }
       }
 
       while (left_arm_ctrl_obs_B.pid > 0.0) {
-        left_arm_ctrl_obs_B.b_i_p = static_cast<int32_T>(left_arm_ctrl_obs_B.pid);
-        left_arm_ctrl_obs_B.q_size_tmp = left_arm_ctrl_obs_B.b_i_p - 1;
+        left_arm_ctrl_obs_B.b_i = static_cast<int32_T>(left_arm_ctrl_obs_B.pid);
+        left_arm_ctrl_obs_B.q_size_tmp = left_arm_ctrl_obs_B.b_i - 1;
         obj = robot->Bodies[left_arm_ctrl_obs_B.q_size_tmp];
         left_arm_ctrl_obs_B.nm1d2 = Sj->size[0] * Sj->size[1];
         Sj->size[0] = 6;
         Sj->size[1] = obj->JointInternal.MotionSubspace->size[1];
         left_a_emxEnsureCapacity_real_T(Sj, left_arm_ctrl_obs_B.nm1d2);
-        left_arm_ctrl_obs_B.n_p = obj->JointInternal.MotionSubspace->size[0] *
+        left_arm_ctrl_obs_B.n_i = obj->JointInternal.MotionSubspace->size[0] *
           obj->JointInternal.MotionSubspace->size[1] - 1;
         for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-             left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+             left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
           Sj->data[left_arm_ctrl_obs_B.nm1d2] =
             obj->JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.nm1d2];
         }
 
-        left_arm_ctrl_obs_B.b_idx_0_e = robot->
-          VelocityDoFMap[left_arm_ctrl_obs_B.b_i_p - 1];
-        left_arm_ctrl_obs_B.b_idx_1_c = robot->
-          VelocityDoFMap[left_arm_ctrl_obs_B.b_i_p + 9];
-        if (left_arm_ctrl_obs_B.b_idx_0_e <= left_arm_ctrl_obs_B.b_idx_1_c) {
+        left_arm_ctrl_obs_B.b_idx_0_o = robot->
+          VelocityDoFMap[left_arm_ctrl_obs_B.b_i - 1];
+        left_arm_ctrl_obs_B.b_idx_1_k = robot->
+          VelocityDoFMap[left_arm_ctrl_obs_B.b_i + 9];
+        if (left_arm_ctrl_obs_B.b_idx_0_o <= left_arm_ctrl_obs_B.b_idx_1_k) {
           left_arm_ctrl_obs_B.nm1d2 = a_0->size[0] * a_0->size[1];
           a_0->size[0] = Sj->size[1];
           a_0->size[1] = 6;
           left_a_emxEnsureCapacity_real_T(a_0, left_arm_ctrl_obs_B.nm1d2);
           for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 6;
                left_arm_ctrl_obs_B.nm1d2++) {
-            left_arm_ctrl_obs_B.n_p = Sj->size[1];
-            for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <
-                 left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.b_i_p++) {
-              a_0->data[left_arm_ctrl_obs_B.b_i_p + a_0->size[0] *
+            left_arm_ctrl_obs_B.n_i = Sj->size[1];
+            for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <
+                 left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.b_i++) {
+              a_0->data[left_arm_ctrl_obs_B.b_i + a_0->size[0] *
                 left_arm_ctrl_obs_B.nm1d2] = Sj->data[6 *
-                left_arm_ctrl_obs_B.b_i_p + left_arm_ctrl_obs_B.nm1d2];
+                left_arm_ctrl_obs_B.b_i + left_arm_ctrl_obs_B.nm1d2];
             }
           }
 
-          left_arm_ctrl_obs_B.m_o = a_0->size[0];
-          left_arm_ctrl_obs_B.n_p = Fi->size[1] - 1;
+          left_arm_ctrl_obs_B.m_d = a_0->size[0];
+          left_arm_ctrl_obs_B.n_i = Fi->size[1] - 1;
           left_arm_ctrl_obs_B.nm1d2 = Hji->size[0] * Hji->size[1];
           Hji->size[0] = a_0->size[0];
           Hji->size[1] = Fi->size[1];
           left_a_emxEnsureCapacity_real_T(Hji, left_arm_ctrl_obs_B.nm1d2);
-          for (left_arm_ctrl_obs_B.b_j = 0; left_arm_ctrl_obs_B.b_j <=
-               left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.b_j++) {
-            left_arm_ctrl_obs_B.coffset = left_arm_ctrl_obs_B.b_j *
-              left_arm_ctrl_obs_B.m_o - 1;
-            left_arm_ctrl_obs_B.boffset = left_arm_ctrl_obs_B.b_j * 6 - 1;
-            for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <
-                 left_arm_ctrl_obs_B.m_o; left_arm_ctrl_obs_B.b_i_p++) {
-              Hji->data[(left_arm_ctrl_obs_B.coffset + left_arm_ctrl_obs_B.b_i_p)
+          for (left_arm_ctrl_obs_B.b_j_l = 0; left_arm_ctrl_obs_B.b_j_l <=
+               left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.b_j_l++) {
+            left_arm_ctrl_obs_B.coffset = left_arm_ctrl_obs_B.b_j_l *
+              left_arm_ctrl_obs_B.m_d - 1;
+            left_arm_ctrl_obs_B.boffset = left_arm_ctrl_obs_B.b_j_l * 6 - 1;
+            for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <
+                 left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.b_i++) {
+              Hji->data[(left_arm_ctrl_obs_B.coffset + left_arm_ctrl_obs_B.b_i)
                 + 1] = 0.0;
             }
 
-            for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-                 left_arm_ctrl_obs_B.b_i_p++) {
-              left_arm_ctrl_obs_B.aoffset_n = left_arm_ctrl_obs_B.b_i_p *
-                left_arm_ctrl_obs_B.m_o - 1;
+            for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+                 left_arm_ctrl_obs_B.b_i++) {
+              left_arm_ctrl_obs_B.aoffset_d = left_arm_ctrl_obs_B.b_i *
+                left_arm_ctrl_obs_B.m_d - 1;
               left_arm_ctrl_obs_B.temp = Fi->data[(left_arm_ctrl_obs_B.boffset +
-                left_arm_ctrl_obs_B.b_i_p) + 1];
-              for (left_arm_ctrl_obs_B.c_i_n = 0; left_arm_ctrl_obs_B.c_i_n <
-                   left_arm_ctrl_obs_B.m_o; left_arm_ctrl_obs_B.c_i_n++) {
-                left_arm_ctrl_obs_B.i_k = left_arm_ctrl_obs_B.c_i_n + 1;
+                left_arm_ctrl_obs_B.b_i) + 1];
+              for (left_arm_ctrl_obs_B.c_i_f = 0; left_arm_ctrl_obs_B.c_i_f <
+                   left_arm_ctrl_obs_B.m_d; left_arm_ctrl_obs_B.c_i_f++) {
+                left_arm_ctrl_obs_B.i_g = left_arm_ctrl_obs_B.c_i_f + 1;
                 left_arm_ctrl_obs_B.nm1d2 = left_arm_ctrl_obs_B.coffset +
-                  left_arm_ctrl_obs_B.i_k;
+                  left_arm_ctrl_obs_B.i_g;
                 Hji->data[left_arm_ctrl_obs_B.nm1d2] += a_0->
-                  data[left_arm_ctrl_obs_B.aoffset_n + left_arm_ctrl_obs_B.i_k] *
+                  data[left_arm_ctrl_obs_B.aoffset_d + left_arm_ctrl_obs_B.i_g] *
                   left_arm_ctrl_obs_B.temp;
               }
             }
           }
 
-          if (left_arm_ctrl_obs_B.b_idx_0_e > left_arm_ctrl_obs_B.b_idx_1_c) {
+          if (left_arm_ctrl_obs_B.b_idx_0_o > left_arm_ctrl_obs_B.b_idx_1_k) {
             left_arm_ctrl_obs_B.pid_tmp = 0;
           } else {
             left_arm_ctrl_obs_B.pid_tmp = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.b_idx_0_e) - 1;
+              (left_arm_ctrl_obs_B.b_idx_0_o) - 1;
           }
 
-          if (left_arm_ctrl_obs_B.vNum_h > left_arm_ctrl_obs_B.p_idx_1) {
+          if (left_arm_ctrl_obs_B.vNum_i > left_arm_ctrl_obs_B.p_idx_1) {
             left_arm_ctrl_obs_B.cb = 0;
           } else {
             left_arm_ctrl_obs_B.cb = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.vNum_h) - 1;
+              (left_arm_ctrl_obs_B.vNum_i) - 1;
           }
 
-          left_arm_ctrl_obs_B.n_p = Hji->size[1];
+          left_arm_ctrl_obs_B.n_i = Hji->size[1];
           for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <
-               left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
-            left_arm_ctrl_obs_B.b_j = Hji->size[0];
-            for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <
-                 left_arm_ctrl_obs_B.b_j; left_arm_ctrl_obs_B.b_i_p++) {
-              H->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i_p)
-                + H->size[0] * (left_arm_ctrl_obs_B.cb +
-                                left_arm_ctrl_obs_B.nm1d2)] = Hji->data
-                [Hji->size[0] * left_arm_ctrl_obs_B.nm1d2 +
-                left_arm_ctrl_obs_B.b_i_p];
+               left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
+            left_arm_ctrl_obs_B.b_j_l = Hji->size[0];
+            for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <
+                 left_arm_ctrl_obs_B.b_j_l; left_arm_ctrl_obs_B.b_i++) {
+              H->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i) +
+                H->size[0] * (left_arm_ctrl_obs_B.cb + left_arm_ctrl_obs_B.nm1d2)]
+                = Hji->data[Hji->size[0] * left_arm_ctrl_obs_B.nm1d2 +
+                left_arm_ctrl_obs_B.b_i];
             }
           }
 
-          if (left_arm_ctrl_obs_B.vNum_h > left_arm_ctrl_obs_B.p_idx_1) {
+          if (left_arm_ctrl_obs_B.vNum_i > left_arm_ctrl_obs_B.p_idx_1) {
             left_arm_ctrl_obs_B.pid_tmp = 0;
           } else {
             left_arm_ctrl_obs_B.pid_tmp = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.vNum_h) - 1;
+              (left_arm_ctrl_obs_B.vNum_i) - 1;
           }
 
-          if (left_arm_ctrl_obs_B.b_idx_0_e > left_arm_ctrl_obs_B.b_idx_1_c) {
+          if (left_arm_ctrl_obs_B.b_idx_0_o > left_arm_ctrl_obs_B.b_idx_1_k) {
             left_arm_ctrl_obs_B.cb = 0;
           } else {
             left_arm_ctrl_obs_B.cb = static_cast<int32_T>
-              (left_arm_ctrl_obs_B.b_idx_0_e) - 1;
+              (left_arm_ctrl_obs_B.b_idx_0_o) - 1;
           }
 
-          left_arm_ctrl_obs_B.n_p = Hji->size[0];
+          left_arm_ctrl_obs_B.n_i = Hji->size[0];
           for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <
-               left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
-            left_arm_ctrl_obs_B.b_j = Hji->size[1];
-            for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <
-                 left_arm_ctrl_obs_B.b_j; left_arm_ctrl_obs_B.b_i_p++) {
-              H->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i_p)
-                + H->size[0] * (left_arm_ctrl_obs_B.cb +
-                                left_arm_ctrl_obs_B.nm1d2)] = Hji->data
-                [Hji->size[0] * left_arm_ctrl_obs_B.b_i_p +
+               left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
+            left_arm_ctrl_obs_B.b_j_l = Hji->size[1];
+            for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <
+                 left_arm_ctrl_obs_B.b_j_l; left_arm_ctrl_obs_B.b_i++) {
+              H->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i) +
+                H->size[0] * (left_arm_ctrl_obs_B.cb + left_arm_ctrl_obs_B.nm1d2)]
+                = Hji->data[Hji->size[0] * left_arm_ctrl_obs_B.b_i +
                 left_arm_ctrl_obs_B.nm1d2];
             }
           }
@@ -3969,12 +3991,12 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
 
         for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 < 6;
              left_arm_ctrl_obs_B.nm1d2++) {
-          for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-               left_arm_ctrl_obs_B.b_i_p++) {
-            left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.b_i_p + 6 *
+          for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+               left_arm_ctrl_obs_B.b_i++) {
+            left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.b_i + 6 *
               left_arm_ctrl_obs_B.nm1d2] = X->
               data[left_arm_ctrl_obs_B.q_size_tmp].f1[6 *
-              left_arm_ctrl_obs_B.b_i_p + left_arm_ctrl_obs_B.nm1d2];
+              left_arm_ctrl_obs_B.b_i + left_arm_ctrl_obs_B.nm1d2];
           }
         }
 
@@ -3982,40 +4004,40 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
         B->size[0] = 6;
         B->size[1] = Fi->size[1];
         left_a_emxEnsureCapacity_real_T(B, left_arm_ctrl_obs_B.nm1d2);
-        left_arm_ctrl_obs_B.n_p = Fi->size[0] * Fi->size[1] - 1;
+        left_arm_ctrl_obs_B.n_i = Fi->size[0] * Fi->size[1] - 1;
         for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-             left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+             left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
           B->data[left_arm_ctrl_obs_B.nm1d2] = Fi->
             data[left_arm_ctrl_obs_B.nm1d2];
         }
 
-        left_arm_ctrl_obs_B.n_p = Fi->size[1];
+        left_arm_ctrl_obs_B.n_i = Fi->size[1];
         left_arm_ctrl_obs_B.nm1d2 = Fi->size[0] * Fi->size[1];
         Fi->size[0] = 6;
-        Fi->size[1] = left_arm_ctrl_obs_B.n_p;
+        Fi->size[1] = left_arm_ctrl_obs_B.n_i;
         left_a_emxEnsureCapacity_real_T(Fi, left_arm_ctrl_obs_B.nm1d2);
-        for (left_arm_ctrl_obs_B.b_j = 0; left_arm_ctrl_obs_B.b_j <
-             left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.b_j++) {
-          left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_j * 6 - 1;
-          for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-               left_arm_ctrl_obs_B.b_i_p++) {
-            Fi->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i_p) +
-              1] = 0.0;
+        for (left_arm_ctrl_obs_B.b_j_l = 0; left_arm_ctrl_obs_B.b_j_l <
+             left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.b_j_l++) {
+          left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_j_l * 6 - 1;
+          for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+               left_arm_ctrl_obs_B.b_i++) {
+            Fi->data[(left_arm_ctrl_obs_B.pid_tmp + left_arm_ctrl_obs_B.b_i) + 1]
+              = 0.0;
           }
 
-          for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p < 6;
-               left_arm_ctrl_obs_B.b_i_p++) {
-            left_arm_ctrl_obs_B.aoffset_n = left_arm_ctrl_obs_B.b_i_p * 6 - 1;
+          for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i < 6;
+               left_arm_ctrl_obs_B.b_i++) {
+            left_arm_ctrl_obs_B.aoffset_d = left_arm_ctrl_obs_B.b_i * 6 - 1;
             left_arm_ctrl_obs_B.temp = B->data[(left_arm_ctrl_obs_B.pid_tmp +
-              left_arm_ctrl_obs_B.b_i_p) + 1];
-            for (left_arm_ctrl_obs_B.c_i_n = 0; left_arm_ctrl_obs_B.c_i_n < 6;
-                 left_arm_ctrl_obs_B.c_i_n++) {
-              left_arm_ctrl_obs_B.i_k = left_arm_ctrl_obs_B.c_i_n + 1;
+              left_arm_ctrl_obs_B.b_i) + 1];
+            for (left_arm_ctrl_obs_B.c_i_f = 0; left_arm_ctrl_obs_B.c_i_f < 6;
+                 left_arm_ctrl_obs_B.c_i_f++) {
+              left_arm_ctrl_obs_B.i_g = left_arm_ctrl_obs_B.c_i_f + 1;
               left_arm_ctrl_obs_B.nm1d2 = left_arm_ctrl_obs_B.pid_tmp +
-                left_arm_ctrl_obs_B.i_k;
+                left_arm_ctrl_obs_B.i_g;
               Fi->data[left_arm_ctrl_obs_B.nm1d2] +=
-                left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.aoffset_n +
-                left_arm_ctrl_obs_B.i_k] * left_arm_ctrl_obs_B.temp;
+                left_arm_ctrl_obs_B.X[left_arm_ctrl_obs_B.aoffset_d +
+                left_arm_ctrl_obs_B.i_g] * left_arm_ctrl_obs_B.temp;
             }
           }
         }
@@ -4072,67 +4094,67 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
 
   left_arm_ctrl_obs_B.idx--;
   left_arm_ctrl_ob_emxInit_real_T(&s, 2);
-  for (left_arm_ctrl_obs_B.unnamed_idx_1_c = 0;
-       left_arm_ctrl_obs_B.unnamed_idx_1_c <= left_arm_ctrl_obs_B.idx;
-       left_arm_ctrl_obs_B.unnamed_idx_1_c++) {
-    left_arm_ctrl_obs_B.vNum_h = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_c]
+  for (left_arm_ctrl_obs_B.unnamed_idx_1_i = 0;
+       left_arm_ctrl_obs_B.unnamed_idx_1_i <= left_arm_ctrl_obs_B.idx;
+       left_arm_ctrl_obs_B.unnamed_idx_1_i++) {
+    left_arm_ctrl_obs_B.vNum_i = robot->
+      VelocityDoFMap[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_i]
       - 1];
     left_arm_ctrl_obs_B.p_idx_1 = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_c]
+      VelocityDoFMap[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_i]
       + 9];
-    if (rtIsNaN(left_arm_ctrl_obs_B.vNum_h) || rtIsNaN
+    if (rtIsNaN(left_arm_ctrl_obs_B.vNum_i) || rtIsNaN
         (left_arm_ctrl_obs_B.p_idx_1)) {
       left_arm_ctrl_obs_B.nm1d2 = s->size[0] * s->size[1];
       s->size[0] = 1;
       s->size[1] = 1;
       left_a_emxEnsureCapacity_real_T(s, left_arm_ctrl_obs_B.nm1d2);
       s->data[0] = (rtNaN);
-    } else if (left_arm_ctrl_obs_B.p_idx_1 < left_arm_ctrl_obs_B.vNum_h) {
+    } else if (left_arm_ctrl_obs_B.p_idx_1 < left_arm_ctrl_obs_B.vNum_i) {
       s->size[0] = 1;
       s->size[1] = 0;
-    } else if ((rtIsInf(left_arm_ctrl_obs_B.vNum_h) || rtIsInf
-                (left_arm_ctrl_obs_B.p_idx_1)) && (left_arm_ctrl_obs_B.vNum_h ==
+    } else if ((rtIsInf(left_arm_ctrl_obs_B.vNum_i) || rtIsInf
+                (left_arm_ctrl_obs_B.p_idx_1)) && (left_arm_ctrl_obs_B.vNum_i ==
                 left_arm_ctrl_obs_B.p_idx_1)) {
       left_arm_ctrl_obs_B.nm1d2 = s->size[0] * s->size[1];
       s->size[0] = 1;
       s->size[1] = 1;
       left_a_emxEnsureCapacity_real_T(s, left_arm_ctrl_obs_B.nm1d2);
       s->data[0] = (rtNaN);
-    } else if (floor(left_arm_ctrl_obs_B.vNum_h) == left_arm_ctrl_obs_B.vNum_h)
+    } else if (floor(left_arm_ctrl_obs_B.vNum_i) == left_arm_ctrl_obs_B.vNum_i)
     {
       left_arm_ctrl_obs_B.nm1d2 = s->size[0] * s->size[1];
       s->size[0] = 1;
-      left_arm_ctrl_obs_B.n_p = static_cast<int32_T>(floor
-        (left_arm_ctrl_obs_B.p_idx_1 - left_arm_ctrl_obs_B.vNum_h));
-      s->size[1] = left_arm_ctrl_obs_B.n_p + 1;
+      left_arm_ctrl_obs_B.n_i = static_cast<int32_T>(floor
+        (left_arm_ctrl_obs_B.p_idx_1 - left_arm_ctrl_obs_B.vNum_i));
+      s->size[1] = left_arm_ctrl_obs_B.n_i + 1;
       left_a_emxEnsureCapacity_real_T(s, left_arm_ctrl_obs_B.nm1d2);
       for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <=
-           left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
-        s->data[left_arm_ctrl_obs_B.nm1d2] = left_arm_ctrl_obs_B.vNum_h +
+           left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
+        s->data[left_arm_ctrl_obs_B.nm1d2] = left_arm_ctrl_obs_B.vNum_i +
           static_cast<real_T>(left_arm_ctrl_obs_B.nm1d2);
       }
     } else {
       left_arm_ctrl_obs_B.nb_f = floor((left_arm_ctrl_obs_B.p_idx_1 -
-        left_arm_ctrl_obs_B.vNum_h) + 0.5);
-      left_arm_ctrl_obs_B.pid = left_arm_ctrl_obs_B.vNum_h +
+        left_arm_ctrl_obs_B.vNum_i) + 0.5);
+      left_arm_ctrl_obs_B.pid = left_arm_ctrl_obs_B.vNum_i +
         left_arm_ctrl_obs_B.nb_f;
-      left_arm_ctrl_obs_B.b_idx_0_e = left_arm_ctrl_obs_B.pid -
+      left_arm_ctrl_obs_B.b_idx_0_o = left_arm_ctrl_obs_B.pid -
         left_arm_ctrl_obs_B.p_idx_1;
-      left_arm_ctrl_obs_B.b_idx_1_c = fabs(left_arm_ctrl_obs_B.vNum_h);
+      left_arm_ctrl_obs_B.b_idx_1_k = fabs(left_arm_ctrl_obs_B.vNum_i);
       left_arm_ctrl_obs_B.temp = fabs(left_arm_ctrl_obs_B.p_idx_1);
-      if ((left_arm_ctrl_obs_B.b_idx_1_c > left_arm_ctrl_obs_B.temp) || rtIsNaN
+      if ((left_arm_ctrl_obs_B.b_idx_1_k > left_arm_ctrl_obs_B.temp) || rtIsNaN
           (left_arm_ctrl_obs_B.temp)) {
-        left_arm_ctrl_obs_B.temp = left_arm_ctrl_obs_B.b_idx_1_c;
+        left_arm_ctrl_obs_B.temp = left_arm_ctrl_obs_B.b_idx_1_k;
       }
 
-      if (fabs(left_arm_ctrl_obs_B.b_idx_0_e) < 4.4408920985006262E-16 *
+      if (fabs(left_arm_ctrl_obs_B.b_idx_0_o) < 4.4408920985006262E-16 *
           left_arm_ctrl_obs_B.temp) {
         left_arm_ctrl_obs_B.nb_f++;
         left_arm_ctrl_obs_B.pid = left_arm_ctrl_obs_B.p_idx_1;
-      } else if (left_arm_ctrl_obs_B.b_idx_0_e > 0.0) {
+      } else if (left_arm_ctrl_obs_B.b_idx_0_o > 0.0) {
         left_arm_ctrl_obs_B.pid = (left_arm_ctrl_obs_B.nb_f - 1.0) +
-          left_arm_ctrl_obs_B.vNum_h;
+          left_arm_ctrl_obs_B.vNum_i;
       } else {
         left_arm_ctrl_obs_B.nb_f++;
       }
@@ -4144,32 +4166,32 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
         left_arm_ctrl_obs_B.nm1d2 = 0;
       }
 
-      left_arm_ctrl_obs_B.n_p = left_arm_ctrl_obs_B.nm1d2 - 1;
+      left_arm_ctrl_obs_B.n_i = left_arm_ctrl_obs_B.nm1d2 - 1;
       left_arm_ctrl_obs_B.nm1d2 = s->size[0] * s->size[1];
       s->size[0] = 1;
-      s->size[1] = left_arm_ctrl_obs_B.n_p + 1;
+      s->size[1] = left_arm_ctrl_obs_B.n_i + 1;
       left_a_emxEnsureCapacity_real_T(s, left_arm_ctrl_obs_B.nm1d2);
-      if (left_arm_ctrl_obs_B.n_p + 1 > 0) {
-        s->data[0] = left_arm_ctrl_obs_B.vNum_h;
-        if (left_arm_ctrl_obs_B.n_p + 1 > 1) {
-          s->data[left_arm_ctrl_obs_B.n_p] = left_arm_ctrl_obs_B.pid;
-          left_arm_ctrl_obs_B.nm1d2 = left_arm_ctrl_obs_B.n_p / 2;
+      if (left_arm_ctrl_obs_B.n_i + 1 > 0) {
+        s->data[0] = left_arm_ctrl_obs_B.vNum_i;
+        if (left_arm_ctrl_obs_B.n_i + 1 > 1) {
+          s->data[left_arm_ctrl_obs_B.n_i] = left_arm_ctrl_obs_B.pid;
+          left_arm_ctrl_obs_B.nm1d2 = left_arm_ctrl_obs_B.n_i / 2;
           left_arm_ctrl_obs_B.q_size_tmp = left_arm_ctrl_obs_B.nm1d2 - 2;
-          for (left_arm_ctrl_obs_B.b_i_p = 0; left_arm_ctrl_obs_B.b_i_p <=
-               left_arm_ctrl_obs_B.q_size_tmp; left_arm_ctrl_obs_B.b_i_p++) {
-            left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_i_p + 1;
-            s->data[left_arm_ctrl_obs_B.pid_tmp] = left_arm_ctrl_obs_B.vNum_h +
+          for (left_arm_ctrl_obs_B.b_i = 0; left_arm_ctrl_obs_B.b_i <=
+               left_arm_ctrl_obs_B.q_size_tmp; left_arm_ctrl_obs_B.b_i++) {
+            left_arm_ctrl_obs_B.pid_tmp = left_arm_ctrl_obs_B.b_i + 1;
+            s->data[left_arm_ctrl_obs_B.pid_tmp] = left_arm_ctrl_obs_B.vNum_i +
               static_cast<real_T>(left_arm_ctrl_obs_B.pid_tmp);
-            s->data[left_arm_ctrl_obs_B.n_p - left_arm_ctrl_obs_B.pid_tmp] =
+            s->data[left_arm_ctrl_obs_B.n_i - left_arm_ctrl_obs_B.pid_tmp] =
               left_arm_ctrl_obs_B.pid - static_cast<real_T>
               (left_arm_ctrl_obs_B.pid_tmp);
           }
 
-          if (left_arm_ctrl_obs_B.nm1d2 << 1 == left_arm_ctrl_obs_B.n_p) {
-            s->data[left_arm_ctrl_obs_B.nm1d2] = (left_arm_ctrl_obs_B.vNum_h +
+          if (left_arm_ctrl_obs_B.nm1d2 << 1 == left_arm_ctrl_obs_B.n_i) {
+            s->data[left_arm_ctrl_obs_B.nm1d2] = (left_arm_ctrl_obs_B.vNum_i +
               left_arm_ctrl_obs_B.pid) / 2.0;
           } else {
-            s->data[left_arm_ctrl_obs_B.nm1d2] = left_arm_ctrl_obs_B.vNum_h +
+            s->data[left_arm_ctrl_obs_B.nm1d2] = left_arm_ctrl_obs_B.vNum_i +
               static_cast<real_T>(left_arm_ctrl_obs_B.nm1d2);
             s->data[left_arm_ctrl_obs_B.nm1d2 + 1] = left_arm_ctrl_obs_B.pid -
               static_cast<real_T>(left_arm_ctrl_obs_B.nm1d2);
@@ -4178,32 +4200,32 @@ static void RigidBodyTreeDynamics_massMat_e(k_robotics_manip_internal_e0h_T
       }
     }
 
-    if (left_arm_ctrl_obs_B.vNum_h > left_arm_ctrl_obs_B.p_idx_1) {
+    if (left_arm_ctrl_obs_B.vNum_i > left_arm_ctrl_obs_B.p_idx_1) {
       left_arm_ctrl_obs_B.q_size_tmp = 0;
     } else {
       left_arm_ctrl_obs_B.q_size_tmp = static_cast<int32_T>
-        (left_arm_ctrl_obs_B.vNum_h) - 1;
+        (left_arm_ctrl_obs_B.vNum_i) - 1;
     }
 
-    left_arm_ctrl_obs_B.n_p = s->size[1];
+    left_arm_ctrl_obs_B.n_i = s->size[1];
     for (left_arm_ctrl_obs_B.nm1d2 = 0; left_arm_ctrl_obs_B.nm1d2 <
-         left_arm_ctrl_obs_B.n_p; left_arm_ctrl_obs_B.nm1d2++) {
+         left_arm_ctrl_obs_B.n_i; left_arm_ctrl_obs_B.nm1d2++) {
       lambda->data[left_arm_ctrl_obs_B.q_size_tmp + left_arm_ctrl_obs_B.nm1d2] =
         s->data[left_arm_ctrl_obs_B.nm1d2] - 1.0;
     }
 
     if (lambda_->
-        data[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_c]
+        data[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_i]
         - 1] == 0.0) {
-      lambda->data[static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_h) - 1] = 0.0;
+      lambda->data[static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_i) - 1] = 0.0;
     } else {
       left_arm_ctrl_obs_B.nm1d2 = static_cast<int32_T>(lambda_->
-        data[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_c]
+        data[left_arm_ctrl_obs_B.nonFixedIndices_data[left_arm_ctrl_obs_B.unnamed_idx_1_i]
         - 1]);
-      left_arm_ctrl_obs_B.b_idx_1_c = robot->
+      left_arm_ctrl_obs_B.b_idx_1_k = robot->
         VelocityDoFMap[left_arm_ctrl_obs_B.nm1d2 + 9];
-      lambda->data[static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_h) - 1] =
-        left_arm_ctrl_obs_B.b_idx_1_c;
+      lambda->data[static_cast<int32_T>(left_arm_ctrl_obs_B.vNum_i) - 1] =
+        left_arm_ctrl_obs_B.b_idx_1_k;
     }
   }
 
@@ -4229,253 +4251,253 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
   static const char_T tmp[5] = { 'f', 'i', 'x', 'e', 'd' };
 
   int32_T exitg1;
-  left_arm_ctrl_obs_B.a0_m[0] = 0.0;
-  left_arm_ctrl_obs_B.a0_m[1] = 0.0;
-  left_arm_ctrl_obs_B.a0_m[2] = 0.0;
-  left_arm_ctrl_obs_B.a0_m[3] = -robot->Gravity[0];
-  left_arm_ctrl_obs_B.a0_m[4] = -robot->Gravity[1];
-  left_arm_ctrl_obs_B.a0_m[5] = -robot->Gravity[2];
+  left_arm_ctrl_obs_B.a0_h[0] = 0.0;
+  left_arm_ctrl_obs_B.a0_h[1] = 0.0;
+  left_arm_ctrl_obs_B.a0_h[2] = 0.0;
+  left_arm_ctrl_obs_B.a0_h[3] = -robot->Gravity[0];
+  left_arm_ctrl_obs_B.a0_h[4] = -robot->Gravity[1];
+  left_arm_ctrl_obs_B.a0_h[5] = -robot->Gravity[2];
   left_arm_ctrl_ob_emxInit_real_T(&vJ, 2);
-  left_arm_ctrl_obs_B.nb_k = robot->NumBodies;
-  left_arm_ctrl_obs_B.i_f = vJ->size[0] * vJ->size[1];
+  left_arm_ctrl_obs_B.nb_e = robot->NumBodies;
+  left_arm_ctrl_obs_B.i_m = vJ->size[0] * vJ->size[1];
   vJ->size[0] = 6;
-  left_arm_ctrl_obs_B.unnamed_idx_1_a = static_cast<int32_T>
-    (left_arm_ctrl_obs_B.nb_k);
-  vJ->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_a;
-  left_a_emxEnsureCapacity_real_T(vJ, left_arm_ctrl_obs_B.i_f);
-  left_arm_ctrl_obs_B.loop_ub_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a - 1;
-  for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.i_f++) {
-    vJ->data[left_arm_ctrl_obs_B.i_f] = 0.0;
+  left_arm_ctrl_obs_B.unnamed_idx_1_j = static_cast<int32_T>
+    (left_arm_ctrl_obs_B.nb_e);
+  vJ->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_j;
+  left_a_emxEnsureCapacity_real_T(vJ, left_arm_ctrl_obs_B.i_m);
+  left_arm_ctrl_obs_B.loop_ub_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j - 1;
+  for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.i_m++) {
+    vJ->data[left_arm_ctrl_obs_B.i_m] = 0.0;
   }
 
   left_arm_ctrl_ob_emxInit_real_T(&vB, 2);
-  left_arm_ctrl_obs_B.i_f = vB->size[0] * vB->size[1];
+  left_arm_ctrl_obs_B.i_m = vB->size[0] * vB->size[1];
   vB->size[0] = 6;
-  vB->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_a;
-  left_a_emxEnsureCapacity_real_T(vB, left_arm_ctrl_obs_B.i_f);
-  for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.i_f++) {
-    vB->data[left_arm_ctrl_obs_B.i_f] = 0.0;
+  vB->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_j;
+  left_a_emxEnsureCapacity_real_T(vB, left_arm_ctrl_obs_B.i_m);
+  for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.i_m++) {
+    vB->data[left_arm_ctrl_obs_B.i_m] = 0.0;
   }
 
   left_arm_ctrl_ob_emxInit_real_T(&aB, 2);
-  left_arm_ctrl_obs_B.i_f = aB->size[0] * aB->size[1];
+  left_arm_ctrl_obs_B.i_m = aB->size[0] * aB->size[1];
   aB->size[0] = 6;
-  aB->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_a;
-  left_a_emxEnsureCapacity_real_T(aB, left_arm_ctrl_obs_B.i_f);
-  for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.i_f++) {
-    aB->data[left_arm_ctrl_obs_B.i_f] = 0.0;
+  aB->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_j;
+  left_a_emxEnsureCapacity_real_T(aB, left_arm_ctrl_obs_B.i_m);
+  for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.i_m++) {
+    aB->data[left_arm_ctrl_obs_B.i_m] = 0.0;
   }
 
-  for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 7;
-       left_arm_ctrl_obs_B.i_f++) {
-    tau[left_arm_ctrl_obs_B.i_f] = 0.0;
+  for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 7;
+       left_arm_ctrl_obs_B.i_m++) {
+    tau[left_arm_ctrl_obs_B.i_m] = 0.0;
   }
 
   left_arm_ct_emxInit_f_cell_wrap(&X, 2);
   left_arm_ct_emxInit_f_cell_wrap(&Xtree, 2);
-  left_arm_ctrl_obs_B.loop_ub_tmp = left_arm_ctrl_obs_B.unnamed_idx_1_a - 1;
-  left_arm_ctrl_obs_B.i_f = Xtree->size[0] * Xtree->size[1];
+  left_arm_ctrl_obs_B.loop_ub_tmp = left_arm_ctrl_obs_B.unnamed_idx_1_j - 1;
+  left_arm_ctrl_obs_B.i_m = Xtree->size[0] * Xtree->size[1];
   Xtree->size[0] = 1;
-  Xtree->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_a;
-  l_emxEnsureCapacity_f_cell_wrap(Xtree, left_arm_ctrl_obs_B.i_f);
-  left_arm_ctrl_obs_B.i_f = X->size[0] * X->size[1];
+  Xtree->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_j;
+  l_emxEnsureCapacity_f_cell_wrap(Xtree, left_arm_ctrl_obs_B.i_m);
+  left_arm_ctrl_obs_B.i_m = X->size[0] * X->size[1];
   X->size[0] = 1;
-  X->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_a;
-  l_emxEnsureCapacity_f_cell_wrap(X, left_arm_ctrl_obs_B.i_f);
-  for (left_arm_ctrl_obs_B.b_k_j = 0; left_arm_ctrl_obs_B.b_k_j <=
-       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.b_k_j++) {
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 36;
-         left_arm_ctrl_obs_B.i_f++) {
-      Xtree->data[left_arm_ctrl_obs_B.b_k_j].f1[left_arm_ctrl_obs_B.i_f] = 0.0;
+  X->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_j;
+  l_emxEnsureCapacity_f_cell_wrap(X, left_arm_ctrl_obs_B.i_m);
+  for (left_arm_ctrl_obs_B.b_k_o = 0; left_arm_ctrl_obs_B.b_k_o <=
+       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.b_k_o++) {
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 36;
+         left_arm_ctrl_obs_B.i_m++) {
+      Xtree->data[left_arm_ctrl_obs_B.b_k_o].f1[left_arm_ctrl_obs_B.i_m] = 0.0;
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-         left_arm_ctrl_obs_B.i_f++) {
-      Xtree->data[left_arm_ctrl_obs_B.b_k_j].f1[left_arm_ctrl_obs_B.i_f + 6 *
-        left_arm_ctrl_obs_B.i_f] = 1.0;
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+         left_arm_ctrl_obs_B.i_m++) {
+      Xtree->data[left_arm_ctrl_obs_B.b_k_o].f1[left_arm_ctrl_obs_B.i_m + 6 *
+        left_arm_ctrl_obs_B.i_m] = 1.0;
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 36;
-         left_arm_ctrl_obs_B.i_f++) {
-      X->data[left_arm_ctrl_obs_B.b_k_j].f1[left_arm_ctrl_obs_B.i_f] = 0.0;
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 36;
+         left_arm_ctrl_obs_B.i_m++) {
+      X->data[left_arm_ctrl_obs_B.b_k_o].f1[left_arm_ctrl_obs_B.i_m] = 0.0;
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-         left_arm_ctrl_obs_B.i_f++) {
-      X->data[left_arm_ctrl_obs_B.b_k_j].f1[left_arm_ctrl_obs_B.i_f + 6 *
-        left_arm_ctrl_obs_B.i_f] = 1.0;
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+         left_arm_ctrl_obs_B.i_m++) {
+      X->data[left_arm_ctrl_obs_B.b_k_o].f1[left_arm_ctrl_obs_B.i_m + 6 *
+        left_arm_ctrl_obs_B.i_m] = 1.0;
     }
   }
 
   left_arm_ctrl_ob_emxInit_real_T(&f, 2);
-  left_arm_ctrl_obs_B.i_f = f->size[0] * f->size[1];
+  left_arm_ctrl_obs_B.i_m = f->size[0] * f->size[1];
   f->size[0] = 6;
-  f->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_a;
-  left_a_emxEnsureCapacity_real_T(f, left_arm_ctrl_obs_B.i_f);
+  f->size[1] = left_arm_ctrl_obs_B.unnamed_idx_1_j;
+  left_a_emxEnsureCapacity_real_T(f, left_arm_ctrl_obs_B.i_m);
   left_arm_ctrl_ob_emxInit_real_T(&S, 2);
   left_arm_ctrl_ob_emxInit_real_T(&qddoti, 1);
   if (0 <= left_arm_ctrl_obs_B.loop_ub_tmp) {
-    left_arm_ctrl_obs_B.dv3[0] = 0.0;
-    left_arm_ctrl_obs_B.dv3[4] = 0.0;
-    left_arm_ctrl_obs_B.dv3[8] = 0.0;
+    left_arm_ctrl_obs_B.dv4[0] = 0.0;
+    left_arm_ctrl_obs_B.dv4[4] = 0.0;
+    left_arm_ctrl_obs_B.dv4[8] = 0.0;
   }
 
-  for (left_arm_ctrl_obs_B.unnamed_idx_1_a = 0;
-       left_arm_ctrl_obs_B.unnamed_idx_1_a <= left_arm_ctrl_obs_B.loop_ub_tmp;
-       left_arm_ctrl_obs_B.unnamed_idx_1_a++) {
-    obj = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_a];
-    left_arm_ctrl_obs_B.i_f = S->size[0] * S->size[1];
+  for (left_arm_ctrl_obs_B.unnamed_idx_1_j = 0;
+       left_arm_ctrl_obs_B.unnamed_idx_1_j <= left_arm_ctrl_obs_B.loop_ub_tmp;
+       left_arm_ctrl_obs_B.unnamed_idx_1_j++) {
+    obj = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_j];
+    left_arm_ctrl_obs_B.i_m = S->size[0] * S->size[1];
     S->size[0] = 6;
     S->size[1] = obj->JointInternal.MotionSubspace->size[1];
-    left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.i_f);
-    left_arm_ctrl_obs_B.b_k_j = obj->JointInternal.MotionSubspace->size[0] *
+    left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.i_m);
+    left_arm_ctrl_obs_B.b_k_o = obj->JointInternal.MotionSubspace->size[0] *
       obj->JointInternal.MotionSubspace->size[1] - 1;
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-         left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.i_f++) {
-      S->data[left_arm_ctrl_obs_B.i_f] = obj->JointInternal.MotionSubspace->
-        data[left_arm_ctrl_obs_B.i_f];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+         left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.i_m++) {
+      S->data[left_arm_ctrl_obs_B.i_m] = obj->JointInternal.MotionSubspace->
+        data[left_arm_ctrl_obs_B.i_m];
     }
 
-    left_arm_ctrl_obs_B.a_idx_0_p = robot->
-      PositionDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_a];
-    left_arm_ctrl_obs_B.a_idx_1_p = robot->
-      PositionDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_a + 10];
-    left_arm_ctrl_obs_B.b_idx_0_p = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_a];
+    left_arm_ctrl_obs_B.a_idx_0_a = robot->
+      PositionDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_j];
+    left_arm_ctrl_obs_B.a_idx_1_c = robot->
+      PositionDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_j + 10];
+    left_arm_ctrl_obs_B.b_idx_0_d = robot->
+      VelocityDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_j];
     left_arm_ctrl_obs_B.b_idx_1_a = robot->
-      VelocityDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_a + 10];
-    if (left_arm_ctrl_obs_B.a_idx_1_p < left_arm_ctrl_obs_B.a_idx_0_p) {
-      obj = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_a];
+      VelocityDoFMap[left_arm_ctrl_obs_B.unnamed_idx_1_j + 10];
+    if (left_arm_ctrl_obs_B.a_idx_1_c < left_arm_ctrl_obs_B.a_idx_0_a) {
+      obj = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_j];
       rigidBodyJoint_transformBodyToP(&obj->JointInternal,
         left_arm_ctrl_obs_B.T_c);
-      left_arm_ctrl_obs_B.i_f = qddoti->size[0];
+      left_arm_ctrl_obs_B.i_m = qddoti->size[0];
       qddoti->size[0] = 1;
-      left_a_emxEnsureCapacity_real_T(qddoti, left_arm_ctrl_obs_B.i_f);
+      left_a_emxEnsureCapacity_real_T(qddoti, left_arm_ctrl_obs_B.i_m);
       qddoti->data[0] = 0.0;
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        vJ->data[left_arm_ctrl_obs_B.i_f + 6 *
-          left_arm_ctrl_obs_B.unnamed_idx_1_a] = 0.0;
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        vJ->data[left_arm_ctrl_obs_B.i_m + 6 *
+          left_arm_ctrl_obs_B.unnamed_idx_1_j] = 0.0;
       }
     } else {
-      if (left_arm_ctrl_obs_B.a_idx_0_p > left_arm_ctrl_obs_B.a_idx_1_p) {
-        left_arm_ctrl_obs_B.inner_m = 0;
-        left_arm_ctrl_obs_B.m_e = -1;
+      if (left_arm_ctrl_obs_B.a_idx_0_a > left_arm_ctrl_obs_B.a_idx_1_c) {
+        left_arm_ctrl_obs_B.inner_c = 0;
+        left_arm_ctrl_obs_B.m_g = -1;
       } else {
-        left_arm_ctrl_obs_B.inner_m = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.a_idx_0_p) - 1;
-        left_arm_ctrl_obs_B.m_e = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.a_idx_1_p) - 1;
+        left_arm_ctrl_obs_B.inner_c = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.a_idx_0_a) - 1;
+        left_arm_ctrl_obs_B.m_g = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.a_idx_1_c) - 1;
       }
 
-      if (left_arm_ctrl_obs_B.b_idx_0_p > left_arm_ctrl_obs_B.b_idx_1_a) {
-        left_arm_ctrl_obs_B.p_tmp = 0;
+      if (left_arm_ctrl_obs_B.b_idx_0_d > left_arm_ctrl_obs_B.b_idx_1_a) {
+        left_arm_ctrl_obs_B.p_tmp_k = 0;
         left_arm_ctrl_obs_B.o_tmp = 0;
-        left_arm_ctrl_obs_B.aoffset_m = 0;
-        left_arm_ctrl_obs_B.b_k_j = -1;
+        left_arm_ctrl_obs_B.aoffset_c = 0;
+        left_arm_ctrl_obs_B.b_k_o = -1;
       } else {
-        left_arm_ctrl_obs_B.p_tmp = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.b_idx_0_p) - 1;
+        left_arm_ctrl_obs_B.p_tmp_k = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.b_idx_0_d) - 1;
         left_arm_ctrl_obs_B.o_tmp = static_cast<int32_T>
           (left_arm_ctrl_obs_B.b_idx_1_a);
-        left_arm_ctrl_obs_B.aoffset_m = left_arm_ctrl_obs_B.p_tmp;
-        left_arm_ctrl_obs_B.b_k_j = left_arm_ctrl_obs_B.o_tmp - 1;
+        left_arm_ctrl_obs_B.aoffset_c = left_arm_ctrl_obs_B.p_tmp_k;
+        left_arm_ctrl_obs_B.b_k_o = left_arm_ctrl_obs_B.o_tmp - 1;
       }
 
-      left_arm_ctrl_obs_B.i_f = qddoti->size[0];
-      left_arm_ctrl_obs_B.b_k_j -= left_arm_ctrl_obs_B.aoffset_m;
-      qddoti->size[0] = left_arm_ctrl_obs_B.b_k_j + 1;
-      left_a_emxEnsureCapacity_real_T(qddoti, left_arm_ctrl_obs_B.i_f);
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-           left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.i_f++) {
-        qddoti->data[left_arm_ctrl_obs_B.i_f] = qddot->
-          data[left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f];
+      left_arm_ctrl_obs_B.i_m = qddoti->size[0];
+      left_arm_ctrl_obs_B.b_k_o -= left_arm_ctrl_obs_B.aoffset_c;
+      qddoti->size[0] = left_arm_ctrl_obs_B.b_k_o + 1;
+      left_a_emxEnsureCapacity_real_T(qddoti, left_arm_ctrl_obs_B.i_m);
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+           left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.i_m++) {
+        qddoti->data[left_arm_ctrl_obs_B.i_m] = qddot->
+          data[left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m];
       }
 
-      obj = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_a];
-      left_arm_ctrl_obs_B.m_e -= left_arm_ctrl_obs_B.inner_m;
-      left_arm_ctrl_obs_B.q_size = left_arm_ctrl_obs_B.m_e + 1;
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-           left_arm_ctrl_obs_B.m_e; left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.q_data[left_arm_ctrl_obs_B.i_f] =
-          q[left_arm_ctrl_obs_B.inner_m + left_arm_ctrl_obs_B.i_f];
+      obj = robot->Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_j];
+      left_arm_ctrl_obs_B.m_g -= left_arm_ctrl_obs_B.inner_c;
+      left_arm_ctrl_obs_B.q_size = left_arm_ctrl_obs_B.m_g + 1;
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+           left_arm_ctrl_obs_B.m_g; left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.q_data[left_arm_ctrl_obs_B.i_m] =
+          q[left_arm_ctrl_obs_B.inner_c + left_arm_ctrl_obs_B.i_m];
       }
 
       rigidBodyJoint_transformBodyT_e(&obj->JointInternal,
         left_arm_ctrl_obs_B.q_data, &left_arm_ctrl_obs_B.q_size,
         left_arm_ctrl_obs_B.T_c);
       if ((S->size[1] == 1) || (left_arm_ctrl_obs_B.o_tmp -
-           left_arm_ctrl_obs_B.p_tmp == 1)) {
-        for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-             left_arm_ctrl_obs_B.i_f++) {
-          left_arm_ctrl_obs_B.aoffset_m = left_arm_ctrl_obs_B.i_f + 6 *
-            left_arm_ctrl_obs_B.unnamed_idx_1_a;
-          vJ->data[left_arm_ctrl_obs_B.aoffset_m] = 0.0;
-          left_arm_ctrl_obs_B.b_k_j = S->size[1];
-          for (left_arm_ctrl_obs_B.inner_m = 0; left_arm_ctrl_obs_B.inner_m <
-               left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.inner_m++) {
-            vJ->data[left_arm_ctrl_obs_B.aoffset_m] += S->data[6 *
-              left_arm_ctrl_obs_B.inner_m + left_arm_ctrl_obs_B.i_f] *
-              qdot[left_arm_ctrl_obs_B.p_tmp + left_arm_ctrl_obs_B.inner_m];
+           left_arm_ctrl_obs_B.p_tmp_k == 1)) {
+        for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+             left_arm_ctrl_obs_B.i_m++) {
+          left_arm_ctrl_obs_B.aoffset_c = left_arm_ctrl_obs_B.i_m + 6 *
+            left_arm_ctrl_obs_B.unnamed_idx_1_j;
+          vJ->data[left_arm_ctrl_obs_B.aoffset_c] = 0.0;
+          left_arm_ctrl_obs_B.b_k_o = S->size[1];
+          for (left_arm_ctrl_obs_B.inner_c = 0; left_arm_ctrl_obs_B.inner_c <
+               left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.inner_c++) {
+            vJ->data[left_arm_ctrl_obs_B.aoffset_c] += S->data[6 *
+              left_arm_ctrl_obs_B.inner_c + left_arm_ctrl_obs_B.i_m] *
+              qdot[left_arm_ctrl_obs_B.p_tmp_k + left_arm_ctrl_obs_B.inner_c];
           }
         }
       } else {
-        left_arm_ctrl_obs_B.inner_m = S->size[1] - 1;
-        for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-             left_arm_ctrl_obs_B.i_f++) {
-          vJ->data[left_arm_ctrl_obs_B.i_f + 6 *
-            left_arm_ctrl_obs_B.unnamed_idx_1_a] = 0.0;
+        left_arm_ctrl_obs_B.inner_c = S->size[1] - 1;
+        for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+             left_arm_ctrl_obs_B.i_m++) {
+          vJ->data[left_arm_ctrl_obs_B.i_m + 6 *
+            left_arm_ctrl_obs_B.unnamed_idx_1_j] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_k_j = 0; left_arm_ctrl_obs_B.b_k_j <=
-             left_arm_ctrl_obs_B.inner_m; left_arm_ctrl_obs_B.b_k_j++) {
-          left_arm_ctrl_obs_B.aoffset_m = left_arm_ctrl_obs_B.b_k_j * 6 - 1;
-          for (left_arm_ctrl_obs_B.c_i_j = 0; left_arm_ctrl_obs_B.c_i_j < 6;
-               left_arm_ctrl_obs_B.c_i_j++) {
-            left_arm_ctrl_obs_B.i_f = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a +
-              left_arm_ctrl_obs_B.c_i_j;
-            vJ->data[left_arm_ctrl_obs_B.i_f] += S->data
-              [(left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.c_i_j) + 1] *
-              qdot[left_arm_ctrl_obs_B.p_tmp + left_arm_ctrl_obs_B.b_k_j];
+        for (left_arm_ctrl_obs_B.b_k_o = 0; left_arm_ctrl_obs_B.b_k_o <=
+             left_arm_ctrl_obs_B.inner_c; left_arm_ctrl_obs_B.b_k_o++) {
+          left_arm_ctrl_obs_B.aoffset_c = left_arm_ctrl_obs_B.b_k_o * 6 - 1;
+          for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i < 6;
+               left_arm_ctrl_obs_B.c_i++) {
+            left_arm_ctrl_obs_B.i_m = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j +
+              left_arm_ctrl_obs_B.c_i;
+            vJ->data[left_arm_ctrl_obs_B.i_m] += S->data
+              [(left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.c_i) + 1] *
+              qdot[left_arm_ctrl_obs_B.p_tmp_k + left_arm_ctrl_obs_B.b_k_o];
           }
         }
       }
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_f] =
-        left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.i_f];
-      left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_f + 1] =
-        left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.i_f + 4];
-      left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_f + 2] =
-        left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.i_f + 8];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_m] =
+        left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.i_m];
+      left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_m + 1] =
+        left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.i_m + 4];
+      left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_m + 2] =
+        left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.i_m + 8];
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 9;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f] =
-        -left_arm_ctrl_obs_B.R_h[left_arm_ctrl_obs_B.i_f];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 9;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m] =
+        -left_arm_ctrl_obs_B.R_h[left_arm_ctrl_obs_B.i_m];
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.i_f << 2;
-      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp] =
-        left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_f];
-      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp + 1] =
-        left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_f + 1];
-      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp + 2] =
-        left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_f + 2];
-      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.i_f + 12] =
-        left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f + 6] *
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.p_tmp_k = left_arm_ctrl_obs_B.i_m << 2;
+      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp_k] =
+        left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_m];
+      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp_k + 1] =
+        left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_m + 1];
+      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp_k + 2] =
+        left_arm_ctrl_obs_B.R_h[3 * left_arm_ctrl_obs_B.i_m + 2];
+      left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.i_m + 12] =
+        left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m + 6] *
         left_arm_ctrl_obs_B.T_c[14] +
-        (left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f + 3] *
+        (left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m + 3] *
          left_arm_ctrl_obs_B.T_c[13] +
-         left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f] *
+         left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m] *
          left_arm_ctrl_obs_B.T_c[12]);
     }
 
@@ -4483,213 +4505,213 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
     left_arm_ctrl_obs_B.Tinv[7] = 0.0;
     left_arm_ctrl_obs_B.Tinv[11] = 0.0;
     left_arm_ctrl_obs_B.Tinv[15] = 1.0;
-    left_arm_ctrl_obs_B.dv3[3] = -left_arm_ctrl_obs_B.Tinv[14];
-    left_arm_ctrl_obs_B.dv3[6] = left_arm_ctrl_obs_B.Tinv[13];
-    left_arm_ctrl_obs_B.dv3[1] = left_arm_ctrl_obs_B.Tinv[14];
-    left_arm_ctrl_obs_B.dv3[7] = -left_arm_ctrl_obs_B.Tinv[12];
-    left_arm_ctrl_obs_B.dv3[2] = -left_arm_ctrl_obs_B.Tinv[13];
-    left_arm_ctrl_obs_B.dv3[5] = left_arm_ctrl_obs_B.Tinv[12];
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-         left_arm_ctrl_obs_B.i_f++) {
-      for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m < 3;
-           left_arm_ctrl_obs_B.aoffset_m++) {
-        left_arm_ctrl_obs_B.inner_m = left_arm_ctrl_obs_B.i_f + 3 *
-          left_arm_ctrl_obs_B.aoffset_m;
-        left_arm_ctrl_obs_B.dv4[left_arm_ctrl_obs_B.inner_m] = 0.0;
-        left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.aoffset_m << 2;
-        left_arm_ctrl_obs_B.dv4[left_arm_ctrl_obs_B.inner_m] +=
-          left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp] *
-          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.i_f];
-        left_arm_ctrl_obs_B.dv4[left_arm_ctrl_obs_B.inner_m] +=
-          left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp + 1] *
-          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.i_f + 3];
-        left_arm_ctrl_obs_B.dv4[left_arm_ctrl_obs_B.inner_m] +=
-          left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp + 2] *
-          left_arm_ctrl_obs_B.dv3[left_arm_ctrl_obs_B.i_f + 6];
-        X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-          .f1[left_arm_ctrl_obs_B.aoffset_m + 6 * left_arm_ctrl_obs_B.i_f] =
-          left_arm_ctrl_obs_B.Tinv[(left_arm_ctrl_obs_B.i_f << 2) +
-          left_arm_ctrl_obs_B.aoffset_m];
-        X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-          .f1[left_arm_ctrl_obs_B.aoffset_m + 6 * (left_arm_ctrl_obs_B.i_f + 3)]
+    left_arm_ctrl_obs_B.dv4[3] = -left_arm_ctrl_obs_B.Tinv[14];
+    left_arm_ctrl_obs_B.dv4[6] = left_arm_ctrl_obs_B.Tinv[13];
+    left_arm_ctrl_obs_B.dv4[1] = left_arm_ctrl_obs_B.Tinv[14];
+    left_arm_ctrl_obs_B.dv4[7] = -left_arm_ctrl_obs_B.Tinv[12];
+    left_arm_ctrl_obs_B.dv4[2] = -left_arm_ctrl_obs_B.Tinv[13];
+    left_arm_ctrl_obs_B.dv4[5] = left_arm_ctrl_obs_B.Tinv[12];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+         left_arm_ctrl_obs_B.i_m++) {
+      for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c < 3;
+           left_arm_ctrl_obs_B.aoffset_c++) {
+        left_arm_ctrl_obs_B.inner_c = left_arm_ctrl_obs_B.i_m + 3 *
+          left_arm_ctrl_obs_B.aoffset_c;
+        left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_c] = 0.0;
+        left_arm_ctrl_obs_B.p_tmp_k = left_arm_ctrl_obs_B.aoffset_c << 2;
+        left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_c] +=
+          left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp_k] *
+          left_arm_ctrl_obs_B.dv4[left_arm_ctrl_obs_B.i_m];
+        left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_c] +=
+          left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp_k + 1] *
+          left_arm_ctrl_obs_B.dv4[left_arm_ctrl_obs_B.i_m + 3];
+        left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_c] +=
+          left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.p_tmp_k + 2] *
+          left_arm_ctrl_obs_B.dv4[left_arm_ctrl_obs_B.i_m + 6];
+        X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+          .f1[left_arm_ctrl_obs_B.aoffset_c + 6 * left_arm_ctrl_obs_B.i_m] =
+          left_arm_ctrl_obs_B.Tinv[(left_arm_ctrl_obs_B.i_m << 2) +
+          left_arm_ctrl_obs_B.aoffset_c];
+        X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+          .f1[left_arm_ctrl_obs_B.aoffset_c + 6 * (left_arm_ctrl_obs_B.i_m + 3)]
           = 0.0;
       }
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-         left_arm_ctrl_obs_B.i_f++) {
-      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-        left_arm_ctrl_obs_B.i_f + 3] = left_arm_ctrl_obs_B.dv4[3 *
-        left_arm_ctrl_obs_B.i_f];
-      left_arm_ctrl_obs_B.aoffset_m = left_arm_ctrl_obs_B.i_f << 2;
-      left_arm_ctrl_obs_B.inner_m = 6 * (left_arm_ctrl_obs_B.i_f + 3);
-      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-        .f1[left_arm_ctrl_obs_B.inner_m + 3] =
-        left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.aoffset_m];
-      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-        left_arm_ctrl_obs_B.i_f + 4] = left_arm_ctrl_obs_B.dv4[3 *
-        left_arm_ctrl_obs_B.i_f + 1];
-      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-        .f1[left_arm_ctrl_obs_B.inner_m + 4] =
-        left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.aoffset_m + 1];
-      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-        left_arm_ctrl_obs_B.i_f + 5] = left_arm_ctrl_obs_B.dv4[3 *
-        left_arm_ctrl_obs_B.i_f + 2];
-      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-        .f1[left_arm_ctrl_obs_B.inner_m + 5] =
-        left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.aoffset_m + 2];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+         left_arm_ctrl_obs_B.i_m++) {
+      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+        left_arm_ctrl_obs_B.i_m + 3] = left_arm_ctrl_obs_B.dv5[3 *
+        left_arm_ctrl_obs_B.i_m];
+      left_arm_ctrl_obs_B.aoffset_c = left_arm_ctrl_obs_B.i_m << 2;
+      left_arm_ctrl_obs_B.inner_c = 6 * (left_arm_ctrl_obs_B.i_m + 3);
+      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+        .f1[left_arm_ctrl_obs_B.inner_c + 3] =
+        left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.aoffset_c];
+      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+        left_arm_ctrl_obs_B.i_m + 4] = left_arm_ctrl_obs_B.dv5[3 *
+        left_arm_ctrl_obs_B.i_m + 1];
+      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+        .f1[left_arm_ctrl_obs_B.inner_c + 4] =
+        left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.aoffset_c + 1];
+      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+        left_arm_ctrl_obs_B.i_m + 5] = left_arm_ctrl_obs_B.dv5[3 *
+        left_arm_ctrl_obs_B.i_m + 2];
+      X->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+        .f1[left_arm_ctrl_obs_B.inner_c + 5] =
+        left_arm_ctrl_obs_B.Tinv[left_arm_ctrl_obs_B.aoffset_c + 2];
     }
 
-    left_arm_ctrl_obs_B.a_idx_0_p = robot->
-      Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_a]->ParentIndex;
-    if (left_arm_ctrl_obs_B.a_idx_0_p > 0.0) {
-      left_arm_ctrl_obs_B.m_e = static_cast<int32_T>
-        (left_arm_ctrl_obs_B.a_idx_0_p);
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.a_idx_1_p = 0.0;
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             6; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.a_idx_1_p += vB->data[(left_arm_ctrl_obs_B.m_e - 1)
-            * 6 + left_arm_ctrl_obs_B.aoffset_m] * X->
-            data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-            left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f];
+    left_arm_ctrl_obs_B.a_idx_0_a = robot->
+      Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_j]->ParentIndex;
+    if (left_arm_ctrl_obs_B.a_idx_0_a > 0.0) {
+      left_arm_ctrl_obs_B.m_g = static_cast<int32_T>
+        (left_arm_ctrl_obs_B.a_idx_0_a);
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.a_idx_1_c = 0.0;
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             6; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.a_idx_1_c += vB->data[(left_arm_ctrl_obs_B.m_g - 1)
+            * 6 + left_arm_ctrl_obs_B.aoffset_c] * X->
+            data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+            left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m];
         }
 
-        left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_f] = vJ->data[6 *
-          left_arm_ctrl_obs_B.unnamed_idx_1_a + left_arm_ctrl_obs_B.i_f] +
-          left_arm_ctrl_obs_B.a_idx_1_p;
+        left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_m] = vJ->data[6 *
+          left_arm_ctrl_obs_B.unnamed_idx_1_j + left_arm_ctrl_obs_B.i_m] +
+          left_arm_ctrl_obs_B.a_idx_1_c;
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        vB->data[left_arm_ctrl_obs_B.i_f + 6 *
-          left_arm_ctrl_obs_B.unnamed_idx_1_a] =
-          left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_f];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        vB->data[left_arm_ctrl_obs_B.i_m + 6 *
+          left_arm_ctrl_obs_B.unnamed_idx_1_j] =
+          left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_m];
       }
 
       if ((S->size[1] == 1) || (qddoti->size[0] == 1)) {
-        left_arm_ctrl_obs_B.b_k_j = S->size[1];
-        for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-             left_arm_ctrl_obs_B.i_f++) {
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] = 0.0;
-          for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-               left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.aoffset_m++) {
-            left_arm_ctrl_obs_B.a_idx_1_p = S->data[6 *
-              left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f] *
-              qddoti->data[left_arm_ctrl_obs_B.aoffset_m] +
-              left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f];
-            left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] =
-              left_arm_ctrl_obs_B.a_idx_1_p;
+        left_arm_ctrl_obs_B.b_k_o = S->size[1];
+        for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+             left_arm_ctrl_obs_B.i_m++) {
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] = 0.0;
+          for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+               left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.aoffset_c++) {
+            left_arm_ctrl_obs_B.a_idx_1_c = S->data[6 *
+              left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m] *
+              qddoti->data[left_arm_ctrl_obs_B.aoffset_c] +
+              left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m];
+            left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] =
+              left_arm_ctrl_obs_B.a_idx_1_c;
           }
         }
       } else {
-        left_arm_ctrl_obs_B.inner_m = S->size[1] - 1;
-        for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-             left_arm_ctrl_obs_B.i_f++) {
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] = 0.0;
+        left_arm_ctrl_obs_B.inner_c = S->size[1] - 1;
+        for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+             left_arm_ctrl_obs_B.i_m++) {
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_k_j = 0; left_arm_ctrl_obs_B.b_k_j <=
-             left_arm_ctrl_obs_B.inner_m; left_arm_ctrl_obs_B.b_k_j++) {
-          left_arm_ctrl_obs_B.aoffset_m = left_arm_ctrl_obs_B.b_k_j * 6 - 1;
-          for (left_arm_ctrl_obs_B.c_i_j = 0; left_arm_ctrl_obs_B.c_i_j < 6;
-               left_arm_ctrl_obs_B.c_i_j++) {
-            left_arm_ctrl_obs_B.a_idx_1_p = S->data
-              [(left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.c_i_j) + 1] *
-              qddoti->data[left_arm_ctrl_obs_B.b_k_j] +
-              left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.c_i_j];
-            left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.c_i_j] =
-              left_arm_ctrl_obs_B.a_idx_1_p;
+        for (left_arm_ctrl_obs_B.b_k_o = 0; left_arm_ctrl_obs_B.b_k_o <=
+             left_arm_ctrl_obs_B.inner_c; left_arm_ctrl_obs_B.b_k_o++) {
+          left_arm_ctrl_obs_B.aoffset_c = left_arm_ctrl_obs_B.b_k_o * 6 - 1;
+          for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i < 6;
+               left_arm_ctrl_obs_B.c_i++) {
+            left_arm_ctrl_obs_B.a_idx_1_c = S->data
+              [(left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.c_i) + 1] *
+              qddoti->data[left_arm_ctrl_obs_B.b_k_o] +
+              left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.c_i];
+            left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.c_i] =
+              left_arm_ctrl_obs_B.a_idx_1_c;
           }
         }
       }
 
       left_arm_ctrl_obs_B.R_h[0] = 0.0;
-      left_arm_ctrl_obs_B.p_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 2;
-      left_arm_ctrl_obs_B.R_h[3] = -vB->data[left_arm_ctrl_obs_B.p_tmp];
-      left_arm_ctrl_obs_B.i_f = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 1;
-      left_arm_ctrl_obs_B.R_h[6] = vB->data[left_arm_ctrl_obs_B.i_f];
-      left_arm_ctrl_obs_B.R_h[1] = vB->data[left_arm_ctrl_obs_B.p_tmp];
+      left_arm_ctrl_obs_B.p_tmp_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 2;
+      left_arm_ctrl_obs_B.R_h[3] = -vB->data[left_arm_ctrl_obs_B.p_tmp_k];
+      left_arm_ctrl_obs_B.i_m = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 1;
+      left_arm_ctrl_obs_B.R_h[6] = vB->data[left_arm_ctrl_obs_B.i_m];
+      left_arm_ctrl_obs_B.R_h[1] = vB->data[left_arm_ctrl_obs_B.p_tmp_k];
       left_arm_ctrl_obs_B.R_h[4] = 0.0;
       left_arm_ctrl_obs_B.R_h[7] = -vB->data[6 *
-        left_arm_ctrl_obs_B.unnamed_idx_1_a];
-      left_arm_ctrl_obs_B.R_h[2] = -vB->data[left_arm_ctrl_obs_B.i_f];
+        left_arm_ctrl_obs_B.unnamed_idx_1_j];
+      left_arm_ctrl_obs_B.R_h[2] = -vB->data[left_arm_ctrl_obs_B.i_m];
       left_arm_ctrl_obs_B.R_h[5] = vB->data[6 *
-        left_arm_ctrl_obs_B.unnamed_idx_1_a];
+        left_arm_ctrl_obs_B.unnamed_idx_1_j];
       left_arm_ctrl_obs_B.R_h[8] = 0.0;
       left_arm_ctrl_obs_B.b_I_c[3] = 0.0;
-      left_arm_ctrl_obs_B.p_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 5;
-      left_arm_ctrl_obs_B.b_I_c[9] = -vB->data[left_arm_ctrl_obs_B.p_tmp];
-      left_arm_ctrl_obs_B.i_f = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 4;
-      left_arm_ctrl_obs_B.b_I_c[15] = vB->data[left_arm_ctrl_obs_B.i_f];
-      left_arm_ctrl_obs_B.b_I_c[4] = vB->data[left_arm_ctrl_obs_B.p_tmp];
+      left_arm_ctrl_obs_B.p_tmp_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 5;
+      left_arm_ctrl_obs_B.b_I_c[9] = -vB->data[left_arm_ctrl_obs_B.p_tmp_k];
+      left_arm_ctrl_obs_B.i_m = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 4;
+      left_arm_ctrl_obs_B.b_I_c[15] = vB->data[left_arm_ctrl_obs_B.i_m];
+      left_arm_ctrl_obs_B.b_I_c[4] = vB->data[left_arm_ctrl_obs_B.p_tmp_k];
       left_arm_ctrl_obs_B.b_I_c[10] = 0.0;
-      left_arm_ctrl_obs_B.p_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 3;
-      left_arm_ctrl_obs_B.b_I_c[16] = -vB->data[left_arm_ctrl_obs_B.p_tmp];
-      left_arm_ctrl_obs_B.b_I_c[5] = -vB->data[left_arm_ctrl_obs_B.i_f];
-      left_arm_ctrl_obs_B.b_I_c[11] = vB->data[left_arm_ctrl_obs_B.p_tmp];
+      left_arm_ctrl_obs_B.p_tmp_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 3;
+      left_arm_ctrl_obs_B.b_I_c[16] = -vB->data[left_arm_ctrl_obs_B.p_tmp_k];
+      left_arm_ctrl_obs_B.b_I_c[5] = -vB->data[left_arm_ctrl_obs_B.i_m];
+      left_arm_ctrl_obs_B.b_I_c[11] = vB->data[left_arm_ctrl_obs_B.p_tmp_k];
       left_arm_ctrl_obs_B.b_I_c[17] = 0.0;
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.a_idx_1_p = left_arm_ctrl_obs_B.R_h[3 *
-          left_arm_ctrl_obs_B.i_f];
-        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_f] =
-          left_arm_ctrl_obs_B.a_idx_1_p;
-        left_arm_ctrl_obs_B.p_tmp = 6 * (left_arm_ctrl_obs_B.i_f + 3);
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp] = 0.0;
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp + 3] =
-          left_arm_ctrl_obs_B.a_idx_1_p;
-        left_arm_ctrl_obs_B.a_idx_1_p = left_arm_ctrl_obs_B.R_h[3 *
-          left_arm_ctrl_obs_B.i_f + 1];
-        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_f + 1] =
-          left_arm_ctrl_obs_B.a_idx_1_p;
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp + 1] = 0.0;
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp + 4] =
-          left_arm_ctrl_obs_B.a_idx_1_p;
-        left_arm_ctrl_obs_B.a_idx_1_p = left_arm_ctrl_obs_B.R_h[3 *
-          left_arm_ctrl_obs_B.i_f + 2];
-        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_f + 2] =
-          left_arm_ctrl_obs_B.a_idx_1_p;
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp + 2] = 0.0;
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp + 5] =
-          left_arm_ctrl_obs_B.a_idx_1_p;
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.a_idx_1_c = left_arm_ctrl_obs_B.R_h[3 *
+          left_arm_ctrl_obs_B.i_m];
+        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_m] =
+          left_arm_ctrl_obs_B.a_idx_1_c;
+        left_arm_ctrl_obs_B.p_tmp_k = 6 * (left_arm_ctrl_obs_B.i_m + 3);
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp_k] = 0.0;
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp_k + 3] =
+          left_arm_ctrl_obs_B.a_idx_1_c;
+        left_arm_ctrl_obs_B.a_idx_1_c = left_arm_ctrl_obs_B.R_h[3 *
+          left_arm_ctrl_obs_B.i_m + 1];
+        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_m + 1] =
+          left_arm_ctrl_obs_B.a_idx_1_c;
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp_k + 1] = 0.0;
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp_k + 4] =
+          left_arm_ctrl_obs_B.a_idx_1_c;
+        left_arm_ctrl_obs_B.a_idx_1_c = left_arm_ctrl_obs_B.R_h[3 *
+          left_arm_ctrl_obs_B.i_m + 2];
+        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_m + 2] =
+          left_arm_ctrl_obs_B.a_idx_1_c;
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp_k + 2] = 0.0;
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.p_tmp_k + 5] =
+          left_arm_ctrl_obs_B.a_idx_1_c;
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.a_idx_1_p = 0.0;
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             6; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.a_idx_1_p += aB->data[(left_arm_ctrl_obs_B.m_e - 1)
-            * 6 + left_arm_ctrl_obs_B.aoffset_m] * X->
-            data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-            left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.a_idx_1_c = 0.0;
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             6; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.a_idx_1_c += aB->data[(left_arm_ctrl_obs_B.m_g - 1)
+            * 6 + left_arm_ctrl_obs_B.aoffset_c] * X->
+            data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+            left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m];
         }
 
-        left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_f] =
-          left_arm_ctrl_obs_B.a_idx_1_p +
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f];
+        left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_m] =
+          left_arm_ctrl_obs_B.a_idx_1_c +
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m];
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] = 0.0;
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             6; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.a_idx_1_p = left_arm_ctrl_obs_B.b_I_c[6 *
-            left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f] * vJ->data
-            [6 * left_arm_ctrl_obs_B.unnamed_idx_1_a +
-            left_arm_ctrl_obs_B.aoffset_m] +
-            left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f];
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] =
-            left_arm_ctrl_obs_B.a_idx_1_p;
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] = 0.0;
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             6; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.a_idx_1_c = left_arm_ctrl_obs_B.b_I_c[6 *
+            left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m] * vJ->data
+            [6 * left_arm_ctrl_obs_B.unnamed_idx_1_j +
+            left_arm_ctrl_obs_B.aoffset_c] +
+            left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m];
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] =
+            left_arm_ctrl_obs_B.a_idx_1_c;
         }
 
-        aB->data[left_arm_ctrl_obs_B.i_f + 6 *
-          left_arm_ctrl_obs_B.unnamed_idx_1_a] =
-          left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_f] +
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f];
+        aB->data[left_arm_ctrl_obs_B.i_m + 6 *
+          left_arm_ctrl_obs_B.unnamed_idx_1_j] =
+          left_arm_ctrl_obs_B.vJ[left_arm_ctrl_obs_B.i_m] +
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m];
       }
 
       left_arm_ctrl_obs_B.R_bn[0] = 0.0;
@@ -4701,133 +4723,133 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
       left_arm_ctrl_obs_B.R_bn[2] = -left_arm_ctrl_obs_B.T_c[13];
       left_arm_ctrl_obs_B.R_bn[5] = left_arm_ctrl_obs_B.T_c[12];
       left_arm_ctrl_obs_B.R_bn[8] = 0.0;
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-           left_arm_ctrl_obs_B.i_f++) {
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             3; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.inner_m = left_arm_ctrl_obs_B.i_f + 3 *
-            left_arm_ctrl_obs_B.aoffset_m;
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] = 0.0;
-          left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.aoffset_m << 2;
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] +=
-            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp] *
-            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f];
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] +=
-            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp + 1] *
-            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f + 3];
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] +=
-            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp + 2] *
-            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f + 6];
-          left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.aoffset_m + 6 *
-            left_arm_ctrl_obs_B.i_f] = left_arm_ctrl_obs_B.T_c
-            [(left_arm_ctrl_obs_B.i_f << 2) + left_arm_ctrl_obs_B.aoffset_m];
-          left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.aoffset_m + 6 *
-            (left_arm_ctrl_obs_B.i_f + 3)] = 0.0;
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+           left_arm_ctrl_obs_B.i_m++) {
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             3; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.inner_c = left_arm_ctrl_obs_B.i_m + 3 *
+            left_arm_ctrl_obs_B.aoffset_c;
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] = 0.0;
+          left_arm_ctrl_obs_B.p_tmp_k = left_arm_ctrl_obs_B.aoffset_c << 2;
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] +=
+            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k] *
+            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m];
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] +=
+            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k + 1] *
+            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m + 3];
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] +=
+            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k + 2] *
+            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m + 6];
+          left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.aoffset_c + 6 *
+            left_arm_ctrl_obs_B.i_m] = left_arm_ctrl_obs_B.T_c
+            [(left_arm_ctrl_obs_B.i_m << 2) + left_arm_ctrl_obs_B.aoffset_c];
+          left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.aoffset_c + 6 *
+            (left_arm_ctrl_obs_B.i_m + 3)] = 0.0;
         }
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_f + 3] =
-          left_arm_ctrl_obs_B.dv5[3 * left_arm_ctrl_obs_B.i_f];
-        left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.i_f << 2;
-        left_arm_ctrl_obs_B.inner_m = 6 * (left_arm_ctrl_obs_B.i_f + 3);
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.inner_m + 3] =
-          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp];
-        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_f + 4] =
-          left_arm_ctrl_obs_B.dv5[3 * left_arm_ctrl_obs_B.i_f + 1];
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.inner_m + 4] =
-          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp + 1];
-        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_f + 5] =
-          left_arm_ctrl_obs_B.dv5[3 * left_arm_ctrl_obs_B.i_f + 2];
-        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.inner_m + 5] =
-          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp + 2];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_m + 3] =
+          left_arm_ctrl_obs_B.dv6[3 * left_arm_ctrl_obs_B.i_m];
+        left_arm_ctrl_obs_B.p_tmp_k = left_arm_ctrl_obs_B.i_m << 2;
+        left_arm_ctrl_obs_B.inner_c = 6 * (left_arm_ctrl_obs_B.i_m + 3);
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.inner_c + 3] =
+          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k];
+        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_m + 4] =
+          left_arm_ctrl_obs_B.dv6[3 * left_arm_ctrl_obs_B.i_m + 1];
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.inner_c + 4] =
+          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k + 1];
+        left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.i_m + 5] =
+          left_arm_ctrl_obs_B.dv6[3 * left_arm_ctrl_obs_B.i_m + 2];
+        left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.inner_c + 5] =
+          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k + 2];
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             6; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.i_f + 6 *
-            left_arm_ctrl_obs_B.aoffset_m;
-          left_arm_ctrl_obs_B.Xtree[left_arm_ctrl_obs_B.p_tmp] = 0.0;
-          for (left_arm_ctrl_obs_B.inner_m = 0; left_arm_ctrl_obs_B.inner_m < 6;
-               left_arm_ctrl_obs_B.inner_m++) {
-            left_arm_ctrl_obs_B.Xtree[left_arm_ctrl_obs_B.p_tmp] += Xtree->data[
-              static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0_p) - 1].f1[6 *
-              left_arm_ctrl_obs_B.inner_m + left_arm_ctrl_obs_B.i_f] *
-              left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.aoffset_m +
-              left_arm_ctrl_obs_B.inner_m];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             6; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.p_tmp_k = left_arm_ctrl_obs_B.i_m + 6 *
+            left_arm_ctrl_obs_B.aoffset_c;
+          left_arm_ctrl_obs_B.Xtree[left_arm_ctrl_obs_B.p_tmp_k] = 0.0;
+          for (left_arm_ctrl_obs_B.inner_c = 0; left_arm_ctrl_obs_B.inner_c < 6;
+               left_arm_ctrl_obs_B.inner_c++) {
+            left_arm_ctrl_obs_B.Xtree[left_arm_ctrl_obs_B.p_tmp_k] +=
+              Xtree->data[static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0_a) -
+              1].f1[6 * left_arm_ctrl_obs_B.inner_c + left_arm_ctrl_obs_B.i_m] *
+              left_arm_ctrl_obs_B.b_I_c[6 * left_arm_ctrl_obs_B.aoffset_c +
+              left_arm_ctrl_obs_B.inner_c];
           }
         }
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 36;
-           left_arm_ctrl_obs_B.i_f++) {
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-          .f1[left_arm_ctrl_obs_B.i_f] =
-          left_arm_ctrl_obs_B.Xtree[left_arm_ctrl_obs_B.i_f];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 36;
+           left_arm_ctrl_obs_B.i_m++) {
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+          .f1[left_arm_ctrl_obs_B.i_m] =
+          left_arm_ctrl_obs_B.Xtree[left_arm_ctrl_obs_B.i_m];
       }
     } else {
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.aoffset_m = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a
-          + left_arm_ctrl_obs_B.i_f;
-        vB->data[left_arm_ctrl_obs_B.aoffset_m] = vJ->
-          data[left_arm_ctrl_obs_B.aoffset_m];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.aoffset_c = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j
+          + left_arm_ctrl_obs_B.i_m;
+        vB->data[left_arm_ctrl_obs_B.aoffset_c] = vJ->
+          data[left_arm_ctrl_obs_B.aoffset_c];
       }
 
       if ((S->size[1] == 1) || (qddoti->size[0] == 1)) {
-        left_arm_ctrl_obs_B.b_k_j = S->size[1];
-        for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-             left_arm_ctrl_obs_B.i_f++) {
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] = 0.0;
-          for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-               left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.aoffset_m++) {
-            left_arm_ctrl_obs_B.a_idx_1_p = S->data[6 *
-              left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f] *
-              qddoti->data[left_arm_ctrl_obs_B.aoffset_m] +
-              left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f];
-            left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] =
-              left_arm_ctrl_obs_B.a_idx_1_p;
+        left_arm_ctrl_obs_B.b_k_o = S->size[1];
+        for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+             left_arm_ctrl_obs_B.i_m++) {
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] = 0.0;
+          for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+               left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.aoffset_c++) {
+            left_arm_ctrl_obs_B.a_idx_1_c = S->data[6 *
+              left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m] *
+              qddoti->data[left_arm_ctrl_obs_B.aoffset_c] +
+              left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m];
+            left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] =
+              left_arm_ctrl_obs_B.a_idx_1_c;
           }
         }
       } else {
-        left_arm_ctrl_obs_B.inner_m = S->size[1] - 1;
-        for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-             left_arm_ctrl_obs_B.i_f++) {
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f] = 0.0;
+        left_arm_ctrl_obs_B.inner_c = S->size[1] - 1;
+        for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+             left_arm_ctrl_obs_B.i_m++) {
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m] = 0.0;
         }
 
-        for (left_arm_ctrl_obs_B.b_k_j = 0; left_arm_ctrl_obs_B.b_k_j <=
-             left_arm_ctrl_obs_B.inner_m; left_arm_ctrl_obs_B.b_k_j++) {
-          left_arm_ctrl_obs_B.aoffset_m = left_arm_ctrl_obs_B.b_k_j * 6 - 1;
-          for (left_arm_ctrl_obs_B.c_i_j = 0; left_arm_ctrl_obs_B.c_i_j < 6;
-               left_arm_ctrl_obs_B.c_i_j++) {
-            left_arm_ctrl_obs_B.a_idx_1_p = S->data
-              [(left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.c_i_j) + 1] *
-              qddoti->data[left_arm_ctrl_obs_B.b_k_j] +
-              left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.c_i_j];
-            left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.c_i_j] =
-              left_arm_ctrl_obs_B.a_idx_1_p;
+        for (left_arm_ctrl_obs_B.b_k_o = 0; left_arm_ctrl_obs_B.b_k_o <=
+             left_arm_ctrl_obs_B.inner_c; left_arm_ctrl_obs_B.b_k_o++) {
+          left_arm_ctrl_obs_B.aoffset_c = left_arm_ctrl_obs_B.b_k_o * 6 - 1;
+          for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i < 6;
+               left_arm_ctrl_obs_B.c_i++) {
+            left_arm_ctrl_obs_B.a_idx_1_c = S->data
+              [(left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.c_i) + 1] *
+              qddoti->data[left_arm_ctrl_obs_B.b_k_o] +
+              left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.c_i];
+            left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.c_i] =
+              left_arm_ctrl_obs_B.a_idx_1_c;
           }
         }
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.a_idx_1_p = 0.0;
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             6; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.a_idx_1_p += X->
-            data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-            left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f] *
-            left_arm_ctrl_obs_B.a0_m[left_arm_ctrl_obs_B.aoffset_m];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.a_idx_1_c = 0.0;
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             6; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.a_idx_1_c += X->
+            data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+            left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m] *
+            left_arm_ctrl_obs_B.a0_h[left_arm_ctrl_obs_B.aoffset_c];
         }
 
-        aB->data[left_arm_ctrl_obs_B.i_f + 6 *
-          left_arm_ctrl_obs_B.unnamed_idx_1_a] = left_arm_ctrl_obs_B.a_idx_1_p +
-          left_arm_ctrl_obs_B.y_j[left_arm_ctrl_obs_B.i_f];
+        aB->data[left_arm_ctrl_obs_B.i_m + 6 *
+          left_arm_ctrl_obs_B.unnamed_idx_1_j] = left_arm_ctrl_obs_B.a_idx_1_c +
+          left_arm_ctrl_obs_B.y_c[left_arm_ctrl_obs_B.i_m];
       }
 
       left_arm_ctrl_obs_B.R_bn[0] = 0.0;
@@ -4839,159 +4861,159 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
       left_arm_ctrl_obs_B.R_bn[2] = -left_arm_ctrl_obs_B.T_c[13];
       left_arm_ctrl_obs_B.R_bn[5] = left_arm_ctrl_obs_B.T_c[12];
       left_arm_ctrl_obs_B.R_bn[8] = 0.0;
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-           left_arm_ctrl_obs_B.i_f++) {
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             3; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.inner_m = left_arm_ctrl_obs_B.i_f + 3 *
-            left_arm_ctrl_obs_B.aoffset_m;
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] = 0.0;
-          left_arm_ctrl_obs_B.p_tmp = left_arm_ctrl_obs_B.aoffset_m << 2;
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] +=
-            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp] *
-            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f];
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] +=
-            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp + 1] *
-            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f + 3];
-          left_arm_ctrl_obs_B.dv5[left_arm_ctrl_obs_B.inner_m] +=
-            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp + 2] *
-            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_f + 6];
-          Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-            .f1[left_arm_ctrl_obs_B.aoffset_m + 6 * left_arm_ctrl_obs_B.i_f] =
-            left_arm_ctrl_obs_B.T_c[(left_arm_ctrl_obs_B.i_f << 2) +
-            left_arm_ctrl_obs_B.aoffset_m];
-          Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-            .f1[left_arm_ctrl_obs_B.aoffset_m + 6 * (left_arm_ctrl_obs_B.i_f + 3)]
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+           left_arm_ctrl_obs_B.i_m++) {
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             3; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.inner_c = left_arm_ctrl_obs_B.i_m + 3 *
+            left_arm_ctrl_obs_B.aoffset_c;
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] = 0.0;
+          left_arm_ctrl_obs_B.p_tmp_k = left_arm_ctrl_obs_B.aoffset_c << 2;
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] +=
+            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k] *
+            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m];
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] +=
+            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k + 1] *
+            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m + 3];
+          left_arm_ctrl_obs_B.dv6[left_arm_ctrl_obs_B.inner_c] +=
+            left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.p_tmp_k + 2] *
+            left_arm_ctrl_obs_B.R_bn[left_arm_ctrl_obs_B.i_m + 6];
+          Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+            .f1[left_arm_ctrl_obs_B.aoffset_c + 6 * left_arm_ctrl_obs_B.i_m] =
+            left_arm_ctrl_obs_B.T_c[(left_arm_ctrl_obs_B.i_m << 2) +
+            left_arm_ctrl_obs_B.aoffset_c];
+          Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+            .f1[left_arm_ctrl_obs_B.aoffset_c + 6 * (left_arm_ctrl_obs_B.i_m + 3)]
             = 0.0;
         }
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-           left_arm_ctrl_obs_B.i_f++) {
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-          left_arm_ctrl_obs_B.i_f + 3] = left_arm_ctrl_obs_B.dv5[3 *
-          left_arm_ctrl_obs_B.i_f];
-        left_arm_ctrl_obs_B.aoffset_m = left_arm_ctrl_obs_B.i_f << 2;
-        left_arm_ctrl_obs_B.inner_m = 6 * (left_arm_ctrl_obs_B.i_f + 3);
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-          .f1[left_arm_ctrl_obs_B.inner_m + 3] =
-          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.aoffset_m];
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-          left_arm_ctrl_obs_B.i_f + 4] = left_arm_ctrl_obs_B.dv5[3 *
-          left_arm_ctrl_obs_B.i_f + 1];
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-          .f1[left_arm_ctrl_obs_B.inner_m + 4] =
-          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.aoffset_m + 1];
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-          left_arm_ctrl_obs_B.i_f + 5] = left_arm_ctrl_obs_B.dv5[3 *
-          left_arm_ctrl_obs_B.i_f + 2];
-        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_a]
-          .f1[left_arm_ctrl_obs_B.inner_m + 5] =
-          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.aoffset_m + 2];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+           left_arm_ctrl_obs_B.i_m++) {
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+          left_arm_ctrl_obs_B.i_m + 3] = left_arm_ctrl_obs_B.dv6[3 *
+          left_arm_ctrl_obs_B.i_m];
+        left_arm_ctrl_obs_B.aoffset_c = left_arm_ctrl_obs_B.i_m << 2;
+        left_arm_ctrl_obs_B.inner_c = 6 * (left_arm_ctrl_obs_B.i_m + 3);
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+          .f1[left_arm_ctrl_obs_B.inner_c + 3] =
+          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.aoffset_c];
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+          left_arm_ctrl_obs_B.i_m + 4] = left_arm_ctrl_obs_B.dv6[3 *
+          left_arm_ctrl_obs_B.i_m + 1];
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+          .f1[left_arm_ctrl_obs_B.inner_c + 4] =
+          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.aoffset_c + 1];
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+          left_arm_ctrl_obs_B.i_m + 5] = left_arm_ctrl_obs_B.dv6[3 *
+          left_arm_ctrl_obs_B.i_m + 2];
+        Xtree->data[left_arm_ctrl_obs_B.unnamed_idx_1_j]
+          .f1[left_arm_ctrl_obs_B.inner_c + 5] =
+          left_arm_ctrl_obs_B.T_c[left_arm_ctrl_obs_B.aoffset_c + 2];
       }
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 36;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.i_f] = robot->
-        Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_a]->
-        SpatialInertia[left_arm_ctrl_obs_B.i_f];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 36;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.b_I_c[left_arm_ctrl_obs_B.i_m] = robot->
+        Bodies[left_arm_ctrl_obs_B.unnamed_idx_1_j]->
+        SpatialInertia[left_arm_ctrl_obs_B.i_m];
     }
 
     left_arm_ctrl_obs_B.R_h[0] = 0.0;
-    left_arm_ctrl_obs_B.p_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 2;
-    left_arm_ctrl_obs_B.R_h[3] = -vB->data[left_arm_ctrl_obs_B.p_tmp];
-    left_arm_ctrl_obs_B.i_f = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 1;
-    left_arm_ctrl_obs_B.R_h[6] = vB->data[left_arm_ctrl_obs_B.i_f];
-    left_arm_ctrl_obs_B.R_h[1] = vB->data[left_arm_ctrl_obs_B.p_tmp];
+    left_arm_ctrl_obs_B.p_tmp_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 2;
+    left_arm_ctrl_obs_B.R_h[3] = -vB->data[left_arm_ctrl_obs_B.p_tmp_k];
+    left_arm_ctrl_obs_B.i_m = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 1;
+    left_arm_ctrl_obs_B.R_h[6] = vB->data[left_arm_ctrl_obs_B.i_m];
+    left_arm_ctrl_obs_B.R_h[1] = vB->data[left_arm_ctrl_obs_B.p_tmp_k];
     left_arm_ctrl_obs_B.R_h[4] = 0.0;
     left_arm_ctrl_obs_B.R_h[7] = -vB->data[6 *
-      left_arm_ctrl_obs_B.unnamed_idx_1_a];
-    left_arm_ctrl_obs_B.R_h[2] = -vB->data[left_arm_ctrl_obs_B.i_f];
+      left_arm_ctrl_obs_B.unnamed_idx_1_j];
+    left_arm_ctrl_obs_B.R_h[2] = -vB->data[left_arm_ctrl_obs_B.i_m];
     left_arm_ctrl_obs_B.R_h[5] = vB->data[6 *
-      left_arm_ctrl_obs_B.unnamed_idx_1_a];
+      left_arm_ctrl_obs_B.unnamed_idx_1_j];
     left_arm_ctrl_obs_B.R_h[8] = 0.0;
     left_arm_ctrl_obs_B.R[18] = 0.0;
-    left_arm_ctrl_obs_B.p_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 5;
-    left_arm_ctrl_obs_B.R[24] = -vB->data[left_arm_ctrl_obs_B.p_tmp];
-    left_arm_ctrl_obs_B.i_f = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 4;
-    left_arm_ctrl_obs_B.R[30] = vB->data[left_arm_ctrl_obs_B.i_f];
-    left_arm_ctrl_obs_B.R[19] = vB->data[left_arm_ctrl_obs_B.p_tmp];
+    left_arm_ctrl_obs_B.p_tmp_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 5;
+    left_arm_ctrl_obs_B.R[24] = -vB->data[left_arm_ctrl_obs_B.p_tmp_k];
+    left_arm_ctrl_obs_B.i_m = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 4;
+    left_arm_ctrl_obs_B.R[30] = vB->data[left_arm_ctrl_obs_B.i_m];
+    left_arm_ctrl_obs_B.R[19] = vB->data[left_arm_ctrl_obs_B.p_tmp_k];
     left_arm_ctrl_obs_B.R[25] = 0.0;
-    left_arm_ctrl_obs_B.p_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a + 3;
-    left_arm_ctrl_obs_B.R[31] = -vB->data[left_arm_ctrl_obs_B.p_tmp];
-    left_arm_ctrl_obs_B.R[20] = -vB->data[left_arm_ctrl_obs_B.i_f];
-    left_arm_ctrl_obs_B.R[26] = vB->data[left_arm_ctrl_obs_B.p_tmp];
+    left_arm_ctrl_obs_B.p_tmp_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j + 3;
+    left_arm_ctrl_obs_B.R[31] = -vB->data[left_arm_ctrl_obs_B.p_tmp_k];
+    left_arm_ctrl_obs_B.R[20] = -vB->data[left_arm_ctrl_obs_B.i_m];
+    left_arm_ctrl_obs_B.R[26] = vB->data[left_arm_ctrl_obs_B.p_tmp_k];
     left_arm_ctrl_obs_B.R[32] = 0.0;
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 3;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.a_idx_1_p = left_arm_ctrl_obs_B.R_h[3 *
-        left_arm_ctrl_obs_B.i_f];
-      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_f] =
-        left_arm_ctrl_obs_B.a_idx_1_p;
-      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_f + 3] = 0.0;
-      left_arm_ctrl_obs_B.p_tmp = 6 * (left_arm_ctrl_obs_B.i_f + 3);
-      left_arm_ctrl_obs_B.R[left_arm_ctrl_obs_B.p_tmp + 3] =
-        left_arm_ctrl_obs_B.a_idx_1_p;
-      left_arm_ctrl_obs_B.a_idx_1_p = left_arm_ctrl_obs_B.R_h[3 *
-        left_arm_ctrl_obs_B.i_f + 1];
-      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_f + 1] =
-        left_arm_ctrl_obs_B.a_idx_1_p;
-      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_f + 4] = 0.0;
-      left_arm_ctrl_obs_B.R[left_arm_ctrl_obs_B.p_tmp + 4] =
-        left_arm_ctrl_obs_B.a_idx_1_p;
-      left_arm_ctrl_obs_B.a_idx_1_p = left_arm_ctrl_obs_B.R_h[3 *
-        left_arm_ctrl_obs_B.i_f + 2];
-      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_f + 2] =
-        left_arm_ctrl_obs_B.a_idx_1_p;
-      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_f + 5] = 0.0;
-      left_arm_ctrl_obs_B.R[left_arm_ctrl_obs_B.p_tmp + 5] =
-        left_arm_ctrl_obs_B.a_idx_1_p;
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 3;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.a_idx_1_c = left_arm_ctrl_obs_B.R_h[3 *
+        left_arm_ctrl_obs_B.i_m];
+      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_m] =
+        left_arm_ctrl_obs_B.a_idx_1_c;
+      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_m + 3] = 0.0;
+      left_arm_ctrl_obs_B.p_tmp_k = 6 * (left_arm_ctrl_obs_B.i_m + 3);
+      left_arm_ctrl_obs_B.R[left_arm_ctrl_obs_B.p_tmp_k + 3] =
+        left_arm_ctrl_obs_B.a_idx_1_c;
+      left_arm_ctrl_obs_B.a_idx_1_c = left_arm_ctrl_obs_B.R_h[3 *
+        left_arm_ctrl_obs_B.i_m + 1];
+      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_m + 1] =
+        left_arm_ctrl_obs_B.a_idx_1_c;
+      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_m + 4] = 0.0;
+      left_arm_ctrl_obs_B.R[left_arm_ctrl_obs_B.p_tmp_k + 4] =
+        left_arm_ctrl_obs_B.a_idx_1_c;
+      left_arm_ctrl_obs_B.a_idx_1_c = left_arm_ctrl_obs_B.R_h[3 *
+        left_arm_ctrl_obs_B.i_m + 2];
+      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_m + 2] =
+        left_arm_ctrl_obs_B.a_idx_1_c;
+      left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.i_m + 5] = 0.0;
+      left_arm_ctrl_obs_B.R[left_arm_ctrl_obs_B.p_tmp_k + 5] =
+        left_arm_ctrl_obs_B.a_idx_1_c;
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.b_I_h[left_arm_ctrl_obs_B.i_f] = 0.0;
-      left_arm_ctrl_obs_B.b_I_c0[left_arm_ctrl_obs_B.i_f] = 0.0;
-      for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m < 6;
-           left_arm_ctrl_obs_B.aoffset_m++) {
-        left_arm_ctrl_obs_B.a_idx_0_p = left_arm_ctrl_obs_B.b_I_c[6 *
-          left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.i_f];
-        left_arm_ctrl_obs_B.p_tmp = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a +
-          left_arm_ctrl_obs_B.aoffset_m;
-        left_arm_ctrl_obs_B.a_idx_1_p = vB->data[left_arm_ctrl_obs_B.p_tmp] *
-          left_arm_ctrl_obs_B.a_idx_0_p +
-          left_arm_ctrl_obs_B.b_I_h[left_arm_ctrl_obs_B.i_f];
-        left_arm_ctrl_obs_B.a_idx_0_p = aB->data[left_arm_ctrl_obs_B.p_tmp] *
-          left_arm_ctrl_obs_B.a_idx_0_p +
-          left_arm_ctrl_obs_B.b_I_c0[left_arm_ctrl_obs_B.i_f];
-        left_arm_ctrl_obs_B.b_I_h[left_arm_ctrl_obs_B.i_f] =
-          left_arm_ctrl_obs_B.a_idx_1_p;
-        left_arm_ctrl_obs_B.b_I_c0[left_arm_ctrl_obs_B.i_f] =
-          left_arm_ctrl_obs_B.a_idx_0_p;
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.b_I_ct[left_arm_ctrl_obs_B.i_m] = 0.0;
+      left_arm_ctrl_obs_B.b_I_p[left_arm_ctrl_obs_B.i_m] = 0.0;
+      for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c < 6;
+           left_arm_ctrl_obs_B.aoffset_c++) {
+        left_arm_ctrl_obs_B.a_idx_0_a = left_arm_ctrl_obs_B.b_I_c[6 *
+          left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.i_m];
+        left_arm_ctrl_obs_B.p_tmp_k = 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j +
+          left_arm_ctrl_obs_B.aoffset_c;
+        left_arm_ctrl_obs_B.a_idx_1_c = vB->data[left_arm_ctrl_obs_B.p_tmp_k] *
+          left_arm_ctrl_obs_B.a_idx_0_a +
+          left_arm_ctrl_obs_B.b_I_ct[left_arm_ctrl_obs_B.i_m];
+        left_arm_ctrl_obs_B.a_idx_0_a = aB->data[left_arm_ctrl_obs_B.p_tmp_k] *
+          left_arm_ctrl_obs_B.a_idx_0_a +
+          left_arm_ctrl_obs_B.b_I_p[left_arm_ctrl_obs_B.i_m];
+        left_arm_ctrl_obs_B.b_I_ct[left_arm_ctrl_obs_B.i_m] =
+          left_arm_ctrl_obs_B.a_idx_1_c;
+        left_arm_ctrl_obs_B.b_I_p[left_arm_ctrl_obs_B.i_m] =
+          left_arm_ctrl_obs_B.a_idx_0_a;
       }
     }
 
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.R_ct[left_arm_ctrl_obs_B.i_f] = 0.0;
-      left_arm_ctrl_obs_B.a_idx_1_p = 0.0;
-      for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m < 6;
-           left_arm_ctrl_obs_B.aoffset_m++) {
-        left_arm_ctrl_obs_B.a_idx_1_p += Xtree->
-          data[left_arm_ctrl_obs_B.unnamed_idx_1_a].f1[6 *
-          left_arm_ctrl_obs_B.i_f + left_arm_ctrl_obs_B.aoffset_m] * fext[6 *
-          left_arm_ctrl_obs_B.unnamed_idx_1_a + left_arm_ctrl_obs_B.aoffset_m];
-        left_arm_ctrl_obs_B.R_ct[left_arm_ctrl_obs_B.i_f] +=
-          left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.aoffset_m +
-          left_arm_ctrl_obs_B.i_f] *
-          left_arm_ctrl_obs_B.b_I_h[left_arm_ctrl_obs_B.aoffset_m];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.R_p[left_arm_ctrl_obs_B.i_m] = 0.0;
+      left_arm_ctrl_obs_B.a_idx_1_c = 0.0;
+      for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c < 6;
+           left_arm_ctrl_obs_B.aoffset_c++) {
+        left_arm_ctrl_obs_B.a_idx_1_c += Xtree->
+          data[left_arm_ctrl_obs_B.unnamed_idx_1_j].f1[6 *
+          left_arm_ctrl_obs_B.i_m + left_arm_ctrl_obs_B.aoffset_c] * fext[6 *
+          left_arm_ctrl_obs_B.unnamed_idx_1_j + left_arm_ctrl_obs_B.aoffset_c];
+        left_arm_ctrl_obs_B.R_p[left_arm_ctrl_obs_B.i_m] +=
+          left_arm_ctrl_obs_B.R[6 * left_arm_ctrl_obs_B.aoffset_c +
+          left_arm_ctrl_obs_B.i_m] *
+          left_arm_ctrl_obs_B.b_I_ct[left_arm_ctrl_obs_B.aoffset_c];
       }
 
-      f->data[left_arm_ctrl_obs_B.i_f + 6 * left_arm_ctrl_obs_B.unnamed_idx_1_a]
-        = (left_arm_ctrl_obs_B.b_I_c0[left_arm_ctrl_obs_B.i_f] +
-           left_arm_ctrl_obs_B.R_ct[left_arm_ctrl_obs_B.i_f]) -
-        left_arm_ctrl_obs_B.a_idx_1_p;
+      f->data[left_arm_ctrl_obs_B.i_m + 6 * left_arm_ctrl_obs_B.unnamed_idx_1_j]
+        = (left_arm_ctrl_obs_B.b_I_p[left_arm_ctrl_obs_B.i_m] +
+           left_arm_ctrl_obs_B.R_p[left_arm_ctrl_obs_B.i_m]) -
+        left_arm_ctrl_obs_B.a_idx_1_c;
     }
   }
 
@@ -5000,157 +5022,157 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
   left_arm_ctrl_ob_emxFree_real_T(&vJ);
   left_arm_ct_emxFree_f_cell_wrap(&Xtree);
   left_arm_ctrl_obs_B.loop_ub_tmp = static_cast<int32_T>(((-1.0 -
-    left_arm_ctrl_obs_B.nb_k) + 1.0) / -1.0) - 1;
+    left_arm_ctrl_obs_B.nb_e) + 1.0) / -1.0) - 1;
   left_arm_ctrl_ob_emxInit_char_T(&a, 2);
   left_arm_ctrl_ob_emxInit_real_T(&a_0, 2);
   if (0 <= left_arm_ctrl_obs_B.loop_ub_tmp) {
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 5;
-         left_arm_ctrl_obs_B.i_f++) {
-      left_arm_ctrl_obs_B.b_m4[left_arm_ctrl_obs_B.i_f] =
-        tmp[left_arm_ctrl_obs_B.i_f];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 5;
+         left_arm_ctrl_obs_B.i_m++) {
+      left_arm_ctrl_obs_B.b_j[left_arm_ctrl_obs_B.i_m] =
+        tmp[left_arm_ctrl_obs_B.i_m];
     }
   }
 
-  for (left_arm_ctrl_obs_B.p_tmp = 0; left_arm_ctrl_obs_B.p_tmp <=
-       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.p_tmp++) {
-    left_arm_ctrl_obs_B.a_idx_0_p = left_arm_ctrl_obs_B.nb_k +
-      -static_cast<real_T>(left_arm_ctrl_obs_B.p_tmp);
-    left_arm_ctrl_obs_B.inner_m = static_cast<int32_T>
-      (left_arm_ctrl_obs_B.a_idx_0_p);
-    left_arm_ctrl_obs_B.o_tmp = left_arm_ctrl_obs_B.inner_m - 1;
+  for (left_arm_ctrl_obs_B.p_tmp_k = 0; left_arm_ctrl_obs_B.p_tmp_k <=
+       left_arm_ctrl_obs_B.loop_ub_tmp; left_arm_ctrl_obs_B.p_tmp_k++) {
+    left_arm_ctrl_obs_B.a_idx_0_a = left_arm_ctrl_obs_B.nb_e +
+      -static_cast<real_T>(left_arm_ctrl_obs_B.p_tmp_k);
+    left_arm_ctrl_obs_B.inner_c = static_cast<int32_T>
+      (left_arm_ctrl_obs_B.a_idx_0_a);
+    left_arm_ctrl_obs_B.o_tmp = left_arm_ctrl_obs_B.inner_c - 1;
     obj = robot->Bodies[left_arm_ctrl_obs_B.o_tmp];
-    left_arm_ctrl_obs_B.i_f = a->size[0] * a->size[1];
+    left_arm_ctrl_obs_B.i_m = a->size[0] * a->size[1];
     a->size[0] = 1;
     a->size[1] = obj->JointInternal.Type->size[1];
-    left_a_emxEnsureCapacity_char_T(a, left_arm_ctrl_obs_B.i_f);
-    left_arm_ctrl_obs_B.b_k_j = obj->JointInternal.Type->size[0] *
+    left_a_emxEnsureCapacity_char_T(a, left_arm_ctrl_obs_B.i_m);
+    left_arm_ctrl_obs_B.b_k_o = obj->JointInternal.Type->size[0] *
       obj->JointInternal.Type->size[1] - 1;
-    for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-         left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.i_f++) {
-      a->data[left_arm_ctrl_obs_B.i_f] = obj->JointInternal.Type->
-        data[left_arm_ctrl_obs_B.i_f];
+    for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+         left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.i_m++) {
+      a->data[left_arm_ctrl_obs_B.i_m] = obj->JointInternal.Type->
+        data[left_arm_ctrl_obs_B.i_m];
     }
 
-    left_arm_ctrl_obs_B.b_bool_d = false;
+    left_arm_ctrl_obs_B.b_bool_a = false;
     if (a->size[1] == 5) {
-      left_arm_ctrl_obs_B.i_f = 1;
+      left_arm_ctrl_obs_B.i_m = 1;
       do {
         exitg1 = 0;
-        if (left_arm_ctrl_obs_B.i_f - 1 < 5) {
-          left_arm_ctrl_obs_B.unnamed_idx_1_a = left_arm_ctrl_obs_B.i_f - 1;
-          if (a->data[left_arm_ctrl_obs_B.unnamed_idx_1_a] !=
-              left_arm_ctrl_obs_B.b_m4[left_arm_ctrl_obs_B.unnamed_idx_1_a]) {
+        if (left_arm_ctrl_obs_B.i_m - 1 < 5) {
+          left_arm_ctrl_obs_B.unnamed_idx_1_j = left_arm_ctrl_obs_B.i_m - 1;
+          if (a->data[left_arm_ctrl_obs_B.unnamed_idx_1_j] !=
+              left_arm_ctrl_obs_B.b_j[left_arm_ctrl_obs_B.unnamed_idx_1_j]) {
             exitg1 = 1;
           } else {
-            left_arm_ctrl_obs_B.i_f++;
+            left_arm_ctrl_obs_B.i_m++;
           }
         } else {
-          left_arm_ctrl_obs_B.b_bool_d = true;
+          left_arm_ctrl_obs_B.b_bool_a = true;
           exitg1 = 1;
         }
       } while (exitg1 == 0);
     }
 
-    if (!left_arm_ctrl_obs_B.b_bool_d) {
+    if (!left_arm_ctrl_obs_B.b_bool_a) {
       obj = robot->Bodies[left_arm_ctrl_obs_B.o_tmp];
-      left_arm_ctrl_obs_B.i_f = S->size[0] * S->size[1];
+      left_arm_ctrl_obs_B.i_m = S->size[0] * S->size[1];
       S->size[0] = 6;
       S->size[1] = obj->JointInternal.MotionSubspace->size[1];
-      left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.i_f);
-      left_arm_ctrl_obs_B.b_k_j = obj->JointInternal.MotionSubspace->size[0] *
+      left_a_emxEnsureCapacity_real_T(S, left_arm_ctrl_obs_B.i_m);
+      left_arm_ctrl_obs_B.b_k_o = obj->JointInternal.MotionSubspace->size[0] *
         obj->JointInternal.MotionSubspace->size[1] - 1;
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <=
-           left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.i_f++) {
-        S->data[left_arm_ctrl_obs_B.i_f] = obj->
-          JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.i_f];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <=
+           left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.i_m++) {
+        S->data[left_arm_ctrl_obs_B.i_m] = obj->
+          JointInternal.MotionSubspace->data[left_arm_ctrl_obs_B.i_m];
       }
 
-      left_arm_ctrl_obs_B.i_f = a_0->size[0] * a_0->size[1];
+      left_arm_ctrl_obs_B.i_m = a_0->size[0] * a_0->size[1];
       a_0->size[0] = S->size[1];
       a_0->size[1] = 6;
-      left_a_emxEnsureCapacity_real_T(a_0, left_arm_ctrl_obs_B.i_f);
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.b_k_j = S->size[1];
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             left_arm_ctrl_obs_B.b_k_j; left_arm_ctrl_obs_B.aoffset_m++) {
-          a_0->data[left_arm_ctrl_obs_B.aoffset_m + a_0->size[0] *
-            left_arm_ctrl_obs_B.i_f] = S->data[6 * left_arm_ctrl_obs_B.aoffset_m
-            + left_arm_ctrl_obs_B.i_f];
+      left_a_emxEnsureCapacity_real_T(a_0, left_arm_ctrl_obs_B.i_m);
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.b_k_o = S->size[1];
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             left_arm_ctrl_obs_B.b_k_o; left_arm_ctrl_obs_B.aoffset_c++) {
+          a_0->data[left_arm_ctrl_obs_B.aoffset_c + a_0->size[0] *
+            left_arm_ctrl_obs_B.i_m] = S->data[6 * left_arm_ctrl_obs_B.aoffset_c
+            + left_arm_ctrl_obs_B.i_m];
         }
       }
 
-      left_arm_ctrl_obs_B.m_e = a_0->size[0] - 1;
-      left_arm_ctrl_obs_B.i_f = qddoti->size[0];
+      left_arm_ctrl_obs_B.m_g = a_0->size[0] - 1;
+      left_arm_ctrl_obs_B.i_m = qddoti->size[0];
       qddoti->size[0] = a_0->size[0];
-      left_a_emxEnsureCapacity_real_T(qddoti, left_arm_ctrl_obs_B.i_f);
-      for (left_arm_ctrl_obs_B.unnamed_idx_1_a = 0;
-           left_arm_ctrl_obs_B.unnamed_idx_1_a <= left_arm_ctrl_obs_B.m_e;
-           left_arm_ctrl_obs_B.unnamed_idx_1_a++) {
-        qddoti->data[left_arm_ctrl_obs_B.unnamed_idx_1_a] = 0.0;
+      left_a_emxEnsureCapacity_real_T(qddoti, left_arm_ctrl_obs_B.i_m);
+      for (left_arm_ctrl_obs_B.unnamed_idx_1_j = 0;
+           left_arm_ctrl_obs_B.unnamed_idx_1_j <= left_arm_ctrl_obs_B.m_g;
+           left_arm_ctrl_obs_B.unnamed_idx_1_j++) {
+        qddoti->data[left_arm_ctrl_obs_B.unnamed_idx_1_j] = 0.0;
       }
 
-      for (left_arm_ctrl_obs_B.b_k_j = 0; left_arm_ctrl_obs_B.b_k_j < 6;
-           left_arm_ctrl_obs_B.b_k_j++) {
-        left_arm_ctrl_obs_B.aoffset_m = (left_arm_ctrl_obs_B.m_e + 1) *
-          left_arm_ctrl_obs_B.b_k_j - 1;
-        for (left_arm_ctrl_obs_B.c_i_j = 0; left_arm_ctrl_obs_B.c_i_j <=
-             left_arm_ctrl_obs_B.m_e; left_arm_ctrl_obs_B.c_i_j++) {
-          qddoti->data[left_arm_ctrl_obs_B.c_i_j] += f->data
-            [(static_cast<int32_T>(left_arm_ctrl_obs_B.a_idx_0_p) - 1) * 6 +
-            left_arm_ctrl_obs_B.b_k_j] * a_0->data
-            [(left_arm_ctrl_obs_B.aoffset_m + left_arm_ctrl_obs_B.c_i_j) + 1];
+      for (left_arm_ctrl_obs_B.b_k_o = 0; left_arm_ctrl_obs_B.b_k_o < 6;
+           left_arm_ctrl_obs_B.b_k_o++) {
+        left_arm_ctrl_obs_B.aoffset_c = (left_arm_ctrl_obs_B.m_g + 1) *
+          left_arm_ctrl_obs_B.b_k_o - 1;
+        for (left_arm_ctrl_obs_B.c_i = 0; left_arm_ctrl_obs_B.c_i <=
+             left_arm_ctrl_obs_B.m_g; left_arm_ctrl_obs_B.c_i++) {
+          qddoti->data[left_arm_ctrl_obs_B.c_i] += f->data[(static_cast<int32_T>
+            (left_arm_ctrl_obs_B.a_idx_0_a) - 1) * 6 + left_arm_ctrl_obs_B.b_k_o]
+            * a_0->data[(left_arm_ctrl_obs_B.aoffset_c + left_arm_ctrl_obs_B.c_i)
+            + 1];
         }
       }
 
-      left_arm_ctrl_obs_B.b_idx_0_p = robot->
-        VelocityDoFMap[left_arm_ctrl_obs_B.inner_m - 1];
+      left_arm_ctrl_obs_B.b_idx_0_d = robot->
+        VelocityDoFMap[left_arm_ctrl_obs_B.inner_c - 1];
       left_arm_ctrl_obs_B.b_idx_1_a = robot->
-        VelocityDoFMap[left_arm_ctrl_obs_B.inner_m + 9];
-      if (left_arm_ctrl_obs_B.b_idx_0_p > left_arm_ctrl_obs_B.b_idx_1_a) {
-        left_arm_ctrl_obs_B.m_e = 0;
-        left_arm_ctrl_obs_B.i_f = 0;
+        VelocityDoFMap[left_arm_ctrl_obs_B.inner_c + 9];
+      if (left_arm_ctrl_obs_B.b_idx_0_d > left_arm_ctrl_obs_B.b_idx_1_a) {
+        left_arm_ctrl_obs_B.m_g = 0;
+        left_arm_ctrl_obs_B.i_m = 0;
       } else {
-        left_arm_ctrl_obs_B.m_e = static_cast<int32_T>
-          (left_arm_ctrl_obs_B.b_idx_0_p) - 1;
-        left_arm_ctrl_obs_B.i_f = static_cast<int32_T>
+        left_arm_ctrl_obs_B.m_g = static_cast<int32_T>
+          (left_arm_ctrl_obs_B.b_idx_0_d) - 1;
+        left_arm_ctrl_obs_B.i_m = static_cast<int32_T>
           (left_arm_ctrl_obs_B.b_idx_1_a);
       }
 
-      left_arm_ctrl_obs_B.unnamed_idx_1_a = left_arm_ctrl_obs_B.i_f -
-        left_arm_ctrl_obs_B.m_e;
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f <
-           left_arm_ctrl_obs_B.unnamed_idx_1_a; left_arm_ctrl_obs_B.i_f++) {
-        tau[left_arm_ctrl_obs_B.m_e + left_arm_ctrl_obs_B.i_f] = qddoti->
-          data[left_arm_ctrl_obs_B.i_f];
+      left_arm_ctrl_obs_B.unnamed_idx_1_j = left_arm_ctrl_obs_B.i_m -
+        left_arm_ctrl_obs_B.m_g;
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m <
+           left_arm_ctrl_obs_B.unnamed_idx_1_j; left_arm_ctrl_obs_B.i_m++) {
+        tau[left_arm_ctrl_obs_B.m_g + left_arm_ctrl_obs_B.i_m] = qddoti->
+          data[left_arm_ctrl_obs_B.i_m];
       }
     }
 
-    left_arm_ctrl_obs_B.a_idx_0_p = robot->Bodies[left_arm_ctrl_obs_B.o_tmp]
+    left_arm_ctrl_obs_B.a_idx_0_a = robot->Bodies[left_arm_ctrl_obs_B.o_tmp]
       ->ParentIndex;
-    if (left_arm_ctrl_obs_B.a_idx_0_p > 0.0) {
-      left_arm_ctrl_obs_B.m_e = static_cast<int32_T>
-        (left_arm_ctrl_obs_B.a_idx_0_p);
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        left_arm_ctrl_obs_B.a_idx_1_p = 0.0;
-        for (left_arm_ctrl_obs_B.aoffset_m = 0; left_arm_ctrl_obs_B.aoffset_m <
-             6; left_arm_ctrl_obs_B.aoffset_m++) {
-          left_arm_ctrl_obs_B.a_idx_1_p += f->data[(left_arm_ctrl_obs_B.inner_m
-            - 1) * 6 + left_arm_ctrl_obs_B.aoffset_m] * X->
-            data[left_arm_ctrl_obs_B.o_tmp].f1[6 * left_arm_ctrl_obs_B.i_f +
-            left_arm_ctrl_obs_B.aoffset_m];
+    if (left_arm_ctrl_obs_B.a_idx_0_a > 0.0) {
+      left_arm_ctrl_obs_B.m_g = static_cast<int32_T>
+        (left_arm_ctrl_obs_B.a_idx_0_a);
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        left_arm_ctrl_obs_B.a_idx_1_c = 0.0;
+        for (left_arm_ctrl_obs_B.aoffset_c = 0; left_arm_ctrl_obs_B.aoffset_c <
+             6; left_arm_ctrl_obs_B.aoffset_c++) {
+          left_arm_ctrl_obs_B.a_idx_1_c += f->data[(left_arm_ctrl_obs_B.inner_c
+            - 1) * 6 + left_arm_ctrl_obs_B.aoffset_c] * X->
+            data[left_arm_ctrl_obs_B.o_tmp].f1[6 * left_arm_ctrl_obs_B.i_m +
+            left_arm_ctrl_obs_B.aoffset_c];
         }
 
-        left_arm_ctrl_obs_B.a0_m[left_arm_ctrl_obs_B.i_f] = f->data
-          [(left_arm_ctrl_obs_B.m_e - 1) * 6 + left_arm_ctrl_obs_B.i_f] +
-          left_arm_ctrl_obs_B.a_idx_1_p;
+        left_arm_ctrl_obs_B.a0_h[left_arm_ctrl_obs_B.i_m] = f->data
+          [(left_arm_ctrl_obs_B.m_g - 1) * 6 + left_arm_ctrl_obs_B.i_m] +
+          left_arm_ctrl_obs_B.a_idx_1_c;
       }
 
-      for (left_arm_ctrl_obs_B.i_f = 0; left_arm_ctrl_obs_B.i_f < 6;
-           left_arm_ctrl_obs_B.i_f++) {
-        f->data[left_arm_ctrl_obs_B.i_f + 6 * (left_arm_ctrl_obs_B.m_e - 1)] =
-          left_arm_ctrl_obs_B.a0_m[left_arm_ctrl_obs_B.i_f];
+      for (left_arm_ctrl_obs_B.i_m = 0; left_arm_ctrl_obs_B.i_m < 6;
+           left_arm_ctrl_obs_B.i_m++) {
+        f->data[left_arm_ctrl_obs_B.i_m + 6 * (left_arm_ctrl_obs_B.m_g - 1)] =
+          left_arm_ctrl_obs_B.a0_h[left_arm_ctrl_obs_B.i_m];
       }
     }
   }
@@ -5161,6 +5183,100 @@ static void RigidBodyTreeDynamics_inverseDy(k_robotics_manip_internal_e0h_T
   left_arm_ctrl_ob_emxFree_real_T(&S);
   left_arm_ctrl_ob_emxFree_real_T(&f);
   left_arm_ct_emxFree_f_cell_wrap(&X);
+}
+
+real_T rt_hypotd_snf(real_T u0, real_T u1)
+{
+  real_T y;
+  real_T a;
+  a = fabs(u0);
+  y = fabs(u1);
+  if (a < y) {
+    a /= y;
+    y *= sqrt(a * a + 1.0);
+  } else if (a > y) {
+    y /= a;
+    y = sqrt(y * y + 1.0) * a;
+  } else {
+    if (!rtIsNaN(y)) {
+      y = a * 1.4142135623730951;
+    }
+  }
+
+  return y;
+}
+
+static creal_T left_arm_ctrl_obs_sqrt(const creal_T x)
+{
+  creal_T b_x;
+  real_T absxr;
+  real_T absxi;
+  if (x.im == 0.0) {
+    if (x.re < 0.0) {
+      absxr = 0.0;
+      absxi = sqrt(-x.re);
+    } else {
+      absxr = sqrt(x.re);
+      absxi = 0.0;
+    }
+  } else if (x.re == 0.0) {
+    if (x.im < 0.0) {
+      absxr = sqrt(-x.im / 2.0);
+      absxi = -absxr;
+    } else {
+      absxr = sqrt(x.im / 2.0);
+      absxi = absxr;
+    }
+  } else if (rtIsNaN(x.re)) {
+    absxr = x.re;
+    absxi = x.re;
+  } else if (rtIsNaN(x.im)) {
+    absxr = x.im;
+    absxi = x.im;
+  } else if (rtIsInf(x.im)) {
+    absxr = fabs(x.im);
+    absxi = x.im;
+  } else if (rtIsInf(x.re)) {
+    if (x.re < 0.0) {
+      absxr = 0.0;
+      absxi = x.im * -x.re;
+    } else {
+      absxr = x.re;
+      absxi = 0.0;
+    }
+  } else {
+    absxr = fabs(x.re);
+    absxi = fabs(x.im);
+    if ((absxr > 4.4942328371557893E+307) || (absxi > 4.4942328371557893E+307))
+    {
+      absxr *= 0.5;
+      absxi *= 0.5;
+      absxi = rt_hypotd_snf(absxr, absxi);
+      if (absxi > absxr) {
+        absxr = sqrt(absxr / absxi + 1.0) * sqrt(absxi);
+      } else {
+        absxr = sqrt(absxi) * 1.4142135623730951;
+      }
+    } else {
+      absxr = sqrt((rt_hypotd_snf(absxr, absxi) + absxr) * 0.5);
+    }
+
+    if (x.re > 0.0) {
+      absxi = x.im / absxr * 0.5;
+    } else {
+      if (x.im < 0.0) {
+        absxi = -absxr;
+      } else {
+        absxi = absxr;
+      }
+
+      absxr = x.im / absxi * 0.5;
+    }
+  }
+
+  b_x.re = absxr;
+  b_x.im = absxi;
+  return b_x;
 }
 
 real_T rt_atan2d_snf(real_T u0, real_T u1)
@@ -5199,6 +5315,956 @@ real_T rt_atan2d_snf(real_T u0, real_T u1)
   return y;
 }
 
+static real_T left_arm_ctrl_obs_xnrm2(int32_T n, const real_T x[9], int32_T ix0)
+{
+  real_T y;
+  real_T scale;
+  int32_T kend;
+  real_T absxk;
+  real_T t;
+  int32_T k;
+  y = 0.0;
+  scale = 3.3121686421112381E-170;
+  kend = ix0 + n;
+  for (k = ix0; k < kend; k++) {
+    absxk = fabs(x[k - 1]);
+    if (absxk > scale) {
+      t = scale / absxk;
+      y = y * t * t + 1.0;
+      scale = absxk;
+    } else {
+      t = absxk / scale;
+      y += t * t;
+    }
+  }
+
+  return scale * sqrt(y);
+}
+
+static real_T left_arm_ctrl_obs_xdotc(int32_T n, const real_T x[9], int32_T ix0,
+  const real_T y[9], int32_T iy0)
+{
+  real_T d;
+  int32_T ix;
+  int32_T iy;
+  int32_T k;
+  d = 0.0;
+  ix = ix0 - 1;
+  iy = iy0 - 1;
+  for (k = 0; k < n; k++) {
+    d += x[ix] * y[iy];
+    ix++;
+    iy++;
+  }
+
+  return d;
+}
+
+static void left_arm_ctrl_obs_xaxpy(int32_T n, real_T a, int32_T ix0, const
+  real_T y[9], int32_T iy0, real_T b_y[9])
+{
+  int32_T ix;
+  int32_T iy;
+  int32_T k;
+  memcpy(&b_y[0], &y[0], 9U * sizeof(real_T));
+  if (!(a == 0.0)) {
+    ix = ix0;
+    iy = iy0 - 1;
+    for (k = 0; k < n; k++) {
+      b_y[iy] += b_y[ix - 1] * a;
+      ix++;
+      iy++;
+    }
+  }
+}
+
+static real_T left_arm_ctrl_obs_xnrm2_e(const real_T x[3], int32_T ix0)
+{
+  real_T y;
+  real_T scale;
+  real_T absxk;
+  real_T t;
+  int32_T k;
+  y = 0.0;
+  scale = 3.3121686421112381E-170;
+  for (k = ix0; k <= ix0 + 1; k++) {
+    absxk = fabs(x[k - 1]);
+    if (absxk > scale) {
+      t = scale / absxk;
+      y = y * t * t + 1.0;
+      scale = absxk;
+    } else {
+      t = absxk / scale;
+      y += t * t;
+    }
+  }
+
+  return scale * sqrt(y);
+}
+
+static void left_arm_ctrl_obs_xaxpy_e0h(int32_T n, real_T a, const real_T x[9],
+  int32_T ix0, real_T y[3], int32_T iy0)
+{
+  int32_T ix;
+  int32_T iy;
+  int32_T k;
+  if (!(a == 0.0)) {
+    ix = ix0;
+    iy = iy0 - 1;
+    for (k = 0; k < n; k++) {
+      y[iy] += x[ix - 1] * a;
+      ix++;
+      iy++;
+    }
+  }
+}
+
+static void left_arm_ctrl_obs_xaxpy_e0(int32_T n, real_T a, const real_T x[3],
+  int32_T ix0, const real_T y[9], int32_T iy0, real_T b_y[9])
+{
+  int32_T ix;
+  int32_T iy;
+  int32_T k;
+  memcpy(&b_y[0], &y[0], 9U * sizeof(real_T));
+  if (!(a == 0.0)) {
+    ix = ix0;
+    iy = iy0 - 1;
+    for (k = 0; k < n; k++) {
+      b_y[iy] += x[ix - 1] * a;
+      ix++;
+      iy++;
+    }
+  }
+}
+
+static void left_arm_ctrl_obs_xswap(const real_T x[9], int32_T ix0, int32_T iy0,
+  real_T b_x[9])
+{
+  int32_T ix;
+  int32_T iy;
+  real_T temp;
+  memcpy(&b_x[0], &x[0], 9U * sizeof(real_T));
+  ix = ix0 - 1;
+  iy = iy0 - 1;
+  temp = b_x[ix];
+  b_x[ix] = b_x[iy];
+  b_x[iy] = temp;
+  ix++;
+  iy++;
+  temp = b_x[ix];
+  b_x[ix] = b_x[iy];
+  b_x[iy] = temp;
+  ix++;
+  iy++;
+  temp = b_x[ix];
+  b_x[ix] = b_x[iy];
+  b_x[iy] = temp;
+}
+
+static void left_arm_ctrl_obs_xrotg(real_T a, real_T b, real_T *b_a, real_T *b_b,
+  real_T *c, real_T *s)
+{
+  left_arm_ctrl_obs_B.roe = b;
+  left_arm_ctrl_obs_B.absa = fabs(a);
+  left_arm_ctrl_obs_B.absb = fabs(b);
+  if (left_arm_ctrl_obs_B.absa > left_arm_ctrl_obs_B.absb) {
+    left_arm_ctrl_obs_B.roe = a;
+  }
+
+  left_arm_ctrl_obs_B.scale = left_arm_ctrl_obs_B.absa +
+    left_arm_ctrl_obs_B.absb;
+  if (left_arm_ctrl_obs_B.scale == 0.0) {
+    *s = 0.0;
+    *c = 1.0;
+    *b_a = 0.0;
+    *b_b = 0.0;
+  } else {
+    left_arm_ctrl_obs_B.ads = left_arm_ctrl_obs_B.absa /
+      left_arm_ctrl_obs_B.scale;
+    left_arm_ctrl_obs_B.bds = left_arm_ctrl_obs_B.absb /
+      left_arm_ctrl_obs_B.scale;
+    *b_a = sqrt(left_arm_ctrl_obs_B.ads * left_arm_ctrl_obs_B.ads +
+                left_arm_ctrl_obs_B.bds * left_arm_ctrl_obs_B.bds) *
+      left_arm_ctrl_obs_B.scale;
+    if (left_arm_ctrl_obs_B.roe < 0.0) {
+      *b_a = -*b_a;
+    }
+
+    *c = a / *b_a;
+    *s = b / *b_a;
+    if (left_arm_ctrl_obs_B.absa > left_arm_ctrl_obs_B.absb) {
+      *b_b = *s;
+    } else if (*c != 0.0) {
+      *b_b = 1.0 / *c;
+    } else {
+      *b_b = 1.0;
+    }
+  }
+}
+
+static void left_arm_ctrl_obs_xrot(const real_T x[9], int32_T ix0, int32_T iy0,
+  real_T c, real_T s, real_T b_x[9])
+{
+  int32_T ix;
+  int32_T iy;
+  real_T temp;
+  memcpy(&b_x[0], &x[0], 9U * sizeof(real_T));
+  ix = ix0 - 1;
+  iy = iy0 - 1;
+  temp = c * b_x[ix] + s * b_x[iy];
+  b_x[iy] = c * b_x[iy] - s * b_x[ix];
+  b_x[ix] = temp;
+  iy++;
+  ix++;
+  temp = c * b_x[ix] + s * b_x[iy];
+  b_x[iy] = c * b_x[iy] - s * b_x[ix];
+  b_x[ix] = temp;
+  iy++;
+  ix++;
+  temp = c * b_x[ix] + s * b_x[iy];
+  b_x[iy] = c * b_x[iy] - s * b_x[ix];
+  b_x[ix] = temp;
+}
+
+static void left_arm_ctrl_obs_svd(const real_T A[9], real_T U[9], real_T s[3],
+  real_T V[9])
+{
+  boolean_T exitg1;
+  left_arm_ctrl_obs_B.s[0] = 0.0;
+  left_arm_ctrl_obs_B.e[0] = 0.0;
+  left_arm_ctrl_obs_B.work[0] = 0.0;
+  left_arm_ctrl_obs_B.s[1] = 0.0;
+  left_arm_ctrl_obs_B.e[1] = 0.0;
+  left_arm_ctrl_obs_B.work[1] = 0.0;
+  left_arm_ctrl_obs_B.s[2] = 0.0;
+  left_arm_ctrl_obs_B.e[2] = 0.0;
+  left_arm_ctrl_obs_B.work[2] = 0.0;
+  for (left_arm_ctrl_obs_B.m_o = 0; left_arm_ctrl_obs_B.m_o < 9;
+       left_arm_ctrl_obs_B.m_o++) {
+    left_arm_ctrl_obs_B.A[left_arm_ctrl_obs_B.m_o] = A[left_arm_ctrl_obs_B.m_o];
+    U[left_arm_ctrl_obs_B.m_o] = 0.0;
+    V[left_arm_ctrl_obs_B.m_o] = 0.0;
+  }
+
+  for (left_arm_ctrl_obs_B.m_o = 0; left_arm_ctrl_obs_B.m_o < 2;
+       left_arm_ctrl_obs_B.m_o++) {
+    left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.m_o + 1;
+    left_arm_ctrl_obs_B.qp1 = left_arm_ctrl_obs_B.q_a + 1;
+    left_arm_ctrl_obs_B.qq_tmp = (left_arm_ctrl_obs_B.q_a - 1) * 3;
+    left_arm_ctrl_obs_B.qq = left_arm_ctrl_obs_B.qq_tmp +
+      left_arm_ctrl_obs_B.q_a;
+    left_arm_ctrl_obs_B.apply_transform = false;
+    left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_xnrm2(4 -
+      left_arm_ctrl_obs_B.q_a, left_arm_ctrl_obs_B.A, left_arm_ctrl_obs_B.qq);
+    if (left_arm_ctrl_obs_B.nrm > 0.0) {
+      left_arm_ctrl_obs_B.apply_transform = true;
+      if (left_arm_ctrl_obs_B.A[left_arm_ctrl_obs_B.qq - 1] < 0.0) {
+        left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a - 1] =
+          -left_arm_ctrl_obs_B.nrm;
+      } else {
+        left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a - 1] =
+          left_arm_ctrl_obs_B.nrm;
+      }
+
+      left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a -
+        1];
+      if (fabs(left_arm_ctrl_obs_B.nrm) >= 1.0020841800044864E-292) {
+        left_arm_ctrl_obs_B.rt = 1.0 / left_arm_ctrl_obs_B.nrm;
+        left_arm_ctrl_obs_B.b_jw = left_arm_ctrl_obs_B.qq -
+          left_arm_ctrl_obs_B.q_a;
+        for (left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.qq;
+             left_arm_ctrl_obs_B.qjj <= left_arm_ctrl_obs_B.b_jw + 3;
+             left_arm_ctrl_obs_B.qjj++) {
+          left_arm_ctrl_obs_B.A[left_arm_ctrl_obs_B.qjj - 1] *=
+            left_arm_ctrl_obs_B.rt;
+        }
+      } else {
+        left_arm_ctrl_obs_B.b_jw = left_arm_ctrl_obs_B.qq -
+          left_arm_ctrl_obs_B.q_a;
+        for (left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.qq;
+             left_arm_ctrl_obs_B.qjj <= left_arm_ctrl_obs_B.b_jw + 3;
+             left_arm_ctrl_obs_B.qjj++) {
+          left_arm_ctrl_obs_B.A[left_arm_ctrl_obs_B.qjj - 1] /=
+            left_arm_ctrl_obs_B.nrm;
+        }
+      }
+
+      left_arm_ctrl_obs_B.A[left_arm_ctrl_obs_B.qq - 1]++;
+      left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a - 1] =
+        -left_arm_ctrl_obs_B.nrm;
+    } else {
+      left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a - 1] = 0.0;
+    }
+
+    for (left_arm_ctrl_obs_B.b_jw = left_arm_ctrl_obs_B.qp1;
+         left_arm_ctrl_obs_B.b_jw < 4; left_arm_ctrl_obs_B.b_jw++) {
+      left_arm_ctrl_obs_B.qjj = (left_arm_ctrl_obs_B.b_jw - 1) * 3 +
+        left_arm_ctrl_obs_B.q_a;
+      if (left_arm_ctrl_obs_B.apply_transform) {
+        memcpy(&left_arm_ctrl_obs_B.A_j[0], &left_arm_ctrl_obs_B.A[0], 9U *
+               sizeof(real_T));
+        left_arm_ctrl_obs_xaxpy(4 - left_arm_ctrl_obs_B.q_a,
+          -(left_arm_ctrl_obs_xdotc(4 - left_arm_ctrl_obs_B.q_a,
+          left_arm_ctrl_obs_B.A, left_arm_ctrl_obs_B.qq, left_arm_ctrl_obs_B.A,
+          left_arm_ctrl_obs_B.qjj) / left_arm_ctrl_obs_B.A
+            [((left_arm_ctrl_obs_B.q_a - 1) * 3 + left_arm_ctrl_obs_B.q_a) - 1]),
+          left_arm_ctrl_obs_B.qq, left_arm_ctrl_obs_B.A_j,
+          left_arm_ctrl_obs_B.qjj, left_arm_ctrl_obs_B.A);
+      }
+
+      left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.b_jw - 1] =
+        left_arm_ctrl_obs_B.A[left_arm_ctrl_obs_B.qjj - 1];
+    }
+
+    if (left_arm_ctrl_obs_B.q_a <= 3) {
+      memcpy(&U[(left_arm_ctrl_obs_B.q_a + left_arm_ctrl_obs_B.qq_tmp) + -1],
+             &left_arm_ctrl_obs_B.A[(left_arm_ctrl_obs_B.q_a +
+              left_arm_ctrl_obs_B.qq_tmp) + -1], (((left_arm_ctrl_obs_B.qq_tmp -
+                left_arm_ctrl_obs_B.q_a) - left_arm_ctrl_obs_B.qq_tmp) + 4) *
+             sizeof(real_T));
+    }
+
+    if (left_arm_ctrl_obs_B.q_a <= 1) {
+      left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_xnrm2_e(left_arm_ctrl_obs_B.e,
+        2);
+      if (left_arm_ctrl_obs_B.nrm == 0.0) {
+        left_arm_ctrl_obs_B.e[0] = 0.0;
+      } else {
+        if (left_arm_ctrl_obs_B.e[1] < 0.0) {
+          left_arm_ctrl_obs_B.rt = -left_arm_ctrl_obs_B.nrm;
+          left_arm_ctrl_obs_B.e[0] = -left_arm_ctrl_obs_B.nrm;
+        } else {
+          left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.nrm;
+          left_arm_ctrl_obs_B.e[0] = left_arm_ctrl_obs_B.nrm;
+        }
+
+        if (fabs(left_arm_ctrl_obs_B.rt) >= 1.0020841800044864E-292) {
+          left_arm_ctrl_obs_B.rt = 1.0 / left_arm_ctrl_obs_B.rt;
+          for (left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.qp1;
+               left_arm_ctrl_obs_B.qjj < 4; left_arm_ctrl_obs_B.qjj++) {
+            left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qjj - 1] *=
+              left_arm_ctrl_obs_B.rt;
+          }
+        } else {
+          for (left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.qp1;
+               left_arm_ctrl_obs_B.qjj < 4; left_arm_ctrl_obs_B.qjj++) {
+            left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qjj - 1] /=
+              left_arm_ctrl_obs_B.rt;
+          }
+        }
+
+        left_arm_ctrl_obs_B.e[1]++;
+        left_arm_ctrl_obs_B.e[0] = -left_arm_ctrl_obs_B.e[0];
+        for (left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.qp1;
+             left_arm_ctrl_obs_B.q_a < 4; left_arm_ctrl_obs_B.q_a++) {
+          left_arm_ctrl_obs_B.work[left_arm_ctrl_obs_B.q_a - 1] = 0.0;
+        }
+
+        for (left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.qp1;
+             left_arm_ctrl_obs_B.q_a < 4; left_arm_ctrl_obs_B.q_a++) {
+          left_arm_ctrl_obs_xaxpy_e0h(2,
+            left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a - 1],
+            left_arm_ctrl_obs_B.A, 3 * (left_arm_ctrl_obs_B.q_a - 1) + 2,
+            left_arm_ctrl_obs_B.work, 2);
+        }
+
+        for (left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.qp1;
+             left_arm_ctrl_obs_B.q_a < 4; left_arm_ctrl_obs_B.q_a++) {
+          memcpy(&left_arm_ctrl_obs_B.A_j[0], &left_arm_ctrl_obs_B.A[0], 9U *
+                 sizeof(real_T));
+          left_arm_ctrl_obs_xaxpy_e0(2,
+            -left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a - 1] /
+            left_arm_ctrl_obs_B.e[1], left_arm_ctrl_obs_B.work, 2,
+            left_arm_ctrl_obs_B.A_j, (left_arm_ctrl_obs_B.q_a - 1) * 3 + 2,
+            left_arm_ctrl_obs_B.A);
+        }
+      }
+
+      for (left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.qp1;
+           left_arm_ctrl_obs_B.q_a < 4; left_arm_ctrl_obs_B.q_a++) {
+        V[left_arm_ctrl_obs_B.q_a - 1] =
+          left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a - 1];
+      }
+    }
+  }
+
+  left_arm_ctrl_obs_B.m_o = 2;
+  left_arm_ctrl_obs_B.s[2] = left_arm_ctrl_obs_B.A[8];
+  left_arm_ctrl_obs_B.e[1] = left_arm_ctrl_obs_B.A[7];
+  left_arm_ctrl_obs_B.e[2] = 0.0;
+  U[6] = 0.0;
+  U[7] = 0.0;
+  U[8] = 1.0;
+  for (left_arm_ctrl_obs_B.q_a = 1; left_arm_ctrl_obs_B.q_a >= 0;
+       left_arm_ctrl_obs_B.q_a--) {
+    left_arm_ctrl_obs_B.qq = 3 * left_arm_ctrl_obs_B.q_a +
+      left_arm_ctrl_obs_B.q_a;
+    if (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] != 0.0) {
+      for (left_arm_ctrl_obs_B.qp1 = left_arm_ctrl_obs_B.q_a + 2;
+           left_arm_ctrl_obs_B.qp1 < 4; left_arm_ctrl_obs_B.qp1++) {
+        left_arm_ctrl_obs_B.qjj = ((left_arm_ctrl_obs_B.qp1 - 1) * 3 +
+          left_arm_ctrl_obs_B.q_a) + 1;
+        memcpy(&left_arm_ctrl_obs_B.A[0], &U[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_xaxpy(3 - left_arm_ctrl_obs_B.q_a,
+          -(left_arm_ctrl_obs_xdotc(3 - left_arm_ctrl_obs_B.q_a, U,
+          left_arm_ctrl_obs_B.qq + 1, U, left_arm_ctrl_obs_B.qjj) /
+            U[left_arm_ctrl_obs_B.qq]), left_arm_ctrl_obs_B.qq + 1,
+          left_arm_ctrl_obs_B.A, left_arm_ctrl_obs_B.qjj, U);
+      }
+
+      for (left_arm_ctrl_obs_B.qp1 = left_arm_ctrl_obs_B.q_a + 1;
+           left_arm_ctrl_obs_B.qp1 < 4; left_arm_ctrl_obs_B.qp1++) {
+        left_arm_ctrl_obs_B.qjj = (3 * left_arm_ctrl_obs_B.q_a +
+          left_arm_ctrl_obs_B.qp1) - 1;
+        U[left_arm_ctrl_obs_B.qjj] = -U[left_arm_ctrl_obs_B.qjj];
+      }
+
+      U[left_arm_ctrl_obs_B.qq]++;
+      if (0 <= left_arm_ctrl_obs_B.q_a - 1) {
+        U[3 * left_arm_ctrl_obs_B.q_a] = 0.0;
+      }
+    } else {
+      U[3 * left_arm_ctrl_obs_B.q_a] = 0.0;
+      U[3 * left_arm_ctrl_obs_B.q_a + 1] = 0.0;
+      U[3 * left_arm_ctrl_obs_B.q_a + 2] = 0.0;
+      U[left_arm_ctrl_obs_B.qq] = 1.0;
+    }
+  }
+
+  for (left_arm_ctrl_obs_B.q_a = 2; left_arm_ctrl_obs_B.q_a >= 0;
+       left_arm_ctrl_obs_B.q_a--) {
+    if ((left_arm_ctrl_obs_B.q_a + 1 <= 1) && (left_arm_ctrl_obs_B.e[0] != 0.0))
+    {
+      for (left_arm_ctrl_obs_B.qp1 = 0; left_arm_ctrl_obs_B.qp1 < 2;
+           left_arm_ctrl_obs_B.qp1++) {
+        left_arm_ctrl_obs_B.qq = (left_arm_ctrl_obs_B.qp1 + 1) * 3 + 2;
+        memcpy(&left_arm_ctrl_obs_B.A[0], &V[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_xaxpy(2, -(left_arm_ctrl_obs_xdotc(2, V, 2, V,
+          left_arm_ctrl_obs_B.qq) / V[1]), 2, left_arm_ctrl_obs_B.A,
+          left_arm_ctrl_obs_B.qq, V);
+      }
+    }
+
+    V[3 * left_arm_ctrl_obs_B.q_a] = 0.0;
+    V[3 * left_arm_ctrl_obs_B.q_a + 1] = 0.0;
+    V[3 * left_arm_ctrl_obs_B.q_a + 2] = 0.0;
+    V[left_arm_ctrl_obs_B.q_a + 3 * left_arm_ctrl_obs_B.q_a] = 1.0;
+  }
+
+  for (left_arm_ctrl_obs_B.q_a = 0; left_arm_ctrl_obs_B.q_a < 3;
+       left_arm_ctrl_obs_B.q_a++) {
+    left_arm_ctrl_obs_B.ztest = left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a];
+    if (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] != 0.0) {
+      left_arm_ctrl_obs_B.rt = fabs
+        (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a]);
+      left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] /
+        left_arm_ctrl_obs_B.rt;
+      left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] = left_arm_ctrl_obs_B.rt;
+      if (left_arm_ctrl_obs_B.q_a + 1 < 3) {
+        left_arm_ctrl_obs_B.ztest =
+          left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a] /
+          left_arm_ctrl_obs_B.nrm;
+      }
+
+      left_arm_ctrl_obs_B.qp1 = 3 * left_arm_ctrl_obs_B.q_a;
+      for (left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.qp1 + 1;
+           left_arm_ctrl_obs_B.qjj <= left_arm_ctrl_obs_B.qp1 + 3;
+           left_arm_ctrl_obs_B.qjj++) {
+        U[left_arm_ctrl_obs_B.qjj - 1] *= left_arm_ctrl_obs_B.nrm;
+      }
+    }
+
+    if ((left_arm_ctrl_obs_B.q_a + 1 < 3) && (left_arm_ctrl_obs_B.ztest != 0.0))
+    {
+      left_arm_ctrl_obs_B.rt = fabs(left_arm_ctrl_obs_B.ztest);
+      left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_B.rt /
+        left_arm_ctrl_obs_B.ztest;
+      left_arm_ctrl_obs_B.ztest = left_arm_ctrl_obs_B.rt;
+      left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a + 1] *=
+        left_arm_ctrl_obs_B.nrm;
+      left_arm_ctrl_obs_B.qp1 = (left_arm_ctrl_obs_B.q_a + 1) * 3;
+      for (left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.qp1 + 1;
+           left_arm_ctrl_obs_B.qjj <= left_arm_ctrl_obs_B.qp1 + 3;
+           left_arm_ctrl_obs_B.qjj++) {
+        V[left_arm_ctrl_obs_B.qjj - 1] *= left_arm_ctrl_obs_B.nrm;
+      }
+    }
+
+    left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a] = left_arm_ctrl_obs_B.ztest;
+  }
+
+  left_arm_ctrl_obs_B.qp1 = 0;
+  left_arm_ctrl_obs_B.nrm = 0.0;
+  left_arm_ctrl_obs_B.ztest = fabs(left_arm_ctrl_obs_B.s[0]);
+  left_arm_ctrl_obs_B.rt = fabs(left_arm_ctrl_obs_B.e[0]);
+  if ((left_arm_ctrl_obs_B.ztest > left_arm_ctrl_obs_B.rt) || rtIsNaN
+      (left_arm_ctrl_obs_B.rt)) {
+    left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.ztest;
+  }
+
+  if (!rtIsNaN(left_arm_ctrl_obs_B.rt)) {
+    left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_B.rt;
+  }
+
+  left_arm_ctrl_obs_B.ztest = fabs(left_arm_ctrl_obs_B.s[1]);
+  left_arm_ctrl_obs_B.rt = fabs(left_arm_ctrl_obs_B.e[1]);
+  if ((left_arm_ctrl_obs_B.ztest > left_arm_ctrl_obs_B.rt) || rtIsNaN
+      (left_arm_ctrl_obs_B.rt)) {
+    left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.ztest;
+  }
+
+  if ((!(left_arm_ctrl_obs_B.nrm > left_arm_ctrl_obs_B.rt)) && (!rtIsNaN
+       (left_arm_ctrl_obs_B.rt))) {
+    left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_B.rt;
+  }
+
+  left_arm_ctrl_obs_B.ztest = fabs(left_arm_ctrl_obs_B.s[2]);
+  left_arm_ctrl_obs_B.rt = fabs(left_arm_ctrl_obs_B.e[2]);
+  if ((left_arm_ctrl_obs_B.ztest > left_arm_ctrl_obs_B.rt) || rtIsNaN
+      (left_arm_ctrl_obs_B.rt)) {
+    left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.ztest;
+  }
+
+  if ((!(left_arm_ctrl_obs_B.nrm > left_arm_ctrl_obs_B.rt)) && (!rtIsNaN
+       (left_arm_ctrl_obs_B.rt))) {
+    left_arm_ctrl_obs_B.nrm = left_arm_ctrl_obs_B.rt;
+  }
+
+  while ((left_arm_ctrl_obs_B.m_o + 1 > 0) && (left_arm_ctrl_obs_B.qp1 < 75)) {
+    left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.m_o;
+    left_arm_ctrl_obs_B.qq = left_arm_ctrl_obs_B.m_o;
+    exitg1 = false;
+    while ((!exitg1) && (left_arm_ctrl_obs_B.qq > -1)) {
+      left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.qq;
+      if (left_arm_ctrl_obs_B.qq == 0) {
+        exitg1 = true;
+      } else {
+        left_arm_ctrl_obs_B.rt = fabs
+          (left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq - 1]);
+        if ((left_arm_ctrl_obs_B.rt <= (fabs
+              (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq - 1]) + fabs
+              (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq])) *
+             2.2204460492503131E-16) || (left_arm_ctrl_obs_B.rt <=
+             1.0020841800044864E-292) || ((left_arm_ctrl_obs_B.qp1 > 20) &&
+             (left_arm_ctrl_obs_B.rt <= 2.2204460492503131E-16 *
+              left_arm_ctrl_obs_B.nrm))) {
+          left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq - 1] = 0.0;
+          exitg1 = true;
+        } else {
+          left_arm_ctrl_obs_B.qq--;
+        }
+      }
+    }
+
+    if (left_arm_ctrl_obs_B.q_a == left_arm_ctrl_obs_B.m_o) {
+      left_arm_ctrl_obs_B.qjj = 4;
+    } else {
+      left_arm_ctrl_obs_B.qq = left_arm_ctrl_obs_B.m_o + 1;
+      left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.m_o + 1;
+      exitg1 = false;
+      while ((!exitg1) && (left_arm_ctrl_obs_B.qjj >= left_arm_ctrl_obs_B.q_a))
+      {
+        left_arm_ctrl_obs_B.qq = left_arm_ctrl_obs_B.qjj;
+        if (left_arm_ctrl_obs_B.qjj == left_arm_ctrl_obs_B.q_a) {
+          exitg1 = true;
+        } else {
+          left_arm_ctrl_obs_B.rt = 0.0;
+          if (left_arm_ctrl_obs_B.qjj < left_arm_ctrl_obs_B.m_o + 1) {
+            left_arm_ctrl_obs_B.rt = fabs
+              (left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qjj - 1]);
+          }
+
+          if (left_arm_ctrl_obs_B.qjj > left_arm_ctrl_obs_B.q_a + 1) {
+            left_arm_ctrl_obs_B.rt += fabs
+              (left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qjj - 2]);
+          }
+
+          left_arm_ctrl_obs_B.ztest = fabs
+            (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qjj - 1]);
+          if ((left_arm_ctrl_obs_B.ztest <= 2.2204460492503131E-16 *
+               left_arm_ctrl_obs_B.rt) || (left_arm_ctrl_obs_B.ztest <=
+               1.0020841800044864E-292)) {
+            left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qjj - 1] = 0.0;
+            exitg1 = true;
+          } else {
+            left_arm_ctrl_obs_B.qjj--;
+          }
+        }
+      }
+
+      if (left_arm_ctrl_obs_B.qq == left_arm_ctrl_obs_B.q_a) {
+        left_arm_ctrl_obs_B.qjj = 3;
+      } else if (left_arm_ctrl_obs_B.m_o + 1 == left_arm_ctrl_obs_B.qq) {
+        left_arm_ctrl_obs_B.qjj = 1;
+      } else {
+        left_arm_ctrl_obs_B.qjj = 2;
+        left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.qq;
+      }
+    }
+
+    switch (left_arm_ctrl_obs_B.qjj) {
+     case 1:
+      left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.m_o - 1];
+      left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.m_o - 1] = 0.0;
+      for (left_arm_ctrl_obs_B.qq = left_arm_ctrl_obs_B.m_o;
+           left_arm_ctrl_obs_B.qq >= left_arm_ctrl_obs_B.q_a + 1;
+           left_arm_ctrl_obs_B.qq--) {
+        left_arm_ctrl_obs_B.ztest = left_arm_ctrl_obs_B.e[0];
+        left_arm_ctrl_obs_xrotg(left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq - 1],
+          left_arm_ctrl_obs_B.rt, &left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq
+          - 1], &left_arm_ctrl_obs_B.rt, &left_arm_ctrl_obs_B.sqds,
+          &left_arm_ctrl_obs_B.b_my);
+        if (left_arm_ctrl_obs_B.qq > left_arm_ctrl_obs_B.q_a + 1) {
+          left_arm_ctrl_obs_B.rt = -left_arm_ctrl_obs_B.b_my *
+            left_arm_ctrl_obs_B.e[0];
+          left_arm_ctrl_obs_B.ztest = left_arm_ctrl_obs_B.e[0] *
+            left_arm_ctrl_obs_B.sqds;
+        }
+
+        memcpy(&left_arm_ctrl_obs_B.A[0], &V[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_xrot(left_arm_ctrl_obs_B.A, (left_arm_ctrl_obs_B.qq -
+          1) * 3 + 1, 3 * left_arm_ctrl_obs_B.m_o + 1, left_arm_ctrl_obs_B.sqds,
+          left_arm_ctrl_obs_B.b_my, V);
+        left_arm_ctrl_obs_B.e[0] = left_arm_ctrl_obs_B.ztest;
+      }
+      break;
+
+     case 2:
+      left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a - 1];
+      left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a - 1] = 0.0;
+      for (left_arm_ctrl_obs_B.qq = left_arm_ctrl_obs_B.q_a + 1;
+           left_arm_ctrl_obs_B.qq <= left_arm_ctrl_obs_B.m_o + 1;
+           left_arm_ctrl_obs_B.qq++) {
+        left_arm_ctrl_obs_xrotg(left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq - 1],
+          left_arm_ctrl_obs_B.rt, &left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq
+          - 1], &left_arm_ctrl_obs_B.ztest, &left_arm_ctrl_obs_B.sqds,
+          &left_arm_ctrl_obs_B.b_my);
+        left_arm_ctrl_obs_B.ztest = left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq
+          - 1];
+        left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.ztest *
+          -left_arm_ctrl_obs_B.b_my;
+        left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq - 1] =
+          left_arm_ctrl_obs_B.ztest * left_arm_ctrl_obs_B.sqds;
+        memcpy(&left_arm_ctrl_obs_B.A[0], &U[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_xrot(left_arm_ctrl_obs_B.A, (left_arm_ctrl_obs_B.qq -
+          1) * 3 + 1, (left_arm_ctrl_obs_B.q_a - 1) * 3 + 1,
+          left_arm_ctrl_obs_B.sqds, left_arm_ctrl_obs_B.b_my, U);
+      }
+      break;
+
+     case 3:
+      left_arm_ctrl_obs_B.ztest = fabs
+        (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.m_o]);
+      left_arm_ctrl_obs_B.sqds = left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.m_o -
+        1];
+      left_arm_ctrl_obs_B.rt = fabs(left_arm_ctrl_obs_B.sqds);
+      if ((left_arm_ctrl_obs_B.ztest > left_arm_ctrl_obs_B.rt) || rtIsNaN
+          (left_arm_ctrl_obs_B.rt)) {
+        left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.ztest;
+      }
+
+      left_arm_ctrl_obs_B.b_my = left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.m_o -
+        1];
+      left_arm_ctrl_obs_B.ztest = fabs(left_arm_ctrl_obs_B.b_my);
+      if ((left_arm_ctrl_obs_B.rt > left_arm_ctrl_obs_B.ztest) || rtIsNaN
+          (left_arm_ctrl_obs_B.ztest)) {
+        left_arm_ctrl_obs_B.ztest = left_arm_ctrl_obs_B.rt;
+      }
+
+      left_arm_ctrl_obs_B.rt = fabs
+        (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a]);
+      if ((left_arm_ctrl_obs_B.ztest > left_arm_ctrl_obs_B.rt) || rtIsNaN
+          (left_arm_ctrl_obs_B.rt)) {
+        left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.ztest;
+      }
+
+      left_arm_ctrl_obs_B.ztest = fabs
+        (left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a]);
+      if ((left_arm_ctrl_obs_B.rt > left_arm_ctrl_obs_B.ztest) || rtIsNaN
+          (left_arm_ctrl_obs_B.ztest)) {
+        left_arm_ctrl_obs_B.ztest = left_arm_ctrl_obs_B.rt;
+      }
+
+      left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.m_o] /
+        left_arm_ctrl_obs_B.ztest;
+      left_arm_ctrl_obs_B.smm1 = left_arm_ctrl_obs_B.sqds /
+        left_arm_ctrl_obs_B.ztest;
+      left_arm_ctrl_obs_B.emm1 = left_arm_ctrl_obs_B.b_my /
+        left_arm_ctrl_obs_B.ztest;
+      left_arm_ctrl_obs_B.sqds = left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] /
+        left_arm_ctrl_obs_B.ztest;
+      left_arm_ctrl_obs_B.b_my = ((left_arm_ctrl_obs_B.smm1 +
+        left_arm_ctrl_obs_B.rt) * (left_arm_ctrl_obs_B.smm1 -
+        left_arm_ctrl_obs_B.rt) + left_arm_ctrl_obs_B.emm1 *
+        left_arm_ctrl_obs_B.emm1) / 2.0;
+      left_arm_ctrl_obs_B.smm1 = left_arm_ctrl_obs_B.rt *
+        left_arm_ctrl_obs_B.emm1;
+      left_arm_ctrl_obs_B.smm1 *= left_arm_ctrl_obs_B.smm1;
+      if ((left_arm_ctrl_obs_B.b_my != 0.0) || (left_arm_ctrl_obs_B.smm1 != 0.0))
+      {
+        left_arm_ctrl_obs_B.emm1 = sqrt(left_arm_ctrl_obs_B.b_my *
+          left_arm_ctrl_obs_B.b_my + left_arm_ctrl_obs_B.smm1);
+        if (left_arm_ctrl_obs_B.b_my < 0.0) {
+          left_arm_ctrl_obs_B.emm1 = -left_arm_ctrl_obs_B.emm1;
+        }
+
+        left_arm_ctrl_obs_B.emm1 = left_arm_ctrl_obs_B.smm1 /
+          (left_arm_ctrl_obs_B.b_my + left_arm_ctrl_obs_B.emm1);
+      } else {
+        left_arm_ctrl_obs_B.emm1 = 0.0;
+      }
+
+      left_arm_ctrl_obs_B.rt = (left_arm_ctrl_obs_B.sqds +
+        left_arm_ctrl_obs_B.rt) * (left_arm_ctrl_obs_B.sqds -
+        left_arm_ctrl_obs_B.rt) + left_arm_ctrl_obs_B.emm1;
+      left_arm_ctrl_obs_B.sqds *= left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.q_a]
+        / left_arm_ctrl_obs_B.ztest;
+      for (left_arm_ctrl_obs_B.qq_tmp = left_arm_ctrl_obs_B.q_a + 1;
+           left_arm_ctrl_obs_B.qq_tmp <= left_arm_ctrl_obs_B.m_o;
+           left_arm_ctrl_obs_B.qq_tmp++) {
+        left_arm_ctrl_obs_xrotg(left_arm_ctrl_obs_B.rt, left_arm_ctrl_obs_B.sqds,
+          &left_arm_ctrl_obs_B.ztest, &left_arm_ctrl_obs_B.emm1,
+          &left_arm_ctrl_obs_B.b_my, &left_arm_ctrl_obs_B.smm1);
+        if (left_arm_ctrl_obs_B.qq_tmp > left_arm_ctrl_obs_B.q_a + 1) {
+          left_arm_ctrl_obs_B.e[0] = left_arm_ctrl_obs_B.ztest;
+        }
+
+        left_arm_ctrl_obs_B.ztest =
+          left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq_tmp - 1];
+        left_arm_ctrl_obs_B.rt =
+          left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq_tmp - 1];
+        left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq_tmp - 1] =
+          left_arm_ctrl_obs_B.ztest * left_arm_ctrl_obs_B.b_my -
+          left_arm_ctrl_obs_B.rt * left_arm_ctrl_obs_B.smm1;
+        left_arm_ctrl_obs_B.sqds = left_arm_ctrl_obs_B.smm1 *
+          left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq_tmp];
+        left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq_tmp] *=
+          left_arm_ctrl_obs_B.b_my;
+        memcpy(&left_arm_ctrl_obs_B.A[0], &V[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_B.qq = (left_arm_ctrl_obs_B.qq_tmp - 1) * 3 + 1;
+        left_arm_ctrl_obs_B.qjj = 3 * left_arm_ctrl_obs_B.qq_tmp + 1;
+        left_arm_ctrl_obs_xrot(left_arm_ctrl_obs_B.A, left_arm_ctrl_obs_B.qq,
+          left_arm_ctrl_obs_B.qjj, left_arm_ctrl_obs_B.b_my,
+          left_arm_ctrl_obs_B.smm1, V);
+        left_arm_ctrl_obs_xrotg(left_arm_ctrl_obs_B.rt *
+          left_arm_ctrl_obs_B.b_my + left_arm_ctrl_obs_B.ztest *
+          left_arm_ctrl_obs_B.smm1, left_arm_ctrl_obs_B.sqds,
+          &left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq_tmp - 1],
+          &left_arm_ctrl_obs_B.unusedU2, &left_arm_ctrl_obs_B.emm1,
+          &left_arm_ctrl_obs_B.d_sn);
+        left_arm_ctrl_obs_B.rt =
+          left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq_tmp - 1] *
+          left_arm_ctrl_obs_B.emm1 + left_arm_ctrl_obs_B.d_sn *
+          left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq_tmp];
+        left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq_tmp] =
+          left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq_tmp - 1] *
+          -left_arm_ctrl_obs_B.d_sn + left_arm_ctrl_obs_B.emm1 *
+          left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qq_tmp];
+        left_arm_ctrl_obs_B.sqds = left_arm_ctrl_obs_B.d_sn *
+          left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq_tmp];
+        left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.qq_tmp] *=
+          left_arm_ctrl_obs_B.emm1;
+        memcpy(&left_arm_ctrl_obs_B.A[0], &U[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_xrot(left_arm_ctrl_obs_B.A, left_arm_ctrl_obs_B.qq,
+          left_arm_ctrl_obs_B.qjj, left_arm_ctrl_obs_B.emm1,
+          left_arm_ctrl_obs_B.d_sn, U);
+      }
+
+      left_arm_ctrl_obs_B.e[left_arm_ctrl_obs_B.m_o - 1] =
+        left_arm_ctrl_obs_B.rt;
+      left_arm_ctrl_obs_B.qp1++;
+      break;
+
+     default:
+      if (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] < 0.0) {
+        left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] =
+          -left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a];
+        left_arm_ctrl_obs_B.qp1 = 3 * left_arm_ctrl_obs_B.q_a;
+        for (left_arm_ctrl_obs_B.qjj = left_arm_ctrl_obs_B.qp1 + 1;
+             left_arm_ctrl_obs_B.qjj <= left_arm_ctrl_obs_B.qp1 + 3;
+             left_arm_ctrl_obs_B.qjj++) {
+          V[left_arm_ctrl_obs_B.qjj - 1] = -V[left_arm_ctrl_obs_B.qjj - 1];
+        }
+      }
+
+      left_arm_ctrl_obs_B.qp1 = left_arm_ctrl_obs_B.q_a + 1;
+      while ((left_arm_ctrl_obs_B.q_a + 1 < 3) &&
+             (left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] <
+              left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qp1])) {
+        left_arm_ctrl_obs_B.rt = left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a];
+        left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.q_a] =
+          left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qp1];
+        left_arm_ctrl_obs_B.s[left_arm_ctrl_obs_B.qp1] = left_arm_ctrl_obs_B.rt;
+        memcpy(&left_arm_ctrl_obs_B.A[0], &V[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_B.qq = 3 * left_arm_ctrl_obs_B.q_a + 1;
+        left_arm_ctrl_obs_B.qjj = (left_arm_ctrl_obs_B.q_a + 1) * 3 + 1;
+        left_arm_ctrl_obs_xswap(left_arm_ctrl_obs_B.A, left_arm_ctrl_obs_B.qq,
+          left_arm_ctrl_obs_B.qjj, V);
+        memcpy(&left_arm_ctrl_obs_B.A[0], &U[0], 9U * sizeof(real_T));
+        left_arm_ctrl_obs_xswap(left_arm_ctrl_obs_B.A, left_arm_ctrl_obs_B.qq,
+          left_arm_ctrl_obs_B.qjj, U);
+        left_arm_ctrl_obs_B.q_a = left_arm_ctrl_obs_B.qp1;
+        left_arm_ctrl_obs_B.qp1++;
+      }
+
+      left_arm_ctrl_obs_B.qp1 = 0;
+      left_arm_ctrl_obs_B.m_o--;
+      break;
+    }
+  }
+
+  s[0] = left_arm_ctrl_obs_B.s[0];
+  s[1] = left_arm_ctrl_obs_B.s[1];
+  s[2] = left_arm_ctrl_obs_B.s[2];
+}
+
+static void CoordinateTransformationConvers(const real_T in[16], real_T out[4])
+{
+  boolean_T exitg1;
+  left_arm_ctrl_obs_B.u.re = (((in[0] + in[5]) + in[10]) - 1.0) * 0.5;
+  if (!(fabs(left_arm_ctrl_obs_B.u.re) > 1.0)) {
+    left_arm_ctrl_obs_B.v_o3.re = acos(left_arm_ctrl_obs_B.u.re);
+  } else {
+    left_arm_ctrl_obs_B.u_l.re = left_arm_ctrl_obs_B.u.re + 1.0;
+    left_arm_ctrl_obs_B.u_l.im = 0.0;
+    left_arm_ctrl_obs_B.dc.re = 1.0 - left_arm_ctrl_obs_B.u.re;
+    left_arm_ctrl_obs_B.dc.im = 0.0;
+    left_arm_ctrl_obs_B.v_o3.re = 2.0 * rt_atan2d_snf((left_arm_ctrl_obs_sqrt
+      (left_arm_ctrl_obs_B.dc)).re, (left_arm_ctrl_obs_sqrt
+      (left_arm_ctrl_obs_B.u_l)).re);
+  }
+
+  left_arm_ctrl_obs_B.a_n = 2.0 * sin(left_arm_ctrl_obs_B.v_o3.re);
+  left_arm_ctrl_obs_B.v_o2[0] = (in[6] - in[9]) / left_arm_ctrl_obs_B.a_n;
+  left_arm_ctrl_obs_B.v_o2[1] = (in[8] - in[2]) / left_arm_ctrl_obs_B.a_n;
+  left_arm_ctrl_obs_B.v_o2[2] = (in[1] - in[4]) / left_arm_ctrl_obs_B.a_n;
+  if (rtIsNaN(left_arm_ctrl_obs_B.v_o3.re) || rtIsInf
+      (left_arm_ctrl_obs_B.v_o3.re)) {
+    left_arm_ctrl_obs_B.a_n = (rtNaN);
+  } else if (left_arm_ctrl_obs_B.v_o3.re == 0.0) {
+    left_arm_ctrl_obs_B.a_n = 0.0;
+  } else {
+    left_arm_ctrl_obs_B.a_n = fmod(left_arm_ctrl_obs_B.v_o3.re,
+      3.1415926535897931);
+    left_arm_ctrl_obs_B.rEQ0 = (left_arm_ctrl_obs_B.a_n == 0.0);
+    if (!left_arm_ctrl_obs_B.rEQ0) {
+      left_arm_ctrl_obs_B.q_i = fabs(left_arm_ctrl_obs_B.v_o3.re /
+        3.1415926535897931);
+      left_arm_ctrl_obs_B.rEQ0 = !(fabs(left_arm_ctrl_obs_B.q_i - floor
+        (left_arm_ctrl_obs_B.q_i + 0.5)) > 2.2204460492503131E-16 *
+        left_arm_ctrl_obs_B.q_i);
+    }
+
+    if (left_arm_ctrl_obs_B.rEQ0) {
+      left_arm_ctrl_obs_B.a_n = 0.0;
+    } else {
+      if (left_arm_ctrl_obs_B.v_o3.re < 0.0) {
+        left_arm_ctrl_obs_B.a_n += 3.1415926535897931;
+      }
+    }
+  }
+
+  left_arm_ctrl_obs_B.rEQ0 = (left_arm_ctrl_obs_B.a_n == 0.0);
+  left_arm_ctrl_obs_B.e_f = true;
+  left_arm_ctrl_obs_B.b_k_d = 0;
+  exitg1 = false;
+  while ((!exitg1) && (left_arm_ctrl_obs_B.b_k_d < 3)) {
+    if (!(left_arm_ctrl_obs_B.v_o2[left_arm_ctrl_obs_B.b_k_d] == 0.0)) {
+      left_arm_ctrl_obs_B.e_f = false;
+      exitg1 = true;
+    } else {
+      left_arm_ctrl_obs_B.b_k_d++;
+    }
+  }
+
+  if (left_arm_ctrl_obs_B.rEQ0 || left_arm_ctrl_obs_B.e_f) {
+    left_arm_ctrl_obs_B.loop_ub_tmp_p = (left_arm_ctrl_obs_B.rEQ0 ||
+      left_arm_ctrl_obs_B.e_f);
+    left_arm_ctrl_obs_B.loop_ub_c5 = left_arm_ctrl_obs_B.loop_ub_tmp_p * 3 - 1;
+    if (0 <= left_arm_ctrl_obs_B.loop_ub_c5) {
+      memset(&left_arm_ctrl_obs_B.vspecial_data[0], 0,
+             (left_arm_ctrl_obs_B.loop_ub_c5 + 1) * sizeof(real_T));
+    }
+
+    left_arm_ctrl_obs_B.loop_ub_tmp_p--;
+    for (left_arm_ctrl_obs_B.loop_ub_c5 = 0; left_arm_ctrl_obs_B.loop_ub_c5 <=
+         left_arm_ctrl_obs_B.loop_ub_tmp_p; left_arm_ctrl_obs_B.loop_ub_c5++) {
+      memset(&left_arm_ctrl_obs_B.b_I_j[0], 0, 9U * sizeof(real_T));
+      left_arm_ctrl_obs_B.b_I_j[0] = 1.0;
+      left_arm_ctrl_obs_B.b_I_j[4] = 1.0;
+      left_arm_ctrl_obs_B.b_I_j[8] = 1.0;
+      for (left_arm_ctrl_obs_B.b_k_d = 0; left_arm_ctrl_obs_B.b_k_d < 3;
+           left_arm_ctrl_obs_B.b_k_d++) {
+        left_arm_ctrl_obs_B.b_I_tmp = left_arm_ctrl_obs_B.b_k_d << 2;
+        left_arm_ctrl_obs_B.b_I_j[3 * left_arm_ctrl_obs_B.b_k_d] -=
+          in[left_arm_ctrl_obs_B.b_I_tmp];
+        left_arm_ctrl_obs_B.b_I_tmp_p = 3 * left_arm_ctrl_obs_B.b_k_d + 1;
+        left_arm_ctrl_obs_B.b_I_j[left_arm_ctrl_obs_B.b_I_tmp_p] -=
+          in[left_arm_ctrl_obs_B.b_I_tmp + 1];
+        left_arm_ctrl_obs_B.b_I_tmp_p = 3 * left_arm_ctrl_obs_B.b_k_d + 2;
+        left_arm_ctrl_obs_B.b_I_j[left_arm_ctrl_obs_B.b_I_tmp_p] -=
+          in[left_arm_ctrl_obs_B.b_I_tmp + 2];
+      }
+
+      left_arm_ctrl_obs_B.p = true;
+      for (left_arm_ctrl_obs_B.b_k_d = 0; left_arm_ctrl_obs_B.b_k_d < 9;
+           left_arm_ctrl_obs_B.b_k_d++) {
+        if (left_arm_ctrl_obs_B.p && ((!rtIsInf
+              (left_arm_ctrl_obs_B.b_I_j[left_arm_ctrl_obs_B.b_k_d])) &&
+             (!rtIsNaN(left_arm_ctrl_obs_B.b_I_j[left_arm_ctrl_obs_B.b_k_d]))))
+        {
+        } else {
+          left_arm_ctrl_obs_B.p = false;
+        }
+      }
+
+      if (left_arm_ctrl_obs_B.p) {
+        left_arm_ctrl_obs_svd(left_arm_ctrl_obs_B.b_I_j, left_arm_ctrl_obs_B.b_U,
+                              left_arm_ctrl_obs_B.vspecial_data,
+                              left_arm_ctrl_obs_B.V);
+      } else {
+        for (left_arm_ctrl_obs_B.b_k_d = 0; left_arm_ctrl_obs_B.b_k_d < 9;
+             left_arm_ctrl_obs_B.b_k_d++) {
+          left_arm_ctrl_obs_B.V[left_arm_ctrl_obs_B.b_k_d] = (rtNaN);
+        }
+      }
+
+      left_arm_ctrl_obs_B.vspecial_data[0] = left_arm_ctrl_obs_B.V[6];
+      left_arm_ctrl_obs_B.vspecial_data[1] = left_arm_ctrl_obs_B.V[7];
+      left_arm_ctrl_obs_B.vspecial_data[2] = left_arm_ctrl_obs_B.V[8];
+    }
+
+    left_arm_ctrl_obs_B.loop_ub_tmp_p = 0;
+    if (left_arm_ctrl_obs_B.rEQ0 || left_arm_ctrl_obs_B.e_f) {
+      for (left_arm_ctrl_obs_B.loop_ub_c5 = 0; left_arm_ctrl_obs_B.loop_ub_c5 <
+           1; left_arm_ctrl_obs_B.loop_ub_c5++) {
+        left_arm_ctrl_obs_B.loop_ub_tmp_p++;
+      }
+    }
+
+    for (left_arm_ctrl_obs_B.b_k_d = 0; left_arm_ctrl_obs_B.b_k_d <
+         left_arm_ctrl_obs_B.loop_ub_tmp_p; left_arm_ctrl_obs_B.b_k_d++) {
+      left_arm_ctrl_obs_B.v_o2[0] = left_arm_ctrl_obs_B.vspecial_data[3 *
+        left_arm_ctrl_obs_B.b_k_d];
+      left_arm_ctrl_obs_B.v_o2[1] = left_arm_ctrl_obs_B.vspecial_data[3 *
+        left_arm_ctrl_obs_B.b_k_d + 1];
+      left_arm_ctrl_obs_B.v_o2[2] = left_arm_ctrl_obs_B.vspecial_data[3 *
+        left_arm_ctrl_obs_B.b_k_d + 2];
+    }
+  }
+
+  left_arm_ctrl_obs_B.a_n = 1.0 / sqrt((left_arm_ctrl_obs_B.v_o2[0] *
+    left_arm_ctrl_obs_B.v_o2[0] + left_arm_ctrl_obs_B.v_o2[1] *
+    left_arm_ctrl_obs_B.v_o2[1]) + left_arm_ctrl_obs_B.v_o2[2] *
+    left_arm_ctrl_obs_B.v_o2[2]);
+  left_arm_ctrl_obs_B.v_o2[0] *= left_arm_ctrl_obs_B.a_n;
+  left_arm_ctrl_obs_B.v_o2[1] *= left_arm_ctrl_obs_B.a_n;
+  out[0] = left_arm_ctrl_obs_B.v_o2[0];
+  out[1] = left_arm_ctrl_obs_B.v_o2[1];
+  out[2] = left_arm_ctrl_obs_B.v_o2[2] * left_arm_ctrl_obs_B.a_n;
+  out[3] = left_arm_ctrl_obs_B.v_o3.re;
+}
+
 static void left_arm_ctrl_obs_atan2(const real_T y_data[], const int32_T y_size
   [3], const real_T x_data[], const int32_T x_size[3], real_T r_data[], int32_T
   r_size[3])
@@ -5218,7 +6284,7 @@ static void left_arm_ctrl_obs_atan2(const real_T y_data[], const int32_T y_size
   }
 }
 
-static void left_arm_ctr_matlabCodegenHa_ek(ros_slros_internal_block_Subs_T *obj)
+static void left_arm_ctr_matlabCodegenHa_pe(ros_slros_internal_block_Subs_T *obj)
 {
   if (!obj->matlabCodegenIsDeleted) {
     obj->matlabCodegenIsDeleted = true;
@@ -7314,7 +8380,7 @@ static i_robotics_manip_internal_R_e_T *l_RigidBody_Rigid_i
     b_kstr = 0;
   } else {
     for (b_kstr = 0; b_kstr < 9; b_kstr++) {
-      left_arm_ctrl_obs_B.b_m[b_kstr] = tmp_2[b_kstr];
+      left_arm_ctrl_obs_B.b_h2[b_kstr] = tmp_2[b_kstr];
     }
 
     b_bool = false;
@@ -7325,7 +8391,7 @@ static i_robotics_manip_internal_R_e_T *l_RigidBody_Rigid_i
         if (b_kstr - 1 < 9) {
           loop_ub = b_kstr - 1;
           if (switch_expression->data[loop_ub] !=
-              left_arm_ctrl_obs_B.b_m[loop_ub]) {
+              left_arm_ctrl_obs_B.b_h2[loop_ub]) {
             exitg1 = 1;
           } else {
             b_kstr++;
@@ -9203,9 +10269,9 @@ void left_arm_ctrl_obs_step(void)
   left_arm_ctrl_ob_emxInit_real_T(&b, 2);
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
-    // Outputs for Atomic SubSystem: '<S8>/Subscribe'
-    // MATLABSystem: '<S27>/SourceBlock' incorporates:
-    //   Inport: '<S29>/In1'
+    // Outputs for Atomic SubSystem: '<S10>/Subscribe'
+    // MATLABSystem: '<S43>/SourceBlock' incorporates:
+    //   Inport: '<S45>/In1'
 
     left_arm_ctrl_o_SystemCore_step(&left_arm_ctrl_obs_B.b_varargout_1,
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct,
@@ -9214,10 +10280,10 @@ void left_arm_ctrl_obs_step(void)
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_DataOffset,
       left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim,
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_Inf,
-      &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_j);
+      &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_e);
 
-    // Outputs for Enabled SubSystem: '<S27>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S29>/Enable'
+    // Outputs for Enabled SubSystem: '<S43>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S45>/Enable'
 
     if (left_arm_ctrl_obs_B.b_varargout_1) {
       for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
@@ -9238,48 +10304,48 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_B.In1.Layout.Dim_SL_Info.CurrentLength =
         left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_Inf;
       left_arm_ctrl_obs_B.In1.Layout.Dim_SL_Info.ReceivedLength =
-        left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_j;
+        left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_e;
     }
 
-    // End of MATLABSystem: '<S27>/SourceBlock'
-    // End of Outputs for SubSystem: '<S27>/Enabled Subsystem'
-    // End of Outputs for SubSystem: '<S8>/Subscribe'
+    // End of MATLABSystem: '<S43>/SourceBlock'
+    // End of Outputs for SubSystem: '<S43>/Enabled Subsystem'
+    // End of Outputs for SubSystem: '<S10>/Subscribe'
 
-    // MATLABSystem: '<S11>/MATLAB System'
+    // MATLABSystem: '<S13>/MATLAB System'
     RigidBodyTreeDynamics_massMatri(&left_arm_ctrl_obs_DW.obj_h.TreeInternal,
       left_arm_ctrl_obs_B.In1.Data, b);
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 49;
-         left_arm_ctrl_obs_B.n_a++) {
-      left_arm_ctrl_obs_B.MATLABSystem[left_arm_ctrl_obs_B.n_a] = b->
-        data[left_arm_ctrl_obs_B.n_a];
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 49;
+         left_arm_ctrl_obs_B.n_d++) {
+      left_arm_ctrl_obs_B.MATLABSystem[left_arm_ctrl_obs_B.n_d] = b->
+        data[left_arm_ctrl_obs_B.n_d];
     }
 
-    // End of MATLABSystem: '<S11>/MATLAB System'
+    // End of MATLABSystem: '<S13>/MATLAB System'
     left_arm_ct_emxInit_e_cell_wrap(&Ttree, 2);
     left_arm_ctrl_ob_emxInit_char_T(&bname, 2);
 
-    // MATLABSystem: '<S10>/MATLAB System'
+    // MATLABSystem: '<S12>/MATLAB System'
     obj = &left_arm_ctrl_obs_DW.obj_o;
     obj_0 = &left_arm_ctrl_obs_DW.obj_o.TreeInternal;
     RigidBodyTree_forwardKinematics(&obj->TreeInternal,
       left_arm_ctrl_obs_B.In1.Data, Ttree);
     left_arm_ctrl_obs_B.bid1 = -1.0;
-    left_arm_ctrl_obs_B.n_a = bname->size[0] * bname->size[1];
+    left_arm_ctrl_obs_B.n_d = bname->size[0] * bname->size[1];
     bname->size[0] = 1;
     bname->size[1] = obj_0->Base.NameInternal->size[1];
-    left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.n_a);
+    left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.n_d);
     left_arm_ctrl_obs_B.loop_ub = obj_0->Base.NameInternal->size[0] *
       obj_0->Base.NameInternal->size[1] - 1;
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <=
-         left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_a++) {
-      bname->data[left_arm_ctrl_obs_B.n_a] = obj_0->Base.NameInternal->
-        data[left_arm_ctrl_obs_B.n_a];
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <=
+         left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+      bname->data[left_arm_ctrl_obs_B.n_d] = obj_0->Base.NameInternal->
+        data[left_arm_ctrl_obs_B.n_d];
     }
 
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 19;
-         left_arm_ctrl_obs_B.n_a++) {
-      left_arm_ctrl_obs_B.b_i[left_arm_ctrl_obs_B.n_a] =
-        tmp_0[left_arm_ctrl_obs_B.n_a];
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 19;
+         left_arm_ctrl_obs_B.n_d++) {
+      left_arm_ctrl_obs_B.b_c[left_arm_ctrl_obs_B.n_d] =
+        tmp_0[left_arm_ctrl_obs_B.n_d];
     }
 
     left_arm_ctrl_obs_B.b_varargout_1 = false;
@@ -9290,7 +10356,7 @@ void left_arm_ctrl_obs_step(void)
         if (left_arm_ctrl_obs_B.loop_ub - 1 < 19) {
           left_arm_ctrl_obs_B.iend = left_arm_ctrl_obs_B.loop_ub - 1;
           if (bname->data[left_arm_ctrl_obs_B.iend] !=
-              left_arm_ctrl_obs_B.b_i[left_arm_ctrl_obs_B.iend]) {
+              left_arm_ctrl_obs_B.b_c[left_arm_ctrl_obs_B.iend]) {
             exitg1 = 1;
           } else {
             left_arm_ctrl_obs_B.loop_ub++;
@@ -9306,30 +10372,30 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_B.bid1 = 0.0;
     } else {
       left_arm_ctrl_obs_B.vNum = obj->TreeInternal.NumBodies;
-      left_arm_ctrl_obs_B.n_a = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum) -
+      left_arm_ctrl_obs_B.n_d = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum) -
         1;
-      if (0 <= left_arm_ctrl_obs_B.n_a) {
-        for (left_arm_ctrl_obs_B.j_k = 0; left_arm_ctrl_obs_B.j_k < 19;
-             left_arm_ctrl_obs_B.j_k++) {
-          left_arm_ctrl_obs_B.b_i[left_arm_ctrl_obs_B.j_k] =
-            tmp_0[left_arm_ctrl_obs_B.j_k];
+      if (0 <= left_arm_ctrl_obs_B.n_d) {
+        for (left_arm_ctrl_obs_B.j_n = 0; left_arm_ctrl_obs_B.j_n < 19;
+             left_arm_ctrl_obs_B.j_n++) {
+          left_arm_ctrl_obs_B.b_c[left_arm_ctrl_obs_B.j_n] =
+            tmp_0[left_arm_ctrl_obs_B.j_n];
         }
       }
 
       left_arm_ctrl_obs_B.i = 0;
       exitg2 = false;
-      while ((!exitg2) && (left_arm_ctrl_obs_B.i <= left_arm_ctrl_obs_B.n_a)) {
+      while ((!exitg2) && (left_arm_ctrl_obs_B.i <= left_arm_ctrl_obs_B.n_d)) {
         obj_1 = obj_0->Bodies[left_arm_ctrl_obs_B.i];
-        left_arm_ctrl_obs_B.j_k = bname->size[0] * bname->size[1];
+        left_arm_ctrl_obs_B.j_n = bname->size[0] * bname->size[1];
         bname->size[0] = 1;
         bname->size[1] = obj_1->NameInternal->size[1];
-        left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.j_k);
+        left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.j_n);
         left_arm_ctrl_obs_B.loop_ub = obj_1->NameInternal->size[0] *
           obj_1->NameInternal->size[1] - 1;
-        for (left_arm_ctrl_obs_B.j_k = 0; left_arm_ctrl_obs_B.j_k <=
-             left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.j_k++) {
-          bname->data[left_arm_ctrl_obs_B.j_k] = obj_1->NameInternal->
-            data[left_arm_ctrl_obs_B.j_k];
+        for (left_arm_ctrl_obs_B.j_n = 0; left_arm_ctrl_obs_B.j_n <=
+             left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.j_n++) {
+          bname->data[left_arm_ctrl_obs_B.j_n] = obj_1->NameInternal->
+            data[left_arm_ctrl_obs_B.j_n];
         }
 
         left_arm_ctrl_obs_B.b_varargout_1 = false;
@@ -9340,7 +10406,7 @@ void left_arm_ctrl_obs_step(void)
             if (left_arm_ctrl_obs_B.loop_ub - 1 < 19) {
               left_arm_ctrl_obs_B.iend = left_arm_ctrl_obs_B.loop_ub - 1;
               if (bname->data[left_arm_ctrl_obs_B.iend] !=
-                  left_arm_ctrl_obs_B.b_i[left_arm_ctrl_obs_B.iend]) {
+                  left_arm_ctrl_obs_B.b_c[left_arm_ctrl_obs_B.iend]) {
                 exitg1 = 1;
               } else {
                 left_arm_ctrl_obs_B.loop_ub++;
@@ -9369,31 +10435,31 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_B.T1[10] = 1.0;
       left_arm_ctrl_obs_B.T1[15] = 1.0;
     } else {
-      for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 16;
-           left_arm_ctrl_obs_B.n_a++) {
-        left_arm_ctrl_obs_B.T1[left_arm_ctrl_obs_B.n_a] = Ttree->data[
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 16;
+           left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.T1[left_arm_ctrl_obs_B.n_d] = Ttree->data[
           static_cast<int32_T>(left_arm_ctrl_obs_B.bid1) - 1]
-          .f1[left_arm_ctrl_obs_B.n_a];
+          .f1[left_arm_ctrl_obs_B.n_d];
       }
     }
 
     left_arm_ctrl_obs_B.bid1 = -1.0;
-    left_arm_ctrl_obs_B.n_a = bname->size[0] * bname->size[1];
+    left_arm_ctrl_obs_B.n_d = bname->size[0] * bname->size[1];
     bname->size[0] = 1;
     bname->size[1] = obj_0->Base.NameInternal->size[1];
-    left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.n_a);
+    left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.n_d);
     left_arm_ctrl_obs_B.loop_ub = obj_0->Base.NameInternal->size[0] *
       obj_0->Base.NameInternal->size[1] - 1;
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <=
-         left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_a++) {
-      bname->data[left_arm_ctrl_obs_B.n_a] = obj_0->Base.NameInternal->
-        data[left_arm_ctrl_obs_B.n_a];
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <=
+         left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+      bname->data[left_arm_ctrl_obs_B.n_d] = obj_0->Base.NameInternal->
+        data[left_arm_ctrl_obs_B.n_d];
     }
 
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 14;
-         left_arm_ctrl_obs_B.n_a++) {
-      left_arm_ctrl_obs_B.b_f[left_arm_ctrl_obs_B.n_a] =
-        tmp_1[left_arm_ctrl_obs_B.n_a];
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 14;
+         left_arm_ctrl_obs_B.n_d++) {
+      left_arm_ctrl_obs_B.b_m[left_arm_ctrl_obs_B.n_d] =
+        tmp_1[left_arm_ctrl_obs_B.n_d];
     }
 
     left_arm_ctrl_obs_B.b_varargout_1 = false;
@@ -9404,7 +10470,7 @@ void left_arm_ctrl_obs_step(void)
         if (left_arm_ctrl_obs_B.loop_ub - 1 < 14) {
           left_arm_ctrl_obs_B.iend = left_arm_ctrl_obs_B.loop_ub - 1;
           if (bname->data[left_arm_ctrl_obs_B.iend] !=
-              left_arm_ctrl_obs_B.b_f[left_arm_ctrl_obs_B.iend]) {
+              left_arm_ctrl_obs_B.b_m[left_arm_ctrl_obs_B.iend]) {
             exitg1 = 1;
           } else {
             left_arm_ctrl_obs_B.loop_ub++;
@@ -9420,30 +10486,30 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_B.bid1 = 0.0;
     } else {
       left_arm_ctrl_obs_B.vNum = obj->TreeInternal.NumBodies;
-      left_arm_ctrl_obs_B.n_a = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum) -
+      left_arm_ctrl_obs_B.n_d = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum) -
         1;
-      if (0 <= left_arm_ctrl_obs_B.n_a) {
-        for (left_arm_ctrl_obs_B.j_k = 0; left_arm_ctrl_obs_B.j_k < 14;
-             left_arm_ctrl_obs_B.j_k++) {
-          left_arm_ctrl_obs_B.b_f[left_arm_ctrl_obs_B.j_k] =
-            tmp_1[left_arm_ctrl_obs_B.j_k];
+      if (0 <= left_arm_ctrl_obs_B.n_d) {
+        for (left_arm_ctrl_obs_B.j_n = 0; left_arm_ctrl_obs_B.j_n < 14;
+             left_arm_ctrl_obs_B.j_n++) {
+          left_arm_ctrl_obs_B.b_m[left_arm_ctrl_obs_B.j_n] =
+            tmp_1[left_arm_ctrl_obs_B.j_n];
         }
       }
 
       left_arm_ctrl_obs_B.i = 0;
       exitg2 = false;
-      while ((!exitg2) && (left_arm_ctrl_obs_B.i <= left_arm_ctrl_obs_B.n_a)) {
+      while ((!exitg2) && (left_arm_ctrl_obs_B.i <= left_arm_ctrl_obs_B.n_d)) {
         obj_1 = obj_0->Bodies[left_arm_ctrl_obs_B.i];
-        left_arm_ctrl_obs_B.j_k = bname->size[0] * bname->size[1];
+        left_arm_ctrl_obs_B.j_n = bname->size[0] * bname->size[1];
         bname->size[0] = 1;
         bname->size[1] = obj_1->NameInternal->size[1];
-        left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.j_k);
+        left_a_emxEnsureCapacity_char_T(bname, left_arm_ctrl_obs_B.j_n);
         left_arm_ctrl_obs_B.loop_ub = obj_1->NameInternal->size[0] *
           obj_1->NameInternal->size[1] - 1;
-        for (left_arm_ctrl_obs_B.j_k = 0; left_arm_ctrl_obs_B.j_k <=
-             left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.j_k++) {
-          bname->data[left_arm_ctrl_obs_B.j_k] = obj_1->NameInternal->
-            data[left_arm_ctrl_obs_B.j_k];
+        for (left_arm_ctrl_obs_B.j_n = 0; left_arm_ctrl_obs_B.j_n <=
+             left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.j_n++) {
+          bname->data[left_arm_ctrl_obs_B.j_n] = obj_1->NameInternal->
+            data[left_arm_ctrl_obs_B.j_n];
         }
 
         left_arm_ctrl_obs_B.b_varargout_1 = false;
@@ -9454,7 +10520,7 @@ void left_arm_ctrl_obs_step(void)
             if (left_arm_ctrl_obs_B.loop_ub - 1 < 14) {
               left_arm_ctrl_obs_B.iend = left_arm_ctrl_obs_B.loop_ub - 1;
               if (bname->data[left_arm_ctrl_obs_B.iend] !=
-                  left_arm_ctrl_obs_B.b_f[left_arm_ctrl_obs_B.iend]) {
+                  left_arm_ctrl_obs_B.b_m[left_arm_ctrl_obs_B.iend]) {
                 exitg1 = 1;
               } else {
                 left_arm_ctrl_obs_B.loop_ub++;
@@ -9478,7 +10544,7 @@ void left_arm_ctrl_obs_step(void)
 
     left_arm_ctrl_ob_emxFree_char_T(&bname);
 
-    // MATLABSystem: '<S10>/MATLAB System'
+    // MATLABSystem: '<S12>/MATLAB System'
     if (left_arm_ctrl_obs_B.bid1 == 0.0) {
       memset(&left_arm_ctrl_obs_B.T2[0], 0, sizeof(real_T) << 4U);
       left_arm_ctrl_obs_B.T2[0] = 1.0;
@@ -9486,48 +10552,48 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_B.T2[10] = 1.0;
       left_arm_ctrl_obs_B.T2[15] = 1.0;
     } else {
-      for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 16;
-           left_arm_ctrl_obs_B.n_a++) {
-        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_a] = Ttree->data[
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 16;
+           left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_d] = Ttree->data[
           static_cast<int32_T>(left_arm_ctrl_obs_B.bid1) - 1]
-          .f1[left_arm_ctrl_obs_B.n_a];
+          .f1[left_arm_ctrl_obs_B.n_d];
       }
     }
 
     left_arm_ct_emxFree_e_cell_wrap(&Ttree);
 
-    // MATLABSystem: '<S10>/MATLAB System'
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 3;
-         left_arm_ctrl_obs_B.n_a++) {
-      left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_a] =
-        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_a];
-      left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_a + 1] =
-        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_a + 4];
-      left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_a + 2] =
-        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_a + 8];
+    // MATLABSystem: '<S12>/MATLAB System'
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 3;
+         left_arm_ctrl_obs_B.n_d++) {
+      left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_d] =
+        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_d];
+      left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_d + 1] =
+        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_d + 4];
+      left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_d + 2] =
+        left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.n_d + 8];
     }
 
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 9;
-         left_arm_ctrl_obs_B.n_a++) {
-      left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_a] =
-        -left_arm_ctrl_obs_B.R_l[left_arm_ctrl_obs_B.n_a];
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 9;
+         left_arm_ctrl_obs_B.n_d++) {
+      left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_d] =
+        -left_arm_ctrl_obs_B.R_l[left_arm_ctrl_obs_B.n_d];
     }
 
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 3;
-         left_arm_ctrl_obs_B.n_a++) {
-      left_arm_ctrl_obs_B.loop_ub = left_arm_ctrl_obs_B.n_a << 2;
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 3;
+         left_arm_ctrl_obs_B.n_d++) {
+      left_arm_ctrl_obs_B.loop_ub = left_arm_ctrl_obs_B.n_d << 2;
       left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.loop_ub] =
-        left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_a];
+        left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_d];
       left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.loop_ub + 1] =
-        left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_a + 1];
+        left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_d + 1];
       left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.loop_ub + 2] =
-        left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_a + 2];
-      left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.n_a + 12] =
-        left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_a + 6] *
+        left_arm_ctrl_obs_B.R_l[3 * left_arm_ctrl_obs_B.n_d + 2];
+      left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.n_d + 12] =
+        left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_d + 6] *
         left_arm_ctrl_obs_B.T2[14] +
-        (left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_a + 3] *
+        (left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_d + 3] *
          left_arm_ctrl_obs_B.T2[13] +
-         left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_a] *
+         left_arm_ctrl_obs_B.R_o[left_arm_ctrl_obs_B.n_d] *
          left_arm_ctrl_obs_B.T2[12]);
     }
 
@@ -9535,26 +10601,26 @@ void left_arm_ctrl_obs_step(void)
     left_arm_ctrl_obs_B.R_c[7] = 0.0;
     left_arm_ctrl_obs_B.R_c[11] = 0.0;
     left_arm_ctrl_obs_B.R_c[15] = 1.0;
-    for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 4;
-         left_arm_ctrl_obs_B.n_a++) {
-      for (left_arm_ctrl_obs_B.j_k = 0; left_arm_ctrl_obs_B.j_k < 4;
-           left_arm_ctrl_obs_B.j_k++) {
-        left_arm_ctrl_obs_B.loop_ub = left_arm_ctrl_obs_B.n_a << 2;
-        left_arm_ctrl_obs_B.i = left_arm_ctrl_obs_B.j_k +
+    for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 4;
+         left_arm_ctrl_obs_B.n_d++) {
+      for (left_arm_ctrl_obs_B.j_n = 0; left_arm_ctrl_obs_B.j_n < 4;
+           left_arm_ctrl_obs_B.j_n++) {
+        left_arm_ctrl_obs_B.loop_ub = left_arm_ctrl_obs_B.n_d << 2;
+        left_arm_ctrl_obs_B.i = left_arm_ctrl_obs_B.j_n +
           left_arm_ctrl_obs_B.loop_ub;
         left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.i] = 0.0;
         left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.i] +=
           left_arm_ctrl_obs_B.T1[left_arm_ctrl_obs_B.loop_ub] *
-          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_k];
+          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_n];
         left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.i] +=
           left_arm_ctrl_obs_B.T1[left_arm_ctrl_obs_B.loop_ub + 1] *
-          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_k + 4];
+          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_n + 4];
         left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.i] +=
           left_arm_ctrl_obs_B.T1[left_arm_ctrl_obs_B.loop_ub + 2] *
-          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_k + 8];
+          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_n + 8];
         left_arm_ctrl_obs_B.T2[left_arm_ctrl_obs_B.i] +=
           left_arm_ctrl_obs_B.T1[left_arm_ctrl_obs_B.loop_ub + 3] *
-          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_k + 12];
+          left_arm_ctrl_obs_B.R_c[left_arm_ctrl_obs_B.j_n + 12];
       }
     }
   }
@@ -9576,9 +10642,9 @@ void left_arm_ctrl_obs_step(void)
 
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
-    // Outputs for Atomic SubSystem: '<S8>/Subscribe1'
-    // MATLABSystem: '<S28>/SourceBlock' incorporates:
-    //   Inport: '<S30>/In1'
+    // Outputs for Atomic SubSystem: '<S10>/Subscribe1'
+    // MATLABSystem: '<S44>/SourceBlock' incorporates:
+    //   Inport: '<S46>/In1'
 
     left_arm_ctrl_SystemCore_step_e(&left_arm_ctrl_obs_B.b_varargout_1,
       left_arm_ctrl_obs_B.b_varargout_2_Data,
@@ -9587,10 +10653,10 @@ void left_arm_ctrl_obs_step(void)
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_DataOffset,
       left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim,
       &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_Inf,
-      &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_j);
+      &left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_e);
 
-    // Outputs for Enabled SubSystem: '<S28>/Enabled Subsystem' incorporates:
-    //   EnablePort: '<S30>/Enable'
+    // Outputs for Enabled SubSystem: '<S44>/Enabled Subsystem' incorporates:
+    //   EnablePort: '<S46>/Enable'
 
     if (left_arm_ctrl_obs_B.b_varargout_1) {
       for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 14;
@@ -9611,12 +10677,12 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_B.In1_e.Layout.Dim_SL_Info.CurrentLength =
         left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_Inf;
       left_arm_ctrl_obs_B.In1_e.Layout.Dim_SL_Info.ReceivedLength =
-        left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_j;
+        left_arm_ctrl_obs_B.b_varargout_2_Layout_Dim_SL_I_e;
     }
 
-    // End of MATLABSystem: '<S28>/SourceBlock'
-    // End of Outputs for SubSystem: '<S28>/Enabled Subsystem'
-    // End of Outputs for SubSystem: '<S8>/Subscribe1'
+    // End of MATLABSystem: '<S44>/SourceBlock'
+    // End of Outputs for SubSystem: '<S44>/Enabled Subsystem'
+    // End of Outputs for SubSystem: '<S10>/Subscribe1'
   }
 
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
@@ -9680,12 +10746,12 @@ void left_arm_ctrl_obs_step(void)
 
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
-    // MATLABSystem: '<S13>/MATLAB System'
+    // MATLABSystem: '<S15>/MATLAB System'
     lef_GravityTorqueBlock_stepImpl(&left_arm_ctrl_obs_DW.obj_f,
       &left_arm_ctrl_obs_B.In1_e.Data[0], left_arm_ctrl_obs_B.MATLABSystem_n);
   }
 
-  // SignalConversion generated from: '<S14>/ SFunction ' incorporates:
+  // SignalConversion generated from: '<S16>/ SFunction ' incorporates:
   //   MATLAB Function: '<S3>/MATLAB Function1'
 
   left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[0] =
@@ -9703,7 +10769,7 @@ void left_arm_ctrl_obs_step(void)
   left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[6] =
     left_arm_ctrl_obs_B.GetParameter6_o1;
 
-  // SignalConversion generated from: '<S14>/ SFunction ' incorporates:
+  // SignalConversion generated from: '<S16>/ SFunction ' incorporates:
   //   MATLAB Function: '<S3>/MATLAB Function1'
 
   left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_k[0] =
@@ -9722,7 +10788,7 @@ void left_arm_ctrl_obs_step(void)
     left_arm_ctrl_obs_B.GetParameter13_o1;
 
   // MATLAB Function: '<S3>/MATLAB Function1' incorporates:
-  //   Integrator: '<S9>/Integrator'
+  //   Integrator: '<S11>/Integrator'
 
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
        left_arm_ctrl_obs_B.i++) {
@@ -9750,21 +10816,21 @@ void left_arm_ctrl_obs_step(void)
   left_arm_ctrl_ob_emxInit_real_T(&lambda, 2);
   left_arm_ctrl_ob_emxInit_real_T(&tmp, 1);
 
-  // MATLABSystem: '<S31>/MATLAB System' incorporates:
-  //   Constant: '<S9>/Constant2'
-  //   Integrator: '<S9>/Integrator'
+  // MATLABSystem: '<S47>/MATLAB System' incorporates:
+  //   Constant: '<S11>/Constant2'
+  //   Integrator: '<S11>/Integrator'
 
   obj_2 = &left_arm_ctrl_obs_DW.obj;
   RigidBodyTreeDynamics_massMat_e(&left_arm_ctrl_obs_DW.obj.TreeInternal,
     left_arm_ctrl_obs_B.In1.Data, b, lambda);
   left_arm_ctrl_obs_B.vNum = obj_2->TreeInternal.VelocityNumber;
-  left_arm_ctrl_obs_B.n_a = tmp->size[0];
+  left_arm_ctrl_obs_B.n_d = tmp->size[0];
   left_arm_ctrl_obs_B.loop_ub = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum);
   tmp->size[0] = left_arm_ctrl_obs_B.loop_ub;
-  left_a_emxEnsureCapacity_real_T(tmp, left_arm_ctrl_obs_B.n_a);
-  for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <
-       left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_a++) {
-    tmp->data[left_arm_ctrl_obs_B.n_a] = 0.0;
+  left_a_emxEnsureCapacity_real_T(tmp, left_arm_ctrl_obs_B.n_d);
+  for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+       left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+    tmp->data[left_arm_ctrl_obs_B.n_d] = 0.0;
   }
 
   RigidBodyTreeDynamics_inverseDy(&obj_2->TreeInternal,
@@ -9773,12 +10839,12 @@ void left_arm_ctrl_obs_step(void)
     left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct);
   left_arm_ctrl_ob_emxFree_real_T(&tmp);
 
-  // MATLABSystem: '<S31>/MATLAB System'
-  for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 7;
-       left_arm_ctrl_obs_B.n_a++) {
-    left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_a] =
-      left_arm_ctrl_obs_B.torque[left_arm_ctrl_obs_B.n_a] -
-      left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_a];
+  // MATLABSystem: '<S47>/MATLAB System'
+  for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 7;
+       left_arm_ctrl_obs_B.n_d++) {
+    left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_d] =
+      left_arm_ctrl_obs_B.torque[left_arm_ctrl_obs_B.n_d] -
+      left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_d];
   }
 
   if ((b->size[0] == 0) || (b->size[1] == 0)) {
@@ -9793,60 +10859,60 @@ void left_arm_ctrl_obs_step(void)
 
   left_arm_ctrl_ob_emxInit_real_T(&H, 2);
 
-  // MATLABSystem: '<S31>/MATLAB System'
-  left_arm_ctrl_obs_B.n_a = H->size[0] * H->size[1];
+  // MATLABSystem: '<S47>/MATLAB System'
+  left_arm_ctrl_obs_B.n_d = H->size[0] * H->size[1];
   H->size[0] = b->size[0];
   H->size[1] = b->size[1];
-  left_a_emxEnsureCapacity_real_T(H, left_arm_ctrl_obs_B.n_a);
+  left_a_emxEnsureCapacity_real_T(H, left_arm_ctrl_obs_B.n_d);
   left_arm_ctrl_obs_B.i = b->size[0] * b->size[1] - 1;
-  for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <=
-       left_arm_ctrl_obs_B.i; left_arm_ctrl_obs_B.n_a++) {
-    H->data[left_arm_ctrl_obs_B.n_a] = b->data[left_arm_ctrl_obs_B.n_a];
+  for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <=
+       left_arm_ctrl_obs_B.i; left_arm_ctrl_obs_B.n_d++) {
+    H->data[left_arm_ctrl_obs_B.n_d] = b->data[left_arm_ctrl_obs_B.n_d];
   }
 
   left_arm_ctrl_ob_emxFree_real_T(&b);
 
-  // MATLABSystem: '<S31>/MATLAB System'
+  // MATLABSystem: '<S47>/MATLAB System'
   left_arm_ctrl_obs_B.iend = static_cast<int32_T>(((-1.0 - static_cast<real_T>
     (left_arm_ctrl_obs_B.u1)) + 1.0) / -1.0) - 1;
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i <=
        left_arm_ctrl_obs_B.iend; left_arm_ctrl_obs_B.i++) {
     left_arm_ctrl_obs_B.j = static_cast<real_T>(left_arm_ctrl_obs_B.u1) + -
       static_cast<real_T>(left_arm_ctrl_obs_B.i);
-    left_arm_ctrl_obs_B.n_a = static_cast<int32_T>(left_arm_ctrl_obs_B.j);
-    left_arm_ctrl_obs_B.j_k = left_arm_ctrl_obs_B.n_a - 1;
+    left_arm_ctrl_obs_B.n_d = static_cast<int32_T>(left_arm_ctrl_obs_B.j);
+    left_arm_ctrl_obs_B.j_n = left_arm_ctrl_obs_B.n_d - 1;
     H->data[(static_cast<int32_T>(left_arm_ctrl_obs_B.j) + H->size[0] * (
               static_cast<int32_T>(left_arm_ctrl_obs_B.j) - 1)) - 1] = sqrt
-      (H->data[(left_arm_ctrl_obs_B.j_k * H->size[0] + left_arm_ctrl_obs_B.n_a)
+      (H->data[(left_arm_ctrl_obs_B.j_n * H->size[0] + left_arm_ctrl_obs_B.n_d)
        - 1]);
-    left_arm_ctrl_obs_B.bid1 = lambda->data[left_arm_ctrl_obs_B.j_k];
+    left_arm_ctrl_obs_B.bid1 = lambda->data[left_arm_ctrl_obs_B.j_n];
     while (left_arm_ctrl_obs_B.bid1 > 0.0) {
-      left_arm_ctrl_obs_B.i_p = static_cast<int32_T>(left_arm_ctrl_obs_B.bid1) -
+      left_arm_ctrl_obs_B.i_c = static_cast<int32_T>(left_arm_ctrl_obs_B.bid1) -
         1;
       H->data[(static_cast<int32_T>(left_arm_ctrl_obs_B.j) + H->size[0] * (
                 static_cast<int32_T>(left_arm_ctrl_obs_B.bid1) - 1)) - 1] =
-        H->data[(left_arm_ctrl_obs_B.i_p * H->size[0] + left_arm_ctrl_obs_B.n_a)
+        H->data[(left_arm_ctrl_obs_B.i_c * H->size[0] + left_arm_ctrl_obs_B.n_d)
         - 1] / H->data[((static_cast<int32_T>(left_arm_ctrl_obs_B.j) - 1) *
                         H->size[0] + static_cast<int32_T>(left_arm_ctrl_obs_B.j))
         - 1];
-      left_arm_ctrl_obs_B.bid1 = lambda->data[left_arm_ctrl_obs_B.i_p];
+      left_arm_ctrl_obs_B.bid1 = lambda->data[left_arm_ctrl_obs_B.i_c];
     }
 
-    left_arm_ctrl_obs_B.bid1 = lambda->data[left_arm_ctrl_obs_B.j_k];
+    left_arm_ctrl_obs_B.bid1 = lambda->data[left_arm_ctrl_obs_B.j_n];
     while (left_arm_ctrl_obs_B.bid1 > 0.0) {
       left_arm_ctrl_obs_B.j = left_arm_ctrl_obs_B.bid1;
       while (left_arm_ctrl_obs_B.j > 0.0) {
-        left_arm_ctrl_obs_B.j_k = static_cast<int32_T>(left_arm_ctrl_obs_B.j) -
+        left_arm_ctrl_obs_B.j_n = static_cast<int32_T>(left_arm_ctrl_obs_B.j) -
           1;
         H->data[(static_cast<int32_T>(left_arm_ctrl_obs_B.bid1) + H->size[0] * (
                   static_cast<int32_T>(left_arm_ctrl_obs_B.j) - 1)) - 1] =
-          H->data[(left_arm_ctrl_obs_B.j_k * H->size[0] + static_cast<int32_T>
+          H->data[(left_arm_ctrl_obs_B.j_n * H->size[0] + static_cast<int32_T>
                    (left_arm_ctrl_obs_B.bid1)) - 1] - H->data
           [((static_cast<int32_T>(left_arm_ctrl_obs_B.bid1) - 1) * H->size[0] +
-            left_arm_ctrl_obs_B.n_a) - 1] * H->data[((static_cast<int32_T>
-          (left_arm_ctrl_obs_B.j) - 1) * H->size[0] + left_arm_ctrl_obs_B.n_a) -
+            left_arm_ctrl_obs_B.n_d) - 1] * H->data[((static_cast<int32_T>
+          (left_arm_ctrl_obs_B.j) - 1) * H->size[0] + left_arm_ctrl_obs_B.n_d) -
           1];
-        left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.j_k];
+        left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.j_n];
       }
 
       left_arm_ctrl_obs_B.bid1 = lambda->data[static_cast<int32_T>
@@ -9856,26 +10922,26 @@ void left_arm_ctrl_obs_step(void)
 
   left_arm_ctrl_ob_emxInit_real_T(&L, 2);
 
-  // MATLABSystem: '<S31>/MATLAB System'
-  left_arm_ctrl_obs_B.n_a = L->size[0] * L->size[1];
+  // MATLABSystem: '<S47>/MATLAB System'
+  left_arm_ctrl_obs_B.n_d = L->size[0] * L->size[1];
   L->size[0] = H->size[0];
   L->size[1] = H->size[1];
-  left_a_emxEnsureCapacity_real_T(L, left_arm_ctrl_obs_B.n_a);
+  left_a_emxEnsureCapacity_real_T(L, left_arm_ctrl_obs_B.n_d);
   left_arm_ctrl_obs_B.i = H->size[0] * H->size[1] - 1;
-  for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <=
-       left_arm_ctrl_obs_B.i; left_arm_ctrl_obs_B.n_a++) {
-    L->data[left_arm_ctrl_obs_B.n_a] = H->data[left_arm_ctrl_obs_B.n_a];
+  for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <=
+       left_arm_ctrl_obs_B.i; left_arm_ctrl_obs_B.n_d++) {
+    L->data[left_arm_ctrl_obs_B.n_d] = H->data[left_arm_ctrl_obs_B.n_d];
   }
 
-  left_arm_ctrl_obs_B.n_a = H->size[1];
+  left_arm_ctrl_obs_B.n_d = H->size[1];
   if ((H->size[0] == 0) || (H->size[1] == 0) || (1 >= H->size[1])) {
   } else {
     left_arm_ctrl_obs_B.iend = 0;
-    for (left_arm_ctrl_obs_B.j_k = 2; left_arm_ctrl_obs_B.j_k <=
-         left_arm_ctrl_obs_B.n_a; left_arm_ctrl_obs_B.j_k++) {
+    for (left_arm_ctrl_obs_B.j_n = 2; left_arm_ctrl_obs_B.j_n <=
+         left_arm_ctrl_obs_B.n_d; left_arm_ctrl_obs_B.j_n++) {
       for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i <=
            left_arm_ctrl_obs_B.iend; left_arm_ctrl_obs_B.i++) {
-        L->data[left_arm_ctrl_obs_B.i + L->size[0] * (left_arm_ctrl_obs_B.j_k -
+        L->data[left_arm_ctrl_obs_B.i + L->size[0] * (left_arm_ctrl_obs_B.j_n -
           1)] = 0.0;
       }
 
@@ -9887,24 +10953,24 @@ void left_arm_ctrl_obs_step(void)
 
   left_arm_ctrl_ob_emxFree_real_T(&H);
 
-  // MATLABSystem: '<S31>/MATLAB System'
+  // MATLABSystem: '<S47>/MATLAB System'
   left_arm_ctrl_obs_B.iend = static_cast<int32_T>(((-1.0 -
     left_arm_ctrl_obs_B.vNum) + 1.0) / -1.0) - 1;
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i <=
        left_arm_ctrl_obs_B.iend; left_arm_ctrl_obs_B.i++) {
-    left_arm_ctrl_obs_B.j_k = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum + -
+    left_arm_ctrl_obs_B.j_n = static_cast<int32_T>(left_arm_ctrl_obs_B.vNum + -
       static_cast<real_T>(left_arm_ctrl_obs_B.i));
-    left_arm_ctrl_obs_B.n_a = left_arm_ctrl_obs_B.j_k - 1;
-    left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_a] /=
-      L->data[(left_arm_ctrl_obs_B.n_a * L->size[0] + left_arm_ctrl_obs_B.j_k) -
+    left_arm_ctrl_obs_B.n_d = left_arm_ctrl_obs_B.j_n - 1;
+    left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_d] /=
+      L->data[(left_arm_ctrl_obs_B.n_d * L->size[0] + left_arm_ctrl_obs_B.j_n) -
       1];
-    left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.n_a];
+    left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.n_d];
     while (left_arm_ctrl_obs_B.j > 0.0) {
       left_arm_ctrl_obs_B.u1 = static_cast<int32_T>(left_arm_ctrl_obs_B.j) - 1;
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.u1] -=
-        L->data[(left_arm_ctrl_obs_B.u1 * L->size[0] + left_arm_ctrl_obs_B.j_k)
+        L->data[(left_arm_ctrl_obs_B.u1 * L->size[0] + left_arm_ctrl_obs_B.j_n)
         - 1] *
-        left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_a];
+        left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_d];
       left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.u1];
     }
   }
@@ -9914,11 +10980,11 @@ void left_arm_ctrl_obs_step(void)
        left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.i++) {
     left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.i];
     while (left_arm_ctrl_obs_B.j > 0.0) {
-      left_arm_ctrl_obs_B.n_a = static_cast<int32_T>(left_arm_ctrl_obs_B.j) - 1;
+      left_arm_ctrl_obs_B.n_d = static_cast<int32_T>(left_arm_ctrl_obs_B.j) - 1;
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.i] -=
-        L->data[left_arm_ctrl_obs_B.n_a * L->size[0] + left_arm_ctrl_obs_B.i] *
-        left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_a];
-      left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.n_a];
+        L->data[left_arm_ctrl_obs_B.n_d * L->size[0] + left_arm_ctrl_obs_B.i] *
+        left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.n_d];
+      left_arm_ctrl_obs_B.j = lambda->data[left_arm_ctrl_obs_B.n_d];
     }
 
     left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.i] /=
@@ -9928,9 +10994,9 @@ void left_arm_ctrl_obs_step(void)
   left_arm_ctrl_ob_emxFree_real_T(&lambda);
   left_arm_ctrl_ob_emxFree_real_T(&L);
 
-  // MATLAB Function: '<S9>/Observer' incorporates:
-  //   Integrator: '<S9>/Integrator'
-  //   MATLABSystem: '<S31>/MATLAB System'
+  // MATLAB Function: '<S11>/Observer' incorporates:
+  //   Integrator: '<S11>/Integrator'
+  //   MATLABSystem: '<S47>/MATLAB System'
 
   memset(&left_arm_ctrl_obs_B.xp_est[0], 0, 14U * sizeof(real_T));
   for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
@@ -9951,119 +11017,325 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_B.z[left_arm_ctrl_obs_B.i];
   }
 
-  // End of MATLAB Function: '<S9>/Observer'
+  // End of MATLAB Function: '<S11>/Observer'
 
-  // RateTransition: '<S7>/Rate Transition'
+  // RateTransition: '<S9>/Rate Transition'
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
-    // MATLABSystem: '<S2>/Coordinate Transformation Conversion'
-    left_arm_ctrl_obs_B.vNum = sqrt(left_arm_ctrl_obs_B.T2[10] *
-      left_arm_ctrl_obs_B.T2[10] + left_arm_ctrl_obs_B.T2[9] *
-      left_arm_ctrl_obs_B.T2[9]);
+    // MATLABSystem: '<S2>/Coordinate Transformation Conversion2'
+    CoordinateTransformationConvers(left_arm_ctrl_obs_B.T2,
+      left_arm_ctrl_obs_B.out);
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek =
+      left_arm_ctrl_obs_B.out[1];
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j =
+      left_arm_ctrl_obs_B.out[2];
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_o =
+      left_arm_ctrl_obs_B.out[3];
+
+    // RateTransition: '<S9>/Rate Transition1' incorporates:
+    //   MATLABSystem: '<S2>/Coordinate Transformation Conversion2'
+
+    if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+        left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+      left_arm_ctrl_obs_DW.RateTransition1_Buffer = left_arm_ctrl_obs_B.out[0];
+    }
+
+    if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+        left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+      left_arm_ctrl_obs_DW.RateTransition_Buffer =
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j;
+    }
+  }
+
+  // RateTransition: '<S9>/Rate Transition1'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+    left_arm_ctrl_obs_B.RateTransition1 =
+      left_arm_ctrl_obs_DW.RateTransition1_Buffer;
+  }
+
+  // RateTransition: '<S9>/Rate Transition2'
+  if ((rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) &&
+      (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0)) {
+    left_arm_ctrl_obs_DW.RateTransition2_Buffer =
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek;
+  }
+
+  // RateTransition: '<S9>/Rate Transition'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+    left_arm_ctrl_obs_B.RateTransition =
+      left_arm_ctrl_obs_DW.RateTransition_Buffer;
+  }
+
+  // RateTransition: '<S9>/Rate Transition3'
+  if ((rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) &&
+      (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0)) {
+    left_arm_ctrl_obs_DW.RateTransition3_Buffer =
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_o;
+  }
+
+  // RateTransition: '<S9>/Rate Transition2'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+    left_arm_ctrl_obs_B.RateTransition2 =
+      left_arm_ctrl_obs_DW.RateTransition2_Buffer;
+  }
+
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
+    // MATLABSystem: '<S2>/Coordinate Transformation Conversion1'
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek = sqrt
+      (left_arm_ctrl_obs_B.T2[0] * left_arm_ctrl_obs_B.T2[0] +
+       left_arm_ctrl_obs_B.T2[1] * left_arm_ctrl_obs_B.T2[1]);
     left_arm_ctrl_obs_B.CoordinateTransformationConvers[0] = rt_atan2d_snf
-      (left_arm_ctrl_obs_B.T2[4], left_arm_ctrl_obs_B.T2[0]);
+      (left_arm_ctrl_obs_B.T2[6], left_arm_ctrl_obs_B.T2[10]);
     left_arm_ctrl_obs_B.CoordinateTransformationConvers[1] = rt_atan2d_snf
-      (-left_arm_ctrl_obs_B.T2[8], left_arm_ctrl_obs_B.vNum);
+      (-left_arm_ctrl_obs_B.T2[2],
+       left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek);
     left_arm_ctrl_obs_B.CoordinateTransformationConvers[2] = rt_atan2d_snf
-      (left_arm_ctrl_obs_B.T2[9], left_arm_ctrl_obs_B.T2[10]);
-    if (left_arm_ctrl_obs_B.vNum < 2.2204460492503131E-15) {
+      (left_arm_ctrl_obs_B.T2[1], left_arm_ctrl_obs_B.T2[0]);
+    if (left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek <
+        2.2204460492503131E-15) {
       left_arm_ctrl_obs_B.loop_ub = 0;
       for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 1;
            left_arm_ctrl_obs_B.i++) {
         left_arm_ctrl_obs_B.loop_ub++;
       }
 
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size[0] = 1;
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size[1] = 1;
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size[2] =
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e[0] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e[1] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e[2] =
         left_arm_ctrl_obs_B.loop_ub;
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_g[0] = 1;
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_g[1] = 1;
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_g[2] =
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_o[0] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_o[1] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_o[2] =
         left_arm_ctrl_obs_B.loop_ub;
-      for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <
-           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_a++) {
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data = -left_arm_ctrl_obs_B.T2[1];
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_l = left_arm_ctrl_obs_B.T2[5];
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_h = -left_arm_ctrl_obs_B.T2
-          [8];
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p = -left_arm_ctrl_obs_B.T2
+          [9];
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a = left_arm_ctrl_obs_B.T2[5];
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data = -left_arm_ctrl_obs_B.T2[2];
+      }
+
+      left_arm_ctrl_obs_atan2(&left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p,
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e,
+        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a,
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_o,
+        &left_arm_ctrl_obs_B.tmp_data, left_arm_ctrl_obs_B.tmp_size);
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_f[0] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_f[1] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_f[2] =
+        left_arm_ctrl_obs_B.loop_ub;
+      left_arm_ctrl_obs_B.sy_size_p[0] = 1;
+      left_arm_ctrl_obs_B.sy_size_p[1] = 1;
+      left_arm_ctrl_obs_B.sy_size_p[2] = left_arm_ctrl_obs_B.loop_ub;
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p =
+          left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek;
       }
 
       left_arm_ctrl_obs_atan2(&left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data,
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size,
-        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_l,
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_g,
-        &left_arm_ctrl_obs_B.tmp_data, left_arm_ctrl_obs_B.tmp_size);
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c[0] = 1;
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c[1] = 1;
-      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c[2] =
-        left_arm_ctrl_obs_B.loop_ub;
-      left_arm_ctrl_obs_B.sy_size[0] = 1;
-      left_arm_ctrl_obs_B.sy_size[1] = 1;
-      left_arm_ctrl_obs_B.sy_size[2] = left_arm_ctrl_obs_B.loop_ub;
-      for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <
-           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_a++) {
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data = left_arm_ctrl_obs_B.vNum;
-      }
-
-      left_arm_ctrl_obs_atan2(&left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_h,
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c,
-        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data,
-        left_arm_ctrl_obs_B.sy_size,
-        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_l,
-        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size);
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_f,
+        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p,
+        left_arm_ctrl_obs_B.sy_size_p,
+        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a,
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e);
       left_arm_ctrl_obs_B.loop_ub = left_arm_ctrl_obs_B.tmp_size[2];
-      for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <
-           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_a++) {
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
         left_arm_ctrl_obs_B.CoordinateTransformationConvers[0] =
           left_arm_ctrl_obs_B.tmp_data;
       }
 
-      left_arm_ctrl_obs_B.loop_ub = left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size
-        [2];
-      for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a <
-           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_a++) {
+      left_arm_ctrl_obs_B.loop_ub =
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e[2];
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
         left_arm_ctrl_obs_B.CoordinateTransformationConvers[1] =
-          left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_l;
+          left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a;
       }
 
       left_arm_ctrl_obs_B.CoordinateTransformationConvers[2] = 0.0;
     }
 
-    left_arm_ctrl_obs_B.CoordinateTransformationConvers[0] =
-      -left_arm_ctrl_obs_B.CoordinateTransformationConvers[0];
-    left_arm_ctrl_obs_B.CoordinateTransformationConvers[1] =
-      -left_arm_ctrl_obs_B.CoordinateTransformationConvers[1];
-    left_arm_ctrl_obs_B.CoordinateTransformationConvers[2] =
-      -left_arm_ctrl_obs_B.CoordinateTransformationConvers[2];
-    left_arm_ctrl_obs_B.vNum =
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek =
       left_arm_ctrl_obs_B.CoordinateTransformationConvers[0];
     left_arm_ctrl_obs_B.CoordinateTransformationConvers[0] =
       left_arm_ctrl_obs_B.CoordinateTransformationConvers[2];
     left_arm_ctrl_obs_B.CoordinateTransformationConvers[2] =
-      left_arm_ctrl_obs_B.vNum;
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek;
 
-    // End of MATLABSystem: '<S2>/Coordinate Transformation Conversion'
+    // End of MATLABSystem: '<S2>/Coordinate Transformation Conversion1'
 
-    // RateTransition: '<S7>/Rate Transition1'
+    // RateTransition: '<S8>/Rate Transition1'
     if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
         left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
-      left_arm_ctrl_obs_DW.RateTransition1_Buffer =
+      left_arm_ctrl_obs_DW.RateTransition1_Buffer_c =
         left_arm_ctrl_obs_B.CoordinateTransformationConvers[0];
     }
+  }
+
+  // RateTransition: '<S9>/Rate Transition3'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+    left_arm_ctrl_obs_B.RateTransition3 =
+      left_arm_ctrl_obs_DW.RateTransition3_Buffer;
+  }
+
+  // RateTransition: '<S8>/Rate Transition'
+  if ((rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) &&
+      (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0)) {
+    left_arm_ctrl_obs_DW.RateTransition_Buffer_n =
+      left_arm_ctrl_obs_B.CoordinateTransformationConvers[2];
+  }
+
+  // RateTransition: '<S8>/Rate Transition1'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+    left_arm_ctrl_obs_B.RateTransition1_f =
+      left_arm_ctrl_obs_DW.RateTransition1_Buffer_c;
+  }
+
+  // RateTransition: '<S8>/Rate Transition2'
+  if ((rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) &&
+      (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0)) {
+    left_arm_ctrl_obs_DW.RateTransition2_Buffer_d =
+      left_arm_ctrl_obs_B.CoordinateTransformationConvers[1];
+  }
+
+  // RateTransition: '<S8>/Rate Transition'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+    left_arm_ctrl_obs_B.RateTransition_d =
+      left_arm_ctrl_obs_DW.RateTransition_Buffer_n;
+  }
+
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
+    // MATLABSystem: '<S2>/Coordinate Transformation Conversion'
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek = sqrt
+      (left_arm_ctrl_obs_B.T2[10] * left_arm_ctrl_obs_B.T2[10] +
+       left_arm_ctrl_obs_B.T2[9] * left_arm_ctrl_obs_B.T2[9]);
+    left_arm_ctrl_obs_B.eulShaped[0] = rt_atan2d_snf(left_arm_ctrl_obs_B.T2[4],
+      left_arm_ctrl_obs_B.T2[0]);
+    left_arm_ctrl_obs_B.eulShaped[1] = rt_atan2d_snf(-left_arm_ctrl_obs_B.T2[8],
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek);
+    left_arm_ctrl_obs_B.eulShaped[2] = rt_atan2d_snf(left_arm_ctrl_obs_B.T2[9],
+      left_arm_ctrl_obs_B.T2[10]);
+    if (left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek <
+        2.2204460492503131E-15) {
+      left_arm_ctrl_obs_B.loop_ub = 0;
+      for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 1;
+           left_arm_ctrl_obs_B.i++) {
+        left_arm_ctrl_obs_B.loop_ub++;
+      }
+
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_m[0] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_m[1] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_m[2] =
+        left_arm_ctrl_obs_B.loop_ub;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c[0] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c[1] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c[2] =
+        left_arm_ctrl_obs_B.loop_ub;
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p = -left_arm_ctrl_obs_B.T2
+          [1];
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a = left_arm_ctrl_obs_B.T2[5];
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data = -left_arm_ctrl_obs_B.T2[8];
+      }
+
+      left_arm_ctrl_obs_atan2(&left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p,
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_m,
+        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a,
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_c,
+        &left_arm_ctrl_obs_B.tmp_data, left_arm_ctrl_obs_B.tmp_size);
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size[0] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size[1] = 1;
+      left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size[2] =
+        left_arm_ctrl_obs_B.loop_ub;
+      left_arm_ctrl_obs_B.sy_size[0] = 1;
+      left_arm_ctrl_obs_B.sy_size[1] = 1;
+      left_arm_ctrl_obs_B.sy_size[2] = left_arm_ctrl_obs_B.loop_ub;
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p =
+          left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek;
+      }
+
+      left_arm_ctrl_obs_atan2(&left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data,
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size,
+        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_p,
+        left_arm_ctrl_obs_B.sy_size,
+        &left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a,
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e);
+      left_arm_ctrl_obs_B.loop_ub = left_arm_ctrl_obs_B.tmp_size[2];
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.eulShaped[0] = left_arm_ctrl_obs_B.tmp_data;
+      }
+
+      left_arm_ctrl_obs_B.loop_ub =
+        left_arm_ctrl_obs_B.rtb_MATLABSystem_d_size_e[2];
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d <
+           left_arm_ctrl_obs_B.loop_ub; left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.eulShaped[1] =
+          left_arm_ctrl_obs_B.rtb_MATLABSystem_d_data_a;
+      }
+
+      left_arm_ctrl_obs_B.eulShaped[2] = 0.0;
+    }
+
+    left_arm_ctrl_obs_B.eulShaped[0] = -left_arm_ctrl_obs_B.eulShaped[0];
+    left_arm_ctrl_obs_B.eulShaped[1] = -left_arm_ctrl_obs_B.eulShaped[1];
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_a =
+      left_arm_ctrl_obs_B.eulShaped[1];
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformation_bb =
+      left_arm_ctrl_obs_B.eulShaped[0];
+
+    // RateTransition: '<S7>/Rate Transition1' incorporates:
+    //   MATLABSystem: '<S2>/Coordinate Transformation Conversion'
 
     if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
         left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
-      left_arm_ctrl_obs_DW.RateTransition_Buffer =
-        left_arm_ctrl_obs_B.CoordinateTransformationConvers[2];
+      left_arm_ctrl_obs_DW.RateTransition1_Buffer_n =
+        -left_arm_ctrl_obs_B.eulShaped[2];
     }
+  }
+
+  // RateTransition: '<S8>/Rate Transition2'
+  if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+      left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
+    left_arm_ctrl_obs_B.RateTransition2_h =
+      left_arm_ctrl_obs_DW.RateTransition2_Buffer_d;
+  }
+
+  // RateTransition: '<S7>/Rate Transition'
+  if ((rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) &&
+      (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
+       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0)) {
+    left_arm_ctrl_obs_DW.RateTransition_Buffer_a =
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformation_bb;
   }
 
   // RateTransition: '<S7>/Rate Transition1'
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
-    left_arm_ctrl_obs_B.RateTransition1 =
-      left_arm_ctrl_obs_DW.RateTransition1_Buffer;
+    left_arm_ctrl_obs_B.RateTransition1_a =
+      left_arm_ctrl_obs_DW.RateTransition1_Buffer_n;
   }
 
   // RateTransition: '<S7>/Rate Transition2'
@@ -10071,8 +11343,8 @@ void left_arm_ctrl_obs_step(void)
        left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) &&
       (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
        left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0)) {
-    left_arm_ctrl_obs_DW.RateTransition2_Buffer =
-      left_arm_ctrl_obs_B.CoordinateTransformationConvers[1];
+    left_arm_ctrl_obs_DW.RateTransition2_Buffer_j =
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_a;
   }
 
   // RateTransition: '<S7>/Rate Transition' incorporates:
@@ -10080,160 +11352,200 @@ void left_arm_ctrl_obs_step(void)
 
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0) {
-    left_arm_ctrl_obs_B.RateTransition =
-      left_arm_ctrl_obs_DW.RateTransition_Buffer;
+    left_arm_ctrl_obs_B.RateTransition_c =
+      left_arm_ctrl_obs_DW.RateTransition_Buffer_a;
 
     // BusAssignment: '<S7>/Bus Assignment3'
     left_arm_ctrl_obs_B.BusAssignment3_b.Data =
-      left_arm_ctrl_obs_DW.RateTransition2_Buffer;
+      left_arm_ctrl_obs_DW.RateTransition2_Buffer_j;
 
     // Outputs for Atomic SubSystem: '<S7>/Publish3'
-    // MATLABSystem: '<S26>/SinkBlock'
+    // MATLABSystem: '<S28>/SinkBlock'
     Pub_left_arm_ctrl_obs_522.publish(&left_arm_ctrl_obs_B.BusAssignment3_b);
 
     // End of Outputs for SubSystem: '<S7>/Publish3'
 
     // BusAssignment: '<S7>/Bus Assignment2'
-    left_arm_ctrl_obs_B.BusAssignment2.Data = left_arm_ctrl_obs_B.RateTransition;
+    left_arm_ctrl_obs_B.BusAssignment2.Data =
+      left_arm_ctrl_obs_B.RateTransition_c;
 
     // Outputs for Atomic SubSystem: '<S7>/Publish2'
-    // MATLABSystem: '<S25>/SinkBlock'
+    // MATLABSystem: '<S27>/SinkBlock'
     Pub_left_arm_ctrl_obs_511.publish(&left_arm_ctrl_obs_B.BusAssignment2);
 
     // End of Outputs for SubSystem: '<S7>/Publish2'
 
     // BusAssignment: '<S7>/Bus Assignment1'
     left_arm_ctrl_obs_B.BusAssignment1_f.Data =
-      left_arm_ctrl_obs_B.RateTransition1;
+      left_arm_ctrl_obs_B.RateTransition1_a;
 
     // Outputs for Atomic SubSystem: '<S7>/Publish1'
-    // MATLABSystem: '<S24>/SinkBlock'
+    // MATLABSystem: '<S26>/SinkBlock'
     Pub_left_arm_ctrl_obs_518.publish(&left_arm_ctrl_obs_B.BusAssignment1_f);
 
     // End of Outputs for SubSystem: '<S7>/Publish1'
+
+    // BusAssignment: '<S8>/Bus Assignment3'
+    left_arm_ctrl_obs_B.BusAssignment3_o.Data =
+      left_arm_ctrl_obs_B.RateTransition2_h;
+
+    // Outputs for Atomic SubSystem: '<S8>/Publish3'
+    // MATLABSystem: '<S34>/SinkBlock'
+    Pub_left_arm_ctrl_obs_542.publish(&left_arm_ctrl_obs_B.BusAssignment3_o);
+
+    // End of Outputs for SubSystem: '<S8>/Publish3'
+
+    // BusAssignment: '<S8>/Bus Assignment2'
+    left_arm_ctrl_obs_B.BusAssignment2_h.Data =
+      left_arm_ctrl_obs_B.RateTransition_d;
+
+    // Outputs for Atomic SubSystem: '<S8>/Publish2'
+    // MATLABSystem: '<S33>/SinkBlock'
+    Pub_left_arm_ctrl_obs_541.publish(&left_arm_ctrl_obs_B.BusAssignment2_h);
+
+    // End of Outputs for SubSystem: '<S8>/Publish2'
+
+    // BusAssignment: '<S8>/Bus Assignment1'
+    left_arm_ctrl_obs_B.BusAssignment1_j.Data =
+      left_arm_ctrl_obs_B.RateTransition1_f;
+
+    // Outputs for Atomic SubSystem: '<S8>/Publish1'
+    // MATLABSystem: '<S32>/SinkBlock'
+    Pub_left_arm_ctrl_obs_540.publish(&left_arm_ctrl_obs_B.BusAssignment1_j);
+
+    // End of Outputs for SubSystem: '<S8>/Publish1'
   }
 
   // TransferFcn: '<S1>/Low Pass (z1)'
-  left_arm_ctrl_obs_B.RateTransition1 = 0.0;
+  left_arm_ctrl_obs_B.RateTransition1_f = 0.0;
 
   // TransferFcn: '<S1>/Low Pass (z2)'
-  left_arm_ctrl_obs_B.RateTransition = 0.0;
+  left_arm_ctrl_obs_B.RateTransition_d = 0.0;
 
   // TransferFcn: '<S1>/Low Pass (z2)1'
-  left_arm_ctrl_obs_B.vNum = 0.0;
+  left_arm_ctrl_obs_B.RateTransition2_h = 0.0;
 
   // TransferFcn: '<S1>/Low Pass (z2)2'
-  left_arm_ctrl_obs_B.bid1 = 0.0;
+  left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_a = 0.0;
 
   // TransferFcn: '<S1>/Low Pass (z2)3'
-  left_arm_ctrl_obs_B.j = 0.0;
+  left_arm_ctrl_obs_B.rtb_CoordinateTransformation_bb = 0.0;
 
   // TransferFcn: '<S1>/Low Pass (z2)4'
-  left_arm_ctrl_obs_B.LowPassz24 = 0.0;
+  left_arm_ctrl_obs_B.RateTransition1_a = 0.0;
 
   // TransferFcn: '<S1>/Low Pass (z2)5'
-  left_arm_ctrl_obs_B.LowPassz25 = 0.0;
+  left_arm_ctrl_obs_B.RateTransition_c = 0.0;
   for (left_arm_ctrl_obs_B.loop_ub = 0; left_arm_ctrl_obs_B.loop_ub < 5;
        left_arm_ctrl_obs_B.loop_ub++) {
     // TransferFcn: '<S1>/Low Pass (z1)'
-    left_arm_ctrl_obs_B.RateTransition1 +=
+    left_arm_ctrl_obs_B.RateTransition1_f +=
       left_arm_ctrl_obs_P.LowPassz1_C[left_arm_ctrl_obs_B.loop_ub] *
       left_arm_ctrl_obs_X.LowPassz1_CSTATE[left_arm_ctrl_obs_B.loop_ub];
 
     // TransferFcn: '<S1>/Low Pass (z2)'
-    left_arm_ctrl_obs_B.RateTransition +=
+    left_arm_ctrl_obs_B.RateTransition_d +=
       left_arm_ctrl_obs_P.LowPassz2_C[left_arm_ctrl_obs_B.loop_ub] *
       left_arm_ctrl_obs_X.LowPassz2_CSTATE[left_arm_ctrl_obs_B.loop_ub];
 
     // TransferFcn: '<S1>/Low Pass (z2)1'
-    left_arm_ctrl_obs_B.vNum +=
+    left_arm_ctrl_obs_B.RateTransition2_h +=
       left_arm_ctrl_obs_P.LowPassz21_C[left_arm_ctrl_obs_B.loop_ub] *
       left_arm_ctrl_obs_X.LowPassz21_CSTATE[left_arm_ctrl_obs_B.loop_ub];
 
     // TransferFcn: '<S1>/Low Pass (z2)2'
-    left_arm_ctrl_obs_B.bid1 +=
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_a +=
       left_arm_ctrl_obs_P.LowPassz22_C[left_arm_ctrl_obs_B.loop_ub] *
       left_arm_ctrl_obs_X.LowPassz22_CSTATE[left_arm_ctrl_obs_B.loop_ub];
 
     // TransferFcn: '<S1>/Low Pass (z2)3'
-    left_arm_ctrl_obs_B.j +=
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformation_bb +=
       left_arm_ctrl_obs_P.LowPassz23_C[left_arm_ctrl_obs_B.loop_ub] *
       left_arm_ctrl_obs_X.LowPassz23_CSTATE[left_arm_ctrl_obs_B.loop_ub];
 
     // TransferFcn: '<S1>/Low Pass (z2)4'
-    left_arm_ctrl_obs_B.LowPassz24 +=
+    left_arm_ctrl_obs_B.RateTransition1_a +=
       left_arm_ctrl_obs_P.LowPassz24_C[left_arm_ctrl_obs_B.loop_ub] *
       left_arm_ctrl_obs_X.LowPassz24_CSTATE[left_arm_ctrl_obs_B.loop_ub];
 
     // TransferFcn: '<S1>/Low Pass (z2)5'
-    left_arm_ctrl_obs_B.LowPassz25 +=
+    left_arm_ctrl_obs_B.RateTransition_c +=
       left_arm_ctrl_obs_P.LowPassz25_C[left_arm_ctrl_obs_B.loop_ub] *
       left_arm_ctrl_obs_X.LowPassz25_CSTATE[left_arm_ctrl_obs_B.loop_ub];
   }
 
   // MATLAB Function: '<S2>/mass estimator' incorporates:
-  //   Integrator: '<S9>/Integrator'
+  //   Integrator: '<S11>/Integrator'
 
-  left_arm_ctrl_obs_B.vel = 0.0;
-  left_arm_ctrl_obs_B.scale = 3.3121686421112381E-170;
+  left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek = 0.0;
+  left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j = 3.3121686421112381E-170;
   for (left_arm_ctrl_obs_B.loop_ub = 0; left_arm_ctrl_obs_B.loop_ub < 7;
        left_arm_ctrl_obs_B.loop_ub++) {
-    left_arm_ctrl_obs_B.absxk = fabs
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_o = fabs
       (left_arm_ctrl_obs_X.Integrator_CSTATE[left_arm_ctrl_obs_B.loop_ub + 7]);
-    if (left_arm_ctrl_obs_B.absxk > left_arm_ctrl_obs_B.scale) {
-      left_arm_ctrl_obs_B.t = left_arm_ctrl_obs_B.scale /
-        left_arm_ctrl_obs_B.absxk;
-      left_arm_ctrl_obs_B.vel = left_arm_ctrl_obs_B.vel * left_arm_ctrl_obs_B.t *
-        left_arm_ctrl_obs_B.t + 1.0;
-      left_arm_ctrl_obs_B.scale = left_arm_ctrl_obs_B.absxk;
+    if (left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_o >
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j) {
+      left_arm_ctrl_obs_B.vNum =
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j /
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_o;
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek =
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek *
+        left_arm_ctrl_obs_B.vNum * left_arm_ctrl_obs_B.vNum + 1.0;
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j =
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_o;
     } else {
-      left_arm_ctrl_obs_B.t = left_arm_ctrl_obs_B.absxk /
-        left_arm_ctrl_obs_B.scale;
-      left_arm_ctrl_obs_B.vel += left_arm_ctrl_obs_B.t * left_arm_ctrl_obs_B.t;
+      left_arm_ctrl_obs_B.vNum =
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_o /
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j;
+      left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek +=
+        left_arm_ctrl_obs_B.vNum * left_arm_ctrl_obs_B.vNum;
     }
   }
 
-  left_arm_ctrl_obs_B.vel = left_arm_ctrl_obs_B.scale * sqrt
-    (left_arm_ctrl_obs_B.vel);
-  left_arm_ctrl_obs_B.scale = sin((left_arm_ctrl_obs_B.In1.Data[0] +
-    left_arm_ctrl_obs_B.In1.Data[3]) + left_arm_ctrl_obs_B.In1.Data[5]);
-  if (fabs(left_arm_ctrl_obs_B.scale) > 0.1) {
-    if (left_arm_ctrl_obs_B.vel < 0.2) {
-      // SignalConversion generated from: '<S12>/ SFunction '
+  left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek =
+    left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j * sqrt
+    (left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek);
+  left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j = sin
+    (left_arm_ctrl_obs_B.CoordinateTransformationConvers[1]);
+  if (fabs(left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j) > 0.2) {
+    if (left_arm_ctrl_obs_B.rtb_CoordinateTransformation_ek < 0.15) {
+      // SignalConversion generated from: '<S14>/ SFunction '
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[0] =
-        left_arm_ctrl_obs_B.RateTransition1;
+        left_arm_ctrl_obs_B.RateTransition1_f;
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[1] =
-        left_arm_ctrl_obs_B.RateTransition;
+        left_arm_ctrl_obs_B.RateTransition_d;
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[2] =
-        left_arm_ctrl_obs_B.vNum;
+        left_arm_ctrl_obs_B.RateTransition2_h;
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[3] =
-        left_arm_ctrl_obs_B.bid1;
-      left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[4] = left_arm_ctrl_obs_B.j;
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_a;
+      left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[4] =
+        left_arm_ctrl_obs_B.rtb_CoordinateTransformation_bb;
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[5] =
-        left_arm_ctrl_obs_B.LowPassz24;
+        left_arm_ctrl_obs_B.RateTransition1_a;
       left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[6] =
-        left_arm_ctrl_obs_B.LowPassz25;
-      for (left_arm_ctrl_obs_B.n_a = 0; left_arm_ctrl_obs_B.n_a < 7;
-           left_arm_ctrl_obs_B.n_a++) {
-        left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_k[left_arm_ctrl_obs_B.n_a]
+        left_arm_ctrl_obs_B.RateTransition_c;
+      for (left_arm_ctrl_obs_B.n_d = 0; left_arm_ctrl_obs_B.n_d < 7;
+           left_arm_ctrl_obs_B.n_d++) {
+        left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_k[left_arm_ctrl_obs_B.n_d]
           = 0.0;
-        for (left_arm_ctrl_obs_B.j_k = 0; left_arm_ctrl_obs_B.j_k < 7;
-             left_arm_ctrl_obs_B.j_k++) {
-          left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_k[left_arm_ctrl_obs_B.n_a]
-            += left_arm_ctrl_obs_B.MATLABSystem[7 * left_arm_ctrl_obs_B.j_k +
-            left_arm_ctrl_obs_B.n_a] *
-            left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.j_k];
+        for (left_arm_ctrl_obs_B.j_n = 0; left_arm_ctrl_obs_B.j_n < 7;
+             left_arm_ctrl_obs_B.j_n++) {
+          left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_k[left_arm_ctrl_obs_B.n_d]
+            += left_arm_ctrl_obs_B.MATLABSystem[7 * left_arm_ctrl_obs_B.j_n +
+            left_arm_ctrl_obs_B.n_d] *
+            left_arm_ctrl_obs_B.TmpSignalConversionAtSFunct[left_arm_ctrl_obs_B.j_n];
         }
       }
 
-      left_arm_ctrl_obs_B.RateTransition1 =
+      left_arm_ctrl_obs_B.RateTransition1_f =
         -left_arm_ctrl_obs_B.TmpSignalConversionAtSFun_k[5] /
-        (1.9129500000000002 * left_arm_ctrl_obs_B.scale);
+        (1.9129500000000002 *
+         left_arm_ctrl_obs_B.rtb_CoordinateTransformationC_j);
     } else {
-      left_arm_ctrl_obs_B.RateTransition1 = 0.0;
+      left_arm_ctrl_obs_B.RateTransition1_f = 0.0;
     }
   } else {
-    left_arm_ctrl_obs_B.RateTransition1 = 0.0;
+    left_arm_ctrl_obs_B.RateTransition1_f = 0.0;
   }
 
   // End of MATLAB Function: '<S2>/mass estimator'
@@ -10244,7 +11556,7 @@ void left_arm_ctrl_obs_step(void)
       (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
        left_arm_ctrl_obs_M->Timing.TaskCounters.TID[2] == 0)) {
     left_arm_ctrl_obs_DW.RateTransition_Buffer_k =
-      left_arm_ctrl_obs_B.RateTransition1;
+      left_arm_ctrl_obs_B.RateTransition1_f;
   }
 
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
@@ -10254,17 +11566,57 @@ void left_arm_ctrl_obs_step(void)
       left_arm_ctrl_obs_DW.RateTransition_Buffer_k;
 
     // Outputs for Atomic SubSystem: '<S6>/Publish2'
-    // MATLABSystem: '<S19>/SinkBlock'
+    // MATLABSystem: '<S21>/SinkBlock'
     Pub_left_arm_ctrl_obs_311.publish(&left_arm_ctrl_obs_B.BusAssignment2_m);
 
     // End of Outputs for SubSystem: '<S6>/Publish2'
+
+    // BusAssignment: '<S9>/Bus Assignment4'
+    left_arm_ctrl_obs_B.BusAssignment4.Data =
+      left_arm_ctrl_obs_B.RateTransition3;
+
+    // Outputs for Atomic SubSystem: '<S9>/Publish4'
+    // MATLABSystem: '<S42>/SinkBlock'
+    Pub_left_arm_ctrl_obs_578.publish(&left_arm_ctrl_obs_B.BusAssignment4);
+
+    // End of Outputs for SubSystem: '<S9>/Publish4'
+
+    // BusAssignment: '<S9>/Bus Assignment3'
+    left_arm_ctrl_obs_B.BusAssignment3_j.Data =
+      left_arm_ctrl_obs_B.RateTransition2;
+
+    // Outputs for Atomic SubSystem: '<S9>/Publish3'
+    // MATLABSystem: '<S41>/SinkBlock'
+    Pub_left_arm_ctrl_obs_557.publish(&left_arm_ctrl_obs_B.BusAssignment3_j);
+
+    // End of Outputs for SubSystem: '<S9>/Publish3'
+
+    // BusAssignment: '<S9>/Bus Assignment2'
+    left_arm_ctrl_obs_B.BusAssignment2_a.Data =
+      left_arm_ctrl_obs_B.RateTransition;
+
+    // Outputs for Atomic SubSystem: '<S9>/Publish2'
+    // MATLABSystem: '<S40>/SinkBlock'
+    Pub_left_arm_ctrl_obs_556.publish(&left_arm_ctrl_obs_B.BusAssignment2_a);
+
+    // End of Outputs for SubSystem: '<S9>/Publish2'
+
+    // BusAssignment: '<S9>/Bus Assignment1'
+    left_arm_ctrl_obs_B.BusAssignment1_p.Data =
+      left_arm_ctrl_obs_B.RateTransition1;
+
+    // Outputs for Atomic SubSystem: '<S9>/Publish1'
+    // MATLABSystem: '<S39>/SinkBlock'
+    Pub_left_arm_ctrl_obs_555.publish(&left_arm_ctrl_obs_B.BusAssignment1_p);
+
+    // End of Outputs for SubSystem: '<S9>/Publish1'
   }
 
   // End of RateTransition: '<S6>/Rate Transition'
   if (rtmIsMajorTimeStep(left_arm_ctrl_obs_M) &&
       left_arm_ctrl_obs_M->Timing.TaskCounters.TID[1] == 0) {
     // BusAssignment: '<S6>/Bus Assignment1' incorporates:
-    //   Constant: '<S15>/Constant'
+    //   Constant: '<S17>/Constant'
     //   Constant: '<S6>/Constant'
 
     left_arm_ctrl_obs_B.BusAssignment1 = left_arm_ctrl_obs_P.Constant_Value_e;
@@ -10282,15 +11634,15 @@ void left_arm_ctrl_obs_step(void)
     // End of BusAssignment: '<S6>/Bus Assignment1'
 
     // Outputs for Atomic SubSystem: '<S6>/Publish1'
-    // MATLABSystem: '<S18>/SinkBlock'
+    // MATLABSystem: '<S20>/SinkBlock'
     Pub_left_arm_ctrl_obs_304.publish(&left_arm_ctrl_obs_B.BusAssignment1);
 
     // End of Outputs for SubSystem: '<S6>/Publish1'
 
     // BusAssignment: '<S6>/Bus Assignment3' incorporates:
-    //   Constant: '<S17>/Constant'
+    //   Constant: '<S19>/Constant'
     //   Constant: '<S6>/Constant1'
-    //   Integrator: '<S9>/Integrator'
+    //   Integrator: '<S11>/Integrator'
 
     left_arm_ctrl_obs_B.BusAssignment1 = left_arm_ctrl_obs_P.Constant_Value_i;
     for (left_arm_ctrl_obs_B.i = 0; left_arm_ctrl_obs_B.i < 7;
@@ -10307,7 +11659,7 @@ void left_arm_ctrl_obs_step(void)
     // End of BusAssignment: '<S6>/Bus Assignment3'
 
     // Outputs for Atomic SubSystem: '<S6>/Publish3'
-    // MATLABSystem: '<S20>/SinkBlock'
+    // MATLABSystem: '<S22>/SinkBlock'
     Pub_left_arm_ctrl_obs_331.publish(&left_arm_ctrl_obs_B.BusAssignment1);
 
     // End of Outputs for SubSystem: '<S6>/Publish3'
@@ -10347,7 +11699,7 @@ void left_arm_ctrl_obs_derivatives(void)
   XDot_left_arm_ctrl_obs_T *_rtXdot;
   _rtXdot = ((XDot_left_arm_ctrl_obs_T *) left_arm_ctrl_obs_M->derivs);
 
-  // Derivatives for Integrator: '<S9>/Integrator'
+  // Derivatives for Integrator: '<S11>/Integrator'
   memcpy(&_rtXdot->Integrator_CSTATE[0], &left_arm_ctrl_obs_B.xp_est[0], 14U *
          sizeof(real_T));
   for (is = 0; is < 5; is++) {
@@ -10545,24 +11897,38 @@ void left_arm_ctrl_obs_initialize(void)
     static const char_T tmp_i[11] = { '/', 'c', 'o', 'n', 't', 'r', 'o', 'l',
       '/', 'D', '7' };
 
-    static const char_T tmp_j[5] = { '/', 'r', 'p', 'y', '2' };
+    static const char_T tmp_j[5] = { '/', 'x', 'y', 'z', '2' };
 
-    static const char_T tmp_k[5] = { '/', 'r', 'p', 'y', '3' };
+    static const char_T tmp_k[5] = { '/', 'x', 'y', 'z', '3' };
 
-    static const char_T tmp_l[5] = { '/', 'r', 'p', 'y', '1' };
+    static const char_T tmp_l[5] = { '/', 'x', 'y', 'z', '1' };
 
-    static const char_T tmp_m[15] = { '/', 'e', 's', 't', 'i', 'm', 'a', 't',
+    static const char_T tmp_m[5] = { '/', 'z', 'y', 'x', '2' };
+
+    static const char_T tmp_n[5] = { '/', 'z', 'y', 'x', '3' };
+
+    static const char_T tmp_o[5] = { '/', 'z', 'y', 'x', '1' };
+
+    static const char_T tmp_p[15] = { '/', 'e', 's', 't', 'i', 'm', 'a', 't',
       'e', 'd', '_', 'm', 'a', 's', 's' };
 
-    static const char_T tmp_n[19] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
+    static const char_T tmp_q[7] = { '/', 'a', 'x', 'a', 'n', 'g', '4' };
+
+    static const char_T tmp_r[7] = { '/', 'a', 'x', 'a', 'n', 'g', '2' };
+
+    static const char_T tmp_s[7] = { '/', 'a', 'x', 'a', 'n', 'g', '3' };
+
+    static const char_T tmp_t[7] = { '/', 'a', 'x', 'a', 'n', 'g', '1' };
+
+    static const char_T tmp_u[19] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
       'e', '/', 'l', 'a', '_', 't', 'o', 'r', 'q', 'u', 'e' };
 
-    static const char_T tmp_o[28] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
+    static const char_T tmp_v[28] = { '/', 'h', 'a', 'r', 'd', 'w', 'a', 'r',
       'e', '/', 'l', 'a', '_', 'e', 's', 't', 'i', 'm', 'a', 't', 'e', 'd', '_',
       's', 'p', 'e', 'e', 'd' };
 
-    // Start for Atomic SubSystem: '<S8>/Subscribe'
-    // Start for MATLABSystem: '<S27>/SourceBlock'
+    // Start for Atomic SubSystem: '<S10>/Subscribe'
+    // Start for MATLABSystem: '<S43>/SourceBlock'
     left_arm_ctrl_obs_DW.obj_m.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_m.isInitialized = 1;
     for (is = 0; is < 25; is++) {
@@ -10573,8 +11939,8 @@ void left_arm_ctrl_obs_initialize(void)
     Sub_left_arm_ctrl_obs_299.createSubscriber(left_arm_ctrl_obs_B.cv1, 1);
     left_arm_ctrl_obs_DW.obj_m.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S27>/SourceBlock'
-    // End of Start for SubSystem: '<S8>/Subscribe'
+    // End of Start for MATLABSystem: '<S43>/SourceBlock'
+    // End of Start for SubSystem: '<S10>/Subscribe'
     emxInitStruct_robotics_slmanip_(&left_arm_ctrl_obs_DW.obj_h);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_0_h);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_19_g);
@@ -10597,7 +11963,7 @@ void left_arm_ctrl_obs_initialize(void)
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_2_e);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1_p);
 
-    // Start for MATLABSystem: '<S11>/MATLAB System'
+    // Start for MATLABSystem: '<S13>/MATLAB System'
     left_arm_ctrl_obs_DW.obj_h.isInitialized = 0;
     left_arm_ctrl_obs_DW.obj_h.isInitialized = 1;
     l_RigidBodyTree_RigidBodyTree_e(&left_arm_ctrl_obs_DW.obj_h.TreeInternal,
@@ -10628,7 +11994,7 @@ void left_arm_ctrl_obs_initialize(void)
     emxInitStruct_j_robotics_mani_e(&left_arm_ctrl_obs_DW.gobj_2_h);
     emxInitStruct_j_robotics_mani_e(&left_arm_ctrl_obs_DW.gobj_1_h);
 
-    // Start for MATLABSystem: '<S10>/MATLAB System'
+    // Start for MATLABSystem: '<S12>/MATLAB System'
     left_arm_ctrl_obs_DW.obj_o.isInitialized = 0;
     left_arm_ctrl_obs_DW.obj_o.isInitialized = 1;
     lef_RigidBodyTree_RigidBodyTree(&left_arm_ctrl_obs_DW.obj_o.TreeInternal,
@@ -10683,8 +12049,8 @@ void left_arm_ctrl_obs_initialize(void)
 
     // End of Start for MATLABSystem: '<S5>/Get Parameter9'
 
-    // Start for Atomic SubSystem: '<S8>/Subscribe1'
-    // Start for MATLABSystem: '<S28>/SourceBlock'
+    // Start for Atomic SubSystem: '<S10>/Subscribe1'
+    // Start for MATLABSystem: '<S44>/SourceBlock'
     left_arm_ctrl_obs_DW.obj_gx.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_gx.isInitialized = 1;
     for (is = 0; is < 28; is++) {
@@ -10695,8 +12061,8 @@ void left_arm_ctrl_obs_initialize(void)
     Sub_left_arm_ctrl_obs_318.createSubscriber(left_arm_ctrl_obs_B.cv, 1);
     left_arm_ctrl_obs_DW.obj_gx.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S28>/SourceBlock'
-    // End of Start for SubSystem: '<S8>/Subscribe1'
+    // End of Start for MATLABSystem: '<S44>/SourceBlock'
+    // End of Start for SubSystem: '<S10>/Subscribe1'
 
     // Start for MATLABSystem: '<S4>/Get Parameter'
     left_arm_ctrl_obs_DW.obj_l.matlabCodegenIsDeleted = false;
@@ -10929,7 +12295,7 @@ void left_arm_ctrl_obs_initialize(void)
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_2_l);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1_o);
 
-    // Start for MATLABSystem: '<S13>/MATLAB System'
+    // Start for MATLABSystem: '<S15>/MATLAB System'
     left_arm_ctrl_obs_DW.obj_f.isInitialized = 0;
     left_arm_ctrl_obs_DW.obj_f.isInitialized = 1;
     RigidBodyTree_RigidBodyTree_e0(&left_arm_ctrl_obs_DW.obj_f.TreeInternal,
@@ -10960,7 +12326,7 @@ void left_arm_ctrl_obs_initialize(void)
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_2);
     emxInitStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1);
 
-    // Start for MATLABSystem: '<S31>/MATLAB System'
+    // Start for MATLABSystem: '<S47>/MATLAB System'
     left_arm_ctrl_obs_DW.obj.isInitialized = 0;
     left_arm_ctrl_obs_DW.obj.isInitialized = 1;
     RigidBodyTree_RigidBodyTree_e0h(&left_arm_ctrl_obs_DW.obj.TreeInternal,
@@ -10971,7 +12337,7 @@ void left_arm_ctrl_obs_initialize(void)
       &left_arm_ctrl_obs_DW.gobj_12, &left_arm_ctrl_obs_DW.gobj_11);
 
     // Start for Atomic SubSystem: '<S7>/Publish3'
-    // Start for MATLABSystem: '<S26>/SinkBlock'
+    // Start for MATLABSystem: '<S28>/SinkBlock'
     left_arm_ctrl_obs_DW.obj_n.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_n.isInitialized = 1;
     for (is = 0; is < 5; is++) {
@@ -10982,11 +12348,11 @@ void left_arm_ctrl_obs_initialize(void)
     Pub_left_arm_ctrl_obs_522.createPublisher(tmp, 1);
     left_arm_ctrl_obs_DW.obj_n.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S26>/SinkBlock'
+    // End of Start for MATLABSystem: '<S28>/SinkBlock'
     // End of Start for SubSystem: '<S7>/Publish3'
 
     // Start for Atomic SubSystem: '<S7>/Publish2'
-    // Start for MATLABSystem: '<S25>/SinkBlock'
+    // Start for MATLABSystem: '<S27>/SinkBlock'
     left_arm_ctrl_obs_DW.obj_oe.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_oe.isInitialized = 1;
     for (is = 0; is < 5; is++) {
@@ -10997,11 +12363,11 @@ void left_arm_ctrl_obs_initialize(void)
     Pub_left_arm_ctrl_obs_511.createPublisher(tmp, 1);
     left_arm_ctrl_obs_DW.obj_oe.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S25>/SinkBlock'
+    // End of Start for MATLABSystem: '<S27>/SinkBlock'
     // End of Start for SubSystem: '<S7>/Publish2'
 
     // Start for Atomic SubSystem: '<S7>/Publish1'
-    // Start for MATLABSystem: '<S24>/SinkBlock'
+    // Start for MATLABSystem: '<S26>/SinkBlock'
     left_arm_ctrl_obs_DW.obj_dt.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_dt.isInitialized = 1;
     for (is = 0; is < 5; is++) {
@@ -11012,55 +12378,160 @@ void left_arm_ctrl_obs_initialize(void)
     Pub_left_arm_ctrl_obs_518.createPublisher(tmp, 1);
     left_arm_ctrl_obs_DW.obj_dt.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S24>/SinkBlock'
+    // End of Start for MATLABSystem: '<S26>/SinkBlock'
     // End of Start for SubSystem: '<S7>/Publish1'
 
+    // Start for Atomic SubSystem: '<S8>/Publish3'
+    // Start for MATLABSystem: '<S34>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_cy.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_cy.isInitialized = 1;
+    for (is = 0; is < 5; is++) {
+      tmp[is] = tmp_m[is];
+    }
+
+    tmp[5] = '\x00';
+    Pub_left_arm_ctrl_obs_542.createPublisher(tmp, 1);
+    left_arm_ctrl_obs_DW.obj_cy.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S34>/SinkBlock'
+    // End of Start for SubSystem: '<S8>/Publish3'
+
+    // Start for Atomic SubSystem: '<S8>/Publish2'
+    // Start for MATLABSystem: '<S33>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_oa.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_oa.isInitialized = 1;
+    for (is = 0; is < 5; is++) {
+      tmp[is] = tmp_n[is];
+    }
+
+    tmp[5] = '\x00';
+    Pub_left_arm_ctrl_obs_541.createPublisher(tmp, 1);
+    left_arm_ctrl_obs_DW.obj_oa.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S33>/SinkBlock'
+    // End of Start for SubSystem: '<S8>/Publish2'
+
+    // Start for Atomic SubSystem: '<S8>/Publish1'
+    // Start for MATLABSystem: '<S32>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_oz.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_oz.isInitialized = 1;
+    for (is = 0; is < 5; is++) {
+      tmp[is] = tmp_o[is];
+    }
+
+    tmp[5] = '\x00';
+    Pub_left_arm_ctrl_obs_540.createPublisher(tmp, 1);
+    left_arm_ctrl_obs_DW.obj_oz.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S32>/SinkBlock'
+    // End of Start for SubSystem: '<S8>/Publish1'
+
     // Start for Atomic SubSystem: '<S6>/Publish2'
-    // Start for MATLABSystem: '<S19>/SinkBlock'
+    // Start for MATLABSystem: '<S21>/SinkBlock'
     left_arm_ctrl_obs_DW.obj_ap.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_ap.isInitialized = 1;
     for (is = 0; is < 15; is++) {
-      left_arm_ctrl_obs_B.cv3[is] = tmp_m[is];
+      left_arm_ctrl_obs_B.cv3[is] = tmp_p[is];
     }
 
     left_arm_ctrl_obs_B.cv3[15] = '\x00';
     Pub_left_arm_ctrl_obs_311.createPublisher(left_arm_ctrl_obs_B.cv3, 1);
     left_arm_ctrl_obs_DW.obj_ap.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S19>/SinkBlock'
+    // End of Start for MATLABSystem: '<S21>/SinkBlock'
     // End of Start for SubSystem: '<S6>/Publish2'
 
+    // Start for Atomic SubSystem: '<S9>/Publish4'
+    // Start for MATLABSystem: '<S42>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_b.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_b.isInitialized = 1;
+    for (is = 0; is < 7; is++) {
+      left_arm_ctrl_obs_B.cv6[is] = tmp_q[is];
+    }
+
+    left_arm_ctrl_obs_B.cv6[7] = '\x00';
+    Pub_left_arm_ctrl_obs_578.createPublisher(left_arm_ctrl_obs_B.cv6, 1);
+    left_arm_ctrl_obs_DW.obj_b.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S42>/SinkBlock'
+    // End of Start for SubSystem: '<S9>/Publish4'
+
+    // Start for Atomic SubSystem: '<S9>/Publish3'
+    // Start for MATLABSystem: '<S41>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_lq.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_lq.isInitialized = 1;
+    for (is = 0; is < 7; is++) {
+      left_arm_ctrl_obs_B.cv6[is] = tmp_r[is];
+    }
+
+    left_arm_ctrl_obs_B.cv6[7] = '\x00';
+    Pub_left_arm_ctrl_obs_557.createPublisher(left_arm_ctrl_obs_B.cv6, 1);
+    left_arm_ctrl_obs_DW.obj_lq.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S41>/SinkBlock'
+    // End of Start for SubSystem: '<S9>/Publish3'
+
+    // Start for Atomic SubSystem: '<S9>/Publish2'
+    // Start for MATLABSystem: '<S40>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_cw.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_cw.isInitialized = 1;
+    for (is = 0; is < 7; is++) {
+      left_arm_ctrl_obs_B.cv6[is] = tmp_s[is];
+    }
+
+    left_arm_ctrl_obs_B.cv6[7] = '\x00';
+    Pub_left_arm_ctrl_obs_556.createPublisher(left_arm_ctrl_obs_B.cv6, 1);
+    left_arm_ctrl_obs_DW.obj_cw.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S40>/SinkBlock'
+    // End of Start for SubSystem: '<S9>/Publish2'
+
+    // Start for Atomic SubSystem: '<S9>/Publish1'
+    // Start for MATLABSystem: '<S39>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_j.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_j.isInitialized = 1;
+    for (is = 0; is < 7; is++) {
+      left_arm_ctrl_obs_B.cv6[is] = tmp_t[is];
+    }
+
+    left_arm_ctrl_obs_B.cv6[7] = '\x00';
+    Pub_left_arm_ctrl_obs_555.createPublisher(left_arm_ctrl_obs_B.cv6, 1);
+    left_arm_ctrl_obs_DW.obj_j.isSetupComplete = true;
+
+    // End of Start for MATLABSystem: '<S39>/SinkBlock'
+    // End of Start for SubSystem: '<S9>/Publish1'
+
     // Start for Atomic SubSystem: '<S6>/Publish1'
-    // Start for MATLABSystem: '<S18>/SinkBlock'
+    // Start for MATLABSystem: '<S20>/SinkBlock'
     left_arm_ctrl_obs_DW.obj_d1.matlabCodegenIsDeleted = false;
     left_arm_ctrl_obs_DW.obj_d1.isInitialized = 1;
     for (is = 0; is < 19; is++) {
-      left_arm_ctrl_obs_B.cv2[is] = tmp_n[is];
+      left_arm_ctrl_obs_B.cv2[is] = tmp_u[is];
     }
 
     left_arm_ctrl_obs_B.cv2[19] = '\x00';
     Pub_left_arm_ctrl_obs_304.createPublisher(left_arm_ctrl_obs_B.cv2, 1);
     left_arm_ctrl_obs_DW.obj_d1.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S18>/SinkBlock'
+    // End of Start for MATLABSystem: '<S20>/SinkBlock'
     // End of Start for SubSystem: '<S6>/Publish1'
 
     // Start for Atomic SubSystem: '<S6>/Publish3'
-    // Start for MATLABSystem: '<S20>/SinkBlock'
-    left_arm_ctrl_obs_DW.obj_b.matlabCodegenIsDeleted = false;
-    left_arm_ctrl_obs_DW.obj_b.isInitialized = 1;
+    // Start for MATLABSystem: '<S22>/SinkBlock'
+    left_arm_ctrl_obs_DW.obj_ba.matlabCodegenIsDeleted = false;
+    left_arm_ctrl_obs_DW.obj_ba.isInitialized = 1;
     for (is = 0; is < 28; is++) {
-      left_arm_ctrl_obs_B.cv[is] = tmp_o[is];
+      left_arm_ctrl_obs_B.cv[is] = tmp_v[is];
     }
 
     left_arm_ctrl_obs_B.cv[28] = '\x00';
     Pub_left_arm_ctrl_obs_331.createPublisher(left_arm_ctrl_obs_B.cv, 1);
-    left_arm_ctrl_obs_DW.obj_b.isSetupComplete = true;
+    left_arm_ctrl_obs_DW.obj_ba.isSetupComplete = true;
 
-    // End of Start for MATLABSystem: '<S20>/SinkBlock'
+    // End of Start for MATLABSystem: '<S22>/SinkBlock'
     // End of Start for SubSystem: '<S6>/Publish3'
 
-    // InitializeConditions for Integrator: '<S9>/Integrator'
+    // InitializeConditions for Integrator: '<S11>/Integrator'
     memcpy(&left_arm_ctrl_obs_X.Integrator_CSTATE[0],
            &left_arm_ctrl_obs_P.Integrator_IC[0], 14U * sizeof(real_T));
     for (is = 0; is < 5; is++) {
@@ -11086,32 +12557,32 @@ void left_arm_ctrl_obs_initialize(void)
       left_arm_ctrl_obs_X.LowPassz25_CSTATE[is] = 0.0;
     }
 
-    // SystemInitialize for Atomic SubSystem: '<S8>/Subscribe'
-    // SystemInitialize for Enabled SubSystem: '<S27>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S29>/Out1'
+    // SystemInitialize for Atomic SubSystem: '<S10>/Subscribe'
+    // SystemInitialize for Enabled SubSystem: '<S43>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S45>/Out1'
     left_arm_ctrl_obs_B.In1 = left_arm_ctrl_obs_P.Out1_Y0_a;
 
-    // End of SystemInitialize for SubSystem: '<S27>/Enabled Subsystem'
-    // End of SystemInitialize for SubSystem: '<S8>/Subscribe'
+    // End of SystemInitialize for SubSystem: '<S43>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S10>/Subscribe'
 
-    // SystemInitialize for Atomic SubSystem: '<S8>/Subscribe1'
-    // SystemInitialize for Enabled SubSystem: '<S28>/Enabled Subsystem'
-    // SystemInitialize for Outport: '<S30>/Out1'
+    // SystemInitialize for Atomic SubSystem: '<S10>/Subscribe1'
+    // SystemInitialize for Enabled SubSystem: '<S44>/Enabled Subsystem'
+    // SystemInitialize for Outport: '<S46>/Out1'
     left_arm_ctrl_obs_B.In1_e = left_arm_ctrl_obs_P.Out1_Y0;
 
-    // End of SystemInitialize for SubSystem: '<S28>/Enabled Subsystem'
-    // End of SystemInitialize for SubSystem: '<S8>/Subscribe1'
+    // End of SystemInitialize for SubSystem: '<S44>/Enabled Subsystem'
+    // End of SystemInitialize for SubSystem: '<S10>/Subscribe1'
   }
 }
 
 // Model terminate function
 void left_arm_ctrl_obs_terminate(void)
 {
-  // Terminate for Atomic SubSystem: '<S8>/Subscribe'
-  // Terminate for MATLABSystem: '<S27>/SourceBlock'
-  left_arm_ctr_matlabCodegenHa_ek(&left_arm_ctrl_obs_DW.obj_m);
+  // Terminate for Atomic SubSystem: '<S10>/Subscribe'
+  // Terminate for MATLABSystem: '<S43>/SourceBlock'
+  left_arm_ctr_matlabCodegenHa_pe(&left_arm_ctrl_obs_DW.obj_m);
 
-  // End of Terminate for SubSystem: '<S8>/Subscribe'
+  // End of Terminate for SubSystem: '<S10>/Subscribe'
   emxFreeStruct_robotics_slmanip_(&left_arm_ctrl_obs_DW.obj_h);
   emxFreeStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_0_h);
   emxFreeStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_19_g);
@@ -11164,11 +12635,11 @@ void left_arm_ctrl_obs_terminate(void)
   // Terminate for MATLABSystem: '<S5>/Get Parameter9'
   matlabCodegenHandle_matlabCodeg(&left_arm_ctrl_obs_DW.obj_ok);
 
-  // Terminate for Atomic SubSystem: '<S8>/Subscribe1'
-  // Terminate for MATLABSystem: '<S28>/SourceBlock'
-  left_arm_ctr_matlabCodegenHa_ek(&left_arm_ctrl_obs_DW.obj_gx);
+  // Terminate for Atomic SubSystem: '<S10>/Subscribe1'
+  // Terminate for MATLABSystem: '<S44>/SourceBlock'
+  left_arm_ctr_matlabCodegenHa_pe(&left_arm_ctrl_obs_DW.obj_gx);
 
-  // End of Terminate for SubSystem: '<S8>/Subscribe1'
+  // End of Terminate for SubSystem: '<S10>/Subscribe1'
 
   // Terminate for MATLABSystem: '<S4>/Get Parameter'
   matlabCodegenHandle_matlabCodeg(&left_arm_ctrl_obs_DW.obj_l);
@@ -11255,38 +12726,80 @@ void left_arm_ctrl_obs_terminate(void)
   emxFreeStruct_j_robotics_manip_(&left_arm_ctrl_obs_DW.gobj_1);
 
   // Terminate for Atomic SubSystem: '<S7>/Publish3'
-  // Terminate for MATLABSystem: '<S26>/SinkBlock'
+  // Terminate for MATLABSystem: '<S28>/SinkBlock'
   left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_n);
 
   // End of Terminate for SubSystem: '<S7>/Publish3'
 
   // Terminate for Atomic SubSystem: '<S7>/Publish2'
-  // Terminate for MATLABSystem: '<S25>/SinkBlock'
+  // Terminate for MATLABSystem: '<S27>/SinkBlock'
   left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_oe);
 
   // End of Terminate for SubSystem: '<S7>/Publish2'
 
   // Terminate for Atomic SubSystem: '<S7>/Publish1'
-  // Terminate for MATLABSystem: '<S24>/SinkBlock'
+  // Terminate for MATLABSystem: '<S26>/SinkBlock'
   left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_dt);
 
   // End of Terminate for SubSystem: '<S7>/Publish1'
 
+  // Terminate for Atomic SubSystem: '<S8>/Publish3'
+  // Terminate for MATLABSystem: '<S34>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_cy);
+
+  // End of Terminate for SubSystem: '<S8>/Publish3'
+
+  // Terminate for Atomic SubSystem: '<S8>/Publish2'
+  // Terminate for MATLABSystem: '<S33>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_oa);
+
+  // End of Terminate for SubSystem: '<S8>/Publish2'
+
+  // Terminate for Atomic SubSystem: '<S8>/Publish1'
+  // Terminate for MATLABSystem: '<S32>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_oz);
+
+  // End of Terminate for SubSystem: '<S8>/Publish1'
+
   // Terminate for Atomic SubSystem: '<S6>/Publish2'
-  // Terminate for MATLABSystem: '<S19>/SinkBlock'
+  // Terminate for MATLABSystem: '<S21>/SinkBlock'
   left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_ap);
 
   // End of Terminate for SubSystem: '<S6>/Publish2'
 
+  // Terminate for Atomic SubSystem: '<S9>/Publish4'
+  // Terminate for MATLABSystem: '<S42>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_b);
+
+  // End of Terminate for SubSystem: '<S9>/Publish4'
+
+  // Terminate for Atomic SubSystem: '<S9>/Publish3'
+  // Terminate for MATLABSystem: '<S41>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_lq);
+
+  // End of Terminate for SubSystem: '<S9>/Publish3'
+
+  // Terminate for Atomic SubSystem: '<S9>/Publish2'
+  // Terminate for MATLABSystem: '<S40>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_cw);
+
+  // End of Terminate for SubSystem: '<S9>/Publish2'
+
+  // Terminate for Atomic SubSystem: '<S9>/Publish1'
+  // Terminate for MATLABSystem: '<S39>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_j);
+
+  // End of Terminate for SubSystem: '<S9>/Publish1'
+
   // Terminate for Atomic SubSystem: '<S6>/Publish1'
-  // Terminate for MATLABSystem: '<S18>/SinkBlock'
+  // Terminate for MATLABSystem: '<S20>/SinkBlock'
   left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_d1);
 
   // End of Terminate for SubSystem: '<S6>/Publish1'
 
   // Terminate for Atomic SubSystem: '<S6>/Publish3'
-  // Terminate for MATLABSystem: '<S20>/SinkBlock'
-  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_b);
+  // Terminate for MATLABSystem: '<S22>/SinkBlock'
+  left_arm_ctrl_matlabCodegenHa_i(&left_arm_ctrl_obs_DW.obj_ba);
 
   // End of Terminate for SubSystem: '<S6>/Publish3'
 }

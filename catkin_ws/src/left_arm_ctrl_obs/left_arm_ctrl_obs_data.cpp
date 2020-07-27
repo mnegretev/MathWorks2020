@@ -7,9 +7,9 @@
 //
 // Code generated for Simulink model 'left_arm_ctrl_obs'.
 //
-// Model version                  : 1.239
+// Model version                  : 1.244
 // Simulink Coder version         : 9.2 (R2019b) 18-Jul-2019
-// C/C++ source code generated on : Fri Jul 24 15:13:06 2020
+// C/C++ source code generated on : Fri Jul 24 22:50:18 2020
 //
 // Target selection: ert.tlc
 // Embedded hardware selection: Intel->x86-64 (Linux 64)
@@ -22,7 +22,7 @@
 // Block parameters (default storage)
 P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   // Computed Parameter: Out1_Y0
-  //  Referenced by: '<S30>/Out1'
+  //  Referenced by: '<S46>/Out1'
 
   {
     {
@@ -338,7 +338,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value
-  //  Referenced by: '<S28>/Constant'
+  //  Referenced by: '<S44>/Constant'
 
   {
     {
@@ -654,7 +654,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Out1_Y0_a
-  //  Referenced by: '<S29>/Out1'
+  //  Referenced by: '<S45>/Out1'
 
   {
     {
@@ -969,7 +969,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value_o
-  //  Referenced by: '<S27>/Constant'
+  //  Referenced by: '<S43>/Constant'
 
   {
     {
@@ -1284,7 +1284,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value_i
-  //  Referenced by: '<S17>/Constant'
+  //  Referenced by: '<S19>/Constant'
 
   {
     {
@@ -1599,7 +1599,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
   },
 
   // Computed Parameter: Constant_Value_e
-  //  Referenced by: '<S15>/Constant'
+  //  Referenced by: '<S17>/Constant'
 
   {
     {
@@ -1913,36 +1913,85 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
     }                                  // Layout
   },
 
+  // Computed Parameter: Constant_Value_j
+  //  Referenced by: '<S35>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
+  // Computed Parameter: Constant_Value_f
+  //  Referenced by: '<S36>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
+  // Computed Parameter: Constant_Value_n
+  //  Referenced by: '<S37>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
+  // Computed Parameter: Constant_Value_g
+  //  Referenced by: '<S38>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
+  // Computed Parameter: Constant_Value_f4
+  //  Referenced by: '<S29>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
+  // Computed Parameter: Constant_Value_a
+  //  Referenced by: '<S30>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
+  // Computed Parameter: Constant_Value_p
+  //  Referenced by: '<S31>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
   // Computed Parameter: Constant_Value_b
-  //  Referenced by: '<S21>/Constant'
-
-  {
-    0.0                                // Data
-  },
-
-  // Computed Parameter: Constant_Value_k
-  //  Referenced by: '<S22>/Constant'
-
-  {
-    0.0                                // Data
-  },
-
-  // Computed Parameter: Constant_Value_kl
   //  Referenced by: '<S23>/Constant'
 
   {
     0.0                                // Data
   },
 
+  // Computed Parameter: Constant_Value_k
+  //  Referenced by: '<S24>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
+  // Computed Parameter: Constant_Value_kl
+  //  Referenced by: '<S25>/Constant'
+
+  {
+    0.0                                // Data
+  },
+
   // Computed Parameter: Constant_Value_kc
-  //  Referenced by: '<S16>/Constant'
+  //  Referenced by: '<S18>/Constant'
 
   {
     0.0                                // Data
   },
 
   // Expression: zeros(6,10)
-  //  Referenced by: '<S9>/Constant2'
+  //  Referenced by: '<S11>/Constant2'
 
   { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
@@ -1950,7 +1999,7 @@ P_left_arm_ctrl_obs_T left_arm_ctrl_obs_P = {
     0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 
   // Expression: [0 0 0 0 0 0 0 0 0 0 0 0 0 0]
-  //  Referenced by: '<S9>/Integrator'
+  //  Referenced by: '<S11>/Integrator'
 
   { 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0 },
 

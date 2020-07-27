@@ -27,6 +27,27 @@ SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> 
 // For Block left_arm_ctrl_obs/ROS Publishers1/Publish3
 SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_522;
 
+// For Block left_arm_ctrl_obs/ROS Publishers2/Publish1
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_540;
+
+// For Block left_arm_ctrl_obs/ROS Publishers2/Publish2
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_541;
+
+// For Block left_arm_ctrl_obs/ROS Publishers2/Publish3
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_542;
+
+// For Block left_arm_ctrl_obs/ROS Publishers3/Publish1
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_555;
+
+// For Block left_arm_ctrl_obs/ROS Publishers3/Publish2
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_556;
+
+// For Block left_arm_ctrl_obs/ROS Publishers3/Publish3
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_557;
+
+// For Block left_arm_ctrl_obs/ROS Publishers3/Publish4
+SimulinkPublisher<std_msgs::Float64, SL_Bus_left_arm_ctrl_obs_std_msgs_Float64> Pub_left_arm_ctrl_obs_578;
+
 // For Block left_arm_ctrl_obs/ROS Params PD/Get Parameter
 SimulinkParameterGetter<real64_T, double> ParamGet_left_arm_ctrl_obs_368;
 
