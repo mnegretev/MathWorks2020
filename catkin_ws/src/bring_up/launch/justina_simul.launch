@@ -3,8 +3,10 @@
   <arg name="alpha"  default="4.2"/>
   <arg name="gamma"  default="0.001"/>
   <arg name="controlP"  default="2.5"/>
-  <arg name="controlD"  default="1.5"/>
-  <arg name="noise"  default="0"/>
+  <arg name="controlD"  default="0.5"/>
+  <arg name="ekfQ"   default="0.003"/>
+  <arg name="ekfR"   default="0.001"/>
+  <arg name="noise"  default="2"/>
   
   <param name="/smo/lambda" value="$(arg lambda)"/>
   <param name="/smo/alpha"  value="$(arg alpha)" />
@@ -23,6 +25,8 @@
   <param name="/control/D5" value="$(arg controlD)"/>
   <param name="/control/D6" value="$(arg controlD)"/>
   <param name="/control/D7" value="$(arg controlD)"/>
+  <param name="/ekf/Q" value="$(arg ekfQ)"/>
+  <param name="/ekf/R" value="$(arg ekfR)"/>
   <param name="/hardware/la_noise_factor" value="$(arg noise)"/>
   
   <param name="robot_description" textfile="$(find robot_description)/justina_simple.urdf" />
