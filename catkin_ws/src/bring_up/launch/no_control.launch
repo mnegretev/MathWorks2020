@@ -1,0 +1,42 @@
+<launch>
+  <arg name="lambda" default="6.0"/>
+  <arg name="alpha"  default="4.2"/>
+  <arg name="gamma"  default="0.001"/>
+  <arg name="controlP"  default="2.5"/>
+  <arg name="controlD"  default="0.5"/>
+  <arg name="ekfQ"   default="0.003"/>
+  <arg name="ekfR"   default="0.001"/>
+  <arg name="noise"  default="2"/>
+  
+  <param name="/smo/lambda" value="$(arg lambda)"/>
+  <param name="/smo/alpha"  value="$(arg alpha)" />
+  <param name="/smo/gamma"  value="$(arg gamma)" />
+  <param name="/control/P1" value="$(arg controlP)"/>
+  <param name="/control/P2" value="$(arg controlP)"/>
+  <param name="/control/P3" value="$(arg controlP)"/>
+  <param name="/control/P4" value="$(arg controlP)"/>
+  <param name="/control/P5" value="$(arg controlP)"/>
+  <param name="/control/P6" value="$(arg controlP)"/>
+  <param name="/control/P7" value="$(arg controlP)"/>
+  <param name="/control/D1" value="$(arg controlD)"/>
+  <param name="/control/D2" value="$(arg controlD)"/>
+  <param name="/control/D3" value="$(arg controlD)"/>
+  <param name="/control/D4" value="$(arg controlD)"/>
+  <param name="/control/D5" value="$(arg controlD)"/>
+  <param name="/control/D6" value="$(arg controlD)"/>
+  <param name="/control/D7" value="$(arg controlD)"/>
+  <param name="/ekf/Q" value="$(arg ekfQ)"/>
+  <param name="/ekf/R" value="$(arg ekfR)"/>
+  <param name="/hardware/la_noise_factor" value="$(arg noise)"/>
+  
+  <param name="robot_description" textfile="$(find robot_description)/justina_simple.urdf" />
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find config_files)/rviz/getting_started.rviz"/>
+  <node name="mobile_base" pkg="mobile_base_simulator" type="mobile_base_simulator.py" output="screen"/>
+  <node name="right_arm" pkg="arms_simulator" type="right_arm_simulator.py" output="screen"/>
+  <node name="head" pkg="head_simulator" type="head_simulator.py" output="screen"/>
+
+  <node name="left_arm"  pkg="left_arm" type="left_arm_node"  output="screen"/>
+  <node name="trajectories" pkg="trajectory_gen" type="trajectory_gen.py" output="screen"/>
+  <node name="simple_gui" pkg="simple_gui" type="simple_gui" output="screen"/>
+</launch>
