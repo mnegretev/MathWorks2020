@@ -21,10 +21,10 @@ def main():
 
     global current_pose
     current_pose = [0,0,0,0,0,0,0]
-    amplitudes   = [2,0,0,0,0,0,0]
+    amplitudes   = [0,0.2,0,0,0,0,0]
     frequencies  = [0.3,0.3,0.3,0.3,0.3,0.3,0.3]
     phases       = [0,0,0,0,0,0,0]
-    offsets      = [0,0,0,0,0,0,0]
+    offsets      = [0,-0.2,0,0,0,0,0]
 
     print "Using amplitudes:  " + str(amplitudes )
     print "Using frequencies: " + str(frequencies)

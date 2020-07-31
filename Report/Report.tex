@@ -10,6 +10,7 @@
 
 \begin{document}
 \maketitle
+\tableofcontents
 
 \section{Introduction}
 \subsection{Motivation}
@@ -108,10 +109,16 @@ Since,  $x_2 = \hat{x}_2$, then
       $g_7(q_1,\dots, q_7, \dot{q}_1, \dots, \dot{q}_7, u_1, \dots,u_7)$
     \end{tabular}\right] 
 \end{equation*}
-where $z_{2_{eq}}$ is the equivalent output error injection which can be obtained by an appropriate low-pass filtering of $z_2$. 
+where $z_{2_{eq}}$ is the equivalent output error injection which can be obtained by an appropriate low-pass filtering of $z_2$.
+
+Noisy and low sampling frequency rates can cause bit chattering effects on the estimated states. This is not a problem, since the output error injection will be low-pass filtered, nevertheless, if estimated states are used for a closed-loop control, then actuator signal will have high frequency components that will result in hardware damage. Thus, as it will be later discussed, the SMO is used to estimate the fault signal but, to implement a closed-loop control, an Extended Kalman Filter is used instead. 
 
 \subsection{Mass estimation}
-The term $g(x_1, x_2, u)$ in equation (\ref{eq:Model2}) is a function of input torque, joint positions and joint speeds. The mass of the object could be calculated in any point of the state space, nevertheless, calculations are much simpler if such estimation is made only when the manipulator is in a constant position. If $\dot{q}=0$, then, from (\ref{eq:Model}), input torque is equal only to the gravitational component $G(q)$ plus disturbances $\Delta (q)$.
+The term $g(x_1, x_2, u)$ in equation (\ref{eq:model2}) is a function of input torque, joint positions and joint speeds. The mass of the object could be calculated in any point of the state space, nevertheless, calculations are much simpler if such estimation is made only when the manipulator is in a constant position. If $\dot{q}= \ddot{q} = 0$, then $g(x_1, x_2, u)$ depends only on the gravitational torques caused by the mass of the object being carried. From (\ref{eq:model2}) we can see that disturbance $g$ is a signal of acceleration, not a torque signal. 
+
+If $\dot{q}=0$, then, $g(x_1, x_2, u)$ will be equal to the gravitational torques caused by the mass of the object being carried in the end effector. Figure ASDFSAF shows the torques exerted on the arm joints 
+
+\subsection{Extended Kalman Filter}
 
 \subsection{Control for trajectory tracking}
 
