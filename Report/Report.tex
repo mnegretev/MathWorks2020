@@ -205,31 +205,48 @@ As stated before, equations for estimating $m_o$ are derived under the assumptio
 
 where $\hat{q}$ and $\hat{\dot{q}}$ are the filtered measured positions and EKF-estimated speeds, respectively; $G(\hat{q})$ is the vector of gravity torques of the nominal part of the model (no noise and no fault signals) and 
 
-As explained in the previous section, when the manipulator takes an object, the estimated states do not converge to the real ones and then the controller shows an steady state error.
+As explained in the previous section, when the manipulator takes an object, the estimated states do not converge to the real ones and then the controller shows an steady state error. Nevertheless, this is tolerable since the goal of the proposed system is not the control performance but the observer performance for the mass estimation.
 
-MENCIONAR AQUI LO DEL POLINOMIO DE 5TH GRADO
+To improve control performance, a trajectory is planned using a 5th degree polynomial. This trajectory is planned in the joint-space to avoid the necessity of inverse kinematics. Thus, although movement in joint-space is a straight line, movement in the cartesian space will not be a line. Same as with control performance, movement planning is not a goal of this work and it is used only to ease the tuning of control constants.
 
 \section{System Identification}
 
 \section{Simulink implementation}
+Implementation of control and observer was made in Simulink mainly using the Robotics, Simscape and ROS Toolboxes. In the following subsection we roughly describe this implementation.
+
+\subsubsection{Simulator*}
+Most of the tests were performed first in simulation. To such purpose, we used the \texttt{smimport} function of the Simscape Toolbox to generate the corresponding rigid body tree. Figure ASDFSF shows the resulting block diagram. 
+
+\subsubsection{Quantization and noise*}
+To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution and can set torque with 10 bit resolution. The implemented simulation add this quantization effect, which is shown in figures ASDFASF and ASDFSAFS. 
+\textbf{Agregar grafica con mucho zoom donde se vean escalonadas las posiciones y los torques. }
+
+\subsubsection{Observer implementation*}
 The Sliding Mode Observer is a copy of the system plus an output error injection term, with the form:
   \begin{eqnarray}
     \dot{\hat{x}}_1 &=& \hat{x}_2 + z_1\label{eq:observer1}\\
     \dot{\hat{x}}_2 &=& -M^{-1}(q)\left(C(q, \dot{\hat{q}})\dot{\hat{q}} + B\dot{\hat{q}} + G(q) - u\right) + z_2\label{eq:observer2}
   \end{eqnarray}
-  The nominal part can be derived from the lagrangian, nevertheless, the analytic form is too complex due to the number of DOF. Instead, we used the numeric solution provided by the Simulink Robotics Toolbox, as shown in figure:
+  The nominal part can be derived from the lagrangian, nevertheless, the analytic form is too complex due to the number of DOF. Instead, we used the numeric solution provided by the Simulink Robotics Toolbox, as shown in figure \ref{fig:SimulinkSMO}.
   \begin{figure}
     \centering
-    \includegraphics[width=0.5\textwidth]{Figures/SMOwithSimulink.png}
+    \includegraphics[width=0.6\textwidth]{Figures/SMOwithSimulink.png}
+    \caption{Use of Forward Dynamics block in SMO implementation}
+    \label{fig:SimulinkSMO}
+  \end{figure}
+  
+
+  Also, from equation (\ref{eq:taus}), it is necessary to compute the inertia matrix $M(q)$ to obtain the perturbing torques $\phi$. Similar to the observer, instead of obtaining the algebraic expression of $M(q)$, we used the numeric calculation provided by the Robotics Toolbox, as shown in figure
+
+  \begin{figure}
+    \centering
+    \includegraphics[width=0.4\textwidth]{Figures/MassEst.png}
+    \caption{Use of Mass Matrix block in mass estimation}
   \end{figure}
 
-  Also, from equation (\ref{eq:Mqz}), it is necessary to compute the inertia matrix $M(q)$ to obtain the perturbing torques $\phi$. Similar to the observer, instead of obtaining the algebraic expression of $M(q)$, we used the numeric calculation provided by the Robotics Toolbox:
+\subsubsection{Control PD+*}
 
-\subsection{Quantization of input torque and position measurements}
-To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution and can set torque with 10 bit resolution. The implemented simulation add this quantization effect, which is shown in figures ASDFASF and ASDFSAFS. 
-\textbf{Agregar grafica con mucho zoom donde se vean escalonadas las posiciones y los torques. }
-
-\subsection{A ROS node for each task}
+\subsubsection{A ROS node for each task*}
 
 \section{Simulation results}
 \subsection{Joint speed estimation in finite time}
