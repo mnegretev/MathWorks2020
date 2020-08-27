@@ -5,6 +5,8 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /RobotModel1
+        - /RobotModel1/Links1
         - /TF1
       Splitter Ratio: 0.5
     Tree Height: 395
@@ -38,7 +40,7 @@ Visualization Manager:
       Cell Size: 1
       Class: rviz/Grid
       Color: 160; 160; 164
-      Enabled: true
+      Enabled: false
       Line Style:
         Line Width: 0.029999999329447746
         Value: Lines
@@ -51,13 +53,13 @@ Visualization Manager:
       Plane: XY
       Plane Cell Count: 10
       Reference Frame: <Fixed Frame>
-      Value: true
-    - Alpha: 0.800000011920929
+      Value: false
+    - Alpha: 0.699999988079071
       Class: rviz/RobotModel
       Collision Enabled: false
       Enabled: true
       Links:
-        All Links Enabled: true
+        All Links Enabled: false
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
@@ -66,32 +68,32 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         head_link1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         head_link2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         kinect_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         laser_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         laser_link_rear:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         left_arm_grip_center:
           Alpha: 1
           Show Axes: false
@@ -146,57 +148,57 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_grip_left:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_grip_right:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link0:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link1:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link2:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link3:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link4:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link5:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link6:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         right_arm_link7:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         shoulders_left_link:
           Alpha: 1
           Show Axes: false
@@ -206,42 +208,42 @@ Visualization Manager:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         shoulders_right_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         spine_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         waist_link:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         wheel_back:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         wheel_front:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         wheel_left:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
         wheel_right:
           Alpha: 1
           Show Axes: false
           Show Trail: false
-          Value: true
+          Value: false
       Name: RobotModel
       Robot Description: robot_description
       TF Prefix: ""
@@ -272,19 +274,19 @@ Visualization Manager:
         left_arm_grip_right:
           Value: false
         left_arm_link1:
-          Value: false
+          Value: true
         left_arm_link2:
-          Value: false
+          Value: true
         left_arm_link3:
-          Value: false
+          Value: true
         left_arm_link4:
-          Value: false
+          Value: true
         left_arm_link5:
-          Value: false
+          Value: true
         left_arm_link6:
           Value: true
         left_arm_link7:
-          Value: false
+          Value: true
         odom:
           Value: false
         right_arm_grip_center:
@@ -327,11 +329,11 @@ Visualization Manager:
           Value: false
         wheel_right:
           Value: false
-      Marker Scale: 0.800000011920929
+      Marker Scale: 0.4000000059604645
       Name: TF
       Show Arrows: false
       Show Axes: true
-      Show Names: true
+      Show Names: false
       Tree:
         odom:
           base_link:
@@ -384,9 +386,19 @@ Visualization Manager:
               {}
       Update Interval: 0
       Value: true
+    - Alpha: 1
+      Class: rviz/PointStamped
+      Color: 204; 41; 204
+      Enabled: true
+      History Length: 1
+      Name: PointStamped
+      Radius: 0.07999999821186066
+      Topic: /object_point
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
-    Background Color: 48; 48; 48
+    Background Color: 238; 238; 236
     Default Light: true
     Fixed Frame: odom
     Frame Rate: 30
@@ -412,25 +424,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 1.508906364440918
+      Distance: 0.4638822078704834
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.08682813495397568
-        Y: 0.13476316630840302
-        Z: 0.929780125617981
+        X: -0.10256769508123398
+        Y: 0.2417127788066864
+        Z: 0.8487842082977295
       Focal Shape Fixed Size: false
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7903981804847717
+      Pitch: 0.2753988206386566
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 1.0204010009765625
+      Yaw: 1.0154008865356445
     Saved: ~
 Window Geometry:
   Displays:

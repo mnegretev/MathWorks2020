@@ -10,7 +10,7 @@ def main():
     loop = rospy.Rate(20);
     msg_point = PointStamped()
     msg_point.header.frame_id = "left_arm_link7"
-    msg_point.point.x = 0.20
+    msg_point.point.x = 0.21
     msg_point.point.y = 0
     msg_point.point.z = 0
     while not rospy.is_shutdown():
