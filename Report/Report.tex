@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{hyperref}
 
 \title{Object Recognition by Physical Properties Detection using Fault Reconstruction Techniques}
 \author{Marco Negrete and Jesús Savage}
@@ -11,20 +12,27 @@
 
 \begin{document}
 \maketitle
-\tableofcontents
 
+%%%%
+%INTRODUCTION
+%%%%
 \section{Introduction}
 \subsection{Motivation}
-Consider the following serving-drinks-test scenario: a robot is asked to bring beverages and to do so, the robot performs the following common steps: it navigates to the bar, recognizes the beverages (usually cans or tetra packs), calculate some sort of inverse kinematics, moves its manipulator, grasps the object and returns to the user's location. This is a common situation in @Home tasks, nevertheless, what happens if there are empty cans or tetra packs in the bar? As it is commonly implemented in @Home league, robots are unable to distinguish between empty and full cans, since they commonly rely only in visual information of the beverage containers (see, for example, description papers of last edition winner teams \cite{tdp2019Eindhoven, tdp2019Homer, tdp2019UTS}).
+Consider the following serving-drinks-test scenario in the Robocup@Home league: a robot is asked to bring beverages and to do so, the robot performs the following common steps: it navigates to the bar, recognizes the beverages (usually cans or tetra packs), calculate some sort of inverse kinematics, moves its manipulator, grasps the object and returns to the user's location. This is a common situation in @Home tasks, nevertheless, what happens if there are empty cans or tetra packs in the bar? As it is commonly implemented in @Home league, robots are unable to distinguish between empty and full cans, since they commonly rely only in visual information of the beverage containers (see, for example, description papers of last edition winner teams \cite{tdp2019Eindhoven, tdp2019Homer, tdp2019UTS}).
 \subsection{Objectives and goals}
-The project we propose consist in applying model based fault reconstruction techniques \cite{ding2013model} to estimate the weight of the object being carried by the robot. If we consider the manipulator without load in the final effector as the nominal system, and the weight of the object as an external perturbation causing a faulty behavior, we can apply fault reconstruction techniques to estimate such perturbation, i.e., to estimate object's weight. There are several approaches for MBFR. Residual generation is a common technique where an observer is designed to be sensitive to fault signals. On the other hand, Sliding Mode Observers (SMO) are dynamic estimators designed to be robust against fault signals \cite{shtessel2014sliding}. SMOs also provide the ability to reconstruct the fault signal by filtering the so called output error injection term \cite{alwi2011fault}.
-%Mencionar en algun lado quel objetivo del trabajo es la estimacion de la masa del objeto, NO el control de posicion
+The project we propose consist in applying model based fault reconstruction techniques \cite{ding2013model} to estimate the weight of the object being carried by the robot. If we consider the manipulator without load in the final effector as the nominal system, and the weight of the object as an external perturbation causing a faulty behavior, we can apply fault reconstruction techniques to estimate such perturbation, i.e., to estimate object's weight. There are several approaches for model-based fault reconstruction. Residual generation is a common technique where an observer is designed to be sensitive to fault signals. On the other hand, Sliding Mode Observers (SMO) are dynamic estimators designed to be robust against fault signals \cite{shtessel2014sliding}. SMOs also provide the ability to reconstruct the fault signal by filtering the so called output error injection term \cite{alwi2011fault}. We the estimation of the manipulated object mass, we expect to improve the manipulation performance in domestic service robots. 
 
+\subsection{Description of the document}
+This technical report is organized as follows: In section \ref{sec:background} we briefly introduce the concept of Sliding Mode Observers (SMO) and we describe the robot Justina's manipulator, the hardware whose features we chose to test our proposal. In section \ref{sec:estimation} we explain the theoretical part of our proposal while section \ref{sec:implementation} is dedicated to describe the implementation using several Simulink Toolboxes. Section \ref{sec:results} describe our results and also, the cases where the proposal can fail. In section \ref{sec:reusability} we show the reusability of our proposal by replicating some results using a simulated Katana manipulator. Finally in section \ref{sec:conclusions} we state our conclusions and sketch the future work. 
+%%%%
+%BACKGROUND
+%%%%
 \section{Background}
+\label{sec:background}
 \subsection{Sliding Mode Observers}
-Sliding mode observers are disticontinuos observers that have the properties of finite time convergence and accurate tracking of the measured states once the sliding surface is reached. These kind of observers can be used to reconstruct faults or disturbance signals through an appropiate filtering of the so-called injection output error. Interested readers can find further information about Sliding Mode Observers in CITE, CITE AND CITE.
+Sliding mode observers are disticontinuos observers that have the properties of finite time convergence and accurate tracking of the measured states once the sliding surface is reached. These kind of observers can be used to reconstruct faults or disturbance signals through an appropiate filtering of the so-called injection output error. Interested readers can find further information about Sliding Mode Observers in \cite{shtessel2014sliding,davila2005second,fridman2002higher}.
 
-Fault detection and isolation, from the control theory approach, is commonly achieved by the implementation of observers that are sensitive to the fault signals. Nevertheless, SMOs inherit the properties of Sliding Modes theory, i.e., SMOs are designed to be robust against disturbances and fault signals and to accurately track the system states. As previously explained, the discontinuos term of the SMO will contain information about the fault signal wich can be reconstructed by obtaining the equivalent output error injection. 
+Fault detection and isolation, from the control theory approach, is commonly achieved by the implementation of residual generators. A common way to design such residual generators is through observers that are sensitive to the fault signals. Nevertheless, SMOs inherit the properties of Sliding Modes theory, i.e., SMOs are designed to be robust against disturbances and fault signals and to accurately track the system states. As previously explained, the discontinuos term of the SMO will contain information about the fault signal wich can be reconstructed by obtaining the equivalent output error injection. 
 
 \subsection{Robot Justina's manipulator}
 Justina is a domestic service robot built at the Biorobotics Laboratory of the National Autonomous University of Mexico and developed under the ViRBot architecture \cite{savage2008virbot}. This robot and its predecessors have been participating in the Robocup@Home league \cite{wachsmuth2015robocup} since 2006 performing several tasks such as cleaning a table, serving drinks and several other tasks that humans ask for. 
@@ -50,7 +58,11 @@ Among other actuators, Justina has two 7-DOF manipulators built with Dynamixel s
 
 To describe the kinematic chain and some physical properties of the manipulator, we use an URDF file. We already had an URDF describing the whole robot kinematic chain, nevertheless, for this project it was necessary only one of the mainpulators. We chose the left arm and extracted the corresponding tags to a new file. This file was used as a starting point for modeling and simulation purposes. Figure \ref{fig:left_arm} shows the left arm of robot Justina as represented in the URDF.
 
+%%%%
+%MASS ESTIMATION
+%%%%
 \section{Mass estimation with Sliding Mode Observers}
+\label{sec:estimation}
 
 \subsection{Dynamic Model}
   From the Langrangian of the manipulator, a dynamic model of the following form can be obtained:
@@ -196,7 +208,8 @@ with $H\in\mathbb{R}^{7\times 14}$, the Jacobian of the observation model, which
 \[
 H = \left[0\quad I_7\right]
 \]
-Note that in (\ref{eq:ekf2}) we are using only the nominal part of the system and thus, if $\phi\neq 0$ (i.e., if an object is being manipulated), the estimated states will not converge to the real states. Since estimated states are used for position control, such estimation error will cause a steady state error in the controller. This is in principle undesirable, nevertheless, we can tolerate this error since the main goal of this work is the estimation of the mass, not the performance of the controller. Calculations to estimate $m_o$ are made under the assumption that the manipulator is in a constant position, thus, driving the manipulator to a constant $q_f$, although slightly different from the desired $q_g$, is a good enough performance for the control-observation loop. 
+Note that in (\ref{eq:ekf2}) we are using only the nominal part of the system and thus, if $\phi\neq 0$ (i.e., if an object is being manipulated), the estimated states will not converge to the real states. Since estimated states are used for position control, such estimation error will cause a steady state error in the controller. This is in principle undesirable, nevertheless, we can tolerate this error since the main goal of this work is the estimation of the mass, not the performance of the controller. Calculations to estimate $m_o$ are made under the assumption that the manipulator is in a constant position, thus, driving the manipulator to a constant $q_f$, although slightly different from the desired $q_g$, is a good enough performance for the control-observation loop.
+
 \subsection{Position control}
 As stated before, equations for estimating $m_o$ are derived under the assumption that the manipulator is in a constant configuration. We implemented a PD+Gravity controller using the EKF estimated states:
 
@@ -210,9 +223,11 @@ As explained in the previous section, when the manipulator takes an object, the 
 
 To improve control performance, a trajectory is planned using a 5th degree polynomial. This trajectory is planned in the joint-space to avoid the necessity of inverse kinematics. Thus, although movement in joint-space is a straight line, movement in the cartesian space will not be a line. Same as with control performance, movement planning is not a goal of this work and it is used only to ease the tuning of control constants.
 
-\section{System Identification}
-
+%%%%
+%IMPLEMENTATION
+%%%%
 \section{Simulink implementation}
+\label{sec:implementation}
 Implementation of control and observer was made in Simulink mainly using the Robotics, Simscape and ROS Toolboxes. In the following subsection we roughly describe this implementation.
 
 \subsubsection*{Simulator}
@@ -220,7 +235,7 @@ Most of the tests were performed first in simulation. To such purpose, we used t
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\textwidth]{Figures/ManipulatorModel.png}
+  \includegraphics[width=0.8\textwidth]{Figures/ManipulatorModel.png}
   \caption{The resulting model after importing URDF}\
   \label{fig:SimulinkModel}
 \end{figure}
@@ -313,7 +328,12 @@ To ease implementation with the real manipulator and integration with the rest o
   \label{fig:RosNodes}
 \end{figure}
 
+
+%%%%
+%SIMULATION RESULTS
+%%%%
 \section{Simulation results}
+\label{sec:results}
 \subsection{Description of the experiment}
 Mass estimation was tested moving the manipulator to several positions commonly used for grasping objects. Figure \ref{fig:test_poses} shows these predefined positions. It is worth to note that mass estimation will work in any configuration as long as wrist pitch $\theta$ (see equation (\ref{eq:mass})) is different from zero. 
 \begin{figure}
@@ -434,13 +454,69 @@ According to equation (\ref{eq:mass}), we need to know the distance $l_4$ for a 
   \label{fig:ObjPosition}
 \end{figure}
 
-\section{Experimental results}
-
+%%%%
+%REUSABILITY
+%%%%
 \section{Reusability}
-Describir proceso que se uso para llegar a estos resultados. 
+\label{sec:reusability}
+To reproduce the results presented in this work, the following rough steps should be followed:
+\begin{itemize}
+\item Get the URDF file of the manipulator and import it using the Simulink Robotics Toolbox. If the full robot URDF is available, the manipulator part should be isolated in order to make calculation faster.
+\item Identify the joint with the following features:
+  \begin{itemize}
+  \item The joint must have an axis of rotation perpendicular (or nearly perpendicular) to the gravity vector. 
+  \item The joint should be the nearest one to the end effector with the previous feature. 
+  \end{itemize}
+  And get the distance from the previous joint to the center of the end effector.
+\item Implement SMO and use equation (\ref{eq:mass}) to estimate object mass. 
+\end{itemize}
+
+To illustrate these steps, we will reproduce the results using the description of Katana Manipulator (\url{https://wiki.ros.org/katana_driver}).
+
+\subsubsection*{Get and import the URDF}
+We imported the URDF from the GitHub Katana repository. Most of robot descriptions are given using \texttt{xacro}, but the ROS Xacro package can be used to get the corresponding URDF, since Robotics and Simscape Toolbox can only import URDF files. We used Simscape to import the URDF and we added the corresponding ROS publisher and subscriber for measured joint positions and torques respectively. Figure \ref{fig:KatanaSimulink} shows the manipulator as imported by Simscape, with ROS publishers and subscribers and the system as displayed in the Mechanics Explorer. 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=\textwidth]{Figures/KatanaSimscape.png}
+  \includegraphics[width=0.7\textwidth]{Figures/KatanaSimulinkROS.png}
+  \includegraphics[width=0.55\textwidth]{Figures/KatanaMechanics.png}
+  \caption{Importing Katana URDF to Simulink}
+  \label{fig:KatanaSimulink}
+\end{figure}
+
+\subsubsection*{Chosing the correct joint to estimate mass}
+In this work we used the wrist pitch of our manipulator to estimate object mass. Using the observer (\ref{eq:observer1})-(\ref{eq:observer2}), we reconstruct the fault signals $\phi(x_1, x_2, u)$, after that, using equation (\ref{eq:taus}) we get the torques exerted on each joint and finally, using torque on joint 6 (wrist pitch) and equation (\ref{eq:mass}), we get the estimated mass of the manipulated object. The joint of the wrist pitch fulfills the two features previously mentioned: it is the nearest joint to the end effector whose rotation axis is perpendicular to the gravity vector.
+
+In the case of the Katana manipulator, the joint with these features is \texttt{katana\_motor4\_lift\_link} and thus, the fault torque associated to this joint will be used in equation (\ref{eq:mass}). Figure \ref{fig:katana_joints} shows the equivalent variables in the Katana Manipulator for mass estimation. Angle $\theta$ can be calculated using the Euler Angles of the rotation from \texttt{katana\_base\_frame} to \texttt{katana\_motor4\_lift\_link}. Robotics Toolbox provides the needed blocks to calculate this angle. Distance $l_4$ can be obtained from URDF or by directly measuring it. 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.7\textwidth]{Figures/katana_joints.png}
+  \caption{Katana equivalent variables for mass estimation}
+  \label{fig:katana_joints}
+\end{figure}
+
+\subsubsection*{SMO implementation and mass estimation}
+Once we identified the ideal joint for mass estimation, we imported the URDF file to get a Rigid Body Tree using the \texttt{importrobot} function of the Robotics Toolbox. We implemented the SMO and mass estimator using the Forward Dynamics and Mass Matrix block as shown in figure \ref{fig:SimulinkMassEst} (see explanation in section \ref{sec:implementation}). We simulated an object with a mass of 200 g. To simplify simulations, we did not implemented a control but we used only a constant torque applied to the joints. Figure \ref{fig:katana_results} shows the resulting estimation. 
+
+\begin{figure}
+  \centering
+  \includegraphics[width=0.5\textwidth]{Figures/katana_mass_est.eps}
+  \caption{Mass estimation results with the Katana Manipulator}
+  \label{fig:katana_results}
+\end{figure}
 
 \section{Conclusions}
-Se utilizó software de matlab para poder calcular la parte nominal del modelo dinámico para el brazo de 7 dof que de otro modo hubiera sido muy difícil de calcular debido a la complejidad del sistema
+\label{sec:conclusions}
+In this work we presented a method for estimating the mass of the object being manipulated in a domestic service robot. The estimation is based on model based fault reconstruction techniques using sliding mode observer. The implementation of model-based algorithms could be very complicated in complex systems such as the 7 DOF manipulator used in this proposal; nevertheless, the use of Simulink Robotics, ROS and Simscape Toolboxes, which provide numerical solutions to the system dynamics, allowed the implementation of such model-based techniques. We presented simulation results where we show the effectiveness of our proposal. Also, we discussed the cases where this approach can lead to a wrong estimation. To show the possible reusability of our proposal, we replicated some of the results in a simulated Katana manipulator. 
+
+Further tests should be made for an implementation in the real manipulator. For example, in this work we assumed that only linear friction is present in the motor, nevertheless, Dynamixel motors present also non linear frictions, which must be modeled and identified for a correct performance. Also, better controllers can be implemented to reach faster the steady state. A shorter settle time will result in a faster mass estimation. 
+
+As a future work, different techniques can be implemented. Another model-based option is the Extended Kalman Filter. As shown in section \ref{sec:results}, the EKF estimated speeds have a steady state error due to the fault signal. This estimated speeds can also be used to estimate the manipulated object mass. On the other hand, model-free techniques can also be implemented, such as neural networks. Input torques and measured positions can be taken as input data to train a NN whose output is the estimated mass.
+
+Finally, this proposal will be integrated with the rest of subsystems of our domestic service robot in the context of the Robocup@Home tests. 
+
 
 \bibliographystyle{abbrv}
 \bibliography{References}
