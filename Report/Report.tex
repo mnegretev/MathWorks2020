@@ -5,6 +5,9 @@
 \usepackage{graphicx}
 \usepackage{subcaption}
 \usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\fancypagestyle{mypagestyle}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}\fancyfoot[C]{\footnotesize{This work was supported by MathWorks and Robocup Federation under grant number 14.\\Authors would also thank to the MathWorks Students Competitions Team, Control Systems Team and Advanced Research and Technology Office, for their help in the development of this project.}}}
 
 \title{Object Recognition by Physical Properties Detection using Fault Reconstruction Techniques}
 \author{Marco Negrete and Jesús Savage}
@@ -17,6 +20,7 @@
 %INTRODUCTION
 %%%%
 \section{Introduction}
+\thispagestyle{mypagestyle}
 \subsection{Motivation}
 Consider the following serving-drinks-test scenario in the Robocup@Home league: a robot is asked to bring beverages and to do so, the robot performs the following common steps: it navigates to the bar, recognizes the beverages (usually cans or tetra packs), calculate some sort of inverse kinematics, moves its manipulator, grasps the object and returns to the user's location. This is a common situation in @Home tasks, nevertheless, what happens if there are empty cans or tetra packs in the bar? As it is commonly implemented in @Home league, robots are unable to distinguish between empty and full cans, since they commonly rely only in visual information of the beverage containers (see, for example, description papers of last edition winner teams \cite{tdp2019Eindhoven, tdp2019Homer, tdp2019UTS}).
 \subsection{Objectives and goals}
@@ -228,22 +232,22 @@ To improve control performance, a trajectory is planned using a 5th degree polyn
 %%%%
 \section{Simulink implementation}
 \label{sec:implementation}
-Implementation of control and observer was made in Simulink mainly using the Robotics, Simscape and ROS Toolboxes. In the following subsection we roughly describe this implementation.
-
-\subsubsection*{Simulator}
-Most of the tests were performed first in simulation. To such purpose, we used the \texttt{smimport} function of the Simscape Toolbox to generate the corresponding rigid body tree. Figure \ref{fig:SimulinkModel} shows the resulting block diagram. As it can be seen, simulation of robot dynamics is separated from control and observation. Communication between manipulator and controller and observer is made via ROS topics in order to keep them transparent to the hardware. This way, switching between real and simulated manipulator is easy.
-
-\begin{figure}
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.8\textwidth]{Figures/ManipulatorModel.png}
+  \includegraphics[width=0.9\textwidth]{Figures/ManipulatorModel.png}
   \caption{The resulting model after importing URDF}\
   \label{fig:SimulinkModel}
 \end{figure}
 
+Implementation of control and observer was made in Simulink mainly using the Robotics, Simscape and ROS Toolboxes. We followed the suggested steps in \cite{matlab_designing, matlab_trajectory}. To reproduce this proposal in other robots, we recommend to read first such tutorials. In the following subsection we roughly describe this implementation.
+
+\subsubsection*{Simulator}
+Most of the tests were performed first in simulation. To such purpose, we used the \texttt{smimport} function of the Simscape Toolbox to generate the corresponding rigid body tree. Figure \ref{fig:SimulinkModel} shows the resulting block diagram. As it can be seen, simulation of robot dynamics is separated from control and observation. Communication between manipulator and controller and observer is made via ROS topics in order to keep them transparent to the hardware. This way, switching between real and simulated manipulator is easy.
+
 \subsubsection*{Quantization and noise}
 To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution for 360 degrees and can set torque with 10 bit resolution. Torque resolution is not constant since it depends on motor model and battery level. The implemented simulation add this quantization effect. An example of such quantization is shown in figure \ref{fig:quantization}. Also, noise were added to joint measurements. We added a noise equivalent to $\mp 2$ bits. 
 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \begin{subfigure}[b]{0.4\textwidth}
     \centering
@@ -280,7 +284,7 @@ The Sliding Mode Observer is a copy of the system plus an output error injection
   \dot{\hat{x}}_2 &=& -M^{-1}(q)\left(C(q, \dot{\hat{q}})\dot{\hat{q}} + B\dot{\hat{q}} + G(q) - u\right) + z_2\label{eq:observer2}
 \end{eqnarray}
   The nominal part can be derived from the lagrangian, nevertheless, the analytic form is too complex due to the number of DOF. Instead, we used the numeric solution provided by the Simulink Robotics Toolbox, as shown in figure \ref{fig:SimulinkSMO}.
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \begin{subfigure}{0.45\textwidth}
   \centering
@@ -336,14 +340,15 @@ To ease implementation with the real manipulator and integration with the rest o
 \label{sec:results}
 \subsection{Description of the experiment}
 Mass estimation was tested moving the manipulator to several positions commonly used for grasping objects. Figure \ref{fig:test_poses} shows these predefined positions. It is worth to note that mass estimation will work in any configuration as long as wrist pitch $\theta$ (see equation (\ref{eq:mass})) is different from zero. 
-\begin{figure}
+
+Frequency sampling was set to 250 Hz. This value is the frequency achieved with the real manipulator. Dynamixel servomotors were configured to 1 Mbps of baudrate and we have nine motors in the manipulator: seven motors for the seven degrees of freedom, and two more for the manipulator. Considering the total number of bytes to be sent and received, the required time is in the order of 1 ms, nevertheless, smallest configurable USB latency in Ubuntu is 1 ms, which needs to be added to the time for sending and receiving RS485 data. 4 ms was chosen as approximately twice the time required to send torques and read positions from all motors. This frequency was set both for tests with real and simulated manipulator. 
+
+\begin{figure}[h!]
   \centering
   \includegraphics[width=0.7\textwidth]{Figures/test_poses.png}
   \caption{Positions used for testing masss estimation}
   \label{fig:test_poses}
 \end{figure}
-
-Frequency sampling was set to 250 Hz. This value is the frequency achieved with the real manipulator. Dynamixel servomotors were configured to 1 Mbps of baudrate and we have nine motors in the manipulator: seven motors for the seven degrees of freedom, and two more for the manipulator. Considering the total number of bytes to be sent and received, the required time is in the order of 1 ms, nevertheless, smallest configurable USB latency in Ubuntu is 1 ms, which needs to be added to the time for sending and receiving RS485 data. 4 ms was chosen as approximately twice the time required to send torques and read positions from all motors. This frequency was set both for tests with real and simulated manipulator. 
 
 Experiment for mass estimation was made simulating an object with mass $m=0.25$ located at the center of the gripper. We used the constants shown in table \ref{tab:constants}, where $I_{14}$ and $I_7$ represent identity matrices of orders 14 and 7 respectively. To filter the output error injection term of the SMO we used a 4th degree Butterworth Low-Pass filter with cutoff frequency of 1 Hz. 
 \begin{table}
@@ -426,8 +431,7 @@ There are two possible causes of errors in the estimation: uncertanties in the p
   \label{fig:ParamError}
 \end{figure}
 
-According to equation (\ref{eq:mass}), we need to know the distance $l_4$ for a correct mass estimation. This distance depends on the object position along the gripper. We always assume that the object is gripped in the center of the final effector, nevertheless, there could be a small error in this assumption. The error in the estimated mass will be proportional to the error in the estimation of $l_4$. Figure \ref{fig:ObjPosition} shows the estimated values for three different values of $l_4$. As it can be seen, the greater the distance $l_4$, the greater is the torque exerted on the joint with the same object mass and a greater value of mass is estimated. At this stage of the project, we don't have a way to determine the position of the object along the gripper, nevertheless, for the goal application of this project, the errors in estimation are tolerable. 
-\begin{figure}
+\begin{figure}[h!]
   \centering
   \begin{subfigure}{0.3\textwidth}
     \centering
@@ -453,6 +457,8 @@ According to equation (\ref{eq:mass}), we need to know the distance $l_4$ for a 
   \caption{Effect of object position along gripper in mass estimation}
   \label{fig:ObjPosition}
 \end{figure}
+According to equation (\ref{eq:mass}), we need to know the distance $l_4$ for a correct mass estimation. This distance depends on the object position along the gripper. We always assume that the object is gripped in the center of the final effector, nevertheless, there could be a small error in this assumption. The error in the estimated mass will be proportional to the error in the estimation of $l_4$. Figure \ref{fig:ObjPosition} shows the estimated values for three different values of $l_4$. As it can be seen, the greater the distance $l_4$, the greater is the torque exerted on the joint with the same object mass and a greater value of mass is estimated. At this stage of the project, we don't have a way to determine the position of the object along the gripper, nevertheless, for the goal application of this project, the errors in estimation are tolerable. 
+
 
 %%%%
 %REUSABILITY
