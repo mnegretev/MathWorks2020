@@ -178,7 +178,7 @@ Consider the figure \ref{fig:rpy}. The frame $O_6$, attached to joint 6, is the 
 \end{equation}
 where $\theta$ is the \textit{pitch} angle of frame $O_6$ w.r.t. $O_0$, $g$ is the gravity acceleration, $\tau_6$ is the disturbance torque calculated according to (\ref{eq:taus}) and $l_4$ is the distance from joint $O_6$ to the center of mass of the manipulated object. As it will be latter explained, errors in the estimation of $l_4$ will cause proportional errors in the estimation of $m_o$.
 
-Note that when $\theta=0$ it is not possible to estimate $m_o$ because $\theta=0$ means that the manipulated object is ``hanging'' from the joint and its weight is not exerting any torque on the joint. There are two possible ways overcome this situation: use another disturbance $\tau_i$ or moving the manipulator to a useful position. Second option is more feasible since the relation between $w_o$ and $\tau_i$ becomes more complex in the rest of the joints. 
+Note that when $\theta=0$ it is not possible to estimate $m_o$ because $\theta=0$ means that the manipulated object is ``hanging'' from the joint and its weight is not exerting any torque on the joint. There are two possible ways to overcome this situation: use another disturbance $\tau_i$ or moving the manipulator to a useful position. The second option is more feasible since the relation between $w_o$ and $\tau_i$ becomes more complex in the rest of the joints. 
 
 \subsection{Extended Kalman Filter}
 Sliding Mode Observer have the great advantage of being robust against disturbances, nevertheless, due to the discontinuos ouput error injection, they can have high frequency components in the estimated states. SMOs are useful for fault reconstruction but, due to the noise and low frequency sampling rate, it is better to use an Extended Kalman Filter (EKF) as part of the closed-loop control strategy.
@@ -197,7 +197,7 @@ In this work, since we are measuring the joint positions, our observation model 
 \end{equation}
 where $\omega\in\mathbb{R}^7$ is Gaussian noise without temporal correlation, zero mean and covariance matrix $R\in\mathbb{R}^{7\times 7}$.
 
-Chosing between the cotinuous or discrete version of the EKF depends on the frequency sampling. In this work we achieved a sampling of 250 Hz, which is much faster than the system dynamics, but too slow for a SMO. Also, since Simulink provide tools for continuos controls, we chose the continuos version of the EKF:
+Chosing between the continuous or discrete version of the EKF depends on the frequency sampling. In this work we achieved a sampling of 250 Hz, which is much faster than the system dynamics, but too slow for a SMO. Also, since Simulink provide tools for continuos controls, we chose the continuos version of the EKF:
 \begin{eqnarray}
   \dot{\hat{x}}_1 &=& \hat{x}_2 + K_1 y_1 \label{eq:ekf1}\\
   \dot{\hat{x}}_2 &=& f(\hat{x}_1, \hat{x}_2, u) + K_2 y_2\label{eq:ekf2}\\
@@ -221,7 +221,7 @@ As stated before, equations for estimating $m_o$ are derived under the assumptio
   u = G(\hat{q}) + K_p(q_d - \hat{q}) + K_d(\dot{q}_d - \hat{\dot{q}})
 \end{equation}
 
-where $\hat{q}$ and $\hat{\dot{q}}$ are the filtered measured positions and EKF-estimated speeds, respectively; $G(\hat{q})$ is the vector of gravity torques of the nominal part of the model (no noise and no fault signals) and 
+where $\hat{q}$ and $\hat{\dot{q}}$ are the EKF estimated positions and speeds, respectively; $G(\hat{q})$ is the vector of gravity torques of the nominal part of the model (no noise and no fault signals) and 
 
 As explained in the previous section, when the manipulator takes an object, the estimated states do not converge to the real ones and then the controller shows an steady state error. Nevertheless, this is tolerable since the goal of the proposed system is not the control performance but the observer performance for the mass estimation.
 
@@ -239,13 +239,13 @@ To improve control performance, a trajectory is planned using a 5th degree polyn
   \label{fig:SimulinkModel}
 \end{figure}
 
-Implementation of control and observer was made in Simulink mainly using the Robotics, Simscape and ROS Toolboxes. We followed the suggested steps in \cite{matlab_designing, matlab_trajectory}. To reproduce this proposal in other robots, we recommend to read first such tutorials. In the following subsection we roughly describe this implementation.
+Implementation of control and observer was made in Simulink mainly using the Robotics Systems Toolbox, Simscape and ROS Toolbox. We followed the suggested steps in \cite{matlab_designing, matlab_trajectory}. To reproduce this proposal in other robots, we recommend to read first such tutorials. In the following subsection we roughly describe this implementation.
 
 \subsubsection*{Simulator}
-Most of the tests were performed first in simulation. To such purpose, we used the \texttt{smimport} function of the Simscape Toolbox to generate the corresponding rigid body tree. Figure \ref{fig:SimulinkModel} shows the resulting block diagram. As it can be seen, simulation of robot dynamics is separated from control and observation. Communication between manipulator and controller and observer is made via ROS topics in order to keep them transparent to the hardware. This way, switching between real and simulated manipulator is easy.
+Most of the tests were performed first in simulation. To such purpose, we used the \texttt{smimport} function of Simscape Multibody to generate the corresponding rigid body tree. Figure \ref{fig:SimulinkModel} shows the resulting block diagram. As it can be seen, simulation of robot dynamics is separated from control and observation. Communication between manipulator and controller and observer is made via ROS topics in order to keep them transparent to the hardware. This way, switching between real and simulated manipulator is easy.
 
 \subsubsection*{Quantization and noise}
-To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution for 360 degrees and can set torque with 10 bit resolution. Torque resolution is not constant since it depends on motor model and battery level. The implemented simulation add this quantization effect. An example of such quantization is shown in figure \ref{fig:quantization}. Also, noise were added to joint measurements. We added a noise equivalent to $\pm 2$ bits. 
+To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution for 360 degrees and can set torque with 10 bit resolution. Torque resolution is not constant since it depends on motor model and battery level. The implemented simulation adds this quantization effect. An example of such quantization is shown in figure \ref{fig:quantization}. Also, noise was added to joint measurements. We added a noise equivalent to $\pm 2$ bits. 
 
 \begin{figure}[h!]
   \centering
@@ -304,7 +304,7 @@ The Sliding Mode Observer is a copy of the system plus an output error injection
 
 Also, from equation (\ref{eq:taus}), it is necessary to compute the inertia matrix $M(q)$ to obtain the perturbing torques $\phi$. Similar to the observer, instead of obtaining the algebraic expression of $M(q)$, we used the numeric calculation provided by the Robotics System Toolbox, as shown in figure \ref{fig:SimulinkMassEst}.
 
-  Similar to the SMO, the EKF is a copy of the system plus an output error injection term, but in this case, such term is not discontinuous, but it is a linear gain of the error, with such linear gain calculated to minimize noise effect. As shown in figure \ref{fig:EKFSimulink}, the forward dynamics term in equations (\ref{eq:ekf1})-(\ref{eq:ekf2}) is calculated using the corresponding Robotics Toolbox block. 
+  Similar to the SMO, the EKF is a copy of the system plus an output error injection term, but in this case, such term is not discontinuous, but it is a linear gain of the error, with such linear gain calculated to minimize noise effect. As shown in figure \ref{fig:EKFSimulink}, the forward dynamics term in equations (\ref{eq:ekf1})-(\ref{eq:ekf2}) is calculated using the corresponding Robotics System Toolbox block. 
 
 \begin{figure}[!h]
   \centering    
@@ -339,7 +339,7 @@ To ease implementation with the real manipulator and integration with the rest o
 \section{Simulation results}
 \label{sec:results}
 \subsection{Description of the experiment}
-Mass estimation was tested moving the manipulator to several positions commonly used for grasping objects. Figure \ref{fig:test_poses} shows these predefined positions. It is worth to note that mass estimation will work in any configuration as long as wrist pitch $\theta$ (see equation (\ref{eq:mass})) is different from zero. 
+Mass estimation was tested moving the manipulator to several positions commonly used for grasping objects. Figure \ref{fig:test_poses} shows these predefined positions. It is worth to note that mass estimation will work in any configuration as long as wrist pitch $\theta$ (see equation (\ref{eq:mass})) is different from zero. In a real application, it is better to estimate the mass only when $\vert\theta\vert > \theta_T$ where $\theta_T$ is a threshold large enough to avoid large errors due to the division by a very small value of $\theta$. In this work, we used $\theta_T=0.2$. 
 
 Frequency sampling was set to 250 Hz. This value is the frequency achieved with the real manipulator. Dynamixel servomotors were configured to 1 Mbps of baudrate and we have nine motors in the manipulator: seven motors for the seven degrees of freedom, and two more for the manipulator. Considering the total number of bytes to be sent and received, the required time is in the order of 1 ms, nevertheless, smallest configurable USB latency in Ubuntu is 1 ms, which needs to be added to the time for sending and receiving RS485 data. 4 ms was chosen as approximately twice the time required to send torques and read positions from all motors. This frequency was set both for tests with real and simulated manipulator. 
 
@@ -366,7 +366,7 @@ Experiment for mass estimation was made simulating an object with mass $m=0.25$ 
 \end{table}
 
 \subsection{Mass estimation}
-Figure \ref{fig:result_q} shows the results for the estimation and filtering of the angular position while moving the arm to one of the predefined positions. As it can be observed, the measured position is noisy and does not converges to the desired position, nevertheless, this is an expected behavior. As explained before, the objective of this work is the mass estimation of the manipulated object, not the performance of the controller. In the presence of the fault signal (an object in the end effector), the controller shows an steady state error. Comparing the estimated positions between the SMO and the EKF, we can see that the SMO-estimated positions perfectly track the measured positions, since in general, SMOs are designed to be robust against faults and disturbances, nevertheless, SMO-estimated positions show the problem of chattering. Instead, EKF-estimated positions show an steady-state error but do not show chattering nor noise, making them more suitable for implementing the PD+ control. 
+Figure \ref{fig:result_q} shows the results for the estimation and filtering of the angular position while moving the arm to one of the predefined positions. As it can be observed, the measured position is noisy and does not converge to the desired position, nevertheless, this is an expected behavior. As explained before, the objective of this work is the mass estimation of the manipulated object, not the performance of the controller. In the presence of the fault signal (an object in the end effector), the controller shows steady state error. Comparing the estimated positions between the SMO and the EKF, we can see that the SMO-estimated positions perfectly track the measured positions, since in general, SMOs are designed to be robust against faults and disturbances, nevertheless, SMO-estimated positions show the problem of chattering. Instead, EKF-estimated positions show an steady-state error but do not show chattering nor noise, making them more suitable for implementing the PD+ control. 
 
 \begin{figure}
   \centering
@@ -395,7 +395,7 @@ Figure \ref{fig:result_qp} shows the results for the estimation of the angular s
   \label{fig:result_qp}
 \end{figure}
 
-Finally, figure \ref{fig:MassEstimation} shows the resulting estimated mass. As explained in section \ref{sec:MassEstimation}, in this work we make the mass estimation only when the manipulator is in a constant position. Ideally, estimations should be made only when $\dot{q}=0$, nevertheless, this is a hard condition. Instead, we set estimated mass to zero if $\Vert\dot{q}\Vert > 0.5$, that's why first seconds in figure \ref{fig:MassEstimation} are zero. As soon as the arm stops, the estimated value converges to 0.25 kg, the actual mass of the object. 
+Finally, figure \ref{fig:MassEstimation} shows the resulting estimated mass. As explained in section \ref{sec:MassEstimation}, in this work we make the mass estimation only when the manipulator is in a constant position. Ideally, estimations should be made only when $\dot{q}=0$, nevertheless, this is a hard condition. Instead, we set estimated mass to zero if $\Vert\dot{q}\Vert > 0.5$, that is why in figure \ref{fig:MassEstimation} the estimation is equal to zero for the first few seconds. As soon as the arm stops, the estimated value converges to 0.25 kg, the actual mass of the object. 
 \begin{figure}
   \centering
   \includegraphics[width=0.5\textwidth]{Figures/result_mass.eps}
@@ -404,7 +404,7 @@ Finally, figure \ref{fig:MassEstimation} shows the resulting estimated mass. As 
 \end{figure}
 
 \subsection{Sources of estimation errors}
-There are two possible causes of errors in the estimation: uncertanties in the physical parameters (link masses and inertia, joint frictions, etc) and the position of the object along the gripper. In this work it is assumed that the system is correctly identified, nevertheless, sometimes this assumption could not be hold, specially in complex systems such as the 7-DOF manipulator. In order to analyze the effect of parameter uncertainties in the estimation, we ran simulations with wrong parameter values. That is, the term $f(x_1, \hat{x}_2, u)$ in (\ref{eq:observer1})-(\ref{eq:observer2}) is calculated with the wrong parameters but measurements $q$ come from the system simulated with the correct values. Figure \ref{fig:param_error2} shows the estimation results using link masses and inertia with values 20\% smaller than the nominal ones. As it can be seen, the system overestimates the mass value. The torque exerted on each joint is caused by the link mass and the manipulated object. If such link mass is smaller, then the exerted torque will be attributed to the manipulated object. The contrary effect happens when the physical parameters are overestimated, as shown in figure \ref{fig:param_error3}.
+There are two possible causes of errors in the estimation: uncertanties in the physical parameters (link masses and inertia, joint frictions, etc) and the position of the object along the gripper. In this work it is assumed that the system is correctly identified, nevertheless, sometimes this assumption could not be held, specially in complex systems such as the 7-DOF manipulator. In order to analyze the effect of parameter uncertainties in the estimation, we ran simulations with wrong parameter values. That is, the term $f(x_1, \hat{x}_2, u)$ in (\ref{eq:observer1})-(\ref{eq:observer2}) is calculated with the wrong parameters but measurements $q$ come from the system simulated with the correct values. Figure \ref{fig:param_error2} shows the estimation results using link masses and inertia with values 20\% smaller than the nominal ones. As it can be seen, the system overestimates the mass value. The torque exerted on each joint is caused by the link mass and the manipulated object. If such link mass is smaller, then the exerted torque will be attributed to the manipulated object. The contrary effect happens when the physical parameters are overestimated, as shown in figure \ref{fig:param_error3}.
 
 
 \begin{figure}
@@ -457,7 +457,7 @@ There are two possible causes of errors in the estimation: uncertanties in the p
   \caption{Effect of object position along gripper in mass estimation}
   \label{fig:ObjPosition}
 \end{figure}
-According to equation (\ref{eq:mass}), we need to know the distance $l_4$ for a correct mass estimation. This distance depends on the object position along the gripper. We always assume that the object is gripped in the center of the final effector, nevertheless, there could be a small error in this assumption. The error in the estimated mass will be proportional to the error in the estimation of $l_4$. Figure \ref{fig:ObjPosition} shows the estimated values for three different values of $l_4$. As it can be seen, the greater the distance $l_4$, the greater is the torque exerted on the joint with the same object mass and a greater value of mass is estimated. At this stage of the project, we don't have a way to determine the position of the object along the gripper, nevertheless, for the goal application of this project, the errors in estimation are tolerable. 
+According to equation (\ref{eq:mass}), we need to know the distance $l_4$ for a correct mass estimation. This distance depends on the object position along the gripper. We always assume that the object is gripped in the center of the end effector, nevertheless, there could be a small error in this assumption. The error in the estimated mass will be proportional to the error in the estimation of $l_4$. Figure \ref{fig:ObjPosition} shows the estimated values for three different values of $l_4$. As it can be seen, the greater the distance $l_4$, the greater is the torque exerted on the joint with the same object mass and a greater value of mass is estimated. At this stage of the project, we don't have a way to determine the position of the object along the gripper, nevertheless, for the goal application of this project, the errors in estimation are tolerable. 
 
 
 %%%%
@@ -484,9 +484,24 @@ We imported the URDF from the GitHub Katana repository. Most robot descriptions 
 
 \begin{figure}
   \centering
-  \includegraphics[width=\textwidth]{Figures/KatanaSimscape.png}
-  \includegraphics[width=0.7\textwidth]{Figures/KatanaSimulinkROS.png}
-  \includegraphics[width=0.55\textwidth]{Figures/KatanaMechanics.png}
+  \begin{subfigure}[b]{\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/KatanaSimscape.png}
+    \caption{Imported Simscape Multibody model.}
+    \label{fig:KatanaSimulinkA}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.75\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/KatanaSimulinkROS.png}
+    \caption{Manipulator with the corresponding publishers and subscribers.}
+    \label{fig:KatanaSimulinkB}
+  \end{subfigure}
+  \begin{subfigure}[b]{0.55\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{Figures/KatanaMechanics.png}
+    \caption{Manipulator as shown in the Mechanics Explorer.}
+    \label{fig:KatanaSimulinkC}
+  \end{subfigure}
   \caption{Importing Katana URDF to Simulink}
   \label{fig:KatanaSimulink}
 \end{figure}
@@ -494,7 +509,7 @@ We imported the URDF from the GitHub Katana repository. Most robot descriptions 
 \subsubsection*{Chosing the correct joint to estimate mass}
 In this work we used the wrist pitch of our manipulator to estimate object mass. Using the observer (\ref{eq:observer1})-(\ref{eq:observer2}), we reconstructed the fault signals $\phi(x_1, x_2, u)$, after that, using equation (\ref{eq:taus}) we get the torques exerted on each joint. Finally, using torque on joint 6 (wrist pitch) and equation (\ref{eq:mass}), we get the estimated mass of the manipulated object. The joint of the wrist pitch fulfills the two features previously mentioned: it is the nearest joint to the end effector whose rotation axis is perpendicular to the gravity vector.
 
-In the case of the Katana manipulator, the joint with these features is \texttt{katana\_motor4\_lift\_link} and thus, the fault torque associated to this joint will be used in equation (\ref{eq:mass}). Figure \ref{fig:katana_joints} shows the equivalent variables in the Katana Manipulator for mass estimation. Angle $\theta$ can be calculated using the Euler Angles of the rotation from \texttt{katana\_base\_frame} to \texttt{katana\_motor4\_lift\_link}. Robotics Toolbox provides the needed blocks to calculate this angle. Distance $l_4$ can be obtained from URDF or by directly measuring it. 
+In the case of the Katana manipulator, the joint with these features is \texttt{katana\_motor4\_lift\_link} and thus, the fault torque associated to this joint will be used in equation (\ref{eq:mass}). Figure \ref{fig:katana_joints} shows the equivalent variables in the Katana Manipulator for mass estimation. Angle $\theta$ can be calculated using the Euler Angles of the rotation from \texttt{katana\_base\_frame} to \texttt{katana\_motor4\_lift\_link}. Robotics System Toolbox provides the needed blocks to calculate this angle. Distance $l_4$ can be obtained from URDF or by directly measuring it. 
 
 \begin{figure}
   \centering
@@ -504,7 +519,7 @@ In the case of the Katana manipulator, the joint with these features is \texttt{
 \end{figure}
 
 \subsubsection*{SMO implementation and mass estimation}
-Once we identified the ideal joint for mass estimation, we imported the URDF file to get a Rigid Body Tree using the \texttt{importrobot} function of the Robotics Toolbox. We implemented the SMO and mass estimator using the Forward Dynamics and Mass Matrix block as shown in figure \ref{fig:SimulinkMassEst} (see explanation in section \ref{sec:implementation}). We simulated an object with a mass of 200 g. To simplify simulations, we did not implemented a control but we used only a constant torque applied to the joints. Figure \ref{fig:katana_results} shows the resulting estimation. 
+Once we identified the ideal joint for mass estimation, we imported the URDF file to get a Rigid Body Tree using the \texttt{importrobot} function of the Robotics System Toolbox. We implemented the SMO and mass estimator using the Forward Dynamics and Mass Matrix block as shown in figure \ref{fig:SimulinkMassEst} (see explanation in section \ref{sec:implementation}). We simulated an object with a mass of 200 g. To simplify simulations, we did not implement a control but we used only a constant torque applied to the joints. Figure \ref{fig:katana_results} shows the resulting estimation. 
 
 \begin{figure}
   \centering
@@ -513,13 +528,15 @@ Once we identified the ideal joint for mass estimation, we imported the URDF fil
   \label{fig:katana_results}
 \end{figure}
 
+All files and instructions necessary to reproduce the results presented in this work can be found in \url{https://github.com/RobotJustina/RCF-MathWorks-2020-14/}. 
+
 \section{Conclusions}
 \label{sec:conclusions}
-In this work we presented a method for estimating the mass of the object being manipulated in a domestic service robot. The estimation is based on model based fault reconstruction techniques using sliding mode observer. The implementation of model-based algorithms could be very complicated in complex systems such as the 7 DOF manipulator used in this proposal; nevertheless, the use of Simulink Robotics, ROS and Simscape Toolboxes, which provide numerical solutions to the system dynamics, allowed the implementation of such model-based techniques. We presented simulation results where we show the effectiveness of our proposal. Also, we discussed the cases where this approach can lead to a wrong estimation. To show the possible reusability of our proposal, we replicated some of the results in a simulated Katana manipulator. 
+In this work we presented a method for estimating the mass of the object being manipulated in a domestic service robot. The estimation is based on model based fault reconstruction techniques using sliding mode observer. The implementation of model-based algorithms could be very complicated in complex systems such as the 7 DOF manipulator used in this proposal; nevertheless, the use of Simulink, Robotics System Toolbox, Simscape and ROS Toolbox, which provide numerical solutions to the system dynamics, allowed the implementation of such model-based techniques. We presented simulation results where we show the effectiveness of our proposal. Also, we discussed the cases where this approach can lead to a wrong estimation. To show the possible reusability of our proposal, we replicated some of the results in a simulated Katana manipulator. 
 
 Further tests should be made for an implementation in the real manipulator. For example, in this work we assumed that only linear friction is present in the motor, nevertheless, Dynamixel motors present also non linear frictions, which must be modeled and identified for a correct performance. Also, better controllers can be implemented to reach faster the steady state. A shorter settle time will result in a faster mass estimation. 
 
-As a future work, different techniques can be implemented. Another model-based option is the Extended Kalman Filter. As shown in section \ref{sec:results}, the EKF estimated speeds have a steady state error due to the fault signal. This estimated speeds can also be used to estimate the manipulated object mass. On the other hand, model-free techniques can also be implemented, such as neural networks. Input torques and measured positions can be taken as input data to train a NN whose output is the estimated mass.
+As a future work, different techniques can be implemented. Another model-based option is the use of the implemented Extended Kalman Filter. As shown in section \ref{sec:results}, the EKF estimated speeds have a steady state error due to the fault signal. This estimated speeds can also be used to estimate the manipulated object mass. On the other hand, model-free techniques can also be implemented, such as neural networks. Input torques and measured positions can be taken as input data to train a NN whose output is the estimated mass.
 
 Finally, this proposal will be integrated with the rest of subsystems of our domestic service robot in the context of the Robocup@Home tests. 
 
