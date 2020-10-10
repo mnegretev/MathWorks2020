@@ -1,4 +1,9 @@
 Article.aux
 Article.log
+Article.bbl
+Article.blg
 Article.pdf
 Article.tex~
+Article.toc
+Article.out
+*converted-to.pdf

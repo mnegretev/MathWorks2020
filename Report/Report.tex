@@ -44,14 +44,14 @@ Justina is a domestic service robot built at the Biorobotics Laboratory of the N
 Among other actuators, Justina has two 7-DOF manipulators built with Dynamixel servomotors. Such servomotors allow the user to control them in several forms: by setting a goal position, setting a goal movement speed or setting a desired current which will produce a torque. This latter option is used in this project. Also, these motors provide position sensing with a resolution of less than a tenth of degree. Figure \ref{fig:Justina} shows robot Justina and its sensors and actuators. 
 \begin{figure}
   \centering
-  \begin{subfigure}[b]{0.35\textwidth}
+  \begin{subfigure}[b]{0.4\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/Justina.png}
     \caption{Sensors and actuators.}
     \label{fig:Justina}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[b]{0.3\textwidth}
+  \begin{subfigure}[b]{0.45\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/left_arm.png}
     \caption{The left manipulator representation for simulation purposes.}
@@ -283,52 +283,54 @@ The Sliding Mode Observer is a copy of the system plus an output error injection
   \dot{\hat{x}}_1 &=& \hat{x}_2 + z_1\label{eq:observer1}\\
   \dot{\hat{x}}_2 &=& -M^{-1}(q)\left(C(q, \dot{\hat{q}})\dot{\hat{q}} + B\dot{\hat{q}} + G(q) - u\right) + z_2\label{eq:observer2}
 \end{eqnarray}
-  The nominal part can be derived from the lagrangian, nevertheless, the analytic form is too complex due to the number of DOF. Instead, we used the numeric solution provided by the Inverse Dynamics block from the Simulink Robotics System Toolbox library, as shown in figure \ref{fig:SimulinkSMO}.
-\begin{figure}[h!]
+  The nominal part can be derived from the lagrangian, nevertheless, the analytic form is too complex due to the number of DOF. Instead, we used the numeric solution provided by the Inverse Dynamics block from the Simulink Robotics System Toolbox library, as shown in figure \ref{fig:SimulinkSMO}. Also, from equation (\ref{eq:taus}), it is necessary to compute the inertia matrix $M(q)$ to obtain the perturbing torques $\phi$. Similar to the observer, instead of obtaining the algebraic expression of $M(q)$, we used the numeric calculation provided by the Robotics System Toolbox, as shown in figure \ref{fig:SimulinkMassEst}.
+
+\begin{figure}
   \centering
   \begin{subfigure}{0.45\textwidth}
   \centering
   \includegraphics[width=\textwidth]{Figures/SMOwithSimulink.png}
-  \caption{Forward Dynamics block in SMO implementation}
+  \caption{Forward Dynamics block for SMO}
   \label{fig:SimulinkSMO}
   \end{subfigure}
-  \begin{subfigure}{0.45\textwidth}
+  \hfill
+  \begin{subfigure}{0.48\textwidth}
   \centering
   \includegraphics[width=0.5\textwidth]{Figures/MassEst.png}
   \caption{Mass Matrix block in mass estimation}
   \label{fig:SimulinkMassEst}
   \end{subfigure}
+  \begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Figures/EKFSimulink.png}
+  \caption{Forward Dynamics block for EKF}
+  \label{fig:EKFSimulink}
+  \end{subfigure}
+  \hfill
+  \begin{subfigure}{0.45\textwidth}
+  \centering
+  \includegraphics[width=\textwidth]{Figures/ControlSimulink.png}
+  \caption{Gravity block for PD+Control}
+  \label{fig:ControlSimulink}
+  \end{subfigure}
   \caption{Implementation using Simulink Blocks}
 \end{figure}
   
+Similar to the SMO, the EKF is a copy of the system plus an output error injection term, but in this case, such term is not discontinuous, but it is a linear gain of the error, with such linear gain calculated to minimize noise effect. As shown in figure \ref{fig:EKFSimulink}, the forward dynamics term in equations (\ref{eq:ekf1})-(\ref{eq:ekf2}) is calculated using the corresponding Robotics System Toolbox block. Figure \ref{fig:FullSystemBlocks} shows the block diagram of the full system as implement in Simulink. 
 
-Also, from equation (\ref{eq:taus}), it is necessary to compute the inertia matrix $M(q)$ to obtain the perturbing torques $\phi$. Similar to the observer, instead of obtaining the algebraic expression of $M(q)$, we used the numeric calculation provided by the Robotics System Toolbox, as shown in figure \ref{fig:SimulinkMassEst}.
-
-  Similar to the SMO, the EKF is a copy of the system plus an output error injection term, but in this case, such term is not discontinuous, but it is a linear gain of the error, with such linear gain calculated to minimize noise effect. As shown in figure \ref{fig:EKFSimulink}, the forward dynamics term in equations (\ref{eq:ekf1})-(\ref{eq:ekf2}) is calculated using the corresponding Robotics System Toolbox block. 
-
-\begin{figure}[!h]
-  \centering    
-  \begin{subfigure}{0.35\textwidth}
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{Figures/EKFSimulink.png}
-  \caption{Simulink implementation of the EKF}
-  \label{fig:EKFSimulink}
-  \end{subfigure}
-  \begin{subfigure}{0.35\textwidth}
-  \centering
-  \includegraphics[width=\textwidth]{Figures/ControlSimulink.png}
-  \caption{Simulink implementation of PD+ control}
-  \label{fig:ControlSimulink}
-  \end{subfigure}
-  \caption{Control and observation using Simulink blocks}
+  \includegraphics[width=\textwidth]{Figures/FullSystem.png}
+  \caption{Block diagram of the full system implemented in Simulink}
+  \label{fig:FullSystemBlocks}
 \end{figure}
 
 \subsubsection*{A ROS node for each task}
-To ease implementation with the real manipulator and integration with the rest of the subsystems, we separated every task in different ROS nodes: arm dynamics simulation, control, SMO and EKF. Signals are shared via topics and ROS parameters are used for all tuning constants. Figure \ref{fig:RosNodes} shows the connections between the different nodes. 
-\begin{figure}
+To ease implementation with the real manipulator and integration with the rest of the subsystems, we separated every task in different ROS nodes: arm dynamics simulation, control, SMO and EKF. Signals are shared via topics and ROS parameters are used for all tuning constants. Figure \ref{fig:RosNodes} shows the connections between the different nodes and the ROS topics they communicate through. 
+\begin{figure}[h!]
   \centering
-  \includegraphics[width=0.65\textwidth]{Figures/RosNodes.pdf}
-  \caption{Block diagram of ROS-nodes communications}
+  \includegraphics[width=0.95\textwidth]{Figures/rosgraph.png}
+  \caption{Graph diagram of ROS-nodes communications}
   \label{fig:RosNodes}
 \end{figure}
 
@@ -351,7 +353,7 @@ Frequency sampling was set to 250 Hz. This value is the frequency achieved with 
 \end{figure}
 
 Experiment for mass estimation was made simulating an object with mass $m=0.25$ located at the center of the gripper. We used the constants shown in table \ref{tab:constants}, where $I_{14}$ and $I_7$ represent identity matrices of orders 14 and 7 respectively. To filter the output error injection term of the SMO we used a 4th degree Butterworth Low-Pass filter with cutoff frequency of 1 Hz. 
-\begin{table}
+\begin{table}[h!]
   \centering
   \begin{tabular}{|c|c|c|c|}
     \hline
@@ -433,21 +435,21 @@ There are two possible causes of errors in the estimation: uncertanties in the p
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}{0.3\textwidth}
+  \begin{subfigure}{0.32\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/obj_position1.png}
     \includegraphics[width=\textwidth]{Figures/obj_position1.eps}
     \caption{$l_4=0.21$ m}
     \label{fig:obj_position1}
   \end{subfigure}
-  \begin{subfigure}{0.3\textwidth}
+  \begin{subfigure}{0.32\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/obj_position2.png}
     \includegraphics[width=\textwidth]{Figures/obj_position3.eps}
     \caption{$l_4=0.18$ m}
     \label{fig:obj_position2}
   \end{subfigure}
-  \begin{subfigure}{0.3\textwidth}
+  \begin{subfigure}{0.32\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/obj_position3.png}
     \includegraphics[width=\textwidth]{Figures/obj_position2.eps}
@@ -490,13 +492,13 @@ We imported the URDF from the GitHub Katana repository. Most robot descriptions 
     \caption{Imported Simscape Multibody model.}
     \label{fig:KatanaSimulinkA}
   \end{subfigure}
-  \begin{subfigure}[b]{0.75\textwidth}
+  \begin{subfigure}[b]{\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/KatanaSimulinkROS.png}
     \caption{Manipulator with the corresponding publishers and subscribers.}
     \label{fig:KatanaSimulinkB}
   \end{subfigure}
-  \begin{subfigure}[b]{0.55\textwidth}
+  \begin{subfigure}[b]{0.65\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/KatanaMechanics.png}
     \caption{Manipulator as shown in the Mechanics Explorer.}
@@ -528,7 +530,7 @@ Once we identified the ideal joint for mass estimation, we imported the URDF fil
   \label{fig:katana_results}
 \end{figure}
 
-All files and instructions necessary to reproduce the results presented in this work can be found in \url{https://github.com/RobotJustina/RCF-MathWorks-2020-14/}. 
+All files and instructions necessary to reproduce the results presented in this work can be found in\\ \url{https://github.com/RobotJustina/RCF-MathWorks-2020-14/}. 
 
 \section{Conclusions}
 \label{sec:conclusions}
