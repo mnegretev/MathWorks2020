@@ -15,7 +15,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-  Manipulation is a key capability in domestic service robots, as can be seen in the rulebooks of last Robocup@Home editions. Currently, object recognition is performed based mostly on visual information. Some robots use also 3D information such as point clouds or laser scans but, to the knowledge of authors, robots don't use physical properties to improve object recognition. Estimation of an object's weight during a manipulation task is something new in the @Home league and such ability can improve performance of domestic service robots. In this work we propose to estimate the weight of the grasped object using Sliding Mode Observers. If we consider the manipulator without load as the nominal system and object's weight as a fault signal, we can estimate such weight by an appropriate filtering of the output error injection term of the sliding mode observer. To implement our proposal we used Simulink's Robotics System Toolbox and Simscape. To improve computation time we exported all algorithms to standalone ROS nodes using the Simulink's ROS Toolbox. Tests were performed using two platforms: Justina's left manipulator (a robot developed at Biorobotics Laboratory, UNAM) and Neuronics Katana manipulators. We present results in simulation and discuss the performance of the proposed system and the possible sources of error. Finally we present our conclusions and state the future work. 
+  Manipulation is a key capability in domestic service robots, as can be seen in the rulebooks of last Robocup@Home editions. Currently, object recognition is performed based mostly on visual information. Some robots use also 3D information such as point clouds or laser scans but, to the knowledge of authors, robots don't use physical properties to improve object recognition. Estimation of an object's weight during a manipulation task is something new in the @Home league and such ability can improve performance of domestic service robots. In this work we propose to estimate the weight of the grasped object using Sliding Mode Observers. If we consider the manipulator without load as the nominal system and object's weight as a fault signal, we can estimate such weight by an appropriate filtering of the output error injection term of the sliding mode observer. To implement our proposal we used MATLAB and Simulink Robotics System Toolbox, ROS Toolbox and Simscape. To improve computation time we exported all algorithms to standalone ROS nodes from Simulink models. Tests were performed using two platforms: Justina's left manipulator (a robot developed at Biorobotics Laboratory, UNAM) and Neuronics Katana manipulators. We present results in simulation and discuss the performance of the proposed system and the possible sources of error. Finally we present our conclusions and state the future work. 
 \end{abstract}
 
 \section{Introduction}
@@ -318,7 +318,7 @@ Similar to the SMO, the EKF is a copy of the system plus an output error injecti
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{Figures/FullSystem.png}
+  \includegraphics[width=\textwidth]{Figures/MassEstimatorDiagram.jpg}
   \caption{Block diagram of the full system implemented in Simulink}
   \label{fig:FullSystemBlocks}
 \end{figure}
