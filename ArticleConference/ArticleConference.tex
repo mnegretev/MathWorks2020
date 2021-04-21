@@ -1,4 +1,6 @@
-\documentclass[a4paper, 10pt]{article}
+\documentclass[conference,letterpaper]{ieeeconf}
+\overrideIEEEmargins
+\IEEEoverridecommandlockouts  
 \usepackage[utf8]{inputenc}
 \usepackage{amssymb}
 \usepackage{amsmath}
@@ -6,6 +8,7 @@
 \usepackage{subcaption}
 \usepackage{hyperref}
 \usepackage{fancyhdr}
+\pdfminorversion=4
 
 \fancypagestyle{mypagestyle}{\fancyhf{}\renewcommand{\headrulewidth}{0pt}\fancyfoot[C]{\footnotesize{This work was supported by MathWorks and Robocup Federation under grant number 2020-14, and by UNAM-DGAPA under grant IA106520.\\Authors also thank to the MathWorks Students Competitions Team, Control Systems Team and Advanced Research and Technology Office, for their help in the development of this project.}}}
 
@@ -55,9 +58,9 @@ This document is organized as follows: In section \ref{sec:RelatedWork} we prese
 %%%%%%%%%%%%
 \section{Related work}
 \label{sec:RelatedWork}
-Object manipulation in DSR involves recognizing (and locating) the target object, and planning movements to grasp it (which also include the design of control laws to perform such movements). Object recognition in DSR was commonly addressed with feature-based algorithms such as SIFT and SURF, examples of this approaches are \cite{stuckler_mobile_2016} and \cite{ruiz-del-solar_bender_2013}. The work of \cite{loncomilla_object_2016} reviews object recognition techniques based on features with specific applications to mobile robots. Since domestic service robots are commonly equipped with pan-tilt units, active vision approaches are also widely used. More recently, neural network-based techniques have become popular with the release of ready-to-use tools such as TensorFlow \cite{abadi2016tensorflow}, OpenVino and Yolo \cite{redmon2016you}. Examples of robots using this Neural Network techniques are \cite{homerunikoblenz_2019}, \cite{tobi_tdp2019} and \cite{tech_united_tdp2020}. In \cite{hamidreza2020state} authors make a survey about several works using neural network-based techniques. All these works perform object recognition using only visual information. To the knowledge of authors, estimation of object's physical properties has not been addressed as part of the manipulation task in DSR.
+%Object manipulation in DSR involves recognizing (and locating) the target object, and planning movements to grasp it (which also include the design of control laws to perform such movements). Object recognition in DSR was commonly addressed with feature-based algorithms such as SIFT and SURF, examples of this approaches are \cite{stuckler_mobile_2016} and \cite{ruiz-del-solar_bender_2013}. The work of \cite{loncomilla_object_2016} reviews object recognition techniques based on features with specific applications to mobile robots. Since domestic service robots are commonly equipped with pan-tilt units, active vision approaches are also widely used. More recently, neural network-based techniques have become popular with the release of ready-to-use tools such as TensorFlow \cite{abadi2016tensorflow}, OpenVino and Yolo \cite{redmon2016you}. Examples of robots using this Neural Network techniques are \cite{homerunikoblenz_2019}, \cite{tobi_tdp2019} and \cite{tech_united_tdp2020}. In \cite{hamidreza2020state} authors make a survey about several works using neural network-based techniques. All these works perform object recognition using only visual information. To the knowledge of authors, estimation of object's physical properties has not been addressed as part of the manipulation task in DSR.
 
-Research on manipulation for DSR has mostly focused on motion planning, either for obtaining trajectories, avoiding obstacles or to calculate the best grasping configuration \cite{billard_trends_2019}. There are many works that use data-driven techniques to find the best grasping point \cite{bohg2013data,sahbani2012overview}, although more recently, deep learning techniques have achieved larger advancements \cite{nguyen_review_2019}. Works for collision avoidance include the self-collision avoidance, such as the works of \cite{mirrazavi2018unified} and \cite{rakita2018relaxedik}, and collision avoidance with the environment, such as the works of \cite{di2017real} and \cite{nikou2017nonlinear}. Collision avoidance has also been tackled using reinforcement learning \cite{yamada2020motion} and imitation of the human experience \cite{huang2020real}. In \cite{hamidreza2020state} authors make a review of the current advances in manipulation for service robots. In a lower level of execution, after a movement is planned, the manipulator requires of control laws that ensure the movement will be performed as planned. In this area, there are many works using classic model-based techniques, such as \cite{varela2018modelling,seo2018dual,lee2017adaptive} and \cite{han2017assumed}, and also using neural network approaches \cite{jin2018robot, khan2020tracking, jin2021robust}. In most of the presented works, an implicit assumption is the availability of information about physical properties such as surface frictions or weights. 
+Research on manipulation for DSR has mostly focused on motion planning, either for obtaining trajectories, avoiding obstacles or to calculate the best grasping configuration \cite{billard_trends_2019}. There are many works that use data-driven techniques to find the best grasping point \cite{bohg2013data,sahbani2012overview}, although more recently, deep learning techniques have achieved larger advancements \cite{nguyen_review_2019}. Works for collision avoidance include the self-collision avoidance, such as the works of \cite{mirrazavi2018unified} and \cite{rakita2018relaxedik}, and collision avoidance with the environment, such as the works of \cite{di2017real} and \cite{nikou2017nonlinear}. Collision avoidance has also been tackled using reinforcement learning \cite{yamada2020motion} and imitation of the human experience \cite{huang2020real}. In \cite{hamidreza2020state} authors make a review of the current advances in manipulation for service robots. In a lower level of execution, after a movement is planned, the manipulator requires of control laws that ensure the movement will be performed as planned. In this area, there are many works using classic model-based techniques, such as \cite{varela2018modelling,seo2018dual,lee2017adaptive} and \cite{han2017assumed}, and also using neural network approaches \cite{jin2018robot, khan2020tracking, jin2021robust}. In most of the presented works, an implicit assumption is the availability of information about physical properties such as surface frictions or masses. 
 
 On the other hand, fault reconstruction techniques have been applied to robot manipulators mostly to detect and isolate faults on motor actuators and sensors \cite{omali2019nonlinear, cordoneanu2018review, zhang2020review}. Fault detection and isolation, from the control theory approach, is commonly achieved by the implementation of residual generators \cite{abid2020review}. A common way to design such residual generators is through observers that are sensitive to the fault signals. Sliding mode observers (SMO) are disticontinuos observers that have the properties of finite time convergence and accurate tracking of the measured states once the sliding surface is reached. These type of observers can be used to reconstruct faults or disturbance signals through an appropiate filtering of the so-called injection output error \cite{shtessel2014sliding,davila2006observation}. There are many works using SMO for fault diagnosis in robot manipulators, such as \cite{capisani2012manipulator, sun2017protective} and \cite{ferrara2020sliding}. Although fault reconstruction in manipulators using SMO is a common approach, it has not been used to estimate the weight of the grasped object.
 
@@ -72,23 +75,16 @@ As stated in \cite{steinbauer2012survey}, payload is a strong factor in the like
 The system we propose consist on a SMO to estimate the weight of the grasped object and a control block to drive the manipulator to a useful position. It is important to note that the main goal of this work is the observer, nevertheless, since we perform the estimation only in a certain configurations, we also include a PD+ control. The servomotors we use have speed sensors but readings are noise and with low reliability, thus, we also implemented an Extended Kalman Filter (EKF) to estimate the joint speeds. We late explain the reasons to not use the SMO for joint speed estimation. Summarizing, our proposal consist on a SMO for fault reconstruction, an EKF for joint speed estimation and a PD+ module for position control. Figure \ref{fig:FullSystemBlocks} shows a block diagram with the full system. 
 \begin{figure}
   \centering
-  \includegraphics[width=0.7\textwidth]{Figures/full_system.pdf}
+  \includegraphics[width=0.4\textwidth]{Figures/full_system.pdf}
   \caption{Block diagram of the proposed full system.}
   \label{fig:FullSystemBlocks}
 \end{figure}
 
 \subsection{Manipulator's Dynamic Model}
 
-Justina is a domestic service robot built at the Biorobotics Laboratory of the National Autonomous University of Mexico and developed under the ViRBot architecture \cite{savage2008virbot}. This robot and its predecessors have been participating in the Robocup@Home league \cite{wachsmuth2015robocup} since 2006 performing several tasks such as cleaning a table, serving drinks, and several other tasks that humans ask for. Figure \ref{fig:Justina} shows robot Justina and its sensors and actuators. In this work we used a simulated version of the left arm of our domestic service robot.
+Justina is a domestic service robot built at the Biorobotics Laboratory of the National Autonomous University of Mexico and developed under the ViRBot architecture \cite{savage2008virbot}. This robot and its predecessors have been participating in the Robocup@Home league \cite{wachsmuth2015robocup} since 2006 performing several tasks such as cleaning a table, serving drinks, and several other tasks that humans ask for. In this work we used a simulated version of the left arm of our domestic service robot.
 
-\begin{figure}
-  \centering
-  \includegraphics[width=0.4\textwidth]{Figures/Justina.png}
-  \caption{The domestic service robot Justina.}
-  \label{fig:Justina}
-\end{figure}
-
-  From the Langrangian of the manipulator, a dynamic model of the following form can be obtained:
+From the Langrangian of the manipulator, a dynamic model of the following form can be obtained:
   \begin{equation}
     M(q)\ddot{q} + C(q, \dot{q})\dot{q} + B\dot{q} + G(q) + \Delta(q,\dot{q}, u) = u
     \label{eq:lagrangian}
@@ -98,7 +94,7 @@ Justina is a domestic service robot built at the Biorobotics Laboratory of the N
   To design a SMO it is necessary to write the model in variable states form. Let $x_1 = [q_1\;q_2\;q_3\;q_4\;q_5\;q_6\;q_7]^T$ and $x_2 = [\dot{q}_1\;\dot{q}_2\;\dot{q}_3\;\dot{q}_4\;\dot{q}_5\;\dot{q}_6\;\dot{q}_7]^T$ be the state variables. Then (\ref{eq:lagrangian}) can be written as:
   \begin{eqnarray}
     \dot{x}_1 &=& x_2\label{eq:model1}\\
-    \dot{x}_2 &=& -M^{-1}(q)\left(C(q, \dot{q})\dot{q} + B\dot{q} + G(q) + \Delta(q,\dot{q},u) - u\right)\label{eq:model2}
+    \dot{x}_2 &=& -M^{-1}\left(C\dot{q} + B\dot{q} + G + \Delta(q,\dot{q},u) - u\right)\label{eq:model2}
   \end{eqnarray}
 Equation (\ref{eq:model2}) can also be written in the form:
   \begin{equation*}
@@ -150,9 +146,9 @@ Since,  $x_2 = \hat{x}_2$, then
       $z_{27_{eq}}$
     \end{tabular}\right] = \phi(x_1, x_2, u) =
   \left[\begin{tabular}{c}
-      $\phi_1(q_1,\dots, q_7, \dot{q}_1, \dots, \dot{q}_7, u_1, \dots,u_7)$\\
+      $\phi_1(q, \dot{q}, u)$\\
       $\vdots$\\
-      $\phi_7(q_1,\dots, q_7, \dot{q}_1, \dots, \dot{q}_7, u_1, \dots,u_7)$
+      $\phi_7(q, \dot{q}, u)$
     \end{tabular}\right]
   \label{eq:zeq}
 \end{equation}
@@ -172,14 +168,14 @@ The term $\phi(x_1, x_2, u)$ in equation (\ref{eq:model2}) is a function of inpu
 Figure \ref{fig:taus} shows torques $\tau_o$ on the different joints. Torques are zero where the weight force is applied along the axis of rotation. In figure \ref{fig:taus} this is the case for joints $O_3$, $O_5$ and $O_7$.
 \begin{figure}
   \centering
-  \begin{subfigure}[b]{0.4\textwidth}
+  \begin{subfigure}[b]{0.2\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/fault_torques.pdf}
     \caption{Torques $\tau_o$ on each joint.}
     \label{fig:taus}
   \end{subfigure}
   \hfill
-  \begin{subfigure}[b]{0.55\textwidth}
+  \begin{subfigure}[b]{0.25\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/RPY.pdf}
     \caption{Calculation of $m_o$ from $\tau_6$.}
@@ -260,37 +256,7 @@ Implementation of control and observer was made in Simulink mainly using the Rob
 
 \subsection{Simulink Implementation}
 \subsubsection*{Quantization and noise}
-To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution for 360 degrees and can set torque with 10 bit resolution. Torque resolution is not constant since it depends on motor model and battery level. The implemented simulation adds this quantization effect. An example of such quantization is shown in figure \ref{fig:quantization}. Also, noise was added to joint measurements. We added a noise equivalent to $\pm 2$ bits. 
-
-\begin{figure}[h!]
-  \centering
-  \begin{subfigure}[b]{0.4\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/q_quantized1.eps}
-    \caption{Continuos joint positions}
-    \label{fig:q_quantized1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.4\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/q_quantized2.eps}
-    \caption{Quantized joint position}
-    \label{fig:q_quantized2}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.4\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/torque_quantized1.eps}
-    \caption{Continuos input torque}
-    \label{fig:torque_quantized1}
-  \end{subfigure}
-  \begin{subfigure}[b]{0.4\textwidth}
-    \centering
-    \includegraphics[width=\textwidth]{Figures/torque_quantized2.eps}
-    \caption{Quantized input torque}
-    \label{fig:torque_quantized2}
-  \end{subfigure}
-  \caption{Position and torque quantization}
-  \label{fig:quantization}
-\end{figure}
+To achieve a simulation more similar to the conditions of the real manipulator, we added a quantization for input torque and position measurements. Dynamixel motors can read position with 12 bit resolution for 360 degrees and can set torque with 10 bit resolution. Torque resolution is not constant since it depends on motor model and battery level. The implemented simulation adds this quantization effect. Also, noise was added to joint measurements. We added a noise equivalent to $\pm 2$ bits. 
 
 \subsubsection*{Observation and control}
 The Sliding Mode Observer is a copy of the system plus an output error injection term, with the form:
@@ -306,19 +272,13 @@ Similar to the SMO, the EKF is a copy of the system plus an output error injecti
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=\textwidth]{Figures/MassEstimatorDiagram.jpg}
+  \includegraphics[width=0.5\textwidth]{Figures/MassEstimatorDiagram.jpg}
   \caption{Block diagram of the full system implemented in Simulink}
   \label{fig:FullSystemSimulink}
 \end{figure}
 
 \subsubsection*{A ROS node for each task}
-To ease implementation with the real manipulator and integration with the rest of the subsystems, we separated every task in different ROS nodes: arm dynamics simulation, control, SMO and EKF. Signals are shared via topics and ROS parameters are used for all tuning constants. Figure \ref{fig:RosNodes} shows the connections between the different nodes and the ROS topics they communicate through. 
-\begin{figure}[h!]
-  \centering
-  \includegraphics[width=0.95\textwidth]{Figures/rosgraph.png}
-  \caption{Graph diagram of ROS-nodes communications}
-  \label{fig:RosNodes}
-\end{figure}
+To ease implementation with the real manipulator and integration with the rest of the subsystems, we separated every task in different ROS nodes: arm dynamics simulation, control, SMO and EKF. Signals are shared via topics and ROS parameters are used for all tuning constants. 
 
 \subsection{Description of the experiment}
 Mass estimation was tested moving the manipulator to several positions commonly used for grasping objects. Figure \ref{fig:test_poses} shows these predefined positions. It is worth to note that mass estimation will work in any configuration as long as wrist pitch $\theta$ (see equation (\ref{eq:mass})) is different from zero. In a real application, it is better to estimate the mass only when $\vert\theta\vert > \theta_T$ where $\theta_T$ is a threshold large enough to avoid large errors due to the division by a very small value of $\theta$. In this work, we used $\theta_T=0.2$. 
@@ -327,7 +287,7 @@ Frequency sampling was set to 250 Hz. This value is the frequency achieved with 
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[width=0.7\textwidth]{Figures/test_poses.png}
+  \includegraphics[width=0.4\textwidth]{Figures/test_poses.png}
   \caption{Positions used for testing masss estimation}
   \label{fig:test_poses}
 \end{figure}
@@ -352,13 +312,13 @@ Figure \ref{fig:result_q} shows the results for the estimation and filtering of 
 
 \begin{figure}
   \centering
-  \includegraphics[width=0.45\textwidth]{Figures/result_q1.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_q2.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_q3.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_q4.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_q5.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_q6.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_q7.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_q1.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_q2.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_q3.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_q4.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_q5.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_q6.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_q7.eps}
   \caption{Comparison of measured, goal and estimated positions.}
   \label{fig:result_q}
 \end{figure}
@@ -366,13 +326,13 @@ Figure \ref{fig:result_q} shows the results for the estimation and filtering of 
 Figure \ref{fig:result_qp} shows the results for the estimation of the angular speeds. Although in the real manipulator we don't have a measurement of the joint speed, we included the simulated speed for testing purposes. As it can be seen, current speed does not converge to the desired one. Same as the angular position, this error is due to the simplicity of the controller. Similar to the positions, the SMO-estimated speeds are nearer to the current speeds but with the problem of big chattering. Instead, the EKF-estimated speeds show a big error but without noise, which makes them better to be used in the controller. 
 \begin{figure}
   \centering
-  \includegraphics[width=0.45\textwidth]{Figures/result_qp1.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_qp2.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_qp3.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_qp4.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_qp5.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_qp6.eps}
-  \includegraphics[width=0.45\textwidth]{Figures/result_qp7.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_qp1.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_qp2.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_qp3.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_qp4.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_qp5.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_qp6.eps}
+  \includegraphics[width=0.22\textwidth]{Figures/result_qp7.eps}
   \caption{Comparison of simulated, goal and estimated joint speeds.}
   \label{fig:result_qp}
 \end{figure}
@@ -380,7 +340,7 @@ Figure \ref{fig:result_qp} shows the results for the estimation of the angular s
 Finally, figure \ref{fig:MassEstimation} shows the resulting estimated mass. As explained in section \ref{sec:MassEstimation}, in this work we make the mass estimation only when the manipulator is in a constant position. Ideally, estimations should be made only when $\dot{q}=0$, nevertheless, this is a hard condition. Instead, we set estimated mass to zero if $\Vert\dot{q}\Vert > 0.5$, that is why in figure \ref{fig:MassEstimation} the estimation is equal to zero for the first few seconds. As soon as the arm stops, the estimated value converges to 0.25 kg, the actual mass of the object. 
 \begin{figure}
   \centering
-  \includegraphics[width=0.5\textwidth]{Figures/result_mass.eps}
+  \includegraphics[width=0.25\textwidth]{Figures/result_mass.eps}
   \caption{Mass estimation results.}
   \label{fig:MassEstimation}
 \end{figure}
@@ -391,19 +351,19 @@ There are two possible causes of errors in the estimation: uncertanties in the p
 
 \begin{figure}
   \centering
-  \begin{subfigure}{0.3\textwidth}
+  \begin{subfigure}{0.15\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/param_error2.eps}
     \caption{Undervalued 20\%}
     \label{fig:param_error2}
   \end{subfigure}
-  \begin{subfigure}{0.3\textwidth}
+  \begin{subfigure}{0.15\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/param_error3.eps}
     \caption{Overvalued 20\%}
     \label{fig:param_error3}
   \end{subfigure}
-  \begin{subfigure}{0.3\textwidth}
+  \begin{subfigure}{0.15\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/param_error1.eps}
     \caption{Correct values}
@@ -415,21 +375,21 @@ There are two possible causes of errors in the estimation: uncertanties in the p
 
 \begin{figure}[h!]
   \centering
-  \begin{subfigure}{0.32\textwidth}
+  \begin{subfigure}{0.14\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/obj_position1.png}
     \includegraphics[width=\textwidth]{Figures/obj_position1.eps}
     \caption{$l_4=0.21$ m}
     \label{fig:obj_position1}
   \end{subfigure}
-  \begin{subfigure}{0.32\textwidth}
+  \begin{subfigure}{0.14\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/obj_position2.png}
     \includegraphics[width=\textwidth]{Figures/obj_position3.eps}
     \caption{$l_4=0.18$ m}
     \label{fig:obj_position2}
   \end{subfigure}
-  \begin{subfigure}{0.32\textwidth}
+  \begin{subfigure}{0.14\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Figures/obj_position3.png}
     \includegraphics[width=\textwidth]{Figures/obj_position2.eps}
@@ -440,56 +400,6 @@ There are two possible causes of errors in the estimation: uncertanties in the p
   \label{fig:ObjPosition}
 \end{figure}
 According to equation (\ref{eq:mass}), we need to know the distance $l_4$ for a correct mass estimation. This distance depends on the object position along the gripper. We always assume that the object is gripped in the center of the end effector, nevertheless, there could be a small error in this assumption. The error in the estimated mass will be proportional to the error in the estimation of $l_4$. Figure \ref{fig:ObjPosition} shows the estimated values for three different values of $l_4$. As it can be seen, the greater the distance $l_4$, the greater is the torque exerted on the joint with the same object mass and a greater value of mass is estimated. At this stage of the project, we don't have a way to determine the position of the object along the gripper, nevertheless, for the goal application of this project, the errors in estimation are tolerable. 
-
-%%%%%%%%%%%%
-%%%%%%%%%%%% REUSABILITY
-%%%%%%%%%%%%
-\section{Reusability}
-\label{sec:Reusability}
-To reproduce the results presented in this work, the following rough steps should be followed:
-\begin{enumerate}
-\item Get the URDF file of the manipulator and import it using the Simulink Robotics Toolbox. 
-\item Identify the joint with the following features:
-  \begin{itemize}
-  \item The joint must have an axis of rotation perpendicular (or nearly perpendicular) to the gravity vector. 
-  \item The joint should be the nearest one to the end effector with the previous feature. 
-  \end{itemize}
-  And get the distance from the previous joint to the center of the end effector.
-\item Implement SMO and use equation (\ref{eq:mass}) to estimate object mass. 
-\end{enumerate}
-
-To illustrate these steps, we will reproduce the results using the description of Katana Manipulator (\url{https://wiki.ros.org/katana_driver}). Figure \ref{fig:KatanaSimulink} shows the manipulator as displayed in the Mechanics Explorer after importing it with Simulink Simscape. 
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.65\textwidth]{Figures/KatanaMechanics.png}
-  \caption{Manipulator as shown in the Mechanics Explorer.}
-  \label{fig:KatanaSimulink}
-\end{figure}
-
-\subsubsection*{Chosing the correct joint to estimate mass}
-In this work we used the wrist pitch of our manipulator to estimate object mass. Using the observer (\ref{eq:observer1})-(\ref{eq:observer2}), we reconstructed the fault signals $\phi(x_1, x_2, u)$, after that, using equation (\ref{eq:taus}) we get the torques exerted on each joint. Finally, using torque on joint 6 (wrist pitch) and equation (\ref{eq:mass}), we get the estimated mass of the manipulated object. The joint of the wrist pitch fulfills the two features previously mentioned: it is the nearest joint to the end effector whose rotation axis is perpendicular to the gravity vector.
-
-In the case of the Katana manipulator, the joint with these features is \texttt{katana\_motor4\_lift\_link} and thus, the fault torque associated to this joint will be used in equation (\ref{eq:mass}). Figure \ref{fig:katana_joints} shows the equivalent variables in the Katana Manipulator for mass estimation. Angle $\theta$ can be calculated using the Euler Angles of the rotation from \texttt{katana\_base\_frame} to \texttt{katana\_motor4\_lift\_link}. Robotics System Toolbox provides the needed blocks to calculate this angle. Distance $l_4$ can be obtained from URDF or by directly measuring it. 
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.7\textwidth]{Figures/katana_joints.png}
-  \caption{Katana equivalent variables for mass estimation}
-  \label{fig:katana_joints}
-\end{figure}
-
-\subsubsection*{SMO implementation and mass estimation}
-Once we identified the ideal joint for mass estimation, we imported the URDF file to get a Rigid Body Tree using the \texttt{importrobot} function of the Robotics System Toolbox. We implemented the SMO and mass estimator using the Forward Dynamics and Mass Matrix block as shown in figure \ref{fig:SimulinkMassEst} (see explanation in section \ref{sec:implementation}). We simulated an object with a mass of 200 g. To simplify simulations, we did not implement a control but we used only a constant torque applied to the joints. Figure \ref{fig:katana_results} shows the resulting estimation. 
-
-\begin{figure}
-  \centering
-  \includegraphics[width=0.5\textwidth]{Figures/katana_mass_est.eps}
-  \caption{Mass estimation results with the Katana Manipulator}
-  \label{fig:katana_results}
-\end{figure}
-
-All files and instructions necessary to reproduce the results presented in this work can be found in\\ \url{https://github.com/RobotJustina/RCF-MathWorks-2020-14/}. 
 
 \section{Conclusions}
 \label{sec:Conclusions}
