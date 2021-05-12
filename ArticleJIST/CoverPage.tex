@@ -1,0 +1,40 @@
+\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\begin{document}
+\title{Weight Estimation in Manipulation Tasks of Domestic Service Robots using Fault Reconstruction Techniques \thanks{This work was supported by MathWorks and Robocup Federation under grant number 2020-14, and by UNAM-DGAPA under grant IA106520}}
+%\titlerunning{Short form of title}        % if too long for running head
+\author{Marco Negrete \and Jesús Savage \and José Avendaño}
+%\authorrunning{Short form of author list} % if too long for running head
+
+\institute{M. Negrete and J. Savage\at
+  Biorobotics Laboratory, Faculty of Engineering, National Autonomous University of Mexico. \\
+  Circuito Exterior S/N, Ciudad Universitaria, Mexico City, MEX 04650.
+              \email{marco.negrete@ingenieria.unam.edu, savage@unam.mx}           %  \\
+           \and
+           J. Avendaño \at
+              Student Competitions Team, The MathWorks Inc. \\
+              \email{josea@mathworks.com}           %  \\
+}
+
+\date{Received: date / Accepted: date}
+% The correct dates will be entered by the editor
+\maketitle
+
+
+\begin{abstract}
+  Object manipulation is a key capability in domestic service robots (DSR). Most of works in this area focus either in locating the target object or planning movements, but there is an underlying assumption that there is information about the physical properties of the object, such as weight, surface friction, etc. Estimation of the weight of the grasped object has not been widely addressed. In this work we propose to apply fault reconstruction techniques to estimate the mass of the grasped object. Considering the manipulator without load as the nominal system, and the weight of the object as a fault signal, we can reconstruct such signal using a Sliding Mode Observer. Since our proposal needs to drive the manipulator to certain configurations, we also implemented an Extended Kalman Filter and a PD+ control for position control. We tested our proposal in simulation using the model of the manipulator of our domestic service robot and we also discuss the possible sources of error. To show the reusability of our proposal, we also tested our system with a simulated model of the Neuronics Katana. Finally, we state our conclusions and sketch the future work. 
+
+\keywords{Object Manipulation \and Service Robots \and Sliding Mode Observers \and Fault Reconstruction}
+% \PACS{PACS code1 \and PACS code2 \and more}
+% \subclass{MSC code1 \and MSC code2 \and more}
+\end{abstract}
+
+
+\end{document}

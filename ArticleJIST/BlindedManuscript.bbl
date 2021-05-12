@@ -1,0 +1,305 @@
+\begin{thebibliography}{10}
+\providecommand{\url}[1]{{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{DOI~\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{DOI~\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
+
+\bibitem{abadi2016tensorflow}
+Abadi, M., Barham, P., Chen, J., Chen, Z., Davis, A., Dean, J., Devin, M.,
+  Ghemawat, S., Irving, G., Isard, M., et~al.: Tensorflow: A system for
+  large-scale machine learning.
+\newblock In: 12th USENIX symposium on operating systems design and
+  implementation, pp. 265--283 (2016)
+
+\bibitem{abid2020review}
+Abid, A., Khan, M.T., Iqbal, J.: A review on fault detection and diagnosis
+  techniques: basics and beyond.
+\newblock Artificial Intelligence Review pp. 1--26 (2020)
+
+\bibitem{alwi2011fault}
+Alwi, H., Edwards, C., Tan, C.P.: Fault detection and fault-tolerant control
+  using sliding modes.
+\newblock Springer Science \& Business Media (2011)
+
+\bibitem{billard_trends_2019}
+Billard, A., Kragic, D.: Trends and challenges in robot manipulation.
+\newblock Science \textbf{364}(6446), eaat8414 (2019).
+\newblock \doi{10.1126/science.aat8414}.
+\newblock
+  \urlprefix\url{https://www.sciencemag.org/lookup/doi/10.1126/science.aat8414}
+
+\bibitem{bohg2013data}
+Bohg, J., Morales, A., Asfour, T., Kragic, D.: Data-driven grasp synthesis—a
+  survey.
+\newblock IEEE Transactions on Robotics \textbf{30}(2), 289--309 (2013)
+
+\bibitem{tech_united_tdp2020}
+van~der Burgh, M., Lunenburg, J., Appeldoorn, R., van Beek, L., Geijsberts, J.,
+  Janssen, L., van Dooren, P., van Rooy, H., Aggarwal, A., Aleksandrov, S.,
+  Dang, K., Hofkamp, A., van Dinther, D., van~de Molengraft, M.: Tech united
+  eindhoven @home2020 team description paper.
+\newblock
+  https://www.techunited.nl/uploads/Tech\_United\_At\_Home\_TDP\_2020.pdf
+  (2020)
+
+\bibitem{capisani2012manipulator}
+Capisani, L.M., Ferrara, A., De~Loza, A.F., Fridman, L.M.: Manipulator fault
+  diagnosis via higher order sliding-mode observers.
+\newblock IEEE Transactions on industrial electronics \textbf{59}(10),
+  3979--3986 (2012)
+
+\bibitem{cordoneanu2018review}
+Cordoneanu, D., Ni{\c{t}}u, C.: A review of fault diagnosis in mechatronics
+  systems.
+\newblock In: International Conference of Mechatronics and
+  Cyber-Mixmechatronics, pp. 173--184. Springer (2018)
+
+\bibitem{davila2006observation}
+Davila, J., Fridman, L., Poznyak, A.: Observation and identification of
+  mechanical systems via second order sliding modes.
+\newblock International Journal of Control \textbf{79}(10), 1251--1262 (2006)
+
+\bibitem{di2017real}
+Di~Castro, M., Mulero, D.B., Ferre, M., Masi, A.: A real-time reconfigurable
+  collision avoidance system for robot manipulation.
+\newblock In: Proceedings of the 3rd International Conference on Mechatronics
+  and Robotics Engineering, pp. 6--10 (2017)
+
+\bibitem{ding2013model}
+Ding, S.X.: Model-based fault diagnosis techniques: design schemes, algorithms,
+  and tools.
+\newblock Springer Science \& Business Media (2013)
+
+\bibitem{ekvall_integrating_2006}
+Ekvall, S., Jensfelt, P., Kragic, D.: Integrating active mobile robot object
+  recognition and {SLAM} in natural environments.
+\newblock In: 2006 IEEE/RSJ International Conference on Intelligent Robots and
+  Systems, pp. 5792--5797. {IEEE} (2006).
+\newblock \doi{10.1109/IROS.2006.282389}
+
+\bibitem{engelberger_robotics_1989}
+Engelberger, J.F.: Robotics in service.
+\newblock {MIT} Press (1989).
+\newblock {OCLC}: 19724093
+
+\bibitem{ferrara2020sliding}
+Ferrara, A., Incremona, G.P., Sangiovanni, B.: Sliding mode fault diagnosis
+  with vision in the loop for robot manipulators.
+\newblock In: New Trends in Robot Control, pp. 81--105. Springer (2020)
+
+\bibitem{hamidreza2020state}
+Hamidreza~Kasaei, S., Melsen, J., van Beers, F., Steenkist, C., Voncina, K.:
+  The state of lifelong learning in service robots: Current bottlenecks in
+  object perception and manipulation.
+\newblock arXiv e-prints pp. arXiv--2003 (2020)
+
+\bibitem{han2017assumed}
+Han, S., Ha, H., Zhao, Y., Lee, J.: Assumed model feedforward sliding mode
+  control for a wheeled mobile robot with 3-dof manipulator systems.
+\newblock Journal of Mechanical Science and Technology \textbf{31}(3),
+  1463--1475 (2017)
+
+\bibitem{huang2020real}
+Huang, J., Ge, W., Cheng, H., Xi, C., Zhu, J., Zhang, F., Shang, W.: Real-time
+  obstacle avoidance in robotic manipulation using imitation learning.
+\newblock In: 2020 16th International Conference on Control, Automation,
+  Robotics and Vision (ICARCV), pp. 976--981. IEEE (2020)
+
+\bibitem{jae-han_park_new_2007}
+{Jae-Han Park}, {Seung-Ho Baeg}, {Jaehan Koh}, {Kyung-Wook Park}, {Moon-Hong
+  Baeg}: A new object recognition system for service robots in the smart
+  environment.
+\newblock In: 2007 International Conference on Control, Automation and Systems,
+  pp. 1083--1087. {IEEE} (2007).
+\newblock \doi{10.1109/ICCAS.2007.4407060}.
+\newblock \urlprefix\url{http://ieeexplore.ieee.org/document/4407060/}
+
+\bibitem{jin2021robust}
+Jin, J.: A robust zeroing neural network for solving dynamic nonlinear
+  equations and its application to kinematic control of mobile manipulator.
+\newblock Complex \& Intelligent Systems \textbf{7}(1), 87--99 (2021)
+
+\bibitem{jin2018robot}
+Jin, L., Li, S., Yu, J., He, J.: Robot manipulator control using neural
+  networks: A survey.
+\newblock Neurocomputing \textbf{285}, 23--34 (2018)
+
+\bibitem{khan2020tracking}
+Khan, A.H., Li, S., Chen, D., Liao, L.: Tracking control of redundant mobile
+  manipulator: An rnn based metaheuristic approach.
+\newblock Neurocomputing \textbf{400}, 272--284 (2020)
+
+\bibitem{lee2017adaptive}
+Lee, J., Chang, P.H., Jin, M.: Adaptive integral sliding mode control with
+  time-delay estimation for robot manipulators.
+\newblock IEEE Transactions on Industrial Electronics \textbf{64}(8),
+  6796--6804 (2017)
+
+\bibitem{loncomilla_object_2016}
+Loncomilla, P., Ruiz-del Solar, J., Martínez, L.: Object recognition using
+  local invariant features for robotic applications: A survey.
+\newblock Pattern Recognition \textbf{60}, 499--514 (2016).
+\newblock \doi{10.1016/j.patcog.2016.05.021}.
+\newblock
+  \urlprefix\url{https://linkinghub.elsevier.com/retrieve/pii/S0031320316301054}
+
+\bibitem{matlab_designing}
+MathWorks-Students-Competitions-Team: Designing robot manipulator algorithms
+  (https://github.com/mathworks-robotics/designing-robot-manipulator-algorithms).
+\newblock GitHub. Retrieved April 6, 2020. (2020)
+
+\bibitem{matlab_trajectory}
+MathWorks-Students-Competitions-Team: Trajectory planning for robot
+  manipulators
+  (https://github.com/mathworks-robotics/trajectory-planning-robot-manipulators).
+\newblock GitHub. Retrieved April 6, 2020. (2020)
+
+\bibitem{homerunikoblenz_2019}
+Memmesheimer, R., Mykhalchyshyna, I., Seib, V., Evers, T., Paulus, D.:
+  homer@{UniKoblenz}: Winning team of the {RoboCup}@home open platform league
+  2018.
+\newblock In: D.~Holz, K.~Genter, M.~Saad, O.~von Stryk (eds.) {RoboCup} 2018:
+  Robot World Cup {XXII}, vol. 11374, pp. 512--523. Springer International
+  Publishing (2019).
+\newblock \doi{10.1007/978-3-030-27544-0_42}.
+\newblock
+  \urlprefix\url{http://link.springer.com/10.1007/978-3-030-27544-0_42}.
+\newblock Series Title: Lecture Notes in Computer Science
+
+\bibitem{mirrazavi2018unified}
+Mirrazavi~Salehian, S.S., Figueroa, N., Billard, A.: A unified framework for
+  coordinated multi-arm motion planning.
+\newblock The International Journal of Robotics Research \textbf{37}(10),
+  1205--1232 (2018)
+
+\bibitem{nguyen_review_2019}
+Nguyen, H., La, H.: Review of deep reinforcement learning for robot
+  manipulation.
+\newblock In: 2019 Third IEEE International Conference on Robotic Computing
+  (IRC), pp. 590--595. {IEEE} (2019).
+\newblock \doi{10.1109/IRC.2019.00120}.
+\newblock \urlprefix\url{https://ieeexplore.ieee.org/document/8675643/}
+
+\bibitem{nikou2017nonlinear}
+Nikou, A., Verginis, C., Heshmati-Alamdari, S., Dimarogonas, D.V.: A nonlinear
+  model predictive control scheme for cooperative manipulation with singularity
+  and collision avoidance.
+\newblock In: 2017 25th Mediterranean Conference on Control and Automation
+  (MED), pp. 707--712. IEEE (2017)
+
+\bibitem{omali2019nonlinear}
+Omali, K.O., Kabbaj, M.N., Benbrahim, M.: Nonlinear observer-based fault
+  detection and isolation for a manipulator robot.
+\newblock In: New Developments and Advances in Robot Control, pp. 163--185.
+  Springer (2019)
+
+\bibitem{rakita2018relaxedik}
+Rakita, D., Mutlu, B., Gleicher, M.: Relaxedik: Real-time synthesis of accurate
+  and feasible robot arm motion.
+\newblock In: Robotics: Science and Systems, pp. 26--30. Pittsburgh, PA (2018)
+
+\bibitem{redmon2016you}
+Redmon, J., Divvala, S., Girshick, R., Farhadi, A.: You only look once:
+  Unified, real-time object detection.
+\newblock In: Proceedings of the IEEE conference on computer vision and pattern
+  recognition, pp. 779--788 (2016)
+
+\bibitem{sahbani2012overview}
+Sahbani, A., El-Khoury, S., Bidaud, P.: An overview of 3d object grasp
+  synthesis algorithms.
+\newblock Robotics and Autonomous Systems \textbf{60}(3), 326--336 (2012)
+
+\bibitem{savage2008virbot}
+Savage, J., LLarena, A., Carrera, G., Cuellar, S., Esparza, D., Minami, Y.,
+  Pe{\~n}uelas, U.: Virbot: a system for the operation of mobile robots.
+\newblock In: RoboCup 2007: Robot Soccer World Cup XI, pp. 512--519. Springer
+  (2008)
+
+\bibitem{seo2018dual}
+Seo, I.S., Han, S.I.: Dual closed-loop sliding mode control for a decoupled
+  three-link wheeled mobile manipulator.
+\newblock ISA transactions \textbf{80}, 322--335 (2018)
+
+\bibitem{shtessel2014sliding}
+Shtessel, Y., Edwards, C., Fridman, L., Levant, A.: Sliding mode control and
+  observation.
+\newblock Springer (2014)
+
+\bibitem{ruiz-del-solar_bender_2013}
+Ruiz-del Solar, J., Correa, M., Verschae, R., Bernuy, F., Loncomilla, P.,
+  Mascaró, M., Riquelme, R., Smith, F.: Bender – a general-purpose social
+  robot with human-robot interaction abilities.
+\newblock Journal of Human-Robot Interaction \textbf{1}(2), 54--75 (2013).
+\newblock \doi{10.5898/JHRI.1.2.Ruiz-del-Solar}.
+\newblock \urlprefix\url{http://dl.acm.org/citation.cfm?id=3109692}
+
+\bibitem{steinbauer2012survey}
+Steinbauer, G.: A survey about faults of robots used in robocup.
+\newblock In: Robot Soccer World Cup, pp. 344--355. Springer (2012)
+
+\bibitem{stuckler_mobile_2016}
+Stückler, J., Schwarz, M., Behnke, S.: Mobile manipulation, tool use, and
+  intuitive interaction for cognitive service robot cosero.
+\newblock Frontiers in Robotics and {AI} \textbf{3} (2016).
+\newblock \doi{10.3389/frobt.2016.00058}.
+\newblock
+  \urlprefix\url{http://journal.frontiersin.org/article/10.3389/frobt.2016.00058/full}
+
+\bibitem{sun2017protective}
+Sun, Y., Zhang, Z., Leibold, M., Hayat, R., Wollherr, D., Buss, M.: Protective
+  control for robot manipulator by sliding mode based disturbance
+  reconstruction approach.
+\newblock In: 2017 IEEE International Conference on Advanced Intelligent
+  Mechatronics (AIM), pp. 1015--1022. IEEE (2017)
+
+\bibitem{varela2018modelling}
+Varela-Ald{\'a}s, J., Andaluz, V.H., Chicaiza, F.A.: Modelling and control of a
+  mobile manipulator for trajectory tracking.
+\newblock In: 2018 International Conference on Information Systems and Computer
+  Science (INCISCOS), pp. 69--74. IEEE (2018)
+
+\bibitem{wachsmuth2015robocup}
+Wachsmuth, S., Holz, D., Rudinac, M., Ruiz-del Solar, J.: Robocup@
+  home-benchmarking domestic service robots.
+\newblock In: AAAI, pp. 4328--4329 (2015)
+
+\bibitem{tobi_tdp2019}
+Wachsmuth, S., Lier, F., Rügemer, L., Meyer~zuBorgsen, S.: Tobi - team of
+  bielefelda human-robot interaction system forrobocup@home 2019.
+\newblock
+  https://www.cit-ec.de/sites/default/files/files/tobi/robocupathome-sspl\_tobi\_tdp-2019.pdf
+  (2019)
+
+\bibitem{hutchison_robocuphome_2010}
+Wisspeintner, T., van~der Zan, T., Iocchi, L., Schiffer, S.: {RoboCup}@home:
+  Results in benchmarking domestic service robots.
+\newblock In: J.~Baltes, M.G. Lagoudakis, T.~Naruse, S.S. Ghidary (eds.)
+  {RoboCup} 2009: Robot Soccer World Cup {XIII}, vol. 5949, pp. 390--401.
+  Springer Berlin Heidelberg (2010).
+\newblock \doi{10.1007/978-3-642-11876-0_34}.
+\newblock \urlprefix\url{http://link.springer.com/10.1007/978-3-642-11876-0_34}
+
+\bibitem{wisspeintner_robocuphome_2009}
+Wisspeintner, T., Zant, T.v.d., Iocchi, L., Schiffer, S.: {RoboCup}@home:
+  Scientific competition and benchmarking for domestic service robots.
+\newblock Interaction Studies. Social Behaviour and Communication in Biological
+  and Artificial Systems \textbf{10}(3), 392--426 (2009).
+\newblock \doi{10.1075/is.10.3.06wis}.
+\newblock
+  \urlprefix\url{http://www.jbe-platform.com/content/journals/10.1075/is.10.3.06wis}
+
+\bibitem{yamada2020motion}
+Yamada, J., Lee, Y., Salhotra, G., Pertsch, K., Pflueger, M., Sukhatme, G.S.,
+  Lim, J.J., Englert, P.: Motion planner augmented reinforcement learning for
+  robot manipulation in obstructed environments.
+\newblock arXiv preprint arXiv:2010.11940  (2020)
+
+\bibitem{zhang2020review}
+Zhang, S., Li, Y., Liu, S., Shi, X., Chai, H., Cui, Y.: A review on
+  fault-tolerant control for robots.
+\newblock In: 2020 35th Youth Academic Annual Conference of Chinese Association
+  of Automation (YAC), pp. 423--427. IEEE (2020)
+
+\end{thebibliography}

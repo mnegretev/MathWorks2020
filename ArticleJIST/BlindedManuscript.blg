@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: BlindedManuscript.aux
+The style file: spmpsci.bst
+Database file #1: References.bib
+You've used 47 entries,
+            2945 wiz_defined-function locations,
+            883 strings with 15921 characters,
+and the built_in function-call counts, 27722 in all, are:
+= -- 2282
+> -- 1055
+< -- 24
++ -- 440
+- -- 382
+* -- 1727
+:= -- 3621
+add.period$ -- 84
+call.type$ -- 47
+change.case$ -- 364
+chr.to.int$ -- 0
+cite$ -- 47
+duplicate$ -- 2331
+empty$ -- 2381
+format.name$ -- 425
+if$ -- 5967
+int.to.chr$ -- 0
+int.to.str$ -- 47
+missing$ -- 531
+newline$ -- 217
+num.names$ -- 98
+pop$ -- 1006
+preamble$ -- 1
+purify$ -- 280
+quote$ -- 0
+skip$ -- 708
+stack$ -- 0
+substring$ -- 1338
+swap$ -- 1349
+text.length$ -- 24
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 180
+warning$ -- 0
+while$ -- 191
+width$ -- 49
+write$ -- 526
